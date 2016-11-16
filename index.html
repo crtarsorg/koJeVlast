@@ -26,20 +26,18 @@
 
     function drawMap() {
         var data = google.visualization.arrayToDataTable([
-            ['City', 'Popularity'],
-            ['New York', 200],
-            ['Boston', 300],
-            ['Miami', 400],
-            ['Chicago', 500],
-            ['Los Angeles', 600],
-            ['Houston', 700]
+            ['City', 'Popularity'],           
+            ['Belgrade', 2],
+            ['Uzice', 0.1],
+            ['Nis', 0.3],
         ]);
 
         var options = {};
-        options['region'] = 'US';
+        options['region'] = '039';
         options['colors'] = [0xFF8747, 0xFFB581, 0xc06000]; //orange colors
         options['dataMode'] = 'markers';
         options['showZoomOut'] = true;
+        options['showZoomIn'] = true;
 
         var container = document.getElementById('map_canvas');
         var geomap = new google.visualization.GeoMap(container);
