@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ko je vlast</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="mapa"></div>
+
+
+    <script type="text/javascript">
+    $("#mapa").load("mapaSaIdevima.svg", function() {
+
+        $("#mapa").trigger("ucitano", ["Custom", "Event"]);
+
+        $("#mapa path:not(#KiM path),#mapa polygon:not(#KiM polygon)")
+            .on("mouseover.boja", function() {
+                $(this).css("fill", "orange");
+            });
+
+
+        $("#mapa path:not(#KiM path),#mapa polygon:not(#KiM polygon)")
+            .on("mouseleave.boja", function() {
+                $(this).css("fill", "#808080");
+            });
+    
+
+        $(" #mapa path:not(#KiM path),#mapa polygon:not(#KiM polygon)").click(function() {
+
+            prikaziModal(this.parentElement.getAttribute("opstina"));
+        });
+
+        //na klik - selektuj
+    });
+
+    
+    </script>
+</body>
+
+</html>
