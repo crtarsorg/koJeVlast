@@ -19,28 +19,28 @@
     <script type="text/javascript">
     google.charts.load('upcoming', {
 
-        'packages': ['geomap'],
+        'packages': ['geochart'],
         'mapsApiKey':"AIzaSyC-oo3etL0nR0t5DmIGGPgT9hIDLgYnDG8"
     });
     google.charts.setOnLoadCallback(drawMap);
 
     function drawMap() {
         var data = google.visualization.arrayToDataTable([
-            ['City', 'Popularity'],           
-            ['Belgrade', 2],
-            ['Uzice', 0.1],
-            ['Nis', 0.3],
+            ['City', 'Popularity', 'Area'],           
+            ['Beograd', 2,2],
+            ['Uzice', 0.1,3],
+            ['Nis', 0.3,1],
         ]);
 
         var options = {};
-        options['region'] = '039';
-        options['colors'] = [0xFF8747, 0xFFB581, 0xc06000]; //orange colors
-        options['dataMode'] = 'markers';
-        options['showZoomOut'] = true;
-        options['showZoomIn'] = true;
+        options['sizeAxis'] = { minValue: 0, maxValue: 5 },
+        options['region'] = 'RS';
+        options['colorAxis']= {colors: ['green', 'blue']}
+        options['dispalyModes'] = 'markers';
+        
 
         var container = document.getElementById('map_canvas');
-        var geomap = new google.visualization.GeoMap(container);
+        var geomap = new google.visualization.GeoChart(container);
         geomap.draw(data, options);
     };
     </script>
