@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Ko je vlast</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -12,6 +14,13 @@
 
 
     <script type="text/javascript">
+
+    var podaci = [];
+
+    $.getJSON('data.json',  function(json, textStatus) {
+    	podaci = json;
+    });
+
     $("#mapa").load("mapaSaIdevima.svg", function() {
 
         //$("#mapa").trigger("ucitano", ["Custom", "Event"]);
@@ -39,13 +48,15 @@
             .on("mouseleave.boja", function() {
                 $(this).css("fill", "#808080");
             });
-    
+   		
 
         $(selektor).click(function() {
         	var temp = $(this).parent()[0].id
         	
-        	alert( temp )
-           	console.log(temp);
+        	
+			var tempOpstina = podaci[0];
+        	alert( tempOpstina.opstina )
+           	console.log(podaci[0]);
         });
     }
 
