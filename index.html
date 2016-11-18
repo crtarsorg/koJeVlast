@@ -12,29 +12,42 @@
 
 
     <script type="text/javascript">
-    $("#mapa").load("region.svg", function() {
+    $("#mapa").load("mapaSaIdevima.svg", function() {
 
-        $("#mapa").trigger("ucitano", ["Custom", "Event"]);
+        //$("#mapa").trigger("ucitano", ["Custom", "Event"]);
+        var selektor = "#mapa path:not(#KiM path),#mapa polygon:not(#KiM polygon)";
+        
+        mouseEvents(selektor);
 
-        $("#mapa path:not(#KiM path),#mapa polygon:not(#KiM polygon)")
+       
+       
+
+        //na klik - selektuj
+    });
+
+    function mouseEvents( selektor ) {
+    	
+
+
+        $( selektor )
             .on("mouseover.boja", function() {
                 $(this).css("fill", "orange");
             });
 
 
-        $("#mapa path:not(#KiM path),#mapa polygon:not(#KiM polygon)")
+        $( selektor )
             .on("mouseleave.boja", function() {
                 $(this).css("fill", "#808080");
             });
     
 
-        $(" #mapa path:not(#KiM path),#mapa polygon:not(#KiM polygon)").click(function() {
-
-            prikaziModal(this.parentElement.getAttribute("opstina"));
+        $(selektor).click(function() {
+        	var temp = $(this).parent()[0].id
+        	
+        	alert( temp )
+           	console.log(temp);
         });
-
-        //na klik - selektuj
-    });
+    }
 
     
     </script>
