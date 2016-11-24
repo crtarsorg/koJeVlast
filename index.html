@@ -61,6 +61,7 @@
 
         </div>
 
+
         <script>
         	$("#indikator").load("forma.html")
         </script>
@@ -85,6 +86,7 @@
      /*  $("#juzna_i_istocna_srbija_1>g").hide()
        $("#zapadna_backa_2>g").hide()
        */
+
        
 
         //na klik - selektuj
@@ -105,16 +107,14 @@
                 $(this).css("fill", "rgb(155, 227, 220)");
             });
 
-   		$(selektor).click(function() {
+
+        $(selektor).click(function() {
         	var temp = $(this).parent()[0].id
         	
-        	
-			var tempOpstina = podaci[0];
         	alert( temp )
-           	console.log(podaci[0]);
+           	console.log(temp);
         });
 
-        
     }
 
     
