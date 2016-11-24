@@ -70,7 +70,9 @@
 
     var podaci = [];
 
-    $.getJSON('data.json',  function(json, textStatus) {
+
+
+    $.getJSON('data/poOpstini.json',  function(json, textStatus) {
     	podaci = json;
     });
 
@@ -109,8 +111,10 @@
 
 
         $(selektor).click(function() {
-        	var temp = $(this).parent()[0].id
-        	
+        	var temp = $(this).parent()[0].id        	
+
+        	//uzmi podatke po opsitni
+        	//find id data
         	alert( temp )
            	console.log(temp);
         });

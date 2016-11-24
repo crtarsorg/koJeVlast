@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- https://sh.wikipedia.org/wiki/Okruzi_Srbije -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
 		"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="528px" height="741.64px" viewBox="0 0 528 741.64" enable-background="new 0 0 528 741.64" xml:space="preserve">
@@ -51,6 +52,7 @@
             </cc:License>
         </rdf:RDF>
     </metadata>
+    
     <g id="granice">
         <path id="path24"  fill="none" stroke="#004987" stroke-width="0.9832" stroke-linejoin="round" stroke-miterlimit="3.8637" d="
 	M0.961,490.265c1.316-1,2.457-2.225,3.851-3.127c4.441-2.881,9.389-4.838,14.075-7.277c0.192-1.135-0.958-2.207-1.61-2.969
@@ -1219,7 +1221,7 @@
             </g>
         </g>
     </g>
-    <g id="beogradski_1">
+    <g id="beogradski_1" okrug="beogradski" grad="beograd" stat_id="">
         <g id="beograd_1">
             <path id="beograd_flat_1" fill="#9BE3DC" stroke="#004987" stroke-width="0.4611" stroke-miterlimit="10" d="M253.999,291.724
 			v-0.684l-0.458-0.457l-0.227-0.228h-0.456h-0.227l-0.229-0.456l0.455-0.227v-0.457l-0.685-0.91h-0.453v-0.684l-0.912-0.457
