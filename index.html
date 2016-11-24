@@ -54,7 +54,7 @@
             <!-- /.navbar-collapse -->
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid" id="mainWrapper">
         <div id="mapa" class="col-lg-6"></div>
         <div id="indikator" class="col-lg-6">
         	
@@ -64,6 +64,10 @@
 
         <script>
         	$("#indikator").load("forma.html")
+        	
+        	$.get("modal.html", function(data){
+			   $("#mainWrapper").append(data);
+			});
         </script>
     </div>
    <script type="text/javascript">
@@ -114,11 +118,41 @@
         	var temp = $(this).parent()[0].id        	
 
         	//uzmi podatke po opsitni
-        	//find id data
-        	alert( temp )
-           	console.log(temp);
+        	//potrebi su dobri identifikatori na mapi; 
+        	//ali i u podacima
+        	
+        	var tempData = Object.keys(podaci);
+        	random_index = parseInt( Math.random() * tempData.length ) ;
+
+        	random_index = tempData[random_index];
+
+        	console.log( random_index );
+        	console.log( tempData.length );
+
+        	temp = podaci[ random_index ];
+        	popuni_modal(temp);
+
+        	$('#modal_id').modal('show') 
+        	
         });
 
+    }
+
+    function popuni_modal(pod_opstina) {
+    	
+    	$var_novo = $(".single-row").clone();
+
+    	for (var i = 0; i < pod_opstina.length; i++) {
+    		if(i != 0){
+    			//setuj promenljive
+    			$("tbody").append($var_novo);
+    		}
+    		else{
+    			//setuj promenljive
+    		}
+    	}
+    	
+    	
     }
 
     
