@@ -422,8 +422,8 @@
     /// lista aktera
     $app->get('/akteri/?', function () use ($app) {
 
-                if (!$app->user->checkAccess('uri_account-groups')){
-                    $app->notFound();
+                if (!$app->user->checkAccess('uri_akteri')){
+                    //$app->notFound();
                 }
         //test za variable za template
         //$akteri = [["ime"=>"a"],["ime"=>"b"],["ime"=>"c"]];
@@ -456,7 +456,7 @@
     //post na aktere
     $app->post('/akteri/?', function () use ($app) {
 
-        if (!$app->user->checkAccess('uri_account-groups')){
+        if (!$app->user->checkAccess('uri_akteri')){
             $app->notFound();
         }
 
