@@ -57,105 +57,107 @@
     <div class="container-fluid" id="mainWrapper">
         <div id="mapa" class="col-lg-6"></div>
         <div id="indikator" class="col-lg-6">
-        	
-
         </div>
-
-
         <script>
-        	$("#indikator").load("forma.html")
-        	
-        	$.get("modal.html", function(data){
-			   $("#mainWrapper").append(data);
-			});
+        $("#indikator").load("forma.html")
+
+        $.get("modal.html", function(data) {
+            $("#mainWrapper").append(data);
+        });
         </script>
     </div>
-   <script type="text/javascript">
-
+    <script type="text/javascript">
     var podaci = [];
 
 
 
-    $.getJSON('data/poOpstini.json',  function(json, textStatus) {
-    	podaci = json;
+    $.getJSON('data/poOpstini.json', function(json, textStatus) {
+        podaci = json;
     });
 
     $("#mapa").load("srbija.svg", function() {
 
         //$("#mapa").trigger("ucitano", ["Custom", "Event"]);
         var selektor = "#mapa path:not(#KiM path),#mapa polygon:not(#KiM polygon)";
-        
+
         mouseEvents(selektor);
 
-       
 
-     /*  $("#juzna_i_istocna_srbija_1>g").hide()
-       $("#zapadna_backa_2>g").hide()
-       */
 
-       
+        /*  $("#juzna_i_istocna_srbija_1>g").hide()
+          $("#zapadna_backa_2>g").hide()
+          */
+
+
 
         //na klik - selektuj
     });
 
-    function mouseEvents( selektor ) {
-    	
+    function mouseEvents(selektor) {
 
 
-        $( selektor )
+
+        $(selektor)
             .on("mouseover.boja", function() {
                 $(this).css("fill", "orange");
             });
 
 
-        $( selektor )
+        $(selektor)
             .on("mouseleave.boja", function() {
                 $(this).css("fill", "rgb(155, 227, 220)");
             });
 
 
         $(selektor).click(function() {
-        	var temp = $(this).parent()[0].id        	
+            var temp = $(this).parent()[0].id
 
-        	//uzmi podatke po opsitni
-        	//potrebi su dobri identifikatori na mapi; 
-        	//ali i u podacima
-        	
-        	var tempData = Object.keys(podaci);
-        	random_index = parseInt( Math.random() * tempData.length ) ;
+            //uzmi podatke po opsitni
+            //potrebi su dobri identifikatori na mapi; 
+            //ali i u podacima
 
-        	random_index = tempData[random_index];
+            var tempData = Object.keys(podaci);
+            random_index = parseInt(Math.random() * tempData.length);
 
-        	console.log( random_index );
-        	console.log( tempData.length );
+            random_index = tempData[random_index];
 
-        	temp = podaci[ random_index ];
-        	popuni_modal(temp);
+            console.log(random_index);
+            console.log(tempData.length);
 
-        	$('#modal_id').modal('show') 
-        	
+            temp = podaci[random_index];
+            popuni_modal(temp);
+
+            $('#modal_id').modal('show')
+
         });
 
     }
 
     function popuni_modal(pod_opstina) {
-    	
-    	$var_novo = $(".single-row").clone();
 
-    	for (var i = 0; i < pod_opstina.length; i++) {
-    		if(i != 0){
-    			//setuj promenljive
-    			$("tbody").append($var_novo);
-    		}
-    		else{
-    			//setuj promenljive
-    		}
-    	}
-    	
-    	
+        //$var_novo = $(".single-row").clone();
+        $("tbody").empty();
+
+        for (var i = 0; i < pod_opstina.length; i++) {
+            var temp = pod_opstina[i];
+
+
+            //setuj promenljive
+            var jedan_red =
+                '<tr class="single-row">' +
+            '<td class="row-ime">' + temp.ime_prezime + '</td>' +
+            '<td class="row-stranka">' + temp.stranka + '</td>' +
+            '<td class="row-funkcija">' + temp.funkcija + '</td>' +
+            '<td class="row-koalicija">' + temp.koalicija + '</td>'+
+            '<td class="row-vlast">' + temp.u_vlasti + '</td>'+
+            '</tr>';
+            $("tbody").append(jedan_red);
+
+
+        }
+
+
     }
-
-    
     </script>
 </body>
 
