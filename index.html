@@ -11,6 +11,11 @@
     <script src=""></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.min.js"></script> -->
+    <style type="text/css">
+    #mapa{
+    	text-align: center;
+    }
+    </style>
 </head>
 
 <body>
@@ -56,8 +61,8 @@
     </nav>
     <div class="container-fluid" id="mainWrapper">
         <div id="mapa" class="col-lg-6"></div>
-        <div id="indikator" class="col-lg-6">
-        </div>
+        <div id="indikator" class="col-lg-6"> </div>
+       
         <script>
         $("#indikator").load("forma.html")
 
@@ -68,8 +73,6 @@
     </div>
     <script type="text/javascript">
     var podaci = [];
-
-
 
     $.getJSON('data/poOpstini.json', function(json, textStatus) {
         podaci = json;
@@ -82,26 +85,17 @@
 
         mouseEvents(selektor);
 
-
-
         /*  $("#juzna_i_istocna_srbija_1>g").hide()
           $("#zapadna_backa_2>g").hide()
           */
-
-
-
-        //na klik - selektuj
     });
 
     function mouseEvents(selektor) {
-
-
 
         $(selektor)
             .on("mouseover.boja", function() {
                 $(this).css("fill", "orange");
             });
-
 
         $(selektor)
             .on("mouseleave.boja", function() {
@@ -141,16 +135,15 @@
         for (var i = 0; i < pod_opstina.length; i++) {
             var temp = pod_opstina[i];
 
-
             //setuj promenljive
             var jedan_red =
                 '<tr class="single-row">' +
-            '<td class="row-ime">' + temp.ime_prezime + '</td>' +
-            '<td class="row-stranka">' + temp.stranka + '</td>' +
-            '<td class="row-funkcija">' + temp.funkcija + '</td>' +
-            '<td class="row-koalicija">' + temp.koalicija + '</td>'+
-            '<td class="row-vlast">' + temp.u_vlasti + '</td>'+
-            '</tr>';
+	                '<td class="row-ime">' + temp.ime_prezime + '</td>' +
+	                '<td class="row-stranka">' + temp.stranka + '</td>' +
+	                '<td class="row-funkcija">' + temp.funkcija + '</td>' +
+	                '<td class="row-koalicija">' + temp.koalicija + '</td>' +
+	                '<td class="row-vlast">' + temp.u_vlasti + '</td>' +
+                '</tr>';
             $("tbody").append(jedan_red);
 
 
