@@ -14,6 +14,16 @@
         <li>
             <a href="{{site.uri.public}}/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
         </li>
+		
+		{% if checkAccess('uri_akteri') %}	<!-- uri_users -->
+            <li>
+              <a href="{{site.uri.public}}/akteri"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_AKTERI") }}</a>
+            </li>
+        {% endif %}		
+		
+		
+		
+		
         
         {% if checkAccess('uri_zerg') %}
         <li>
