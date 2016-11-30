@@ -9,8 +9,8 @@ class ComposerStaticInitc52ebfbf30fadb1cecddae09d70e0ca9
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '65fec9ebcfbb3cbb4fd0d519687aea01' => __DIR__ . '/..' . '/danielstjules/stringy/src/Create.php',
-        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
+        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'fe1bcd0336136e435eaf197895daf81a' => __DIR__ . '/..' . '/nikic/php-parser/lib/bootstrap.php',
     );
 
@@ -188,6 +188,8 @@ class ComposerStaticInitc52ebfbf30fadb1cecddae09d70e0ca9
         'UserFrosting\\UserFrosting' => __DIR__ . '/../..' . '/models/UserFrosting.php',
         'UserFrosting\\UserLoader' => __DIR__ . '/../..' . '/models/database/UserLoader.php',
         'UserFrosting\\UserSession' => __DIR__ . '/../..' . '/middleware/usersession/UserSession.php',
+        'UserFrosting\\xAkter' => __DIR__ . '/../..' . '/models/database/xAkter.php',
+        'UserFrosting\\xFunk' => __DIR__ . '/../..' . '/models/database/xFunkcija.php',
         'ntlm_sasl_client_class' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
         'phpmailerException' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
     );

@@ -422,60 +422,113 @@
     /// lista aktera
     $app->get('/akteri/?', function () use ($app) {
 
-                if (!$app->user->checkAccess('uri_akteri')){
-                    //$app->notFound();
-                }
-        //test za variable za template
-        //$akteri = [["ime"=>"a"],["ime"=>"b"],["ime"=>"c"]];
-
-
-        //get data from external table
-        //TODO naci njegovu postojecu konekciju
-        $db_config = $app->config('db');
-        $db_mysqli = new mysqli($db_config['db_host'], $db_config['db_user'], $db_config['db_pass'], $db_config['db_name']);
-
-        $akteri = array();
-        $result = $db_mysqli->query('select * from akteri LIMIT 10 ');
-            if($result){
-                while($row = $result->fetch_assoc()) {
-                    $akteri[] = $row;
-            }
-        }
-
-
-            $app->render('akteri.twig', [
-                "paginate_server_side" => false,
-                //"akteri" => isset($akteri) ? $akteri : []
-                "akteri" => $akteri
-            ]);
-
-
-    });
-
-
-    //post na aktere
-    $app->post('/akteri/?', function () use ($app) {
-
         if (!$app->user->checkAccess('uri_akteri')){
             $app->notFound();
         }
-
-        //$post = $this->_app->request->post();
-
-        $dump = "test dump";
-        $dump = print_r($_POST,true);
-
-
-        $app->render('akteri.twig', [
-            "paginate_server_side" => false,
-            //"akteri" => isset($akteri) ? $akteri : []
-            "dump" => $dump,
-            "akteri" => $akteri
-        ]);
-
-
+        $evt = new UF\xAkter([]);
+        $evt->listaAktera($app);
     });
 
+    //Single akter data - list
+    $app->get('/akteri/edit/:aid', function ($aid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_akteri_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xAkter([]);
+        $evt->editAktera($app,$aid);
+    });
+
+
+    //Single akter data - POST
+    $app->post('/akteri/edit/:aid', function ($aid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_akteri_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xAkter([]);
+        $evt->editAkteraPost($app,$aid);
+    });
+
+    //Novi akter - forma
+    $app->get('/akteri/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_akteri_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xAkter([]);
+        $evt->addAktera($app);
+    });
+
+    //Novi akter - POST
+    $app->post('/akteri/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_akteri_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xAkter([]);
+        $evt->addAkteraPost($app);
+    });
+
+
+
+
+
+
+    /// lista Funkcija
+    $app->get('/funkcije/?', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_funk')){
+            $app->notFound();
+        }
+        $evt = new UF\xFunk([]);
+        $evt->listaAktera($app);
+    });
+
+    //Single akter data - list
+    $app->get('/funkcije/edit/:fid', function ($fid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_funk_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xFunk([]);
+        $evt->editAktera($app,$fid);
+    });
+
+
+    //Single akter data - POST
+    $app->post('/funkcije/edit/:fid', function ($fid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_funk_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xFunk([]);
+        $evt->editAkteraPost($app,$fid);
+    });
+
+    //Novi akter - forma
+    $app->get('/funkcije/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_funk_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xFunk([]);
+        $evt->addFunk($app);
+    });
+
+    //Novi akter - POST
+    $app->post('/funkcije/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_funk_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xFunk([]);
+        $evt->addFunkPost($app);
+    });
 
 
 

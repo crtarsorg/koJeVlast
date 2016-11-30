@@ -10,61 +10,106 @@
             {% endblock %}
 
             {% block content %}
-                <h1>The user's ID is {{user.id}}.</h1>
+
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >				
+			
+<section>	
+	<div class="col-xs-6 col-sm-6">
+		<h4>Akteri</h4>
+	</div>
+	
+	<div class="col-xs-6 col-sm-6">
+	<a href="{{site.uri.public}}/akteri/add">
+		<button type="button" class="btn btn-success js-user-create pull-right" >
+		<i class="fa fa-plus-square"></i> Dodaj novog aktera
+		</button>
+	</a>
+	</div>	
+</section>			
 				
-				<pre>
-				{{dump}}
-				</pre>
-				
+<!-- 
+<pre>
+{{dump}}
+</pre>
+ -->
+<!-- live search-->
+
+<div class="clearfix"></div>
+
+<section>
+	<div class="col-sm-12">
+		<div class="form-group">
+		
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-search"></i></span>
+				<input type="text" class="form-control" id="search" name="search" autocomplete="off" value="" placeholder="Fast filter" >
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="clearfix"></div>			
+
 				
 			{# If we are not using server-side pagination, then just render all results immediately #}
                 {% if not paginate_server_side %}
 					{% for akter in akteri %}
+					
+					{% set rowid= akter.aime ~ akter.aprezime ~ akter.arodjen ~ akter.azanimanje%}
 
-
-    <div class="row">					
-					<form name="user" method="post" action="{{form_action}}">
-						<div id="{{alerts_id | default('form-alerts')}}"></div>
+    <div class="row rowakteri" id="{{rowid|replace({" " : "","," : "","." : ""}) }}" >					
         
-						<div class="col-sm-4">
-							<div class="form-group">
-						
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-									<input type="text" class="form-control" name="ime" autocomplete="off" value="{{akter.aime}}" placeholder="Ime" >
-								</div>
-							</div>
+						<div class="col-sm-3">
+							<a href="akteri/edit/{{akter.aid}}"  >{{akter.aime}} {{akter.rowid}}</a>
 						</div>
 						
-						<div class="col-sm-4">
-							<div class="form-group">
-							
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-									<input type="text" class="form-control" name="prezime" autocomplete="off" value="{{akter.aprezime}}" placeholder="Prezime" >
-								</div>
-							</div>
+						<div class="col-sm-3">
+							<a href="akteri/edit/{{akter.aid}}"  >{{akter.aprezime}}</a>
 						</div>
+						
+						<div class="col-sm-3">
+							<a href="akteri/edit/{{akter.aid}}"  >{{akter.arodjen}}</a>
+						</div>						
 
-						<div class="col-sm-4">
-								
-								<div class="vert-pad">
-									<button type="submit" class="btn btn-block btn-md btn-primary ">
-									<i class="fa fa-edit"></i> Edit
-									</button>
-								</div> 		
+						<div class="col-sm-3">
+							<a href="akteri/edit/{{akter.aid}}"  >{{akter.azanimanje}}</a>
 						</div>
 						
-						<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
-						<input type="hidden" name="userid" value="{{akter.aid}}">
-					
-					
-					</form>
 	</div>				
-					
+				
 					
                     {% endfor %}
                 {% endif %}						
-				
+<div class="col-xs-12" style="height:50px;"></div>					
 				
             {% endblock %}
+			
+			
+			
+{% block page_scripts %}
+
+<script>
+//live search 			
+$( document ).ready(function() {
+			
+	$("#search").on("keyup", function() {
+		var value = $(this).val();
+		
+		$(".rowakteri").each(function(index) {
+		
+				$row = $(this);
+				var id = $row.attr('id').toLowerCase();
+
+				if (id.indexOf(value.toLowerCase()) < 0 ) {
+					$row.hide();
+				}
+				else {
+					$row.show();
+				}
+
+		});
+	});
+
+});	
+</script>				
+{% endblock %}		

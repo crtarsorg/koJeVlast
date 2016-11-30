@@ -57,6 +57,8 @@ return array(
     'UserFrosting\\UserFrosting' => $baseDir . '/models/UserFrosting.php',
     'UserFrosting\\UserLoader' => $baseDir . '/models/database/UserLoader.php',
     'UserFrosting\\UserSession' => $baseDir . '/middleware/usersession/UserSession.php',
+    'UserFrosting\\xAkter' => $baseDir . '/models/database/xAkter.php',
+    'UserFrosting\\xFunk' => $baseDir . '/models/database/xFunkcija.php',
     'ntlm_sasl_client_class' => $vendorDir . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
     'phpmailerException' => $vendorDir . '/phpmailer/phpmailer/class.phpmailer.php',
 );

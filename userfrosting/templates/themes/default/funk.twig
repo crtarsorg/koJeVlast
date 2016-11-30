@@ -1,0 +1,103 @@
+{% extends "layouts/layout-dashboard.twig" %}
+            {% set page_group = "dashboard" %}
+
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Funkcije",
+                    "description" : "Lista funkcija."
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block content %}
+
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >				
+			
+<section>	
+	<div class="col-xs-6 col-sm-6">
+		<h4>Funkcije</h4>
+	</div>
+	
+	<div class="col-xs-6 col-sm-6">
+	<a href="{{site.uri.public}}/funkcije/add">
+		<button type="button" class="btn btn-success js-user-create pull-right" >
+		<i class="fa fa-plus-square"></i> Dodaj novu funkciju
+		</button>
+	</a>
+	</div>	
+</section>			
+				
+<!-- 
+<pre>
+{{dump}}
+</pre>
+ -->
+<!-- live search-->
+
+<div class="clearfix"></div>
+
+<section>
+	<div class="col-sm-12">
+		<div class="form-group">
+		
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-search"></i></span>
+				<input type="text" class="form-control" id="search" name="search" autocomplete="off" value="" placeholder="Fast filter" >
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="clearfix"></div>			
+
+				
+			{# If we are not using server-side pagination, then just render all results immediately #}
+                {% if not paginate_server_side %}
+					{% for funk in funks %}
+					
+			
+
+    <div class="row rowfunk" id="{{funk.funkcija|replace({" " : "","," : "","." : ""}) }}" >					
+        
+						<div class="col-sm-12">
+							<a href="funkcije/edit/{{funk.fid}}"  >{{funk.funkcija}}</a>
+						</div>
+						
+	</div>				
+				
+					
+                    {% endfor %}
+                {% endif %}						
+<div class="col-xs-12" style="height:50px;"></div>					
+				
+            {% endblock %}
+			
+			
+			
+{% block page_scripts %}
+
+<script>
+//live search 			
+$( document ).ready(function() {
+			
+	$("#search").on("keyup", function() {
+		var value = $(this).val();
+		
+		$(".rowfunk").each(function(index) {
+		
+				$row = $(this);
+				var id = $row.attr('id').toLowerCase();
+
+				if (id.indexOf(value.toLowerCase()) < 0 ) {
+					$row.hide();
+				}
+				else {
+					$row.show();
+				}
+
+		});
+	});
+
+});	
+</script>				
+{% endblock %}		

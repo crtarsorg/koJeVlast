@@ -1,0 +1,17 @@
+.rowakteri{
+	margin-top:20px;
+}
+.rowakteri:hover {
+	background-color:#CCC;
+}
+.rowakteri a{
+    display: block !important;
+}
+.rowakteri a:active,.rowakteri a:focus{
+    color: red !important;
+	background-color: #CCC;
+}
+.clearfix{
+	clear:both;
+	height:20px;
+}

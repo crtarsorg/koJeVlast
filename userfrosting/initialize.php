@@ -108,6 +108,20 @@ $table_group = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] .
     "icon"
 ]);
 
+//DB table object
+$table_akteri_event = new \UserFrosting\DatabaseTable("akteri", [
+    "aid",
+    "aime",
+    "aprezime",
+    "abio",
+    "apol",
+    "arodjen",
+    "azanimanje"
+]);
+\UserFrosting\Database::setSchemaTable("akteri", $table_akteri_event);
+
+
+
 $table_group_user = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "group_user");
 $table_configuration = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "configuration");
 $table_authorize_user = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "authorize_user");

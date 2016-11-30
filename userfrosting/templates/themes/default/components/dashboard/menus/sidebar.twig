@@ -20,7 +20,12 @@
               <a href="{{site.uri.public}}/akteri"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_AKTERI") }}</a>
             </li>
         {% endif %}		
-		
+
+		{% if checkAccess('uri_funk') %}	<!-- uri_users -->
+            <li>
+              <a href="{{site.uri.public}}/funkcije"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_FUNK") }}</a>
+            </li>
+        {% endif %}			
 		
 		
 		
