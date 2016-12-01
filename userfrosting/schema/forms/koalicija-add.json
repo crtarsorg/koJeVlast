@@ -1,0 +1,34 @@
+{
+    "koalicija" : {
+        "validators" : {
+            "length" : {
+                "min" : 1,
+                "max" : 150,
+                "message" : "Field 'Koalicija' must be between 1 and 100 characters in length."
+            },
+			"required" : {
+				"message" : "Field 'Koalicija' is mandatory"
+			}			
+			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },
+    "datum" : {
+        "validators" : {
+            "length" : {
+                "min" : 10,
+                "max" : 10,
+                "message" : "Field 'Datum' must be between 10 characters in length."
+            },
+			"required" : {
+				"message" : "Field 'Datum' is mandatory"
+			}			
+			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    } 	
+}

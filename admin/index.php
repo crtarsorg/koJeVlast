@@ -604,7 +604,7 @@
         $evt->listaStranki($app);
     });
 
-    //Funkcija edit data - forma
+    //Stranka edit data - forma
     $app->get('/stranke/edit/:sid', function ($sid) use ($app) {
 
         if (!$app->user->checkAccess('uri_stranke_edit')){
@@ -615,7 +615,7 @@
     });
 
 
-    //Funkcija edit data - POST
+    //Stranka edit data - POST
     $app->post('/stranke/edit/:sid', function ($sid) use ($app) {
 
         if (!$app->user->checkAccess('uri_stranke_edit')){
@@ -626,7 +626,7 @@
         $evt->editStrankaPost($app,$sid);
     });
 
-    //Nova funkcija - forma
+    //Nova stranka - forma
     $app->get('/stranke/add', function () use ($app) {
 
         if (!$app->user->checkAccess('uri_stranke_edit')){
@@ -636,7 +636,7 @@
         $evt->addStranka($app);
     });
 
-    //Nova funkcija - POST
+    //Nova stranka - POST
     $app->post('/stranke/add', function () use ($app) {
 
         if (!$app->user->checkAccess('uri_stranke_edit')){
@@ -647,6 +647,103 @@
         $evt->addStrankaPost($app);
     });
 
+
+
+
+
+
+
+    ////////////////////////////////////////
+    /// Koalicije
+    $app->get('/koalicije/?', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_koalicije')){
+            $app->notFound();
+        }
+        $evt = new UF\xKo([]);
+        $evt->lista($app);
+    });
+
+    //Nova koalicija - forma
+    $app->get('/koalicije/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_koalicije_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xKo([]);
+        $evt->addKoalicija($app);
+    });
+
+    //Nova koalicija - forma
+    $app->post('/koalicije/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_koalicije_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xKo([]);
+        $evt->addKoalicijaPost($app);
+    });
+
+
+    //Koalicija edit data - forma
+    $app->get('/koalicije/edit/:kid', function ($kid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_koalicije_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xKo([]);
+        $evt->editKoalicija($app,$kid);
+    });
+
+    //Koalicija edit data - forma
+    $app->post('/koalicije/edit/:kid', function ($kid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_koalicije_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xKo([]);
+        $evt->editKoalicijaPost($app,$kid);
+    });
+
+    //Lista stranaka
+    $app->get('/koalicije/stranke', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_koalicije_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xKo([]);
+        $evt->listaStranaka($app);
+    });
+
+    //Lista stranaka u koaliciji
+    $app->get('/koalicije/stranke/:kid', function ($kid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_koalicije_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xKo([]);
+        $evt->listaStranakaUKoaliciji($app,$kid);
+    });
+
+    //Ukloni stranku iz koalicije
+    $app->get('/koalicije/stranke/remove/:ksid', function ($ksid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_koalicije_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xKo([]);
+        $evt->ukloniStrankiIzKoalicije($app,$ksid);
+    });
+
+    //Dodaj stranku u koaliciju
+    $app->get('/koalicije/stranke/add/:kid/:sid', function ($kid, $sid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_koalicije_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xKo([]);
+        $evt->dodajStrankuUKoaliciju($app,$kid,$sid);
+    });
 
 
 

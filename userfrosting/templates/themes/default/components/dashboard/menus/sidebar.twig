@@ -38,6 +38,12 @@
               <a href="{{site.uri.public}}/stranke"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_STRANKE") }}</a>
             </li>
         {% endif %}			
+
+		{% if checkAccess('uri_koalicije') %}	<!-- uri_users -->
+            <li>
+              <a href="{{site.uri.public}}/koalicije"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_KOALICIJE") }}</a>
+            </li>
+        {% endif %}	
 		
         
         {% if checkAccess('uri_zerg') %}

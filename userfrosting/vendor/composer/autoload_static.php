@@ -190,6 +190,7 @@ class ComposerStaticInitc52ebfbf30fadb1cecddae09d70e0ca9
         'UserFrosting\\UserSession' => __DIR__ . '/../..' . '/middleware/usersession/UserSession.php',
         'UserFrosting\\xAkter' => __DIR__ . '/../..' . '/models/database/xAkter.php',
         'UserFrosting\\xFunk' => __DIR__ . '/../..' . '/models/database/xFunkcija.php',
+        'UserFrosting\\xKo' => __DIR__ . '/../..' . '/models/database/xKo.php',
         'UserFrosting\\xOpstine' => __DIR__ . '/../..' . '/models/database/xOpstine.php',
         'UserFrosting\\xStranke' => __DIR__ . '/../..' . '/models/database/xStranke.php',
         'ntlm_sasl_client_class' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',

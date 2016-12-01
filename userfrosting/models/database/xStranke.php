@@ -41,7 +41,7 @@ class xStranke extends UFModel {
         $conn = Capsule::connection();
         $res = $conn->table('stranke')->where('sid', '=', $sid)->get();
 
-        $dump= "edit for no: ".$fid;
+        $dump= "edit for no: ".$sid;
         //$dump= print_r($res,true);
 
         $app->render('strankeEdit.twig', [

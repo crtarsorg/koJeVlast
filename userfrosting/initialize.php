@@ -138,6 +138,20 @@ $table_stranke = new \UserFrosting\DatabaseTable("stranke", [
 ]);
 \UserFrosting\Database::setSchemaTable("stranke", $table_stranke);
 
+$table_koalicije = new \UserFrosting\DatabaseTable("koalicije", [
+    "kid",
+    "knaziv",
+    "kosn"
+]);
+\UserFrosting\Database::setSchemaTable("koalicije", $table_koalicije);
+
+$table_kstranke = new \UserFrosting\DatabaseTable("kstranke", [
+    "ksid",
+    "koalicija",
+    "stranka"
+]);
+\UserFrosting\Database::setSchemaTable("kstranke", $table_kstranke);
+
 
 $table_group_user = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "group_user");
 $table_configuration = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "configuration");
