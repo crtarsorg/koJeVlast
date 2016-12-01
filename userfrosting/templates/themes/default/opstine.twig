@@ -3,8 +3,8 @@
 
             {% block page %}   
                 {% set page = page | merge({
-                    "title"       : "Funkcije",
-                    "description" : "Lista funkcija."
+                    "title"       : "Opštine",
+                    "description" : "Lista opstina."
                 }) %}
                 {{ parent() }}
             {% endblock %}
@@ -15,13 +15,13 @@
 			
 <section>	
 	<div class="col-xs-6 col-sm-6">
-		<h4>Funkcije</h4>
+		<h4>Opštine</h4>
 	</div>
 	
 	<div class="col-xs-6 col-sm-6">
-	<a href="{{site.uri.public}}/funkcije/add">
+	<a href="{{site.uri.public}}/opstine/add">
 		<button type="button" class="btn btn-success js-user-create pull-right" >
-		<i class="fa fa-plus-square"></i> Dodaj novu funkciju
+		<i class="fa fa-plus-square"></i> Dodaj novu opštinu
 		</button>
 	</a>
 	</div>	
@@ -53,14 +53,14 @@
 				
 			{# If we are not using server-side pagination, then just render all results immediately #}
                 {% if not paginate_server_side %}
-					{% for funk in funks %}
+					{% for opstina in opstine %}
 					
 			
 
-    <div class=" rowfunk" id="{{funk.funkcija|replace({" " : "","," : "","." : ""}) }}" >					
+    <div class=" rowfunk" id="{{opstina.opstina|replace({" " : "","," : "","." : ""}) }}" >					
         
 						<div class="col-sm-4">
-							<a href="funkcije/edit/{{funk.fid}}"  >{{funk.funkcija}}</a>
+							<a href="opstine/edit/{{opstina.opid}}"  >{{opstina.opstina}}</a>
 						</div>
 						
 	</div>				

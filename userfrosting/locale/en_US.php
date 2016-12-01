@@ -25,7 +25,8 @@ $lang = array_merge($lang, [
 	"MENU_GROUPS" => "Groups",
 	"HEADER_MESSAGE_ROOT" => "YOU ARE SIGNED IN AS THE ROOT USER",
 	"MENU_AKTERI" => "AKTERI",
-	"MENU_FUNK" => "FUNKCIJE"
+	"MENU_FUNK" => "FUNKCIJE",
+	"MENU_OPSTINE" => "OPSTINE"
 ]);
 
 // Installer

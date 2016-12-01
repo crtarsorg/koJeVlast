@@ -120,6 +120,18 @@ $table_akteri_event = new \UserFrosting\DatabaseTable("akteri", [
 ]);
 \UserFrosting\Database::setSchemaTable("akteri", $table_akteri_event);
 
+$table_funkcije = new \UserFrosting\DatabaseTable("funkcije", [
+    "fid",
+    "funkcija"
+]);
+\UserFrosting\Database::setSchemaTable("funkcije", $table_funkcije);
+
+$table_opstine = new \UserFrosting\DatabaseTable("opstine", [
+    "opid",
+    "opstina"
+]);
+\UserFrosting\Database::setSchemaTable("opstine", $table_opstine);
+
 
 
 $table_group_user = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "group_user");

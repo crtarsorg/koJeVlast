@@ -418,7 +418,7 @@
 
 
     ////////////////////////////////////////
-    /************ OUR  ROUTES *************/
+    /************ VLAST  ROUTES *************/
     /// lista aktera
     $app->get('/akteri/?', function () use ($app) {
 
@@ -476,7 +476,7 @@
 
 
 
-
+    ////////////////////////////////////////
     /// lista Funkcija
     $app->get('/funkcije/?', function () use ($app) {
 
@@ -487,7 +487,7 @@
         $evt->listaAktera($app);
     });
 
-    //Single akter data - list
+    //Funkcija edit data - forma
     $app->get('/funkcije/edit/:fid', function ($fid) use ($app) {
 
         if (!$app->user->checkAccess('uri_funk_edit')){
@@ -498,7 +498,7 @@
     });
 
 
-    //Single akter data - POST
+    //Funkcija edit data - POST
     $app->post('/funkcije/edit/:fid', function ($fid) use ($app) {
 
         if (!$app->user->checkAccess('uri_funk_edit')){
@@ -509,7 +509,7 @@
         $evt->editAkteraPost($app,$fid);
     });
 
-    //Novi akter - forma
+    //Nova funkcija - forma
     $app->get('/funkcije/add', function () use ($app) {
 
         if (!$app->user->checkAccess('uri_funk_edit')){
@@ -519,7 +519,7 @@
         $evt->addFunk($app);
     });
 
-    //Novi akter - POST
+    //Nova funkcija - POST
     $app->post('/funkcije/add', function () use ($app) {
 
         if (!$app->user->checkAccess('uri_funk_edit')){
@@ -531,6 +531,63 @@
     });
 
 
+
+
+
+
+    ////////////////////////////////////////
+    /// lista opstina
+    $app->get('/opstine/?', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_opstine')){
+            $app->notFound();
+        }
+        $evt = new UF\xOpstine([]);
+        $evt->listaOpstina($app);
+    });
+
+    //Funkcija edit data - forma
+    $app->get('/opstine/edit/:oid', function ($oid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_opstine_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xOpstine([]);
+        $evt->editOpstina($app,$oid);
+    });
+
+
+    //Funkcija edit data - POST
+    $app->post('/opstine/edit/:oid', function ($oid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_opstine_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xOpstine([]);
+        $evt->editOpstinaPost($app,$oid);
+    });
+
+    //Nova funkcija - forma
+    $app->get('/opstine/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_opstine_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xOpstine([]);
+        $evt->addOpstina($app);
+    });
+
+    //Nova funkcija - POST
+    $app->post('/opstine/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_opstine_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xOpstine([]);
+        $evt->addOpstinaPost($app);
+    });
 
 
 
