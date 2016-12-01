@@ -85,12 +85,28 @@ function drawSvg(argument) {
     var radius = Math.min(width, height) / 2;
 
     var svg = d3.select('#viz')
+    	.style('width', width+"px")
+        .style('float', "left")
         .append('svg')
         .attr('width', width)
         .attr('height', height)
         .append('g')
         .attr('transform', 'translate(' + (width / 2) +
             ',' + (height / 2) + ')');
+
+    var legendaCont = d3.select('.legendaCont')
+    	.style('display', "inline-block")
+    	.style('float', "right")
+    	.style('height', height+"px")
+    	.style('width', (width - 200)+"px")
+
+    var legendaCont = d3.select('.legenda')
+        .append('svg')
+        /*.attr('width', width)*/
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate('+ '100,100'+ /*+ (width / 2) +
+            ',' + (height / 2) + */')');    
 
     var colors = ["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"];
 
@@ -132,7 +148,6 @@ function drawSvg(argument) {
             .attr('d', arc)
             .attr('fill', function(d, i) {
                 return color(d.data.population);
-
             })
             .on("click",function (d,i) {
             	alert("sada")
@@ -147,7 +162,7 @@ function drawSvg(argument) {
 
             });
 
-        var legend = svg.selectAll('.legend')
+        var legend = legendaCont.selectAll('.legenda')
             .data(color.domain())
             .enter()
             .append('g')
@@ -158,6 +173,19 @@ function drawSvg(argument) {
                 var horz = -2 * legendRectSize;
                 var vert = i * height - offset;
                 return 'translate(' + horz + ',' + vert + ')';
+            })
+            .attr('cursor', 'pointer')
+            .on('click',  function(d,i) {
+            	
+            	d3.selectAll("#viz path")
+            		.attr("opacity","1");
+
+            	d3.selectAll("#viz path")
+            		.filter(function(dat,ind){
+            			return dat.value!= d 
+            		})
+            		.attr("opacity","0.3");
+
             });
 
         legend.append('rect')
