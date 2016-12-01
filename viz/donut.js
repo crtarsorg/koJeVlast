@@ -96,7 +96,8 @@ function drawSvg(argument) {
 
     var arc = d3.arc()
         .outerRadius(radius - 10)
-        .innerRadius(radius - 70);
+        .innerRadius(radius - 70)
+        .padAngle(0.01);
 
     var labelArc = d3.arc()
         .outerRadius(radius - 40)
@@ -118,10 +119,6 @@ function drawSvg(argument) {
 
 
 
-
-
-
-
     d3.tsv("viz/data.tsv", function(d) {
         d.population = +d.population;
         return d;
@@ -135,6 +132,18 @@ function drawSvg(argument) {
             .attr('d', arc)
             .attr('fill', function(d, i) {
                 return color(d.data.population);
+
+            })
+            .on("click",function (d,i) {
+            	alert("sada")
+            })
+            .on("mouseover",function (d,i) {
+            	var levo = d3.select(this);            	
+            	levo.attr('class', 'pomeren');
+            })
+            .on("mouseout",function (d,i) {
+            	var levo = d3.select(this);  
+            	levo.classed('pomeren',false);
 
             });
 
@@ -158,7 +167,7 @@ function drawSvg(argument) {
             .style('stroke', color);
 
         legend.append('text')
-         	.data(pie(data))
+            .data(pie(data))
             .attr('x', legendRectSize + legendSpacing)
             .attr('y', legendRectSize - legendSpacing)
             .text(function(d) {
