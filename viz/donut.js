@@ -4,9 +4,6 @@
 
 function draw() {
 
-
-
-
     var canvas = document.querySelector("canvas"),
         context = canvas.getContext("2d");
 
@@ -68,14 +65,7 @@ function draw() {
 function drawSvg(argument) {
 
 
-    var dataset = [
-        { sala: "lactantes", value: 74 },
-        { sala: "deambuladores", value: 85 },
-        { sala: "2 años", value: 840 },
-        { sala: "3 años", value: 4579 },
-        { sala: "4 años", value: 5472 },
-        { sala: "5 años", value: 7321 },
-    ];
+	d3.selectAll('#viz svg').remove()
 
 
     var color = d3.scaleOrdinal(d3.schemeCategory20b);
