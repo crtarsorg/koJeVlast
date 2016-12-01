@@ -60,6 +60,7 @@ return array(
     'UserFrosting\\xAkter' => $baseDir . '/models/database/xAkter.php',
     'UserFrosting\\xFunk' => $baseDir . '/models/database/xFunkcija.php',
     'UserFrosting\\xOpstine' => $baseDir . '/models/database/xOpstine.php',
+    'UserFrosting\\xStranke' => $baseDir . '/models/database/xStranke.php',
     'ntlm_sasl_client_class' => $vendorDir . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
     'phpmailerException' => $vendorDir . '/phpmailer/phpmailer/class.phpmailer.php',
 );

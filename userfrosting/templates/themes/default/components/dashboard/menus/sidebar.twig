@@ -32,7 +32,12 @@
               <a href="{{site.uri.public}}/opstine"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_OPSTINE") }}</a>
             </li>
         {% endif %}			
-		
+
+		{% if checkAccess('uri_stranke') %}	<!-- uri_users -->
+            <li>
+              <a href="{{site.uri.public}}/stranke"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_STRANKE") }}</a>
+            </li>
+        {% endif %}			
 		
         
         {% if checkAccess('uri_zerg') %}

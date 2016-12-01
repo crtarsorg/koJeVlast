@@ -132,6 +132,11 @@ $table_opstine = new \UserFrosting\DatabaseTable("opstine", [
 ]);
 \UserFrosting\Database::setSchemaTable("opstine", $table_opstine);
 
+$table_stranke = new \UserFrosting\DatabaseTable("stranke", [
+    "sid",
+    "snaziv"
+]);
+\UserFrosting\Database::setSchemaTable("stranke", $table_stranke);
 
 
 $table_group_user = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "group_user");

@@ -591,4 +591,64 @@
 
 
 
+
+
+    ////////////////////////////////////////
+    /// Stranke
+    $app->get('/stranke/?', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_stranke')){
+            $app->notFound();
+        }
+        $evt = new UF\xStranke([]);
+        $evt->listaStranki($app);
+    });
+
+    //Funkcija edit data - forma
+    $app->get('/stranke/edit/:sid', function ($sid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_stranke_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xStranke([]);
+        $evt->editStranka($app,$sid);
+    });
+
+
+    //Funkcija edit data - POST
+    $app->post('/stranke/edit/:sid', function ($sid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_stranke_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xStranke([]);
+        $evt->editStrankaPost($app,$sid);
+    });
+
+    //Nova funkcija - forma
+    $app->get('/stranke/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_stranke_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xStranke([]);
+        $evt->addStranka($app);
+    });
+
+    //Nova funkcija - POST
+    $app->post('/stranke/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_stranke_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xStranke([]);
+        $evt->addStrankaPost($app);
+    });
+
+
+
+
+
     $app->run();
