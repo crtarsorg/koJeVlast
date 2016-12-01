@@ -19,25 +19,38 @@
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="home"  >
-                           nekakvvi grafici
-                           		- procentualno ucesce u vlasti
-                           		- legenda
-								- osnovni info, predsedik, zamenik i sl
-								<!-- <canvas width="360" height="300"></canvas> -->
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            nekakvvi grafici - procentualno ucesce u vlasti - legenda - osnovni info, predsedik, zamenik i sl
+                            <!-- <canvas width="360" height="300"></canvas> -->
+                            <div id="viz"></div>
+                            <div class="legendaCont">
+                                <div role="tabpanel">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active">
+                                            <a href="#stranke" aria-controls="stranke" role="tab" data-toggle="tab" class="tab-filter">stranke</a>
+                                        </li>
+                                        <li role="presentation">
+                                            <a href="#koalicije" aria-controls="tab" role="tab" data-toggle="tab" class="tab-filter">koal</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="stranke">
+                                            <div class="naslov">
+                                                <h1>Naslov</h1>
+                                            </div>
+                                            <div class="legenda"></div>
 
-								<div id="viz"></div>
-								<div class="legendaCont">
-									<div class="naslov">
-										<h1>Naslov</h1>
-									</div>
-									<div class="legenda"></div>
-								</div>
+                                        </div>
 
+                                    </div>
+                                </div>
+                                <!-- legenda -->
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="tab">
-                        	
-                        	 <table class="table table-hover">
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Ime i prezime</th>
@@ -48,7 +61,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   
                                 </tbody>
                             </table>
                         </div>

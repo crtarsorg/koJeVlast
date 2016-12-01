@@ -193,5 +193,14 @@ function drawSvg(argument) {
                 return d.data.age;
             });
 
+
+            
+		$('a.tab-filter[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		  var target = $(e.target).attr("href") // activated tab
+		  alert(target);
+		});
+
     }); // tsv load
 }
+
+
