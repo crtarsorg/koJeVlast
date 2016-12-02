@@ -56,6 +56,7 @@ class xKo extends UFModel {
     public function addKoalicijaPost($app){
 
         $conn = Capsule::connection();
+        $dump="";
 
         ///Validacija POST-a
         $post = $app->request->post();
@@ -118,6 +119,7 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Stranka koju dodajte
     public function editKoalicijaPost($app,$kid){
 
         $conn = Capsule::connection();
+        $dump=""; 
 
         ///Validacija POST-a
         $post = $app->request->post();
