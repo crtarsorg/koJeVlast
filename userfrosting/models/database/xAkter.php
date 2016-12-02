@@ -36,6 +36,8 @@ class xAkter extends UFModel {
         $conn = Capsule::connection();
         $res = $conn->table('akteri')->orderBy('aid','desc')->get();
 
+        $dump= "Lista aktera: ";
+
         $app->render('akteri.twig', [
             "paginate_server_side" => false,
             "dump" => $dump,
