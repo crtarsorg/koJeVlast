@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2016 at 02:00 PM
+-- Generation Time: Dec 02, 2016 at 04:16 PM
 -- Server version: 5.6.25-log
 -- PHP Version: 5.6.5
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `uf_authorize_group` (
   `group_id` int(10) unsigned NOT NULL,
   `hook` varchar(200) NOT NULL COMMENT 'A code that references a specific action or URI that the group has access to.',
   `conditions` text NOT NULL COMMENT 'The conditions under which members of this group have access to this hook.'
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `uf_authorize_group`
@@ -46,7 +46,19 @@ INSERT INTO `uf_authorize_group` (`id`, `group_id`, `hook`, `conditions`) VALUES
 (6, 2, 'update_account_setting', '!in_group(user.id,2)&&in(property,["email","display_name","title","locale","flag_password_reset","flag_enabled"])'),
 (7, 2, 'view_account_setting', 'in(property,["user_name","email","display_name","title","locale","flag_enabled","groups","primary_group_id"])'),
 (8, 2, 'delete_account', '!in_group(user.id,2)'),
-(9, 2, 'create_account', 'always()');
+(9, 2, 'create_account', 'always()'),
+(10, 4, 'uri_akteri', 'always()'),
+(11, 4, 'uri_akteri_edit', 'always()'),
+(12, 4, 'uri_funk', 'always()'),
+(13, 4, 'uri_funk_edit', 'always()'),
+(14, 4, 'uri_opstine', 'always()'),
+(15, 4, 'uri_opstine_edit', 'always()'),
+(16, 4, 'uri_stranke', 'always()'),
+(17, 4, 'uri_stranke_edit', 'always()'),
+(18, 4, 'uri_koalicije', 'always()'),
+(19, 4, 'uri_koalicije_edit', 'always()'),
+(20, 4, 'uri_promene', 'always()'),
+(21, 4, 'uri_promene_edit', 'always()');
 
 -- --------------------------------------------------------
 
@@ -115,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `uf_group` (
   `landing_page` varchar(200) NOT NULL DEFAULT 'dashboard' COMMENT 'The page to take primary members to when they first log in.',
   `new_user_title` varchar(200) NOT NULL DEFAULT 'New User' COMMENT 'The default title to assign to new primary users.',
   `icon` varchar(100) NOT NULL DEFAULT 'fa fa-user' COMMENT 'The icon representing primary users in this group.'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `uf_group`
@@ -124,7 +136,8 @@ CREATE TABLE IF NOT EXISTS `uf_group` (
 INSERT INTO `uf_group` (`id`, `name`, `is_default`, `can_delete`, `theme`, `landing_page`, `new_user_title`, `icon`) VALUES
 (1, 'User', 2, 0, 'default', 'dashboard', 'New User', 'fa fa-user'),
 (2, 'Administrator', 0, 0, 'nyx', 'dashboard', 'Brood Spawn', 'fa fa-flag'),
-(3, 'Zerglings', 0, 1, 'nyx', 'dashboard', 'Tank Fodder', 'sc sc-zergling');
+(3, 'Zerglings', 0, 1, 'nyx', 'dashboard', 'Tank Fodder', 'sc sc-zergling'),
+(4, 'Editor', 0, 1, 'default', 'dashboard', 'Editor', 'fa fa-user');
 
 -- --------------------------------------------------------
 
@@ -136,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `uf_group_user` (
   `id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `group_id` int(10) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Maps users to their group(s)';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='Maps users to their group(s)';
 
 --
 -- Dumping data for table `uf_group_user`
@@ -144,8 +157,10 @@ CREATE TABLE IF NOT EXISTS `uf_group_user` (
 
 INSERT INTO `uf_group_user` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
-(2, 2, 2),
-(3, 2, 1);
+(5, 1, 2),
+(8, 2, 1),
+(13, 2, 4),
+(14, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -176,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `uf_user` (
 
 INSERT INTO `uf_user` (`id`, `user_name`, `display_name`, `email`, `title`, `locale`, `primary_group_id`, `secret_token`, `flag_verified`, `flag_enabled`, `flag_password_reset`, `created_at`, `updated_at`, `password`) VALUES
 (1, 'admin', 'Admin', 'mishaphp@gmail.com', 'New User', 'en_US', 1, '', 1, 1, 0, '2016-11-25 04:00:02', '2016-11-25 04:00:02', '$2y$10$Z056WY3kL2/B3rxA5SCYJOlYPQpWVSXiMXgOXjXgsLk8Fap5wySmG'),
-(2, 'mihajlo', 'Mihajlo', 'Mihajlo.andjelic@crta.rs', 'New User', 'en_US', 2, '676332c038fdb2d1233dd0f4cc6889f7', 1, 1, 1, '2016-11-25 07:57:30', '2016-11-25 07:58:37', '$2y$10$zhdZM/euRw/JN5932EynXe6UuQ3/0FL8UbiWurUzwd4o0ahykRYM2');
+(2, 'mihajlo', 'Mihajlo', 'Mihajlo.andjelic@crta.rs', 'New User', 'en_US', 1, '676332c038fdb2d1233dd0f4cc6889f7', 1, 1, 1, '2016-11-25 07:57:30', '2016-11-25 08:35:05', '$2y$10$zhdZM/euRw/JN5932EynXe6UuQ3/0FL8UbiWurUzwd4o0ahykRYM2');
 
 -- --------------------------------------------------------
 
@@ -190,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `uf_user_event` (
   `event_type` varchar(255) NOT NULL COMMENT 'An identifier used to track the type of event.',
   `occurred_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `description` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `uf_user_event`
@@ -201,7 +216,9 @@ INSERT INTO `uf_user_event` (`id`, `user_id`, `event_type`, `occurred_at`, `desc
 (2, 1, 'sign_in', '2016-11-25 10:00:15', 'User admin signed in at 2016-11-25 05:00:15.'),
 (3, 2, 'sign_up', '2016-11-25 13:57:30', 'User mihajlo was created by admin on 2016-11-25 08:57:30.'),
 (4, 2, 'password_reset_request', '2016-11-25 13:57:30', 'User mihajlo requested a password reset on 2016-11-25 08:57:30.'),
-(5, 2, 'sign_in', '2016-11-25 13:58:54', 'User mihajlo signed in at 2016-11-25 08:58:54.');
+(5, 2, 'sign_in', '2016-11-25 13:58:54', 'User mihajlo signed in at 2016-11-25 08:58:54.'),
+(6, 2, 'sign_in', '2016-11-25 14:26:03', 'User mihajlo signed in at 2016-11-25 09:26:03.'),
+(7, 2, 'sign_in', '2016-11-25 14:28:22', 'User mihajlo signed in at 2016-11-25 09:28:22.');
 
 -- --------------------------------------------------------
 
@@ -221,7 +238,8 @@ CREATE TABLE IF NOT EXISTS `uf_user_rememberme` (
 --
 
 INSERT INTO `uf_user_rememberme` (`user_id`, `token`, `persistent_token`, `expires`) VALUES
-(1, '42c7f4aea3471d51f7fece4d1292162c5f1e9427', '2e298f4e1cac2fca0bb3dbd7c8e93f1bc9bdbc61', '2016-12-02 05:00:15');
+(2, 'fbf4b4bb96774fe476930d5a6b87d6b246668851', 'f0208e8c823a5b462d68ad21025822a3d96f7e15', '2016-12-05 06:36:05'),
+(1, '7373735722f6d54858ecb0217707058e1ff34dc7', '2e298f4e1cac2fca0bb3dbd7c8e93f1bc9bdbc61', '2016-12-09 10:46:14');
 
 --
 -- Indexes for dumped tables
@@ -277,7 +295,7 @@ ALTER TABLE `uf_user_event`
 -- AUTO_INCREMENT for table `uf_authorize_group`
 --
 ALTER TABLE `uf_authorize_group`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `uf_authorize_user`
 --
@@ -292,12 +310,12 @@ ALTER TABLE `uf_configuration`
 -- AUTO_INCREMENT for table `uf_group`
 --
 ALTER TABLE `uf_group`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `uf_group_user`
 --
 ALTER TABLE `uf_group_user`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `uf_user`
 --
@@ -307,7 +325,7 @@ ALTER TABLE `uf_user`
 -- AUTO_INCREMENT for table `uf_user_event`
 --
 ALTER TABLE `uf_user_event`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
