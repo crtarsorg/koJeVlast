@@ -23,6 +23,7 @@ class xFunk extends UFModel {
 
         $conn = Capsule::connection();
         $res = $conn->table('funkcije')->orderBy('funkcija','asc')->get();
+        $dump="";
 
         $app->render('funk.twig', [
             "paginate_server_side" => false,
@@ -56,6 +57,7 @@ class xFunk extends UFModel {
     public function editAkteraPost($app,$fid){
 
         $conn = Capsule::connection();
+        $dump="";
 
         ///Validacija POST-a
         $post = $app->request->post();
@@ -120,6 +122,7 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Funkcija koju menjat
     public function addFunkPost($app){
 
         $conn = Capsule::connection();
+        $dump=""; 
 
         ///Validacija POST-a
         $post = $app->request->post();
