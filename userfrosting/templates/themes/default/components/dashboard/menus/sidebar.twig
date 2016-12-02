@@ -21,30 +21,36 @@
             </li>
         {% endif %}		
 
-		{% if checkAccess('uri_funk') %}	<!-- uri_users -->
+		{% if checkAccess('uri_funk') %}	<!-- uri_funk -->
             <li>
               <a href="{{site.uri.public}}/funkcije"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_FUNK") }}</a>
             </li>
-        {% endif %}			
+        {% endif %}
 
-		{% if checkAccess('uri_opstine') %}	<!-- uri_users -->
+
+		{% if checkAccess('uri_opstine') %}	<!-- uri_opstine -->
             <li>
               <a href="{{site.uri.public}}/opstine"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_OPSTINE") }}</a>
             </li>
         {% endif %}			
 
-		{% if checkAccess('uri_stranke') %}	<!-- uri_users -->
+		{% if checkAccess('uri_stranke') %}	<!-- uri_stranke -->
             <li>
               <a href="{{site.uri.public}}/stranke"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_STRANKE") }}</a>
             </li>
         {% endif %}			
 
-		{% if checkAccess('uri_koalicije') %}	<!-- uri_users -->
+		{% if checkAccess('uri_koalicije') %}	<!-- uri_koalicije -->
             <li>
               <a href="{{site.uri.public}}/koalicije"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_KOALICIJE") }}</a>
             </li>
         {% endif %}	
-		
+
+		{% if checkAccess('uri_funk') %}	<!-- uri_promene -->
+            <li>
+              <a href="{{site.uri.public}}/promene"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_PROMENE") }}</a>
+            </li>
+        {% endif %}			
         
         {% if checkAccess('uri_zerg') %}
         <li>

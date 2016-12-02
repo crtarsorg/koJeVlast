@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2016 at 01:39 PM
+-- Generation Time: Dec 02, 2016 at 04:01 PM
 -- Server version: 5.6.25-log
 -- PHP Version: 5.6.5
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `akteri` (
   `apol` char(1) DEFAULT NULL,
   `arodjen` char(20) DEFAULT NULL,
   `azanimanje` tinytext
-) ENGINE=MyISAM AUTO_INCREMENT=722 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=729 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `akteri`
@@ -758,10 +758,17 @@ INSERT INTO `akteri` (`aid`, `aime`, `aprezime`, `abio`, `apol`, `arodjen`, `aza
 (715, 'Ferhan', 'Sejdović', '', 'M', '1965', 'Privrednik'),
 (716, 'Fadil', 'Nikšić', '', 'M', '1976', 'Privrednik'),
 (717, 'Mersija', 'Camović', '', 'Z', '1986', 'Master'),
-(718, 'Harun', 'Hajradinović', '', 'M', '1956', 'Agronom stoĉarstva'),
+(718, 'Harun', 'Hajradinović', '', 'M', '1956', 'Agronom stočarstva'),
 (719, 'Tešrif ', 'Šačić', '', 'M', '1962', 'Magistar'),
 (720, 'Sanela', 'Halković', '', 'Z', '1971', 'Novinarka'),
-(721, 'Selvir', 'Bilalović', '', 'M', '1974', 'Poljoprivrednik');
+(721, 'Selvir', 'Bilalović', 'kghghgh\r\nfgfdg\r\n\r\ngfdfgfdg', 'M', '1974', 'Poljoprivrednik '),
+(722, 'Test Ime', 'Test Prezime', 'Room 101', 'M', '1999', 'Room 101'),
+(723, 'Test jhjhg', 'Test Prezime yuy', 'Room 101', 'M', '1999', 'Room 101'),
+(724, 'Testtttq7', 'Kasfd', 'Room 101q', 'Z', '1999', 'qq'),
+(725, 'qqq', 'wwww', '', '', '', ''),
+(726, 'qqq', 'wwww4', '', '', '', ''),
+(727, 'qqqq', 'rrr', '', '', '', ''),
+(728, 'qqqq', 'rrr', '', 'Z', '', '');
 
 -- --------------------------------------------------------
 
@@ -772,7 +779,23 @@ INSERT INTO `akteri` (`aid`, `aime`, `aprezime`, `abio`, `apol`, `arodjen`, `aza
 CREATE TABLE IF NOT EXISTS `funkcije` (
   `fid` int(11) NOT NULL,
   `funkcija` tinytext NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `funkcije`
+--
+
+INSERT INTO `funkcije` (`fid`, `funkcija`) VALUES
+(1, 'Odbornik444'),
+(4, 'Predsenik kucnog saveta'),
+(5, 'Levo smetalo 444'),
+(6, 'test funkcijasd'),
+(7, 'Odbornik'),
+(8, 'Odbornik2'),
+(9, 'Odbornik77'),
+(10, 'erwerewr'),
+(11, 'sdsadffdf'),
+(12, 'adahkhgkjhk');
 
 -- --------------------------------------------------------
 
@@ -783,16 +806,44 @@ CREATE TABLE IF NOT EXISTS `funkcije` (
 CREATE TABLE IF NOT EXISTS `koalicije` (
   `kid` int(11) NOT NULL,
   `knaziv` tinytext NOT NULL,
-  `kstranke` tinytext,
   `kosn` date DEFAULT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `koalicije`
 --
 
-INSERT INTO `koalicije` (`kid`, `knaziv`, `kstranke`, `kosn`) VALUES
-(1, 'qqqq', NULL, '2016-11-02');
+INSERT INTO `koalicije` (`kid`, `knaziv`, `kosn`) VALUES
+(1, 'qqq', '2016-11-30'),
+(2, 'gf', NULL),
+(3, 'qwerty', '2016-12-29'),
+(4, 'qwerty22', '2016-12-31'),
+(5, 'TrtMrt', '2016-12-01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kstranke`
+--
+
+CREATE TABLE IF NOT EXISTS `kstranke` (
+  `ksid` int(11) NOT NULL,
+  `koalicija` int(11) NOT NULL,
+  `stranka` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `kstranke`
+--
+
+INSERT INTO `kstranke` (`ksid`, `koalicija`, `stranka`) VALUES
+(3, 1, 3),
+(4, 1, 2),
+(7, 1, 1),
+(12, 5, 1),
+(11, 5, 3),
+(14, 4, 2),
+(15, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -803,7 +854,179 @@ INSERT INTO `koalicije` (`kid`, `knaziv`, `kstranke`, `kosn`) VALUES
 CREATE TABLE IF NOT EXISTS `opstine` (
   `opid` int(11) NOT NULL,
   `opstina` tinytext NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=168 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `opstine`
+--
+
+INSERT INTO `opstine` (`opid`, `opstina`) VALUES
+(1, 'Ada'),
+(2, 'Aleksandrovac'),
+(3, 'Aleksinac'),
+(4, 'Alibunar'),
+(5, 'Apatin'),
+(6, 'Aranđelovac'),
+(7, 'Arilje'),
+(8, 'Babušnica'),
+(9, 'Bač'),
+(10, 'Bačka Palanka'),
+(11, 'Bačka Topola'),
+(12, 'Bački Petrovac'),
+(13, 'Bajina Bašta'),
+(14, 'Barajevo'),
+(15, 'Batočina'),
+(16, 'Bečej'),
+(17, 'Bela Crkva'),
+(18, 'Bela Palanka'),
+(19, 'Beočin'),
+(20, 'Blace'),
+(21, 'Bogatić'),
+(22, 'Bojnik'),
+(23, 'Boljevac'),
+(24, 'Bor'),
+(25, 'Bosilegrad'),
+(26, 'Brus'),
+(27, 'Bujanovac'),
+(28, 'Čačak'),
+(29, 'Čajetina'),
+(30, 'Ćićevac'),
+(31, 'Čoka'),
+(32, 'Crna Trava'),
+(33, 'Čukarica'),
+(34, 'Ćuprija'),
+(35, 'Despotovac'),
+(36, 'Dimitrovgrad'),
+(37, 'Doljevac'),
+(38, 'Gadžin Han'),
+(39, 'Golubac'),
+(40, 'Gornji Milanovac'),
+(41, 'Grocka'),
+(42, 'Indjija'),
+(43, 'Irig'),
+(44, 'Ivanjica'),
+(45, 'Jagodina'),
+(46, 'Kanjiža'),
+(47, 'Kikinda'),
+(48, 'Kladovo'),
+(49, 'Knić'),
+(50, 'Knjaževac'),
+(51, 'Koceljeva'),
+(52, 'Kosjerić'),
+(53, 'Kovačica'),
+(54, 'Kovin'),
+(55, 'Kragujevac'),
+(56, 'Kraljevo'),
+(57, 'Krupanj'),
+(58, 'Kruševac'),
+(59, 'Kučevo'),
+(60, 'Kula'),
+(61, 'Kuršumlija'),
+(62, 'Lajkovac'),
+(63, 'Lapovo'),
+(64, 'Lazarevac'),
+(65, 'Lebane'),
+(66, 'Leskovac'),
+(67, 'Ljig'),
+(68, 'Ljubovija'),
+(69, 'Loznica'),
+(70, 'Lučani'),
+(71, 'Majdanpek'),
+(72, 'Mali Idjoš'),
+(73, 'Mali Zvornik'),
+(74, 'Malo Crniće'),
+(75, 'Medveđa'),
+(76, 'Merošina'),
+(77, 'Mionica'),
+(78, 'Mladenovac'),
+(79, 'Negotin'),
+(80, 'Niš-Crveni Krst'),
+(81, 'Niš-Grad'),
+(82, 'Niš-Mediana'),
+(83, 'Niš-Niška Banja'),
+(84, 'Niš-Palilula'),
+(85, 'Niš-Pantelej'),
+(86, 'Nova Crnja'),
+(87, 'Nova Varoš'),
+(88, 'Novi Bečej'),
+(89, 'Novi Beograd'),
+(90, 'Novi Kneževac'),
+(91, 'Novi Pazar'),
+(92, 'Novi Sad'),
+(93, 'Obrenovac'),
+(94, 'Odžaci'),
+(95, 'Opovo'),
+(96, 'Osečina'),
+(97, 'Palilula'),
+(98, 'Pančevo'),
+(99, 'Paraćin'),
+(100, 'Pećinci'),
+(101, 'Petrovac'),
+(102, 'Pirot'),
+(103, 'Plandište'),
+(104, 'Požarevac'),
+(105, 'Požega'),
+(106, 'Preševo'),
+(107, 'Priboj'),
+(108, 'Prijepolje'),
+(109, 'Prokuplje'),
+(110, 'Rača'),
+(111, 'Rakovica'),
+(112, 'Raška'),
+(113, 'Ražanj'),
+(114, 'Rekovac'),
+(115, 'Ruma'),
+(116, 'Šabac'),
+(117, 'Savski venac'),
+(118, 'Sečanj'),
+(119, 'Senta'),
+(120, 'Šid'),
+(121, 'Sjenica'),
+(122, 'Smederevo'),
+(123, 'Smederevska Palanka'),
+(124, 'Sokobanja'),
+(125, 'Sombor'),
+(126, 'Sopot'),
+(127, 'Srbobran'),
+(128, 'Sremska Mitrovica'),
+(129, 'Sremski Karlovci'),
+(130, 'Stara Pazova'),
+(131, 'Stari grad'),
+(132, 'Subotica'),
+(133, 'Surčin'),
+(134, 'Surdulica'),
+(135, 'Svilajnac'),
+(136, 'Svrljig'),
+(137, 'Temerin'),
+(138, 'Titel'),
+(139, 'Topola'),
+(140, 'Trgovište'),
+(141, 'Trstenik'),
+(142, 'Tutin'),
+(143, 'Ub'),
+(144, 'Užice'),
+(145, 'Valjevo'),
+(146, 'Varvarin'),
+(147, 'Velika Plana'),
+(148, 'Veliko Gradište'),
+(149, 'Vladičin Han'),
+(150, 'Vladimirci'),
+(151, 'Vlasotince'),
+(152, 'Voždovac'),
+(153, 'Vračar'),
+(154, 'Vranje'),
+(155, 'Vrbas'),
+(156, 'Vrnjačka Banja'),
+(157, 'Vršac'),
+(158, 'Žabalj'),
+(159, 'Žabari'),
+(160, 'Žagubica'),
+(161, 'Zaječar'),
+(162, 'Zemun'),
+(163, 'Žitište'),
+(164, 'Žitorađa'),
+(165, 'Zrenjanin'),
+(166, 'Zvezdara');
 
 -- --------------------------------------------------------
 
@@ -832,7 +1055,16 @@ CREATE TABLE IF NOT EXISTS `promene` (
 CREATE TABLE IF NOT EXISTS `stranke` (
   `sid` int(11) NOT NULL,
   `snaziv` tinytext NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stranke`
+--
+
+INSERT INTO `stranke` (`sid`, `snaziv`) VALUES
+(1, 'SNS'),
+(2, 'DS'),
+(3, 'Ceda Cvorak');
 
 --
 -- Indexes for dumped tables
@@ -855,6 +1087,12 @@ ALTER TABLE `funkcije`
 --
 ALTER TABLE `koalicije`
   ADD PRIMARY KEY (`kid`);
+
+--
+-- Indexes for table `kstranke`
+--
+ALTER TABLE `kstranke`
+  ADD PRIMARY KEY (`ksid`);
 
 --
 -- Indexes for table `opstine`
@@ -882,22 +1120,27 @@ ALTER TABLE `stranke`
 -- AUTO_INCREMENT for table `akteri`
 --
 ALTER TABLE `akteri`
-  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=722;
+  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=729;
 --
 -- AUTO_INCREMENT for table `funkcije`
 --
 ALTER TABLE `funkcije`
-  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `fid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `koalicije`
 --
 ALTER TABLE `koalicije`
-  MODIFY `kid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `kid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `kstranke`
+--
+ALTER TABLE `kstranke`
+  MODIFY `ksid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `opstine`
 --
 ALTER TABLE `opstine`
-  MODIFY `opid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `opid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=168;
 --
 -- AUTO_INCREMENT for table `promene`
 --
@@ -907,7 +1150,7 @@ ALTER TABLE `promene`
 -- AUTO_INCREMENT for table `stranke`
 --
 ALTER TABLE `stranke`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

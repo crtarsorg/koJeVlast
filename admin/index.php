@@ -748,4 +748,60 @@
 
 
 
+
+    ////////////////////////////////////////
+    /// Promene
+    $app->get('/promene/?', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromene([]);
+        $evt->lista($app);
+    });
+
+    //Promene edit data - forma
+    $app->get('/promene/edit/:pid', function ($pid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromene([]);
+        $evt->editPromene($app,$pid);
+    });
+
+
+    //Promene edit data - POST
+    $app->post('/promene/edit/:pid', function ($pid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xPromene([]);
+        $evt->editPromenePost($app,$pid);
+    });
+
+    //Nova promena - forma
+    $app->get('/promene/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromene([]);
+        $evt->addPromena($app);
+    });
+
+    //Nova promena - forma
+    $app->post('/promene/add', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromene([]);
+        $evt->addPromenaPost($app);
+    });
+
+
+
     $app->run();

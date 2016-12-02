@@ -1,0 +1,212 @@
+{% extends "layouts/layout-dashboard.twig" %}
+            {% set page_group = "dashboard" %}
+
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Promene",
+                    "description" : "Edit promena."
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block content %}
+
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >				
+			
+                <h1></h1>
+				
+<pre>
+{{dump}}
+</pre>
+
+				
+			{# If we are not using server-side pagination, then just render all results immediately #}
+                {% if not paginate_server_side %}
+					{% for pr in promene %}
+
+<form name="user" method="post" id="promeneEditForm" action="{{form_action}}">
+
+    <div class="row">					
+					
+						<div id="{{alerts_id | default('form-alerts')}}"></div>
+        
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{akter|raw}}		
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{stranka|raw}}
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{funk|raw}}
+								</div>
+							</div>
+						</div>						
+						
+						
+	</div>
+
+
+
+
+    <div class="row">					
+					
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{koal|raw}}
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{ops|raw}}
+								</div>
+							</div>
+						</div>	
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{vlast|raw}}
+								</div>
+							</div>
+						</div>						
+						
+						
+	</div>
+
+
+    <div class="row">
+
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input  type="text" class="form-control" id="datumod" name="datumod" autocomplete="off" value="{% if pod %}{{ pod|date("d.m.Y") }}{% endif %}" placeholder="Datum od" >
+								</div>
+							</div>
+						</div>						
+						
+
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input  type="text" class="form-control" id="datumdo" name="datumdo" autocomplete="off" value="{% if pdo %}{{ pdo|date("d.m.Y") }}{% endif %}" placeholder="Datum od" >
+								</div>
+							</div>
+						</div>							
+
+						
+						<div class="col-sm-4">
+								
+								<div class="vert-pad">
+									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
+									<i class="fa fa-edit"></i>{{actionText}}
+									</button>
+								</div> 		
+						</div>						
+						
+	
+	</div>
+
+	
+
+	
+	
+	
+<input type="hidden" id="altdatumod" name="altdatumod" value="{{pod}}">
+<input type="hidden" id="altdatumdo" name="altdatumdo" value="{{pdo}}">	
+	
+	
+	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
+	
+</form>	
+					
+                    {% endfor %}
+                {% endif %}						
+				
+				
+            {% endblock %}
+
+
+			
+			
+{% block page_scripts %}
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+
+<script>
+$( document ).ready(function() {
+
+
+	$("#akter").select2({placeholder: "Akter"});
+	$("#stranka").select2({placeholder: "Stranka"});
+	$("#funk").select2({placeholder: "Funkcija"});
+	$("#koalicija").select2({placeholder: "Koalicije"});
+	$("#opstina").select2({placeholder: "Opstina"});
+	$("#vlast").select2({placeholder: "U vlasti"});
+
+
+$('#datumod').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumod",  dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
+    if(e.keyCode == 8 || e.keyCode == 46) {
+        $.datepicker._clearDate(this);
+    }
+});
+$('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
+    if(e.keyCode == 8 || e.keyCode == 46) {
+        $.datepicker._clearDate(this);
+    }
+});
+	
+
+
+
+
+	$("#promeneEditForm").submit(function(e) {
+
+		$.ajax({
+			   type: "POST",
+			   url: window.location.href,
+			   data: $("#promeneEditForm").serialize(), 
+			   success: function(data)
+			   {
+					
+					$("#userfrosting-alerts").fadeOut(200,function(){
+						$('#userfrosting-alerts').html(data);
+						$("#userfrosting-alerts").fadeIn(500, function(){
+							//$("#userfrosting-alerts").fadeOut(5000);
+						});
+					});					
+					
+					
+					
+			   }
+			 });
+
+		e.preventDefault(); 
+	});
+
+
+	
+	
+});
+</script>				
+{% endblock %}			

@@ -1,13 +1,13 @@
-.rowakteri, .rowkoalicija{
+.rowakteri, .rowkoalicija, .rowpromena{
 	margin-top:10px;
 }
-.rowakteri:hover, .rowkoalicija:hover {
+.rowakteri:hover, .rowkoalicija:hover , .rowpromena:hover  {
 	background-color:#CCC;
 }
-.rowakteri a,.rowkoalicija a{
+.rowakteri a,.rowkoalicija a ,.rowpromena a{
     display: block !important;
 }
-.rowakteri a:active,.rowakteri a:focus{
+.rowakteri a:active,.rowakteri a:focus,.rowpromena a:focus{
     color: red !important;
 	background-color: #CCC;
 }
@@ -31,4 +31,7 @@
 }
 .stranka span {
 	float:right;
+}
+.select2-container{
+	width:100% !important;
 }

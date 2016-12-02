@@ -61,6 +61,7 @@ return array(
     'UserFrosting\\xFunk' => $baseDir . '/models/database/xFunkcija.php',
     'UserFrosting\\xKo' => $baseDir . '/models/database/xKo.php',
     'UserFrosting\\xOpstine' => $baseDir . '/models/database/xOpstine.php',
+    'UserFrosting\\xPromene' => $baseDir . '/models/database/xPromene.php',
     'UserFrosting\\xStranke' => $baseDir . '/models/database/xStranke.php',
     'ntlm_sasl_client_class' => $vendorDir . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
     'phpmailerException' => $vendorDir . '/phpmailer/phpmailer/class.phpmailer.php',

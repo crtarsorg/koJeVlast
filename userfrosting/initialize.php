@@ -152,6 +152,21 @@ $table_kstranke = new \UserFrosting\DatabaseTable("kstranke", [
 ]);
 \UserFrosting\Database::setSchemaTable("kstranke", $table_kstranke);
 
+$table_promene = new \UserFrosting\DatabaseTable("promene", [
+    "pid",
+    "posoba",
+    "pstranka",
+    "pfunkcija",
+    "pkoalicija",
+    "popstina",
+    "pnavlasti",
+    "pod",
+    "pdo"
+]);
+\UserFrosting\Database::setSchemaTable("promene", $table_promene);
+
+
+
 
 $table_group_user = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "group_user");
 $table_configuration = new \UserFrosting\DatabaseTable($app->config('db')['db_prefix'] . "configuration");
