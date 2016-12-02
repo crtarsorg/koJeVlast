@@ -70,6 +70,7 @@ class xAkter extends UFModel {
     public function editAkteraPost($app,$aid){
 
         $conn = Capsule::connection();
+        $dump="";
 
         ///Validacija POST-a
         $post = $app->request->post();
@@ -141,6 +142,7 @@ if( $restest[0]['aime'] == $_POST['ime'] && $restest[0]['aprezime'] == $_POST['p
     public function addAkteraPost($app){
 
         $conn = Capsule::connection();
+        $dump=""; 
 
         ///Validacija POST-a
         $post = $app->request->post();
