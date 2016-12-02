@@ -41,7 +41,7 @@ class xOpstine extends UFModel {
         $conn = Capsule::connection();
         $res = $conn->table('opstine')->where('opid', '=', $oid)->get();
 
-        $dump= "edit for no: ".$fid;
+        $dump= "edit for no: ";
         //$dump= print_r($res,true);
 
         $app->render('opstineEdit.twig', [
@@ -57,6 +57,7 @@ class xOpstine extends UFModel {
     public function editOpstinaPost($app,$oid){
 
         $conn = Capsule::connection();
+        $dump="";
 
         ///Validacija POST-a
         $post = $app->request->post();
@@ -120,6 +121,7 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju menjate
     public function addOpstinaPost($app){
 
         $conn = Capsule::connection();
+        $dump=""; 
 
         ///Validacija POST-a
         $post = $app->request->post();
