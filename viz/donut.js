@@ -62,11 +62,21 @@ function draw() {
 } //draw
 
 //http://blockbuilder.org/vickygisel/c3f4eb2b16b86dd0f641263383f05a13
-function drawSvg(argument) {
+function drawSvg(tipPodataka) {
 
+
+	 var dataset = [
+          	{ age: "lactantes", population: 74},
+      		{ age: "deambuladores", population: 85},
+      		{ age: "2 años", population: 840},
+	 		{ age: "3 años", population: 4579 }, 
+	 		{ age: "4 años", population: 5472 }, 
+	 		{ age: "5 años", population: 7321 },
+
+        ];
 
 	d3.selectAll('#viz svg').remove()
-
+	d3.selectAll('.legenda svg').remove()
 
     var color = d3.scaleOrdinal(d3.schemeCategory20b);
 
@@ -95,7 +105,7 @@ function drawSvg(argument) {
         /*.attr('width', width)*/
         .attr('height', height)
         .append('g')
-        .attr('transform', 'translate('+ '100,100'+ /*+ (width / 2) +
+        .attr('transform', 'translate('+ '50,100'+ /*+ (width / 2) +
             ',' + (height / 2) + */')');    
 
     var colors = ["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"];
@@ -130,6 +140,14 @@ function drawSvg(argument) {
         return d;
     }, function(error, data) {
         if (error) throw error;
+
+
+        if(tipPodataka == "stranke"){
+        	data = data;
+        }
+        else{
+			data = dataset;
+        }
 
         var path = svg.selectAll('path')
             .data(pie(data))
@@ -197,7 +215,10 @@ function drawSvg(argument) {
             
 		$('a.tab-filter[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		  var target = $(e.target).attr("href") // activated tab
-		  alert(target);
+
+		  //uradi update grafa
+		  
+		  drawSvg(["stranke","koalicija"][parseInt(Math.floor(Math.random() * 2))] );
 		});
 
     }); // tsv load
