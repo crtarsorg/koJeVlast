@@ -22,6 +22,7 @@ class xPromene extends UFModel {
 
         $conn = Capsule::connection();
         $res = $conn->table('promene')->join('akteri', 'posoba', '=', 'aid')->join('stranke', 'pstranka', '=', 'sid')->join('funkcije', 'pfunkcija', '=', 'fid')->join('koalicije', 'pkoalicija', '=', 'kid')->join('opstine', 'popstina', '=', 'opid')->orderBy("pid","desc")->get();
+        $dump="";
 
         //$dump= print_r($res,true);
 
@@ -136,7 +137,7 @@ class xPromene extends UFModel {
 
     // update aktera - process POST
     public function editPromenePost($app,$pid){
-
+        $dump="";
 //$dump .= "\r\n".print_r($_POST,true);
 //echo $dump;
 
@@ -279,9 +280,8 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
     // Nova promena - process POST
     public function addPromenaPost($app){
 
-
-
         $conn = Capsule::connection();
+        $dump="";
 
         ///Validacija POST-a
         $post = $app->request->post();
@@ -306,8 +306,8 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         }
 
-$dump .= "\r\n".print_r($_POST,true);
-echo $dump;
+//$dump .= "\r\n".print_r($_POST,true);
+//echo $dump;
 //die();
 
 if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
