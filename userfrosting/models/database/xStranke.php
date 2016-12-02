@@ -57,6 +57,7 @@ class xStranke extends UFModel {
     public function editStrankaPost($app,$sid){
 
         $conn = Capsule::connection();
+        $dump="";
 
         ///Validacija POST-a
         $post = $app->request->post();
@@ -120,6 +121,7 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Stranka koju menjate
     public function addStrankaPost($app){
 
         $conn = Capsule::connection();
+        $dump=""; 
 
         ///Validacija POST-a
         $post = $app->request->post();
