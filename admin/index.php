@@ -803,5 +803,19 @@
     });
 
 
+    $app->get('/err', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_admin')){
+            $app->notFound();
+        }
+
+        echo "Error log:
+        <pre>";
+        echo file_get_contents(ini_get('error_log'));
+        echo "</pre>";
+
+
+    });
+
 
     $app->run();
