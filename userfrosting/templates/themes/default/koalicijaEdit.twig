@@ -41,7 +41,7 @@
 						
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-									<input  type="text" class="form-control" id="datum" name="datum" autocomplete="off" value="{{ koalicija.kosn|date("d.m.Y") }}" placeholder="Datum osnivanja" >
+									<input  type="text" class="form-control" id="datum" name="datum" autocomplete="off" value="{% if koalicija.kosn %}{{ koalicija.kosn|date("d.m.Y") }}{% endif %}" placeholder="Datum osnivanja" >
 									
 									
 									
