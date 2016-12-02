@@ -24,7 +24,9 @@ class xPromene extends UFModel {
         $res = $conn->table('promene')->join('akteri', 'posoba', '=', 'aid')->join('stranke', 'pstranka', '=', 'sid')->join('funkcije', 'pfunkcija', '=', 'fid')->join('koalicije', 'pkoalicija', '=', 'kid')->join('opstine', 'popstina', '=', 'opid')->orderBy("pid","desc")->get();
         $dump="";
 
-        if($res[0]['pnavlasti']){$res[0]['pnavlasti']="Na vlasti";}else{$res[0]['pnavlasti']="Nije na vlasti";}
+        for($i=0;$i<count($res);$i++){
+            if($res[$i]['pnavlasti']){$res[$i]['pnavlasti']="Na vlasti";}else{$res[$i]['pnavlasti']="Nije na vlasti";}
+        }
 
         //$dump= print_r($res,true);
 
