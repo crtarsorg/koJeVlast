@@ -7,31 +7,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
-	
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.0/d3.min.js"></script>
-
-
-
     <script src="viz/donut.js"></script>
+
     <!-- 
     <script src=""></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.min.js"></script> -->
     <style type="text/css">
-    #mapa{
-    	text-align: center;
+    #mapa {
+        text-align: center;
     }
-    .pomeren{
-    	transform: scale(1.05);
+    
+    .pomeren {
+        transform: scale(1.05);
     }
-    .tab-content>.active{
-		display: inline-block;
+    
+    .tab-content>.active {
+        display: inline-block;
     }
-    .naslov{
-	    margin: 10px;	
+    
+    .naslov {
+        margin: 10px;
     }
-    #viz{
-    	margin: 50px 0;
+    
+    #viz {
+        margin: 50px 0;
     }
     </style>
 </head>
@@ -47,20 +48,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Title</a>
+                <a class="navbar-brand" href="#">Ko je na vlasti ikonica</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
+                    <li class="active"><a href="#">Pocetna</a></li>
+                    <li><a href="#">Uporedjivanje opstina</a></li>
+                    <li><a href="#">Tabele sa podacima</a></li>
                 </ul>
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Link</a></li>
                     <li class="dropdown">
@@ -80,13 +76,14 @@
     <div class="container-fluid" id="mainWrapper">
         <div id="mapa" class="col-lg-6"></div>
         <div id="indikator" class="col-lg-6"> </div>
-       
         <script>
         $("#indikator").load("forma.html")
 
         $.get("modal.html", function(data) {
             $("#mainWrapper").append(data);
         });
+
+        //triger event loaded side stuff
         </script>
     </div>
     <script type="text/javascript">
@@ -158,11 +155,11 @@
             //setuj promenljive
             var jedan_red =
                 '<tr class="single-row">' +
-	                '<td class="row-ime">' + temp.ime_prezime + '</td>' +
-	                '<td class="row-stranka">' + temp.stranka + '</td>' +
-	                '<td class="row-funkcija">' + temp.funkcija + '</td>' +
-	                '<td class="row-koalicija">' + temp.koalicija + '</td>' +
-	                '<td class="row-vlast">' + temp.u_vlasti + '</td>' +
+                '<td class="row-ime">' + temp.ime_prezime + '</td>' +
+                '<td class="row-stranka">' + temp.stranka + '</td>' +
+                '<td class="row-funkcija">' + temp.funkcija + '</td>' +
+                '<td class="row-koalicija">' + temp.koalicija + '</td>' +
+                '<td class="row-vlast">' + temp.u_vlasti + '</td>' +
                 '</tr>';
             $("tbody").append(jedan_red);
 
