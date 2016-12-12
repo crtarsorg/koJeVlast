@@ -82,7 +82,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{vlast|raw}}
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{funkmesto|raw}}
 								</div>
 							</div>
 						</div>						
@@ -116,19 +116,27 @@
 
 						
 						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{vlast|raw}}
+								</div>
+							</div>
+						</div>						
+						
+	
+	</div>
+
+
+	<div class="row">
+						<div class="col-sm-12">
 								
 								<div class="vert-pad">
 									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
 									<i class="fa fa-edit"></i>{{actionText}}
 									</button>
 								</div> 		
-						</div>						
-						
-	
+						</div>		
 	</div>
-
-	
-
 	
 	
 	
@@ -163,6 +171,7 @@ $( document ).ready(function() {
 	$("#koalicija").select2({placeholder: "Koalicije"});
 	$("#opstina").select2({placeholder: "Opstina"});
 	$("#vlast").select2({placeholder: "U vlasti"});
+	$("#fmesto").select2({placeholder: "Funkcija mesto"});
 
 
 $('#datumod').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumod",  dateFormat: 'dd.mm.yy'  }).keyup(function(e) {

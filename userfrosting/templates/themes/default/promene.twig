@@ -49,7 +49,59 @@
 	</div>
 </section>
 
-<div class="clearfix"></div>			
+<div class="clearfix"></div>
+
+
+    <div class="row rowheader"  >					
+        
+						<div class="col-sm-1">
+							Ime
+						</div>
+						
+						<div class="col-sm-1">
+							Prezime</a>
+						</div>
+						
+						<div class="col-sm-1">
+							Datum rodjenja</a>
+						</div>						
+
+
+						<div class="col-sm-1">
+							Stranka
+						</div>
+
+						<div class="col-sm-1">
+							Funkcija
+						</div>
+
+						<div class="col-sm-1">
+							Funk/Mesto
+						</div>
+						
+						<div class="col-sm-1">
+							Koalicija
+						</div>						
+
+						<div class="col-sm-1">
+							Opstina
+						</div>
+
+						<div class="col-sm-1">
+							Vl/Op
+						</div>
+
+						<div class="col-sm-1">
+							Datum od:
+						</div>
+
+						<div class="col-sm-1">
+							Datum do:
+						</div>							
+						
+	</div>	
+
+			
 
 				
 			{# If we are not using server-side pagination, then just render all results immediately #}
@@ -72,10 +124,6 @@
 							<a href="promene/edit/{{pr.pid}}"  >{{pr.arodjen}}</a>
 						</div>						
 
-						<div class="col-sm-2">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.azanimanje}}</a>
-						</div>
-
 						<div class="col-sm-1">
 							<a href="promene/edit/{{pr.pid}}"  >{{pr.snaziv}}</a>
 						</div>
@@ -84,6 +132,10 @@
 							<a href="promene/edit/{{pr.pid}}"  >{{pr.funkcija}}</a>
 						</div>
 
+						<div class="col-sm-1">
+							<a href="promene/edit/{{pr.pid}}"  >{{pr.fmesto}}</a>
+						</div>						
+						
 						<div class="col-sm-1">
 							<a href="promene/edit/{{pr.pid}}"  >{{pr.knaziv}}</a>
 						</div>
