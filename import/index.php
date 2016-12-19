@@ -1,10 +1,10 @@
 <?php
 
 $hostname_mysqlcon = "127.0.0.1";
-$database_mysqlcon = "vlast";
+$database_mysqlcon = "admin_vlast";
 //$database_mysqlcon = "vlastimport";
 $username_mysqlcon = "root";
-$password_mysqlcon = "root";
+$password_mysqlcon = "zRK9bdbadsustpaU";
 
 $mysqli = @new mysqli($hostname_mysqlcon, $username_mysqlcon, $password_mysqlcon,$database_mysqlcon);
 @$mysqli->set_charset("utf8");
