@@ -86,7 +86,7 @@
         </script>
     </div>
     <script type="text/javascript">
-    var podaci = [];
+    
 
     var Data = (function() {
         var _data = [];
@@ -103,7 +103,7 @@
 
 
     // struktura podatka u fajlu po opstini je losa
-    $.getJSON('data/poOpstini.json', function(json, textStatus) {
+    $.getJSON('data/poOpstiniNew.json?2', function(json, textStatus) {
         Data.set(json);
     });
 
@@ -138,6 +138,7 @@
             //uzmi podatke po opsitni
             //potrebi su dobri identifikatori na mapi; 
             //ali i u podacima
+            var podaci = Data.get();
 
             var tempData = Object.keys(podaci);
             random_index = parseInt(Math.random() * tempData.length);
@@ -162,9 +163,10 @@
 
         //$var_novo = $(".single-row").clone();
         $("tbody").empty();
-
-        for (var i = 0; i < pod_opstina.length; i++) {
-            var temp = pod_opstina[i];
+        var podaci_opstina = pod_opstina.podaci;
+        
+        for (var i = 0; i < podaci_opstina.length; i++) {
+            var temp = podaci_opstina[i];
 
             //setuj promenljive
             var jedan_red =

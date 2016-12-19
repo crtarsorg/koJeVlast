@@ -14,14 +14,13 @@ function poKoaliciji(argument) {
 
 		//filtriraj skup podataka
 		var temp = Data.get();
+		//var arr = Object.keys(temp).map(function (key) { return temp[key]; });
 		
-		var arr = Object.keys(temp).map(function (key) { return temp[key]; });
-		
-		var filt = arr.filter(function(el) {
-			
-			var ukupno = el.length;
+		var filt = temp.filter(function(el) {
+			var temp_el = el.podaci;
+			var ukupno = temp_el.length;
 
-			var broj = el.filter(function (el1) {
+			var broj = temp_el.filter(function (el1) {
 				return el1.koalicija == koal;
 			}).length;
 
@@ -29,8 +28,10 @@ function poKoaliciji(argument) {
 			
 		})
 		//prodji kroz sve filtrirane i ofarbaj ih
-		console.log(filt);
-		debugger;
+		/*console.log(filt);
+		debugger;*/
+
+		bojenje(filt);
 		
 		//oboj mapu prema filtriranim opstinama 
 		   //debugger;
@@ -41,8 +42,18 @@ function poKoaliciji(argument) {
 }
 
 
-function bojenje(argument) {
-	
+function bojenje(unosi) {
+	for (var i = 0; i < unosi.length; i++) {
+		var temp_op = unosi[i];
+		var low = temp_op.opstina.toLocaleLowerCase();
+		var a = $("g[id*='"+low+"']") //[id$='"+low+"']
+		a.children().css("fill","red");
+
+		//probelm sa efektom selektovanja
+		//debugger;
+		//na osnovu id-eva pronadji opstine i ofarbaj ih
+		
+	}
 }
 
 function srafiranje(argument) {
