@@ -87,6 +87,7 @@
     </div>
     <script type="text/javascript">
     
+   	var base_selektor = "g:not([id='granice'])"; 	
 
     var Data = (function() {
         var _data = [];
@@ -110,7 +111,7 @@
     $("#mapa").load("srbija.svg", function() {
 
         //$("#mapa").trigger("ucitano", ["Custom", "Event"]);
-        var selektor = "#mapa path:not(#KiM path),#mapa polygon:not(#KiM polygon)";
+        var selektor = " #mapa path:not(#KiM path,#granice path),#mapa polygon:not(#KiM polygon,#granice polygon)";
 
         mouseEvents(selektor);
 
@@ -119,16 +120,22 @@
           */
     });
 
+
+    var trenutna_boja = "rgb(155, 227, 220)";
+
     function mouseEvents(selektor) {
 
         $(selektor)
             .on("mouseover.boja", function() {
+            	trenutna_boja = $(this).css("fill");
                 $(this).css("fill", "orange");
             });
 
         $(selektor)
             .on("mouseleave.boja", function() {
-                $(this).css("fill", "rgb(155, 227, 220)");
+            	//uzeti koja je trenutna boja 
+            	
+                $(this).css("fill", trenutna_boja );
             });
 
 
@@ -183,6 +190,10 @@
         }
 
 
+    }
+
+    function resetColors(argument) {
+    	$(base_selektor + ">*").css("fill", "rgb(155, 227, 220)");
     }
     </script>
 </body>

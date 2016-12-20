@@ -43,6 +43,14 @@ function poKoaliciji(argument) {
 
 
 function bojenje(unosi) {
+
+	debugger;
+	resetColors();
+
+
+	//izbrisi prethodnu selekciju
+	//iskljuci hover opciju event
+	
 	for (var i = 0; i < unosi.length; i++) {
 		var temp_op = unosi[i];
 		var low = temp_op.opstina.toLocaleLowerCase();
