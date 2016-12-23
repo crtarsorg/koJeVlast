@@ -243,7 +243,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
         $resfm = $conn->table('funkcije_mesto')->orderBy('fmesto','asc')->get();
         $funkmesto = '<select id="fmesto" name="fmesto"><option value="0">nema podatka</option>';
         foreach($resfm as $resfma ){
-            if($resfma['fmid']==$res[0]['pfm']) {$sela = "selected";}else{$sela = "";}
+            //if($resfma['fmid']==$res[0]['pfm']) {$sela = "selected";}else{$sela = "";}
             $funkmesto .= '
             <option '.$sela.' value="'.$resfma['fmid'].'">'.$resfma['fmesto'].'</option>';
         }
