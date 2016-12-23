@@ -150,6 +150,20 @@
 					
                     {% endfor %}
                 {% endif %}						
+
+<!-- Lista promena za aktera  -->
+
+
+<div class="clearfix"></div>
+
+<div id="lista">List</div>
+
+<div class="clearfix"></div>
+
+
+
+
+
 				
 				
             {% endblock %}
@@ -163,6 +177,14 @@
 
 <script>
 $( document ).ready(function() {
+
+
+	$('#akter').on('change', function() {
+		ucitajPromene(this.value );
+	})
+
+
+	ucitajPromene($("#akter").val());
 
 
 	$("#akter").select2({placeholder: "Akter"});
@@ -214,6 +236,44 @@ $('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  date
 	});
 
 
+	
+	function ucitajPromene(aid){
+		
+		if(!aid){ $("#lista").html("No data sent");return; }
+
+		$.ajax({
+			   type: "GET",
+			   url: "http://127.0.0.1/acrta/vlast/admin/api/akter/promene/"+aid,
+			   dataType: "json",
+			   success: function(data)
+			   {
+				console.dir(data)	;
+				var dataOut = '<div class="row"><div class="col-sm-2">Ime</div><div class="col-sm-2">Stanka</div><div class="col-sm-2">Koalicija</div><div class="col-sm-2">Opstina</div><div class="col-sm-2">Funkcija</div><div class="col-sm-2">Od - do</div>    </div> <div class="clearfix"></div>';
+				$.each(data, function( index, value ) {
+					dataOut += '<div class="row">'	;
+						dataOut += '<div class="col-sm-2">'+value['aime']+' '+ value['aprezime'] +'</div>'	;
+						dataOut += '<div class="col-sm-2">'+value['snaziv']+'</div>'	;
+						dataOut += '<div class="col-sm-2">'+value['knaziv']+'</div>'	;
+						dataOut += '<div class="col-sm-2">'+value['opstina']+'</div>'	;
+						dataOut += '<div class="col-sm-2">'+value['funkcija']+'</div>'	;
+						dataOut += '<div class="col-sm-2">Od:'+value['pod']+'<br>Do:'+value['pdo']+'</div>'	;
+						
+					dataOut += '</div><hr>'	;
+				});
+				
+				
+				
+					$("#lista").fadeOut(200,function(){
+						$('#lista').html(dataOut);
+						$("#lista").fadeIn(500, function(){
+							//$("#lista").fadeOut(5000);
+						});
+					});					
+
+			   }
+			 });		
+	}
+	
 	
 	
 });
