@@ -245,7 +245,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
         foreach($resfm as $resfma ){
             //if($resfma['fmid']==$res[0]['pfm']) {$sela = "selected";}else{$sela = "";}
             $funkmesto .= '
-            <option '.$sela.' value="'.$resfma['fmid'].'">'.$resfma['fmesto'].'</option>';
+            <option  value="'.$resfma['fmid'].'">'.$resfma['fmesto'].'</option>';
         }
         $funkmesto .= '</select>';
 
