@@ -2,4 +2,5 @@ _data/
 userfrosting/config-userfrosting.php
 *.log
 import/index.php
+.phpintel/
 
