@@ -243,7 +243,7 @@ $('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  date
 
 		$.ajax({
 			   type: "GET",
-			   url: "../../../admin/api/akter/promene/"+aid,
+			   url: "{{site.uri.public}}/api/akter/promene/"+aid,
 			   dataType: "json",
 			   success: function(data)
 			   {
