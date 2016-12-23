@@ -58,6 +58,7 @@ return array(
     'UserFrosting\\UserLoader' => $baseDir . '/models/database/UserLoader.php',
     'UserFrosting\\UserSession' => $baseDir . '/middleware/usersession/UserSession.php',
     'UserFrosting\\xAkter' => $baseDir . '/models/database/xAkter.php',
+    'UserFrosting\\xApi' => $baseDir . '/models/database/xApi.php',
     'UserFrosting\\xFunk' => $baseDir . '/models/database/xFunkcija.php',
     'UserFrosting\\xKo' => $baseDir . '/models/database/xKo.php',
     'UserFrosting\\xOpstine' => $baseDir . '/models/database/xOpstine.php',

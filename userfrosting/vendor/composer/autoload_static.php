@@ -189,6 +189,7 @@ class ComposerStaticInitc52ebfbf30fadb1cecddae09d70e0ca9
         'UserFrosting\\UserLoader' => __DIR__ . '/../..' . '/models/database/UserLoader.php',
         'UserFrosting\\UserSession' => __DIR__ . '/../..' . '/middleware/usersession/UserSession.php',
         'UserFrosting\\xAkter' => __DIR__ . '/../..' . '/models/database/xAkter.php',
+        'UserFrosting\\xApi' => __DIR__ . '/../..' . '/models/database/xApi.php',
         'UserFrosting\\xFunk' => __DIR__ . '/../..' . '/models/database/xFunkcija.php',
         'UserFrosting\\xKo' => __DIR__ . '/../..' . '/models/database/xKo.php',
         'UserFrosting\\xOpstine' => __DIR__ . '/../..' . '/models/database/xOpstine.php',
