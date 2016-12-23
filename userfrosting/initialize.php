@@ -126,6 +126,12 @@ $table_funkcije = new \UserFrosting\DatabaseTable("funkcije", [
 ]);
 \UserFrosting\Database::setSchemaTable("funkcije", $table_funkcije);
 
+$table_funkcije_mesto = new \UserFrosting\DatabaseTable("funkcije_mesto", [
+    "fmid",
+    "fmesto"
+]);
+\UserFrosting\Database::setSchemaTable("funkcije_mesto", $table_funkcije);
+
 $table_opstine = new \UserFrosting\DatabaseTable("opstine", [
     "opid",
     "opstina"
