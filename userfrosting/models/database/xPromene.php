@@ -64,7 +64,7 @@ class xPromene extends UFModel {
 
         //stranka
         $resstranka = $conn->table('stranke')->orderBy('snaziv','asc')->get();
-        $stranka = '<select id="stranka" name="stranka"><option value="0">nema podatka</option>';
+        $stranka = '<select id="stranka" name="stranka"><option value="0">Stranka - nema podatka</option>';
         foreach($resstranka as $resstrankaa ){
             if($resstrankaa['sid']==$res[0]['pstranka']) {$sela = "selected";}else{$sela = "";}
             $stranka .= '
@@ -75,7 +75,7 @@ class xPromene extends UFModel {
 
         //funkcija
         $resf = $conn->table('funkcije')->orderBy('funkcija','asc')->get();
-        $funk = '<select id="funk" name="funk"><option value="0">nema podatka</option>';
+        $funk = '<select id="funk" name="funk"><option value="0">Funkcija - nema podatka</option>';
         foreach($resf as $resfa ){
             if($resfa['fid']==$res[0]['pfunkcija']) {$sela = "selected";}else{$sela = "";}
             $funk .= '
@@ -85,7 +85,7 @@ class xPromene extends UFModel {
 
         //funkcija - mesto
         $resfm = $conn->table('funkcije_mesto')->orderBy('fmesto','asc')->get();
-        $funkmesto = '<select id="fmesto" name="fmesto"><option value="0">nema podatka</option>';
+        $funkmesto = '<select id="fmesto" name="fmesto"><option value="0">Mesto funkcije - nema podatka</option>';
         foreach($resfm as $resfma ){
             if($resfma['fmid']==$res[0]['pfm']) {$sela = "selected";}else{$sela = "";}
             $funkmesto .= '
@@ -95,7 +95,7 @@ class xPromene extends UFModel {
 
         //koalicija
         $resk = $conn->table('koalicije')->orderBy('knaziv','asc')->get();
-        $koal = '<select id="koalicija" name="koalicija"><option value="0">nema podatka</option>';
+        $koal = '<select id="koalicija" name="koalicija"><option value="0">Koalicija - nema podatka</option>';
         foreach($resk as $reska ){
             if($reska['kid']==$res[0]['pkoalicija']) {$sela = "selected";}else{$sela = "";}
             $koal .= '
@@ -106,7 +106,7 @@ class xPromene extends UFModel {
 
         //opstina
         $reso = $conn->table('opstine')->orderBy('opstina','asc')->get();
-        $ops = '<select id="opstina" name="opstina"><option value="0">nema podatka</option>';
+        $ops = '<select id="opstina" name="opstina"><option value="0">Opstina - nema podatka</option>';
         foreach($reso as $resoa ){
             if($resoa['opid']==$res[0]['popstina']) {$sela = "selected";}else{$sela = "";}
             $ops .= '
@@ -119,7 +119,7 @@ class xPromene extends UFModel {
         $vlast ='';$vlastsel='';$opozicija = '';$vlastdef='';
         if($res[0]['pnavlasti']==1){$vlastsel = 'selected';}  elseif($res[0]['pnavlasti']==2) {$opozicija = 'selected';} else {$vlastdef="selected";}
 
-        $vlast = '<select id="vlast" name="vlast"><option  '.$vlastdef.'  value="0">nema podatka</option>';
+        $vlast = '<select id="vlast" name="vlast"><option  '.$vlastdef.'  value="0">Na vlasti - nema podatka</option>';
         $vlast .= '<option '.$vlastsel.' value="1">Vlast</option>';
         $vlast .= '<option '.$opozicija.' value="2">Opozicija</option>';
         $vlast .= '</select>';
@@ -222,7 +222,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //stranka
         $resstranka = $conn->table('stranke')->orderBy('snaziv','asc')->get();
-        $stranka = '<select id="stranka" name="stranka"><option value="0">nema podatka</option>';
+        $stranka = '<select id="stranka" name="stranka"><option value="0">Stranka - nema podatka</option>';
         foreach($resstranka as $resstrankaa ){
             $stranka .= '
             <option  value="'.$resstrankaa['sid'].'">'.$resstrankaa['snaziv'].'</option>';
@@ -232,7 +232,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //funkcija
         $resf = $conn->table('funkcije')->orderBy('funkcija','asc')->get();
-        $funk = '<select id="funk" name="funk"><option value="0">nema podatka</option>';
+        $funk = '<select id="funk" name="funk"><option value="0">Funkcija - nema podatka</option>';
         foreach($resf as $resfa ){
             $funk .= '
             <option  value="'.$resfa['fid'].'">'.$resfa['funkcija'].'</option>';
@@ -241,7 +241,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //funkcija - mesto
         $resfm = $conn->table('funkcije_mesto')->orderBy('fmesto','asc')->get();
-        $funkmesto = '<select id="fmesto" name="fmesto"><option value="0">nema podatka</option>';
+        $funkmesto = '<select id="fmesto" name="fmesto"><option value="0">Mesto funkcije - nema podatka</option>';
         foreach($resfm as $resfma ){
             //if($resfma['fmid']==$res[0]['pfm']) {$sela = "selected";}else{$sela = "";}
             $funkmesto .= '
@@ -251,7 +251,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //koalicija
         $resk = $conn->table('koalicije')->orderBy('knaziv','asc')->get();
-        $koal = '<select id="koalicija" name="koalicija"><option value="0">nema podatka</option>';
+        $koal = '<select id="koalicija" name="koalicija"><option value="0">Koaliciaj - nema podatka</option>';
         foreach($resk as $reska ){
             $koal .= '
             <option  value="'.$reska['kid'].'">'.$reska['knaziv'].'</option>';
@@ -261,7 +261,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //opstina
         $reso = $conn->table('opstine')->orderBy('opstina','asc')->get();
-        $ops = '<select id="opstina" name="opstina"><option value="0">nema podatka</option>';
+        $ops = '<select id="opstina" name="opstina"><option value="0">Opstina - nema podatka</option>';
         foreach($reso as $resoa ){
             $ops .= '
             <option  value="'.$resoa['opid'].'">'.$resoa['opstina'].'</option>';
@@ -270,7 +270,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
 
         //na vlasti
-        $vlast = '<select id="vlast" name="vlast"><option value="0">nema podatka</option>';
+        $vlast = '<select id="vlast" name="vlast"><option value="0">Na vlasti - nema podatka</option>';
         $vlast .= '<option  value="1">Vlast</option>';
         $vlast .= '<option  value="2">Opozicija</option>';
         $vlast .= '</select>';
