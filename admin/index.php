@@ -858,6 +858,7 @@
         $evt = new UF\xApi([]);
         $evt->strankeNaVlastiPoOpstinama($app);
     });
+    
 
 
 
