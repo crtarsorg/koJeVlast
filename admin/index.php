@@ -832,11 +832,32 @@
         $evt->akterPromene($app,$pid);
     });
 
+    $app->get('/api/opstine', function () use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->listaOpstina($app);
+    });
+
+    $app->get('/api/stranke', function () use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->listaStranaka($app);
+    });
+
+    //lista stranke na vlasti u trazenoj opstini
+    $app->get('/api/strankaNaVlasti/:id', function ($id) use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->strankaNaVlastiUOpstini($app,$id);
+    });
 
 
+    //lista sve opstine sa strankama na vlasti
+    $app->get('/api/strankeNaVlasti', function () use ($app) {
 
-
-
+        $evt = new UF\xApi([]);
+        $evt->strankeNaVlastiPoOpstinama($app);
+    });
 
 
 

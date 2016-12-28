@@ -30,16 +30,40 @@ class xApi extends UFModel {
 
 
     public function akterPromene($app,$aid){
-
         $conn = Capsule::connection();
         $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('posoba', '=', $aid)->orderBy('pod','desc')->get();
 
-
-echo json_encode($res);
-
-
-
+        echo json_encode($res);
     }
+
+    public function listaOpstina($app){
+        $conn = Capsule::connection();
+        $res = $conn->table('opstine')->get();
+
+        echo json_encode($res);
+    }
+
+    public function listaStranaka($app){
+        $conn = Capsule::connection();
+        $res = $conn->table('stranke')->select("sid","snaziv AS naziv_stranke")->get();
+
+        echo json_encode($res);
+    }
+
+    public function strankaNaVlastiUOpstini($app,$id){
+        $conn = Capsule::connection();
+        $res = $conn->table('stranke')->select("sid","snaziv AS naziv_stranke")->get();
+
+        echo json_encode($res);
+    }
+
+    public function strankeNaVlastiPoOpstinama($app){
+        $conn = Capsule::connection();
+        $res = $conn->table('stranke')->select("sid","snaziv AS naziv_stranke")->get();
+
+        echo json_encode($res);
+    }
+
 
 
 
