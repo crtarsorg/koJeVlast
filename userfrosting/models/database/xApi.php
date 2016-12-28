@@ -81,10 +81,7 @@ class xApi extends UFModel {
                 if($val['pnavlasti']==2){$out[$val['opstina']]['opozicija'][]= $val['snaziv']; }
             }
         }
-        //echo json_encode($out);
-        echo "<pre>";
-        var_dump($out);
-        echo "</pre>";
+        echo json_encode($out);
 
     }
 
