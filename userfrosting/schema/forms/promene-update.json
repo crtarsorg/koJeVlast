@@ -63,7 +63,11 @@
             },
 			"required" : {
 				"message" : "Field 'Opstina' is mandatory"
-			}			
+			},
+			"range" : {
+				"min" : 1,
+				"message" : "Field 'Opstina' is mandatory"
+			}
         },
         "sanitizers" : {
             "raw" : ""
