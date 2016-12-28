@@ -73,14 +73,16 @@
         </div>
     </nav>
     <div class="container-fluid" id="mainWrapper">
-        <div id="mapa" class="col-lg-6"></div>
-        <div id="indikator" class="col-lg-6"> </div>
+        <div id="mapa" class="col-lg-8"></div>
+        <div id="indikator" class="col-lg-4"> </div>
         <script>
         $("#indikator").load("forma.html")
 
         $.get("modal.html", function(data) {
             $("#mainWrapper").append(data);
         });
+
+
 
         //triger event loaded side stuff
         </script>
@@ -114,6 +116,8 @@
         var selektor = " #mapa path:not(#KiM path,#granice path),#mapa polygon:not(#KiM polygon,#granice polygon)";
 
         mouseEvents(selektor);
+
+        $("#mapa").prepend( "<button>Prijavi promenu</button>" )
 
         /*  $("#juzna_i_istocna_srbija_1>g").hide()
           $("#zapadna_backa_2>g").hide()
@@ -183,6 +187,7 @@
                 '<td class="row-funkcija">' + temp.funkcija + '</td>' +
                 '<td class="row-koalicija">' + temp.koalicija + '</td>' +
                 '<td class="row-vlast">' + temp.u_vlasti + '</td>' +
+                '<td class="row-promena">' + '<a href="#" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
                 '</tr>';
             $("tbody").append(jedan_red);
 
