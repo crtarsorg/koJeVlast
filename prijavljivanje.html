@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Prijavi promenu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.0/d3.min.js"></script>
+    <style type="text/css">
+    .no-float {
+        float: none;
+        margin-top: 100px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="col-md-6 center-block no-float">
+            <form action="promena" method="POST" role="form">
+                <legend>Prijavite promenu</legend>
+                <div class="form-group">
+                    <label for="">E-mail</label>
+                    <input type="text" class="form-control" id="" placeholder="e-mail adresa (ukoliko zelite da vas kontaktiramo)">
+                </div>
+                <div class="form-group">
+                    <label for="">Promena</label>
+                    <textarea name="" id="input" class="form-control" rows="3" required="required" placeholder="Ukoliko je  moguce obezbedite nekoliko linkova koji potvrdjuju vasu prijavu"></textarea>
+                </div>
+               
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

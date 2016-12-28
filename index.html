@@ -33,6 +33,13 @@
     #viz {
         margin: 50px 0;
     }
+
+    .prijavi{
+    	position: absolute;
+    	right: 20%;
+    	top: 15%;
+
+    }
     </style>
 </head>
 
@@ -117,7 +124,7 @@
 
         mouseEvents(selektor);
 
-        $("#mapa").prepend( "<button>Prijavi promenu</button>" )
+        $("#mapa").prepend( "<button class='prijavi btn btn-danger'>Prijavi promenu</button>" )
 
         /*  $("#juzna_i_istocna_srbija_1>g").hide()
           $("#zapadna_backa_2>g").hide()
