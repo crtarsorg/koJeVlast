@@ -219,7 +219,9 @@ $('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  date
 			   data: $("#promeneEditForm").serialize(), 
 			   success: function(data)
 			   {
-					
+                    //refresh changes after adding or updating
+                    ucitajPromene($("#akter").val());
+
 					$("#userfrosting-alerts").fadeOut(200,function(){
 						$('#userfrosting-alerts').html(data);
 						$("#userfrosting-alerts").fadeIn(500, function(){
@@ -255,7 +257,7 @@ $('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  date
 						dataOut += '<div class="col-sm-2">'+value['snaziv']+'</div>'	;
 						dataOut += '<div class="col-sm-2">'+value['knaziv']+'</div>'	;
 						dataOut += '<div class="col-sm-2">'+value['opstina']+'</div>'	;
-						dataOut += '<div class="col-sm-2">'+value['funkcija']+'</div>'	;
+						dataOut += '<div class="col-sm-2">'+value['funkcija']+' <br>( '+value['fmesto']+' )</div>'	;
 						dataOut += '<div class="col-sm-2">Od:'+value['pod']+'<br>Do:'+value['pdo']+'</div>'	;
 						
 					dataOut += '</div><hr>'	;
