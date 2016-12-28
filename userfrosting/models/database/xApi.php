@@ -52,7 +52,7 @@ class xApi extends UFModel {
 
     public function strankaNaVlastiUOpstini($app,$id){
         $conn = Capsule::connection();
-        $res = $conn->table('promene')->select("snaziv","pnavlasti")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('popstina', '=', $id)->groupby("pnavlasti","pstranka")->orderBy('pod','desc')->get();
+        $res = $conn->table('promene')->select("snaziv","pnavlasti")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('popstina', '=', $id)->groupby("pnavlasti","pstranka")->get();
 
         //prepare result
         $out = array();
@@ -67,21 +67,24 @@ class xApi extends UFModel {
 
     public function strankeNaVlastiPoOpstinama($app){
         $conn = Capsule::connection();
-        $res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("opstina","pnavlasti","pstranka")->orderBy('pod','desc')->get();
+        $res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("opstina","pnavlasti","pstranka")->get();
 
         //prepare result
         $out = array();
         foreach ($res as $val) {
             //echo print_r($val,true)."<br>";
 
-            if($val['opstina']){
+            if($val['popstina']){
                 $out[$val['opstina']]['opstina'] = $val['opstina'] ;
 
                 if($val['pnavlasti']==1){$out[$val['opstina']]['vlast'][]= $val['snaziv']; }
                 if($val['pnavlasti']==2){$out[$val['opstina']]['opozicija'][]= $val['snaziv']; }
             }
         }
-        echo json_encode($out);
+        //echo json_encode($out);
+        echo "<pre>";
+        var_dump($out);
+        echo "</pre>";
 
     }
 
