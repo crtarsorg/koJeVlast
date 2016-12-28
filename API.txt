@@ -1,0 +1,5 @@
+/api/akter/promene/:pid
+/api/opstine
+/api/stranke
+/api/strankaNaVlasti/:id
+/api/strankeNaVlasti
