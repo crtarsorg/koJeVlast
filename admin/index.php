@@ -853,12 +853,12 @@
 
 
     //lista sve opstine sa strankama na vlasti
-    $app->get('/api/strankeNaVlasti', function () use ($app) {
+    $app->get('/api/strankaNaVlasti', function () use ($app) {
 
         $evt = new UF\xApi([]);
         $evt->strankeNaVlastiPoOpstinama($app);
     });
-    
+
 
 
 
