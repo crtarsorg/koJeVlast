@@ -75,10 +75,10 @@ class xApi extends UFModel {
             //echo print_r($val,true)."<br>";
 
             if($val['popstina']){
-                $out[$val['opstina']]['opstina'] = $val['opstina'] ;
+                $out[$val['popstina']]['opstina'] = $val['opstina'] ;
 
-                if($val['pnavlasti']==1){$out[$val['opstina']]['vlast'][]= $val['snaziv']; }
-                if($val['pnavlasti']==2){$out[$val['opstina']]['opozicija'][]= $val['snaziv']; }
+                if($val['pnavlasti']==1){$out[$val['popstina']]['vlast'][]= $val['snaziv']; }
+                if($val['pnavlasti']==2){$out[$val['popstina']]['opozicija'][]= $val['snaziv']; }
             }
         }
         echo json_encode($out);
