@@ -251,7 +251,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //koalicija
         $resk = $conn->table('koalicije')->orderBy('knaziv','asc')->get();
-        $koal = '<select id="koalicija" name="koalicija"><option value="0">Koaliciaj - nema podatka</option>';
+        $koal = '<select id="koalicija" name="koalicija"><option value="0">Koalicija - nema podatka</option>';
         foreach($resk as $reska ){
             $koal .= '
             <option  value="'.$reska['kid'].'">'.$reska['knaziv'].'</option>';
