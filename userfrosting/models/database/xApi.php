@@ -67,7 +67,7 @@ class xApi extends UFModel {
 
     public function strankeNaVlastiPoOpstinama($app){
         $conn = Capsule::connection();
-        $res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("opstina","pnavlasti","pstranka")->get();
+        $res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("popstina","pnavlasti","pstranka")->get();
 
         //prepare result
         $out = array();
