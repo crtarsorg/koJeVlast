@@ -1,0 +1,19 @@
+
+<div id="out"></div>
+
+
+<script src="admin/js/jquery-1.11.2.js" ></script>
+
+<script>
+$( document ).ready(function() {
+        $.ajax({
+               type: "GET",
+               url: "admin/api/predlozitePromenu",
+               success: function(data)
+               {
+                        $('#out').html(data);
+               }
+             });
+
+});
+</script>

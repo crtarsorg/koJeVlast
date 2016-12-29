@@ -1,0 +1,56 @@
+{
+    "akter" : {
+        "validators" : {
+			"required" : {
+				"message" : "Ime osobe ili stranke je obavezno"
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },
+    "opstina" : {
+        "validators" : {
+			"required" : {
+				"message" : "Naziv opštine je obavezno polje"
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },	
+    "email" : {
+        "validators" : {
+			"required" : {
+				"message" : "Email je obavezno polje"
+			},
+			"email" : 
+			{
+				"message" : "Email koji ste poslali ne izgleda kao validna email adresa."
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },
+    "promena" : {
+        "validators" : {
+			"required" : {
+				"message" : "Opis promene koju ste primetili je obavezno polje"
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },
+    "potvrda" : {
+        "validators" : {
+			"required" : {
+				"message" : "Potvrda vaše tvrdnje je obaveyno polje"
+			}
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    }
+}

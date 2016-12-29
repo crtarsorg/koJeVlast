@@ -859,9 +859,17 @@
         $evt->strankeNaVlastiPoOpstinama($app);
     });
 
+    $app->get('/api/predlozitePromenu', function () use ($app) {
 
+        $evt = new UF\xApi([]);
+        $evt->predlozitePromenu($app);
+    });
 
+    $app->post('/api/predlozitePromenu', function () use ($app) {
 
+        $evt = new UF\xApi([]);
+        $evt->predlozitePromenuPost($app);
+    });
 
 
 

@@ -86,6 +86,48 @@ class xApi extends UFModel {
     }
 
 
+    public function predlozitePromenu($app){
+
+        //echo "forma za predlog promene";
+        $app->render('predloziPromenu.twig', [
+
+        ]);
+
+    }
+
+
+    public function predlozitePromenuPost($app){
+
+        echo "<pre>";
+        var_dump($_POST);
+        echo "</pre>";
+
+        ///Validacija POST-a
+        $post = $app->request->post();
+        // Load the request schema
+        $requestSchema = new \Fortress\RequestSchema($app->config('schema.path') . "/forms/predlozi-promenu.json");
+
+
+        // Get the alert message stream
+        $ms = $app->alerts;
+        // Set up Fortress to process the request
+        $rf = new \Fortress\HTTPRequestFortress($ms, $requestSchema, $post);
+
+        // Validate, and halt on validation errors.
+        if (!$rf->validate()) {
+            // MUST USE $app->alerts->getAndClearMessages()  to clear piled errors
+            $app->render('alerts.twig', [
+                "paginate_server_side" => false,
+                "alerts" => $app->alerts->getAndClearMessages()
+            ]);
+            die(); //$app->halt(400);
+
+        }
+
+        die('<div class="alert alert-success">Uspešno ste prosledili zahtev za promenu podataka.</div>');
+
+
+    }
 
 
 }
