@@ -2,16 +2,27 @@
 <html lang="en">
 
 <head>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">		
+
     <meta charset="UTF-8">
     <title>Ko je vlast</title>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
+	<!-- bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+
+	<!-- d3 & viz -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.0/d3.min.js"></script>
     <script src="viz/donut.js"></script>
-    <script src=""></script>
+    
+
+    <!-- data tables -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.min.js"></script>
+
+	<!-- stilovi  -->
     <link rel="stylesheet" type="text/css" href="static/style-index.css">
 </head>
 
@@ -32,22 +43,11 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Pocetna</a></li>
-                    <li><a href="uporedjivanje.html">Uporedjivanje opstina</a></li>
-                    <li><a href="tabela.html">Tabele sa podacima</a></li>
-                    <li><a href="prijavljivanje.html">Prijavi promenu</a></li>
+                    <li><a href="partials/uporedjivanje.html">Uporedjivanje opstina</a></li>
+                    <li><a href="partials/tabela.html">Tabele sa podacima</a></li>
+                    <li><a href="partials/prijavljivanje.html">Prijavi promenu</a></li>
                 </ul>
-                <!-- <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
-                    </li>
-                </ul> -->
+               
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -56,7 +56,7 @@
         <div id="mapa" class="col-lg-8"></div>
         <div id="indikator" class="col-lg-4"> </div>
     </div>
-    
+
     <script src="static/script-index.js"></script>
 </body>
 
