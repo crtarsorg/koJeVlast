@@ -1,0 +1,25 @@
+#mapa {
+    text-align: center;
+}
+
+.pomeren {
+    transform: scale(1.05);
+}
+
+.tab-content>.active {
+    display: inline-block;
+}
+
+.naslov {
+    margin: 10px;
+}
+
+#viz {
+    margin: 50px 0;
+}
+
+.prijavi {
+    position: absolute;
+    right: 20%;
+    top: 15%;
+}

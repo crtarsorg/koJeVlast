@@ -9,38 +9,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.0/d3.min.js"></script>
     <script src="viz/donut.js"></script>
-    <!-- 
     <script src=""></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.min.js"></script> -->
-    <style type="text/css">
-    #mapa {
-        text-align: center;
-    }
-    
-    .pomeren {
-        transform: scale(1.05);
-    }
-    
-    .tab-content>.active {
-        display: inline-block;
-    }
-    
-    .naslov {
-        margin: 10px;
-    }
-    
-    #viz {
-        margin: 50px 0;
-    }
-
-    .prijavi{
-    	position: absolute;
-    	right: 20%;
-    	top: 15%;
-
-    }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/style-index.css">
 </head>
 
 <body>
@@ -62,8 +34,9 @@
                     <li class="active"><a href="#">Pocetna</a></li>
                     <li><a href="uporedjivanje.html">Uporedjivanje opstina</a></li>
                     <li><a href="tabela.html">Tabele sa podacima</a></li>
+                    <li><a href="prijavljivanje.html">Prijavi promenu</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <!-- <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Link</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -74,7 +47,7 @@
                             <li><a href="#">Separated link</a></li>
                         </ul>
                     </li>
-                </ul>
+                </ul> -->
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -82,132 +55,9 @@
     <div class="container-fluid" id="mainWrapper">
         <div id="mapa" class="col-lg-8"></div>
         <div id="indikator" class="col-lg-4"> </div>
-        <script>
-        $("#indikator").load("forma.html")
-
-        $.get("modal.html", function(data) {
-            $("#mainWrapper").append(data);
-        });
-
-
-
-        //triger event loaded side stuff
-        </script>
     </div>
-    <script type="text/javascript">
     
-   	var base_selektor = "g:not([id='granice'])"; 	
-
-    var Data = (function() {
-        var _data = [];
-        return {
-            set: function(d) {
-                _data = d;
-            },
-
-            get: function() {
-                return _data;
-            }
-        }
-    })();
-
-
-    // struktura podatka u fajlu po opstini je losa
-    $.getJSON('data/poOpstiniNew.json?2', function(json, textStatus) {
-        Data.set(json);
-    });
-
-    $("#mapa").load("srbija.svg", function() {
-
-        //$("#mapa").trigger("ucitano", ["Custom", "Event"]);
-        var selektor = " #mapa path:not(#KiM path,#granice path),#mapa polygon:not(#KiM polygon,#granice polygon)";
-
-        mouseEvents(selektor);
-
-        $("#mapa").prepend( "<button class='prijavi btn btn-danger'>Prijavi promenu</button>" )
-
-        /*  $("#juzna_i_istocna_srbija_1>g").hide()
-          $("#zapadna_backa_2>g").hide()
-          */
-    });
-
-
-    var trenutna_boja = "rgb(155, 227, 220)";
-
-    function mouseEvents(selektor) {
-
-        $(selektor)
-            .on("mouseover.boja", function() {
-            	trenutna_boja = $(this).css("fill");
-                $(this).css("fill", "orange");
-            });
-
-        $(selektor)
-            .on("mouseleave.boja", function() {
-            	//uzeti koja je trenutna boja 
-            	
-                $(this).css("fill", trenutna_boja );
-            });
-
-
-        $(selektor).click(function() {
-            var temp = $(this).parent()[0].id
-
-            //uzmi podatke po opsitni
-            //potrebi su dobri identifikatori na mapi; 
-            //ali i u podacima
-            var podaci = Data.get();
-
-            var tempData = Object.keys(podaci);
-            random_index = parseInt(Math.random() * tempData.length);
-
-            random_index = tempData[random_index];
-
-            console.log(random_index);
-            console.log(tempData.length);
-
-            temp = podaci[random_index];
-            popuni_modal(temp);
-
-            drawSvg();
-
-            $('#modal_id').modal('show')
-
-        });
-
-    }
-
-    function popuni_modal(pod_opstina) {
-
-        //$var_novo = $(".single-row").clone();
-        $("tbody").empty();
-        var podaci_opstina = pod_opstina.podaci;
-        
-        for (var i = 0; i < podaci_opstina.length; i++) {
-            var temp = podaci_opstina[i];
-
-            //setuj promenljive
-            var jedan_red =
-                '<tr class="single-row">' +
-                '<td class="row-ime">' + temp.ime_prezime + '</td>' +
-                '<td class="row-stranka">' + temp.stranka + '</td>' +
-                '<td class="row-funkcija">' + temp.funkcija + '</td>' +
-                '<td class="row-koalicija">' + temp.koalicija + '</td>' +
-                '<td class="row-vlast">' + temp.u_vlasti + '</td>' +
-                '<td class="row-promena">' + '<a href="#" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
-                '</tr>';
-            $("tbody").append(jedan_red);
-
-
-        }
-
-
-    }
-
-    function resetColors(argument) {
-    	$(base_selektor + ">*").css("fill", "rgb(155, 227, 220)");
-    }
-    </script>
+    <script src="static/script-index.js"></script>
 </body>
 
 </html>
