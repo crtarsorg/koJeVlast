@@ -67,7 +67,7 @@ class xApi extends UFModel {
 
     public function strankeNaVlastiPoOpstinama($app){
         $conn = Capsule::connection();
-        $res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("popstina","pnavlasti","pstranka")->get();
+        $res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina","oidopstine","oidokruga")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("popstina","pnavlasti","pstranka")->get();
 
         //prepare result
         $out = array();
@@ -76,6 +76,8 @@ class xApi extends UFModel {
 
             if($val['popstina']){
                 $out[$val['popstina']]['opstina'] = $val['opstina'] ;
+                $out[$val['popstina']]['idopstine'] = $val['oidopstine'] ;
+                $out[$val['popstina']]['idokruga'] = $val['oidokruga'] ;
 
                 if($val['pnavlasti']==1){$out[$val['popstina']]['vlast'][]= $val['snaziv']; }
                 if($val['pnavlasti']==2){$out[$val['popstina']]['opozicija'][]= $val['snaziv']; }
@@ -124,7 +126,16 @@ class xApi extends UFModel {
 
         }
 
-        die('<div class="alert alert-success">Uspešno ste prosledili zahtev za promenu podataka.</div>');
+
+        $conn = Capsule::connection();
+        //insert data
+        $res =  $conn->table('zahtevi')->insert([  'zakter' => $_POST['akter'] , 'zopstina' => $_POST['opstina'] , 'zmail' => $_POST['email'] ,'zopis' => $_POST['promena'] , 'zdokaz' => $_POST['potvrda'] , 'zstatus' => "Novo"  ]);
+
+        if($res){
+            die('<div class="alert alert-success">Uspešno ste prosledili zahtev za promenu podataka.</div>');
+        }else {
+            die('<div class="alert alert-danger">Zahtev NIJE prosledjen... Doslo je do greske.</div>');
+        }
 
 
     }
