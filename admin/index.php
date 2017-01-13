@@ -894,6 +894,13 @@
         $evt->predlozitePromenuPost($app);
     });
 
+    //lista aktera u trazenoj opstini
+    $app->get('/api/akteriPoOpstini/:id', function ($id) use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->akteriPoOpstini($app,$id);
+    });
+
 
 
     $app->run();

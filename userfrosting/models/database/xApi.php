@@ -143,6 +143,32 @@ class xApi extends UFModel {
     }
 
 
+    // lista aktera po opstinama ime prez zanimanje rodjen + STRANKA + FUNKCIJA
+    public function akteriPoOpstini($app,$id){
+        $conn = Capsule::connection();
+        $res = $conn->table('promene')->select("posoba","aime","aprezime","apol","arodjen","opstina","funkcija","snaziv")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('popstina', '=', $id)->groupby("posoba")->get();
+
+        //prepare result
+        $out = array();
+        foreach ($res as $val) {
+            //echo print_r($val,true)."<br>";
+            $out[$val['posoba']]['id']= $val['posoba'];
+            $out[$val['posoba']]['ime']= $val['aime'];
+            $out[$val['posoba']]['prezime']= $val['aprezime'];
+            $out[$val['posoba']]['pol']= $val['apol'];
+            $out[$val['posoba']]['datrodj']= $val['arodjen'];
+            $out[$val['posoba']]['opstina']= $val['opstina'];
+            $out[$val['posoba']]['funkcija']= $val['funkcija'];
+            $out[$val['posoba']]['stranka']= $val['snaziv'];
+
+        }
+
+        $out = array_values($out);
+        echo json_encode($out);
+
+    }
+
+
 }
 
 
