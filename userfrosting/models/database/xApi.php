@@ -75,6 +75,7 @@ class xApi extends UFModel {
             //echo print_r($val,true)."<br>";
 
             if($val['popstina']){
+                $out[$val['popstina']]['id'] = $val['popstina'] ;
                 $out[$val['popstina']]['opstina'] = $val['opstina'] ;
                 $out[$val['popstina']]['idopstine'] = $val['oidopstine'] ;
                 $out[$val['popstina']]['idokruga'] = $val['oidokruga'] ;
@@ -83,6 +84,7 @@ class xApi extends UFModel {
                 if($val['pnavlasti']==2){$out[$val['popstina']]['opozicija'][]= $val['snaziv']; }
             }
         }
+        $out = array_values($out);
         echo json_encode($out);
 
     }
