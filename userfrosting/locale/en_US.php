@@ -29,7 +29,8 @@ $lang = array_merge($lang, [
 	"MENU_OPSTINE" => "OPSTINE",
 	"MENU_STRANKE" => "STRANKE",
 	"MENU_KOALICIJE" => "KOALICIJE",
-	"MENU_PROMENE" => "PROMENE"
+	"MENU_PROMENE" => "PROMENE",
+	"MENU_PROMENE_ZAHTEV" => "ZAHTEVI ZA PROMENE"
 ]);
 
 // Installer

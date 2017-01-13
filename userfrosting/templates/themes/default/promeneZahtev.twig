@@ -1,0 +1,148 @@
+{% extends "layouts/layout-dashboard.twig" %}
+            {% set page_group = "dashboard" %}
+
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Promene",
+                    "description" : "Lista promena."
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block content %}
+
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >				
+			
+<section>	
+	<div class="col-xs-6 col-sm-6">
+		<h4>Promene - Poslati zahtevi za promenu</h4>
+	</div>
+	
+
+</section>			
+				
+<div class="clearfix"></div>
+
+<pre>
+{{dump}}
+</pre>
+
+
+
+
+<div class="clearfix"></div>
+
+<table id="tpromene" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Akter</th>
+                <th>Opstina</th>
+                <th>Opis promene</th>
+                <th>Dokaz</th>
+                <th>E-mail</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for pr in promene %}
+            <tr>
+                <td>{{pr.zid}} </td>
+                <td>{{pr.zakter}} </td>
+                <td>{{pr.zopstina}} </td>
+                <td>{{pr.zopis}} </td>
+                <td>{{pr.zdokaz}} </td>
+                <td><a href="mailto:{{pr.zmail}}"  >{{pr.zmail}}</a> </td>
+                <td>
+                <input readonly="readonly" zid="{{pr.zid}}" class="promeneStatus" placeholder="Status promene" id="spromene{{pr.zid}}" name="spromene" size="20" value="{{pr.zstatus}}" maxlength="20" class="ui-autocomplete-input" autocomplete="off">
+                <div id="resp{{pr.zid}}"></div>
+                </td>
+
+
+
+            </tr>
+{% endfor %}
+        </tbody>
+</table>
+
+
+
+            {% endblock %}
+
+			
+			
+{% block page_scripts %}
+
+
+<!--data tables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/dt/jszip-2.5.0,dt-1.10.10,b-1.1.0,b-html5-1.1.0,b-print-1.1.0/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/s/dt/jszip-2.5.0,dt-1.10.10,b-1.1.0,b-html5-1.1.0,b-print-1.1.0/datatables.min.js"></script>
+
+
+<script type="text/javascript" language="javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+
+
+<style>
+.dt-buttons{
+        padding: 0px 10px;
+}
+
+</style>
+
+
+
+
+
+<script>
+//live search 			
+$( document ).ready(function() {
+
+    var DataTables_language={};
+    DataTables_language["sr"]={ "info":"Prikaz _START_ do _END_ od ukupno _TOTAL_ redova","infoEmpty":"Prikaz 0 do 0 od ukupno 0 redova","infoFiltered":"(filtrirano od ukupno _MAX_ redova)","infoPostFix":"","lengthMenu":"_MENU_","processing":"Procesiranje u toku...","search":"Pretraga:","zeroRecords":"Nije pronaden nijedan rezultat","paginate": {"first":"Pocetna","previous":"Prethodna","next":"Sledeca","last":"Poslednja"},"decimal":",","thousands":"."};
+
+    $('#tpromene').dataTable({ "language":DataTables_language["sr"],"pageLength": 25, "order":[],"orderClasses":false,"stripeClasses":['even','odd'],"paging":true,"scrollX":false,"searching":true,"info":true, dom: 'lBfrtip',buttons: ['copyHtml5','excelHtml5', 'csvHtml5','print',{extend:'pdf',orientation: 'landscape', pageSize: 'A4'} ],"aLengthMenu": [[10,25,50,100,-1], [10,25,50,100,"Sve"]],   "dom": 'lBfrtip' });
+
+
+    ///////////////////////////////////////
+    var statusiPromene = [
+                "Novo",
+                "Na proveri",
+                "Prihvaceno",
+                "Odbijeno"
+            ];
+
+    $( ".promeneStatus" ).autocomplete({
+        source: statusiPromene,minLength: 0,
+        'close':function(){
+            $(this).blur();
+
+            // INSERT NEW VALUE INTO DATABASE
+                var zidval =  $(this).attr('zid');
+
+                $.post( "{{site.uri.public}}/promeneZahtev/update", { zid: zidval, status: $(this).val(), {{csrf_key}}:"{{csrf_token}}"  })
+                .done(function( data ) {
+                    $("#resp"+zidval).html(data);
+                    console.dir(data);
+                });
+
+
+    }
+    }).focus(function(){
+        $(this).data("ui-autocomplete").search("");
+    });
+
+
+
+
+});	
+</script>				
+{% endblock %}		

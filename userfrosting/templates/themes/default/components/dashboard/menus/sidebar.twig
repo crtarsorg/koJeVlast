@@ -50,12 +50,21 @@
             <li>
               <a href="{{site.uri.public}}/promene"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_PROMENE") }}</a>
             </li>
-        {% endif %}			
+        {% endif %}	
+
+		{% if checkAccess('uri_promene_zahtev') %}	<!-- uri_promene_zahtev -->
+            <li>
+              <a href="{{site.uri.public}}/promeneZahtev"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_PROMENE_ZAHTEV") }}</a>
+            </li>
+        {% endif %}	
+
+
+		
         
         {% if checkAccess('uri_zerg') %}
-        <li>
+        <!--<li>
             <a href="{{site.uri.public}}/zerg"><i class="sc sc-zerg fa fa-fw"></i> Zerg</a>
-        </li>
+        </li> -->
         {% endif %}
         {% if checkAccess('uri_users') %}
         <li>
@@ -63,9 +72,9 @@
         </li>
         {% endif %}
         {% if checkAccess('uri_group_users', { ('primary_group_id') : 4 }) %}
-        <li>
+        <!--<li>
             <a href="{{site.uri.public}}/users/zerglings"><i class="sc sc-zergling fa-fw"></i> Zerglings</a>
-        </li>
+        </li>-->
         {% endif %}
         {% if checkAccess('uri_site_settings') or checkAccess('uri_manage_groups') %}
         <li>

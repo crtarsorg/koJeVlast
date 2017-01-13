@@ -818,6 +818,29 @@
     });
 
 
+    ////////////////////////////////////////
+    /// Promene - ZAHTEV
+    $app->get('/promeneZahtev/?', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_zahtev')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromeneZahtev([]);
+        $evt->lista($app);
+    });
+
+    $app->post('/promeneZahtev/update', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_zahtev')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromeneZahtev([]);
+        $evt->updateStatusZahteva($app);
+    });
+
+
+
+
 
     ////////////////////////////////////////
     ////////////////////////////////////////

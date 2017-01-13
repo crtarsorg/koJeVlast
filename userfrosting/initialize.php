@@ -171,6 +171,16 @@ $table_promene = new \UserFrosting\DatabaseTable("promene", [
 ]);
 \UserFrosting\Database::setSchemaTable("promene", $table_promene);
 
+$table_zahtevi = new \UserFrosting\DatabaseTable("zahtevi", [
+    "zid",
+    "zakter",
+    "zopstina",
+    "zmail",
+    "zaopis",
+    "zdokaz",
+    "zstatus"
+]);
+\UserFrosting\Database::setSchemaTable("zahtevi", $table_zahtevi);
 
 
 

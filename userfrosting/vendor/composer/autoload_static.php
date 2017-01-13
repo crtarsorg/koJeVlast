@@ -194,6 +194,7 @@ class ComposerStaticInitc52ebfbf30fadb1cecddae09d70e0ca9
         'UserFrosting\\xKo' => __DIR__ . '/../..' . '/models/database/xKo.php',
         'UserFrosting\\xOpstine' => __DIR__ . '/../..' . '/models/database/xOpstine.php',
         'UserFrosting\\xPromene' => __DIR__ . '/../..' . '/models/database/xPromene.php',
+        'UserFrosting\\xPromeneZahtev' => __DIR__ . '/../..' . '/models/database/xPromeneZahtev.php',
         'UserFrosting\\xStranke' => __DIR__ . '/../..' . '/models/database/xStranke.php',
         'ntlm_sasl_client_class' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/ntlm_sasl_client.php',
         'phpmailerException' => __DIR__ . '/..' . '/phpmailer/phpmailer/class.phpmailer.php',
