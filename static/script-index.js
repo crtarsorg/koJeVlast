@@ -1,6 +1,14 @@
-$("#indikator").load("forma.html")
 
-$.get("modal.html", function(data) {
+var BASE_PATH =  "http://163.172.168.118:8055/";
+var DATA_PATH = // BASE_PATH + "admin/api/opstine";
+"data/podaciOpstina.json?2";
+var FILES_PATH = "partials/"
+
+var stranke_vlast = "data/dataApi.json";
+
+$("#indikator").load(FILES_PATH +"forma.html")
+
+$.get(FILES_PATH + "modal.html", function(data) {
     $("#mainWrapper").append(data);
 });
 
@@ -21,9 +29,35 @@ var Data = (function() {
 })();
 
 
+var DataStranke = (function() {
+    var _data = [];
+    return {
+        set: function(d) {
+            _data = d;
+        },
+
+        get: function() {
+            return _data;
+        }
+    }
+})();
+
+
 // struktura podatka u fajlu po opstini je losa
-$.getJSON('data/poOpstiniNew.json?2', function(json, textStatus) {
+$.getJSON(DATA_PATH, function(json, textStatus) {
     Data.set(json);
+});
+
+// struktura podatka u fajlu po opstini je losa
+$.getJSON(stranke_vlast, function(json, textStatus) {
+
+
+    var stranke = [];
+    
+    json.forEach(function(el, ind){stranke = _.union(stranke, el.vlast)})
+    //uzmi stranke na vlasti
+
+    DataStranke.set(stranke);
 });
 
 $("#mapa").load("srbija.svg", function() {
@@ -41,7 +75,7 @@ $("#mapa").load("srbija.svg", function() {
 
     $(".prijavi").click(function() {
 
-        var url = "http://163.172.168.118:8055/posaljiPromenu.html";
+        var url = BASE_PATH + "posaljiPromenu.html";
         var win = window.open(url, '_blank');
         win.focus();
 
@@ -68,23 +102,26 @@ function mouseEvents(selektor) {
 
 
     $(selektor).click(function() {
-        var temp = $(this).parent()[0].id
+        var temp = $(this).attr('opstina')
+
+        //pribavi podatke na osnovu id-a
 
         //uzmi podatke po opsitni
         //potrebi su dobri identifikatori na mapi; 
         //ali i u podacima
         var podaci = Data.get();
+      
 
-        var tempData = Object.keys(podaci);
-        random_index = parseInt(Math.random() * tempData.length);
+        /*var array = $.map(podaci, function(value, index) {
+            return [value];
+        });*/
+        /*  var filter_op = podaci.filter(function(el) {
+            return +el.idopstine == +temp;
+        })*/
 
-        random_index = tempData[random_index];
 
-        console.log(random_index);
-        console.log(tempData.length);
-
-        temp = podaci[random_index];
-        popuni_modal(temp);
+        //temp = podaci[random_index];
+        popuni_modal(podaci);
 
         drawSvg();
 
@@ -98,7 +135,7 @@ function popuni_modal(pod_opstina) {
 
     //$var_novo = $(".single-row").clone();
     $("tbody").empty();
-    var podaci_opstina = pod_opstina.podaci;
+    var podaci_opstina = pod_opstina;
 
     for (var i = 0; i < podaci_opstina.length; i++) {
         var temp = podaci_opstina[i];
@@ -106,11 +143,11 @@ function popuni_modal(pod_opstina) {
         //setuj promenljive
         var jedan_red =
             '<tr class="single-row">' +
-            '<td class="row-ime">' + temp.ime_prezime + '</td>' +
+            '<td class="row-ime">' + temp.ime + " " + temp.prezime + '</td>' +
             '<td class="row-stranka">' + temp.stranka + '</td>' +
             '<td class="row-funkcija">' + temp.funkcija + '</td>' +
-            '<td class="row-koalicija">' + temp.koalicija + '</td>' +
-            '<td class="row-vlast">' + temp.u_vlasti + '</td>' +
+            '<td class="row-koalicija">' + temp.datrodj + '</td>' +
+            '<td class="row-vlast">' + temp.pol + '</td>' +
             '<td class="row-promena">' + '<a href="#" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
             '</tr>';
         $("tbody").append(jedan_red);
