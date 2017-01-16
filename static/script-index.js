@@ -33,6 +33,7 @@ var Data = (function() {
 var DataStranke = (function() {
     var _data = [];
     var _stranke = [];
+    var _Opstine = [];
 
     return {
         set: function(d) {
@@ -49,12 +50,35 @@ var DataStranke = (function() {
 
         getStranke: function() {
             return _stranke;
+        },
+
+        setOpstine: function(d) {
+            _Opstine = d;
+        },
+
+        getOpstine: function() {
+            return _Opstine;
         }
     }
 })();
 
 
+
+function podaciOdborniciOpstina(idOpstine) {
+    $.getJSON(BASE_PATH + "admin/api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
+        $("tbody").empty();
+
+        tabelaOdbornika(json)
+    });
+}
+
+
+
 // struktura podatka u fajlu po opstini je losa
+$.getJSON(BASE_PATH +"admin/api/opstine", function(json, textStatus) {
+    DataStranke.setOpstine(json);
+});
+
 $.getJSON(DATA_PATH, function(json, textStatus) {
     Data.set(json);
 });
@@ -120,17 +144,22 @@ function mouseEvents(selektor) {
     $(selektor).click(function() {
         var temp = $(this).attr('opstina')
         var naslov = "Naslov ";
-      
-        //uzmi podatke po opsitni
-        //potrebi su dobri identifikatori na mapi; 
-        //ali i u podacima
-        var podaci = DataStranke.get();
         
-        var opstina = podaci.filter(function(el){return el.idopstine == temp})
-        if(opstina.length > 0 )
+        var odbornici = Data.get();
+        var podaci = DataStranke.getOpstine();
+        
+        var opstina = podaci.filter(function(el){return el.oidopstine == temp})
+        
+        console.log(opstina);
+        var id = 0;
+        if(opstina.length > 0 ){
             naslov = opstina[0].opstina;
+            id = opstina[0].opid;
+        }
         //temp = podaci[random_index];
-        popuni_modal(podaci, naslov);
+                
+        podaciOdborniciOpstina( id );// id opstine
+        naslov_modal( naslov);
 
         drawSvg();
 
@@ -140,16 +169,18 @@ function mouseEvents(selektor) {
 
 }
 
-function popuni_modal(odb_opstina, naslov) {
+function naslov_modal(naslov) {
+    $(".modal-title").html( naslov );    
+    
+}
 
-    $(".modal-title").html( naslov );
+function tabelaOdbornika(podaci) {
 
     //$var_novo = $(".single-row").clone();
-    $("tbody").empty();
-    var podaci_opstina = odb_opstina;
+   
 
-    for (var i = 0; i < podaci_opstina.length; i++) {
-        var temp = podaci_opstina[i];
+    for (var i = 0; i < podaci.length; i++) {
+        var temp = podaci[i];
 
         //setuj promenljive
         var jedan_red =
@@ -165,9 +196,8 @@ function popuni_modal(odb_opstina, naslov) {
 
 
     }
-
-
 }
+
 
 function resetColors(argument) {
     $(base_selektor + ">*").css("fill", "rgb(155, 227, 220)");
@@ -195,7 +225,7 @@ function initOpstine() {
 
             var opstina_temp  =  list.filter(function(el) {return el.value == tekst }); 
             var query = "[opstina='"+opstina_temp[0].data+"']";
-            console.log(query);
+            
             $( query).css("fill","red")
 
         })
