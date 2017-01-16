@@ -1,7 +1,9 @@
 
 var BASE_PATH =  "http://163.172.168.118:8055/";
 var DATA_PATH = // BASE_PATH + "admin/api/opstine";
-"data/podaciOpstina.json?2";
+
+    "data/podaciOpstina.json?2";
+
 var FILES_PATH = "partials/"
 
 var stranke_vlast = "data/dataApi.json";
@@ -131,11 +133,11 @@ function mouseEvents(selektor) {
 
 }
 
-function popuni_modal(pod_opstina) {
+function popuni_modal(odb_opstina) {
 
     //$var_novo = $(".single-row").clone();
     $("tbody").empty();
-    var podaci_opstina = pod_opstina;
+    var podaci_opstina = odb_opstina;
 
     for (var i = 0; i < podaci_opstina.length; i++) {
         var temp = podaci_opstina[i];
