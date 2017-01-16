@@ -1,8 +1,7 @@
 
 var BASE_PATH =  "http://163.172.168.118:8055/";
-var DATA_PATH = // BASE_PATH + "admin/api/opstine";
-
-    "data/podaciOpstina.json?2";
+var OPSTINE =  BASE_PATH + "admin/api/opstine";
+var DATA_PATH = "data/podaciOpstina.json?2";
 
 var FILES_PATH = "partials/"
 
@@ -74,7 +73,7 @@ $.getJSON(stranke_vlast, function(json, textStatus) {
 
 
 
-
+//glavni load
 $("#mapa").load("srbija.svg", function() {
 
     //$("#mapa").trigger("ucitano", ["Custom", "Event"]);
@@ -95,6 +94,8 @@ $("#mapa").load("srbija.svg", function() {
         win.focus();
 
     })
+
+    initOpstine();
 });
 
 
@@ -170,4 +171,34 @@ function popuni_modal(odb_opstina, naslov) {
 
 function resetColors(argument) {
     $(base_selektor + ">*").css("fill", "rgb(155, 227, 220)");
+}
+
+
+
+function initOpstine() {
+
+    var ajax = new XMLHttpRequest();
+    ajax.open("GET", OPSTINE, true);
+
+    ajax.onload = function() {
+        var list = JSON.parse(ajax.responseText).map(function(i) { 
+            return {label:i.opstina,value:i.opstina,data:i.oidopstine};      
+        //{label:i.opstina/*, value:i.oidopstine*/};
+         });
+        new Awesomplete(
+            document.querySelector("#opstinaSearch"),
+            {  list: list           
+        });
+
+        $("#opstinaSearch").on("awesomplete-selectcomplete", function (ev, datum) {
+            var tekst = ev.originalEvent.text;
+
+            var opstina_temp  =  list.filter(function(el) {return el.value == tekst }); 
+            var query = "[opstina='"+opstina_temp[0].data+"']";
+            console.log(query);
+            $( query).css("fill","red")
+
+        })
+    };
+    ajax.send();
 }
