@@ -33,6 +33,8 @@ var Data = (function() {
 
 var DataStranke = (function() {
     var _data = [];
+    var _stranke = [];
+
     return {
         set: function(d) {
             _data = d;
@@ -40,6 +42,14 @@ var DataStranke = (function() {
 
         get: function() {
             return _data;
+        },
+
+        setStranke: function(d) {
+            _stranke = d;
+        },
+
+        getStranke: function() {
+            return _stranke;
         }
     }
 })();
@@ -52,15 +62,18 @@ $.getJSON(DATA_PATH, function(json, textStatus) {
 
 // struktura podatka u fajlu po opstini je losa
 $.getJSON(stranke_vlast, function(json, textStatus) {
-
+    DataStranke.set(json)
 
     var stranke = [];
     
     json.forEach(function(el, ind){stranke = _.union(stranke, el.vlast)})
     //uzmi stranke na vlasti
 
-    DataStranke.set(stranke);
+    DataStranke.setStranke(stranke);
 });
+
+
+
 
 $("#mapa").load("srbija.svg", function() {
 
@@ -105,25 +118,18 @@ function mouseEvents(selektor) {
 
     $(selektor).click(function() {
         var temp = $(this).attr('opstina')
-
-        //pribavi podatke na osnovu id-a
-
+        var naslov = "Naslov ";
+      
         //uzmi podatke po opsitni
         //potrebi su dobri identifikatori na mapi; 
         //ali i u podacima
-        var podaci = Data.get();
-      
-
-        /*var array = $.map(podaci, function(value, index) {
-            return [value];
-        });*/
-        /*  var filter_op = podaci.filter(function(el) {
-            return +el.idopstine == +temp;
-        })*/
-
-
+        var podaci = DataStranke.get();
+        
+        var opstina = podaci.filter(function(el){return el.idopstine == temp})
+        if(opstina.length > 0 )
+            naslov = opstina[0].opstina;
         //temp = podaci[random_index];
-        popuni_modal(podaci);
+        popuni_modal(podaci, naslov);
 
         drawSvg();
 
@@ -133,7 +139,9 @@ function mouseEvents(selektor) {
 
 }
 
-function popuni_modal(odb_opstina) {
+function popuni_modal(odb_opstina, naslov) {
+
+    $(".modal-title").html( naslov );
 
     //$var_novo = $(".single-row").clone();
     $("tbody").empty();
