@@ -231,7 +231,7 @@ function tabelaOdbornika(podaci) {
             '<td class="row-vlast">' + temp.pol + '</td>' +
             '<td class="row-promena">' + '<a href="#" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
             '</tr>';
-        $("tbody").append(jedan_red);
+        $(".modal tbody").append(jedan_red);
 
 
     }
