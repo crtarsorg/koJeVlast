@@ -105,7 +105,7 @@ $("#mapa").load("srbija.svg", function() {
 
     mouseEvents(selektor);
 
-    $("#mapa").prepend("<button class='prijavi btn btn-danger'>Prijavi promenu</button>")
+    $("#mapa").prepend("<button class='prijavi btn btn-lg btn-danger'>Prijavi promenu</button>")
 
     /*  $("#juzna_i_istocna_srbija_1>g").hide()
       $("#zapadna_backa_2>g").hide()
@@ -133,6 +133,8 @@ function mouseEvents(selektor) {
         .on("mouseover.boja", function() {
             trenutna_boja = $(this).css("fill");
             $(this).css("fill", "orange");
+
+            sideDetails($(this).attr("opstina"));
         });
 
     $(selektor)
@@ -140,6 +142,7 @@ function mouseEvents(selektor) {
             //uzeti koja je trenutna boja 
 
             $(this).css("fill", trenutna_boja);
+             $(".detalji_title").html("")
         });
 
 
@@ -173,6 +176,40 @@ function mouseEvents(selektor) {
 
 function naslov_modal(naslov) {
     $(".modal-title").html( naslov );    
+    
+}
+
+
+function sideDetails(idOpstine) {
+
+    var naslov_detalji = "Stranke u vlasti"
+
+
+    $("#detalji table").empty();
+    //stranke koje ucestvuju u vlasti 
+    var podaciOpstine = DataStranke.get();
+
+    var opstina = podaciOpstine.filter(function(el) {
+        return el.idopstine == idOpstine ;
+    });
+
+    if(opstina == undefined 
+        || opstina ==null 
+        || opstina.length==0) 
+            return;
+
+    var stranke = opstina[0].vlast;
+
+    if(stranke ==undefined) 
+        return;
+
+    naslov_detalji += " " + opstina[0].opstina
+    $(".detalji_title").html(naslov_detalji)
+
+    for (var i = 0; i < stranke.length; i++) {
+        
+        $("#detalji table").append("<tr><td>"+stranke[i]+"</td></tr>")
+    }
     
 }
 

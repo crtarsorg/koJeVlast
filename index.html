@@ -2,44 +2,35 @@
 <html lang="en">
 
 <head>
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">		
-
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta charset="UTF-8">
     <title>Ko je vlast</title>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    
-	<!-- bootstrap -->
+    <!-- bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
-
-	<!-- d3 & viz -->
+    <!-- d3 & viz -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.0/d3.min.js"></script>
     <script src="viz/donut.js"></script>
-    
-
     <!-- data tables -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.min.js"></script>
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.1/awesomplete.min.js"></script>
-
-	<!-- stilovi  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.1/awesomplete.min.js"></script>
+    <!-- stilovi  -->
     <link rel="stylesheet" type="text/css" href="static/style-index.css">
-
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.1/awesomplete.min.css">
-
     <style type="text/css">
-		body {
-			/* or http://lea.verou.me/css3patterns/ */
-		    background: url("./static/body-bg.jpg") !important;
-		    height: 100%;
-		}
-
-
+    body {
+        /* or http://lea.verou.me/css3patterns/ */
+        background: url("./static/body-bg.jpg") !important;
+        height: 100%;
+    }
+    
+    #opis {
+        max-height: 300px;
+        margin-top: 100px;
+    }
     </style>
 </head>
 
@@ -64,7 +55,6 @@
                     <li><a href="partials/tabela.html">Tabele sa podacima</a></li>
                     <li><a href="partials/prijavljivanje.html">Prijavi promenu</a></li>
                 </ul>
-               
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -72,23 +62,17 @@
     <div class="container-fluid" id="mainWrapper">
         <div id="mapa" class="col-lg-8"></div>
         <div id="indikator" class="col-lg-4"> </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        	wow kakav shorthand
-			<br>
-        	daj mi malo loream
-
-        	<br>
-			
-        	<br>
-        	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        	tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        	quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        	consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        	cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        	proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div id="opis" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div id="detalji" class="clear" >
+                <h3 class="detalji_title">Stranke u vlasti</h3>
+                <table class="table table-striped">
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
     <script src="static/script-index.js"></script>
 </body>
 
