@@ -83,7 +83,7 @@ $.getJSON(DATA_PATH, function(json, textStatus) {
     Data.set(json);
 });
 
-// struktura podatka u fajlu po opstini je losa
+
 $.getJSON(stranke_vlast, function(json, textStatus) {
     DataStranke.set(json)
 
@@ -120,6 +120,8 @@ $("#mapa").load("srbija.svg", function() {
     })
 
     initOpstine();
+    initStranka();
+    initRegioni();
 });
 
 
@@ -150,7 +152,7 @@ function mouseEvents(selektor) {
         
         var opstina = podaci.filter(function(el){return el.oidopstine == temp})
         
-        console.log(opstina);
+        
         var id = 0;
         if(opstina.length > 0 ){
             naslov = opstina[0].opstina;
@@ -231,4 +233,34 @@ function initOpstine() {
         })
     };
     ajax.send();
+}
+
+
+
+function initStranka(argument) {
+    //napravis selekt opcije
+    var data = DataStranke.getStranke();
+
+    for (var i = 0; i < data.length; i++) {
+        $("#stranka").append("<option value='"+data[i]+"'>"+data[i]+"</option>")
+        
+    }
+
+    //
+}
+
+function initRegioni(argument) {
+    var data = DataStranke.getOpstine();
+
+    //trebaju mi unique regioni
+    var okruzi = data.map(function (el, ind) {
+        return {okrug:el.okrug, idOkrug:el.oidokruga}
+    })
+
+    
+    var jedinstveni = _.uniqBy(okruzi, 'okrug' )
+
+    for (var i = 0; i < jedinstveni.length; i++) {
+        $("#regioni").append("<option value='"+jedinstveni[i].idOkrug+"'>"+jedinstveni[i].okrug+"</option>")        
+    }
 }

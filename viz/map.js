@@ -20,11 +20,13 @@ function poKoaliciji() {
 		
 		var filt = temp.filter(function(el) {
 			var temp_el = el.podaci;
-			var ukupno = temp_el.length;
+			var ukupno = temp_el.length || 0;
 
 			var broj = temp_el.filter(function (el1) {
 				return el1.koalicija == koal;
 			}).length;
+
+			if(ukupno ==0) return false;
 
 			return (broj/ukupno) > 0.5; 
 			
@@ -68,16 +70,20 @@ function poStranci(argument) {
 		var str = event.target.value;
 
 		//filtriraj skup podataka
-		var temp = Data.get();
+		var temp = DataStranke.get();
 		//var arr = Object.keys(temp).map(function (key) { return temp[key]; });
 		
 		var filt = temp.filter(function(el) {
-			var temp_el = el.podaci;
-			var ukupno = temp_el.length;
+			var temp_el = el.vlast;
+			var ukupno = temp_el !=undefined? temp_el.length : 0;
+
+			if(ukupno ==0) return false;
 
 			var broj = temp_el.filter(function (el1) {
-				return el1.stranka == str;
+				return el1 == str;
 			}).length;
+			
+			
 
 			return (broj) > 0; ///ukupno
 			
@@ -101,11 +107,14 @@ function poStranci(argument) {
 function poRegionu() {
 	$("#regioni").change(function(event) {
 		var region = event.target.value;
-
+		
+		if(region.length ==1) region="0"+region;
 		//daj sve opstine iz tog regiona
 		resetColors();
-		
-		$("g:not(#granice)[id*='"+region+"'] *").children().css("fill","red");
+		debugger;
+		//$("g[okrug='"+region+"']>g[id*='flat']").css("fill","red");
+		$("g[okrug='"+region+"']>g").hide();
+		$("g[okrug='"+region+"']>[id*='flat']").css("fill","red");//bojenje
 		debugger;
 		
 		//oboj mapu prema filtriranim opstinama 
