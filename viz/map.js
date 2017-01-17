@@ -111,14 +111,17 @@ function poRegionu() {
 		if(region.length ==1) region="0"+region;
 		//daj sve opstine iz tog regiona
 		resetColors();
-		debugger;
+		
+		//debugger;
+		
 		//$("g[okrug='"+region+"']>g[id*='flat']").css("fill","red");
 		$("g[okrug='"+region+"']>g").hide();
 		$("g[okrug='"+region+"']>[id*='flat']").css("fill","red");//bojenje
-		debugger;
 		
-		//oboj mapu prema filtriranim opstinama 
-		   //debugger;
+		//TODO treba sa strane prikazati detalje o okrugu
+		//koliko opstina ima, koje stranke ucestvuju u vlasti
+		//koliko ima ukupno stanovnika ...
+		
 	 	
 	});
 }
