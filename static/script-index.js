@@ -215,6 +215,8 @@ function sideDetails(idOpstine) {
 
 function tabelaOdbornika(podaci) {
 
+
+    //ovde bi trebali ubaciti data tables 
     //$var_novo = $(".single-row").clone();
    
 
