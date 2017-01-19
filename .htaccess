@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+#rewite /test/ to test.html
+RewriteBase /
+
+   # Remove trailing slash from any non-directory path (canonicalization) - GET requests only
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_METHOD}  =GET
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    #rewrite all request to requestname.html page
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ partials/$1.html [L]
+
+</IfModule>
