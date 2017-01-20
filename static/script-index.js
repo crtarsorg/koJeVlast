@@ -113,7 +113,7 @@ $("#mapa").load("srbija.svg", function() {
 
     $(".prijavi").click(function() {
 
-        var url = BASE_PATH + "posaljiPromenu.html";
+        var url =  "./posaljitePromenu.html";
         var win = window.open(url, '_blank');
         win.focus();
 
@@ -231,7 +231,7 @@ function tabelaOdbornika(podaci) {
             '<td class="row-funkcija">' + temp.funkcija + '</td>' +
             '<td class="row-koalicija">' + temp.datrodj + '</td>' +
             '<td class="row-vlast">' + temp.pol + '</td>' +
-            '<td class="row-promena">' + '<a href="#" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
+            '<td class="row-promena">' + '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
             '</tr>';
         $(".modal tbody").append(jedan_red);
 
