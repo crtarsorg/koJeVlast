@@ -297,7 +297,9 @@ function initRegioni(argument) {
     })
 
     
-    var jedinstveni = _.uniqBy(okruzi, 'okrug' )
+    var jedinstveni = _.uniq(okruzi, function(e) {return e.okrug} );
+
+   // console.log(jedinstveni);
 
     for (var i = 0; i < jedinstveni.length; i++) {
         $("#regioni").append("<option value='"+jedinstveni[i].idOkrug+"'>"+jedinstveni[i].okrug+"</option>")        
