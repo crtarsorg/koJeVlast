@@ -589,6 +589,15 @@
         $evt->addOpstinaPost($app);
     });
 
+    $app->post('/opstine/addDoc', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_opstine_edit')){
+            $app->notFound();
+        }
+
+        $evt = new UF\xOpstine([]);
+        $evt->opstinaAddDocPost($app);
+    });
 
 
 

@@ -16,28 +16,57 @@
 {{dump}}
 </pre>
 
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >
 				
 			{# If we are not using server-side pagination, then just render all results immediately #}
                 {% if not paginate_server_side %}
 					{% for opstina in opstine %}
-
+<section>
 <form name="user" method="post" id="opstinaEditForm" action="{{form_action}}">
-    <div class="row">					
+    <div class="row">
 					
 						<div id="{{alerts_id | default('form-alerts')}}"></div>
         
-						<div class="col-sm-8">
+						<div class="col-sm-12">
 							<div class="form-group">
-						
 								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Naziv</span>
 									<input type="text" class="form-control" name="opstina" autocomplete="off" value="{{opstina.opstina}}" placeholder="Opstina" >
 								</div>
 							</div>
 						</div>
 						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Povrsina</span>
+									<input type="text" class="form-control" name="povrsina" autocomplete="off" value="{{opstina.opov}}" placeholder="Povrsina" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Stanovnika</span>
+									<input type="text" class="form-control" name="stanovnika" autocomplete="off" value="{{opstina.opop}}" placeholder="Broj stanovnika" >
+								</div>
+							</div>
+						</div>							
 						
-						<div class="col-sm-4">
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Web</span>
+									<input type="text" class="form-control" name="link" autocomplete="off" value="{{opstina.olink}}" placeholder="Web link sajta" >
+								</div>
+							</div>
+						</div>	
+
+
+						
+						
+						<div class="col-sm-12">
 								
 								<div class="vert-pad">
 									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
@@ -45,59 +74,158 @@
 									</button>
 								</div> 		
 						</div>						
+
 						
 	
 	</div>
 
-	
-	
+
+
 	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
 	<input type="hidden" name="userid" value="{{opstina.opid}}">
-	
-</form>					
-					
+
+</form>
+</section>
                     {% endfor %}
                 {% endif %}						
-				
-				
+
+<div class="clearfix"></div>
+
+<!-- dodaj novi dok za opstinu -->
+<section >
+<form  id="opstinaAddDoc" >
+    <div class="row">
+
+						<div id="{{alerts_id | default('form-alerts')}}"></div>
+
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Naziv dokumenta</span>
+									<input type="text" class="form-control" id="docnaziv" name="docnaziv" autocomplete="off" value="{{opstina.opstina}}" placeholder="Unesite naziv dokumenta (label)" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Dokument</span>
+									<input type="file" class="form-control" id="doc"  name="doc" autocomplete="off" value="" placeholder="" >
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-12">
+								
+								<div class="vert-pad">
+									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
+									<i class="fa fa-edit"></i>Dodaj novi dokument za opstinu
+									</button>
+								</div>
+						</div>
+
+	</div>
+
+	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
+	<input type="hidden" id="owner" name="owner" value="{{opstine[0].opid}}">
+
+</form>
+<div class="clearfix"></div>
+<div id="docalerts"></div>
+</section>
+
+<div class="clearfix"></div>
+
             {% endblock %}
 
 
 			
 			
 {% block page_scripts %}
+
+<style>
+.input-group-addon {
+    min-width:155px;
+	text-align: left;
+}
+</style>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script>
 $( document ).ready(function() {
 
-	$("#opstinaEditForm").submit(function(e) {
+// Add docs
+	$("#opstinaAddDoc").submit(function(e) {
+
+    e.preventDefault();
+
+    var file_data = $('#doc').prop('files')[0];
+    var form_data = new FormData();
+    form_data.append('file', file_data);
+    form_data.append('{{csrf_key}}', '{{csrf_token}}');
 
 		$.ajax({
 			   type: "POST",
+			   url: "{{site.uri.public}}/opstine/addDoc",
+			   data: form_data,
+               cache: false,
+               contentType: false,
+               processData: false,
+ 			   success: function(data)
+			   {
+                    //refresh changes after adding or updating
+                    //ucitajPromene($("#akter").val());
+
+					$("#docalerts").fadeOut(200,function(){
+						$('#docalerts').html(data);
+						$("#docalerts").fadeIn(500, function(){
+							//$("#docalerts").fadeOut(5000);
+						});
+					});
+
+
+
+			   }
+			 });
+
+
+	});
+
+
+
+
+
+
+// Edit opstina INFO
+	$("#opstinaEditForm").submit(function(e) {
+
+        e.preventDefault();
+
+        $.ajax({
+			   type: "POST",
 			   url: window.location.href,
-			   data: $("#opstinaEditForm").serialize(), 
+			   data: $("#opstinaEditForm").serialize(),
 			   success: function(data)
 			   {
-					
+
 					$("#userfrosting-alerts").fadeOut(200,function(){
 						$('#userfrosting-alerts').html(data);
 						$("#userfrosting-alerts").fadeIn(500, function(){
 							//$("#userfrosting-alerts").fadeOut(5000);
 						});
-					});					
-					
-					
-					
+					});
+
+
+
 			   }
 			 });
 
-		e.preventDefault(); 
+
 	});
-
 	
 
-	
-	
 });
 </script>				
 {% endblock %}			

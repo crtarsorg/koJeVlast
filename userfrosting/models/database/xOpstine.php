@@ -81,17 +81,23 @@ class xOpstine extends UFModel {
         }
 
 //check if post same as existing data - prevent 0 on update
-$restest = $conn->table('opstine')->where('opid', '=', $oid)->get();
-if( $restest[0]['opstina'] == $_POST['opstina']    )
-{ die('<div class="alert alert-danger">Data you submited is the <b>SAME</b> as data in database. Aborting...</div>') ; }
+//$restest = $conn->table('opstine')->where('opid', '=', $oid)->get();
+//if( $restest[0]['opstina'] == $_POST['opstina']    )
+//{ die('<div class="alert alert-danger">Data you submited is the <b>SAME</b> as data in database. Aborting...</div>') ; }
 
-//proveriti da li ista opstina vec postoji u bazi - pre dodavanja
-$resexist = $conn->table('opstine')->where('opstina', '=', $_POST['opstina'])->get();
-if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju menjate vec postoji u bazi (nova vrednost koju ste poslali vec postoji u bazi).</div>');}
+////proveriti da li ista opstina vec postoji u bazi - pre dodavanja
+//$resexist = $conn->table('opstine')->where('opstina', '=', $_POST['opstina'])->get();
+//if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju menjate vec postoji u bazi (nova vrednost koju ste poslali vec postoji u bazi).</div>');}
+
+//$fp = fopen( __DIR__ .'../../../../../public_html/files/docs/pubht.txt', 'w');
+//fwrite($fp, '1');
+//fwrite($fp, '23');
+//fclose($fp);
+
 
 
         //UPDATE TABLE DATA
-        $res =  $conn->table('opstine')->where('opid', '=', $oid)->update([  'opstina' => $_POST['opstina'] ]);
+        $res =  $conn->table('opstine')->where('opid', '=', $oid)->update([  'opstina' => $_POST['opstina'],'opov' => $_POST['povrsina'],'opop' => $_POST['stanovnika'],'olink' => $_POST['link'] ]);
 
         if($res){
             die('<div class="alert alert-success">Opstina updated.</div>');
@@ -121,7 +127,7 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju menjate
     public function addOpstinaPost($app){
 
         $conn = Capsule::connection();
-        $dump=""; 
+        $dump="";
 
         ///Validacija POST-a
         $post = $app->request->post();
@@ -156,6 +162,42 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
         }else {
             die('<div class="alert alert-danger">Opstina NIJE dodata... Kontaktirajte podrsku...</div>');
         }
+
+
+    }
+
+
+    public function opstinaAddDocPost($app){
+
+        $conn = Capsule::connection();
+        $dump="";
+        $resp="";
+
+        ///Validacija POST-a
+        $post = $app->request->post();
+
+        if(!file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
+            echo '<div class="alert alert-danger">Niste poslali fajl.</div>';
+        }
+        else {
+            $r = move_uploaded_file($_FILES['file']['tmp_name'],  __DIR__ .'../../../../../public_html/files/docs/' . $_FILES['file']['name']);
+            if($r){
+                $resp = "File copied to server. ";
+                //ubaci fajl u bazu
+
+
+
+
+                //finish if ok
+                echo '<div class="alert alert-info">'.$resp.'</div>';
+
+            } else {$resp = "Error... File NOT copied to server. ";}
+        }
+
+        //var_dump($post);
+        //var_dump($_FILES);
+        die();
+
 
 
     }
