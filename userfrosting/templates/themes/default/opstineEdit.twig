@@ -166,6 +166,13 @@ $( document ).ready(function() {
     form_data.append('file', file_data);
     form_data.append('{{csrf_key}}', '{{csrf_token}}');
 
+	$("#docalerts").fadeOut(200,function(){
+						$('#docalerts').html('    <div class="alert alert-info">Please wait... Uploading file... </div>');
+						$("#docalerts").fadeIn(500, function(){
+							//$("#docalerts").fadeOut(5000);
+						});
+					});
+
 		$.ajax({
 			   type: "POST",
 			   url: "{{site.uri.public}}/opstine/addDoc",
