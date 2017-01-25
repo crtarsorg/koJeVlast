@@ -1,10 +1,13 @@
 <?php
 
 //temp allow origin za Mihajla
-header("Access-Control-Allow-Origin: http:/kojenavlasti.rs");
-header("Access-Control-Allow-Origin: http://127.0.0.1");
+//prosirena verzija
+$corsOrigin = $_SERVER['HTTP_ORIGIN'];
+if($corsOrigin=="http://kojenavlasti.rs" || $corsOrigin=="http://127.0.0.1"  ){
+header("Access-Control-Allow-Origin: ".$corsOrigin);
 header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+}
 
     // This is the path to initialize.php, your site's gateway to the rest of the UF codebase!  Make sure that it is correct!
     $init_path = "../userfrosting/initialize.php";
