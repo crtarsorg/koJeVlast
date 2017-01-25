@@ -1,5 +1,5 @@
 
-var BASE_PATH =  "http://163.172.168.118:8055/";
+var BASE_PATH =  "http://admin.kojenavlasti.rs/";
 var OPSTINE =  BASE_PATH + "admin/api/opstine";
 var DATA_PATH = "data/podaciOpstina.json?2";
 
@@ -157,14 +157,18 @@ function mouseEvents(selektor) {
         
         
         var id = 0;
-        if(opstina.length > 0 ){
-            naslov = opstina[0].opstina;
-            id = opstina[0].opid;
+
+        if(opstina.length == 0 ){
+            return;
         }
         //temp = podaci[random_index];
+        opstina_temp = opstina[0]
+        naslov = opstina_temp.opstina;
+        id = opstina_temp.opid;
                 
         podaciOdborniciOpstina( id );// id opstine
-        naslov_modal( naslov);
+        naslov_modal( naslov );
+        info_tab( opstina_temp );
 
         drawSvg();
 
@@ -172,6 +176,11 @@ function mouseEvents(selektor) {
 
     });
 
+}
+
+function info_tab( opstina ) {
+    var putanja_logo = "http://kojenavlasti.rs/files/logos/";
+    $(".logo").attr("src",putanja_logo + opstina.ologo);
 }
 
 function naslov_modal(naslov) {

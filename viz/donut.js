@@ -80,8 +80,8 @@ function drawSvg(tipPodataka) {
 
     var color = d3.scaleOrdinal(d3.schemeCategory20b);
 
-    var width = 360;
-    var height = 360;
+    var width = 250;
+    var height = 250;
     var radius = Math.min(width, height) / 2;
 
     var svg = d3.select('#viz')
