@@ -65,7 +65,7 @@ var DataStranke = (function() {
 
 
 function podaciOdborniciOpstina(idOpstine) {
-    $.getJSON(BASE_PATH + "admin/api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
+    $.getJSON( BASE_PATH + "admin/api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
         $("tbody").empty();
 
         tabelaOdbornika(json)
@@ -170,6 +170,8 @@ function mouseEvents(selektor) {
         naslov_modal( naslov );
         info_tab( opstina_temp );
 
+        dokumenta( id );
+
         drawSvg();
 
         $('#modal_id').modal('show')
@@ -186,10 +188,51 @@ function info_tab( opstina ) {
 
     var broj_stanovnika = opstina.opop ;
 
-    $("#stanovnici").html( broj_stanovnika );
-    $("#povrs").html( povrsina );
+    $("#stanovnici").html( " " +  broj_stanovnika );
+    $("#povrs").html( " " + povrsina );
 
+}
 
+function dokumenta( op_id ) {
+
+    //http://admin.kojenavlasti.rs/admin/opstine/getDocs/71
+    
+    $.get( BASE_PATH + "admin/opstine/getDocs/"+ op_id, function( data ) {
+      
+      //$( ".result" ).html( data );
+        //console.log( JSON.parse( data )  );
+          //alert( "Load was performed." );
+          data = JSON.parse(data);
+
+          var budz_temp = "";
+          var izvr_temp = "";
+          var trans_temp = "";
+          var prinuda_temp = "";
+
+          for (var i = 0,  len = data.length; i < len ; i++) {
+              if( data[i].opdkat == 1 ){
+                    budz_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/"+data[i].opdfile+"'>"+data[i].opdnaziv+"</a><br/>";
+              } 
+              else if( data[i].opdkat == 2 ){
+                    izvr_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/"+data[i].opdfile+"'>"+data[i].opdnaziv+"</a><br/>";    
+              }
+              else if( data[i].opdkat == 3 ){
+                    trans_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/"+data[i].opdfile+"'>"+data[i].opdnaziv+"</a><br/>";
+              }
+              else if( data[i].opdkat == 4 ){
+                    prinuda_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/"+data[i].opdfile+"'>"+data[i].opdnaziv+"</a><br/>";
+              }
+          }
+
+        $("#budzet_dokument").html( budz_temp );
+        $("#izvrsenje_dokument").html( izvr_temp );
+        $("#transfer_dokument").html( trans_temp );
+        $("#prinudna_dokument").html( prinuda_temp );
+
+    });
+    
+
+    
 }
 
 function naslov_modal(naslov) {
