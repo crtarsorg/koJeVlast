@@ -2,7 +2,7 @@
 
 //temp allow origin za Mihajla
 header("Access-Control-Allow-Origin: http:/kojenavlasti.rs");
-header("Access-Control-Allow-Origin: http:/127.0.0.1");
+header("Access-Control-Allow-Origin: http://127.0.0.1");
 header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
