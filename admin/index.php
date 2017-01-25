@@ -3,7 +3,7 @@
 //temp allow origin za Mihajla
 //prosirena verzija
 $corsOrigin = $_SERVER['HTTP_ORIGIN'];
-if($corsOrigin=="http://kojenavlasti.rs" || $corsOrigin=="http://127.0.0.1"  ){
+if($corsOrigin=="http://kojenavlasti.rs" || $corsOrigin=="http://127.0.0.1" || $corsOrigin=="http://localhost" ){
 header("Access-Control-Allow-Origin: ".$corsOrigin);
 header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
