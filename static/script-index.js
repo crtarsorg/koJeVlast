@@ -181,6 +181,15 @@ function mouseEvents(selektor) {
 function info_tab( opstina ) {
     var putanja_logo = "http://kojenavlasti.rs/files/logos/";
     $(".logo").attr("src",putanja_logo + opstina.ologo);
+
+    var povrsina = opstina.opov + " km2";
+
+    var broj_stanovnika = opstina.opop ;
+
+    $("#stanovnici").html( broj_stanovnika );
+    $("#povrs").html( povrsina );
+
+
 }
 
 function naslov_modal(naslov) {
