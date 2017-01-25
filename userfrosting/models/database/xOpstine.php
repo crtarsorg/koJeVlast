@@ -178,7 +178,7 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
 
         //var_dump($post);
 
-        if(file_exists(  __DIR__ .'../../../../../public_html/files/docs/' . $_FILES['file']['name']  )){
+        if(file_exists(  __DIR__ .'../../../../../public_html/files/docs/' . $_FILES['file']['name']  )){                  // TODO  zeza na serveru 
             die('<div class="alert alert-danger">Fajl sa tim imenom vec postoji.</div>');
         }
 
