@@ -176,6 +176,12 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
         ///Validacija POST-a
         $post = $app->request->post();
 
+        //var_dump($post);
+
+        if(file_exists(  __DIR__ .'../../../../../public_html/files/docs/' . $_FILES['file']['name']  )){
+            die('<div class="alert alert-danger">Fajl sa tim imenom vec postoji.</div>');
+        }
+
         if(!file_exists($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
             echo '<div class="alert alert-danger">Niste poslali fajl.</div>';
         }
@@ -184,8 +190,8 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
             if($r){
                 $resp = "File copied to server. ";
                 //ubaci fajl u bazu
-
-
+                $res =  $conn->table('opdocs')->insert([  'opdown' => $_POST['owner'],'opdnaziv' => $_POST['naziv'],'opdfile' => $_FILES['file']['name'],'opdkat' => $_POST['cat'] ]);
+                if($res){$resp .= "<br>File inserted to database. ";} else {$resp .= "<br>Error.. File NOT inserted to database. ";}
 
 
                 //finish if ok
@@ -199,6 +205,44 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
         die();
 
 
+
+    }
+
+
+
+    // API - return docs uploaded for opstina
+    public function opstinaGetDocs($app,$docid){
+
+        $conn = Capsule::connection();
+        $dump="";
+
+        $res = $conn->table('opdocs')->where('opdown', '=', $docid)->orderby('opdkat')->get();
+
+        for($i = 0; $i < count($res); $i++) {
+
+            switch ($res[$i]['opdkat']) {
+                case "1":
+                    $res[$i]['opdkatlabel']="Budžet";
+                    break;
+                case "2":
+                    $res[$i]['opdkatlabel']="Rezultati izbora";
+                    break;
+                case "3":
+                    $res[$i]['opdkatlabel']="Prinudna uprava";
+                    break;
+                case "4":
+                    $res[$i]['opdkatlabel']="Transfer iz budžeta";
+                    break;
+                case "5":
+                    $res[$i]['opdkatlabel']="Izvršenje budžeta";
+                    break;
+                default:
+                    $res[$i]['opdkatlabel']="Nekategorizovano";
+            }
+
+        }
+
+        echo json_encode($res);
 
     }
 

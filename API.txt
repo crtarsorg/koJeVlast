@@ -3,3 +3,9 @@
 /api/stranke
 /api/strankaNaVlasti/:id
 /api/strankeNaVlasti
+/api/predlozitePromenu
+/api/akteriPoOpstini/:id
+
+
+
+/opstine/getDocs/:docid

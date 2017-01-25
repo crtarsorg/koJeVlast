@@ -589,6 +589,7 @@
         $evt->addOpstinaPost($app);
     });
 
+    //OPstine - dodaj dokument
     $app->post('/opstine/addDoc', function () use ($app) {
 
         if (!$app->user->checkAccess('uri_opstine_edit')){
@@ -599,6 +600,13 @@
         $evt->opstinaAddDocPost($app);
     });
 
+
+    //OPstine - dodaj dokument - API
+    $app->get('/opstine/getDocs/:docid', function ($docid) use ($app) {
+
+        $evt = new UF\xOpstine([]);
+        $evt->opstinaGetDocs($app,$docid);
+    });
 
 
 
