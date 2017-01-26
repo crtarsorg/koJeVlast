@@ -1,14 +1,13 @@
 <style type="text/css">
-    .logo{
-        max-height: 85px;
-        float: left;
-    }
+.logo {
+    max-height: 85px;
+    float: left;
+}
 
-    .tab-pane.active{
-        padding: 10px;
-    }
+.tab-pane.active {
+    padding: 10px;
+}
 </style>
-
 <div class="modal fade" id="modal_id">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -36,38 +35,42 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
-                            
                             <img src="" alt="" class="logo">
-                            <br>    
+                            <br>
                             <span>Povrsina: </span><span id="povrs"></span>
                             <br>
                             <span>Broj stanovnika: </span><span id="stanovnici"></span>
                             <br>
-
                             <!-- <canvas width="360" height="300"></canvas> -->
                             <div id="viz"></div>
                             <div class="legendaCont">
                                 <div role="tabpanel">
                                     <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs" role="tablist">
+                                    <!-- <ul class="nav nav-tabs" role="tablist">
                                         <li role="presentation" class="active">
                                             <a href="#stranke" aria-controls="stranke" role="tab" data-toggle="tab" class="tab-filter">stranke</a>
                                         </li>
                                         <li role="presentation">
                                             <a href="#koalicije" aria-controls="tab" role="tab" data-toggle="tab" class="tab-filter">koal</a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                     <!-- Tab panes -->
-                                    <div class="tab-content">
+                                    <!-- <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active" id="stranke">
                                             <div class="naslov">
                                                 <h1>Naslov</h1>
                                             </div>
                                             <div class="legenda"></div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <!-- legenda -->
+                                <div role="tabpanel" class="tab-pane active" id="stranke">
+                                    <div class="naslov">
+                                        <h1>Naslov</h1>
+                                    </div>
+                                    <div class="legenda"></div>
+                                </div>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="tab">

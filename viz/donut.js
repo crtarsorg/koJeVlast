@@ -62,10 +62,10 @@ function draw() {
 } //draw
 
 //http://blockbuilder.org/vickygisel/c3f4eb2b16b86dd0f641263383f05a13
-function drawSvg(tipPodataka) {
+function drawSvg( podaci ) {
 
 
-	 var dataset = [
+	 /*var dataset = [
           	{ age: "lactantes", population: 74},
       		{ age: "deambuladores", population: 85},
       		{ age: "2 años", population: 840},
@@ -73,16 +73,16 @@ function drawSvg(tipPodataka) {
 	 		{ age: "4 años", population: 5472 }, 
 	 		{ age: "5 años", population: 7321 },
 
-        ];
+        ];*/
 
 	d3.selectAll('#viz svg').remove()
 	d3.selectAll('.legenda svg').remove()
 
-    var color = d3.scaleOrdinal(d3.schemeCategory20b);
+    var color = d3.scaleOrdinal( d3.schemeCategory20b );
 
     var width = 250;
     var height = 250;
-    var radius = Math.min(width, height) / 2;
+    var radius = Math.min( width, height ) / 2;
 
     var svg = d3.select('#viz')
     	.style('width', width+"px")
@@ -122,7 +122,7 @@ function drawSvg(tipPodataka) {
     var pie = d3.pie()
         .sort(null)
         .value(function(d) {
-            return d.population;
+            return d.procenat;
         });
 
 
@@ -141,13 +141,14 @@ function drawSvg(tipPodataka) {
     }, function(error, data) {
         if (error) throw error;
 
+        data = podaci;
 
-        if(tipPodataka == "stranke"){
+        /*if(tipPodataka == "stranke"){
         	data = data;
         }
         else{
 			data = dataset;
-        }
+        }*/
 
         var path = svg.selectAll('path')
             .data(pie(data))
@@ -155,10 +156,10 @@ function drawSvg(tipPodataka) {
             .append('path')
             .attr('d', arc)
             .attr('fill', function(d, i) {
-                return color(d.data.population);
+                return color( d.data.procenat );
             })
             .on("click",function (d,i) {
-            	alert("sada")
+            	//alert("sada")
             })
             .on("mouseover",function (d,i) {
             	var levo = d3.select(this);            	
@@ -207,8 +208,8 @@ function drawSvg(tipPodataka) {
             .attr('x', legendRectSize + legendSpacing)
             .attr('y', legendRectSize - legendSpacing)
             .text(function(d) {
-                console.log(d);
-                return d.data.age;
+                /*console.log(d);*/
+                return d.data.skracenica;
             });
 
 

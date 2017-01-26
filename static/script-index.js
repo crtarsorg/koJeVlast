@@ -34,6 +34,7 @@ var DataStranke = (function() {
     var _data = [];
     var _stranke = [];
     var _Opstine = [];
+    var _odbornici = [];
 
     return {
         set: function(d) {
@@ -52,6 +53,14 @@ var DataStranke = (function() {
             return _stranke;
         },
 
+        setOdbornici: function(d) {
+            _odbornici = d;
+        },
+
+        getOdbornici: function() {
+            return _odbornici;
+        },
+
         setOpstine: function(d) {
             _Opstine = d;
         },
@@ -67,6 +76,9 @@ var DataStranke = (function() {
 function podaciOdborniciOpstina(idOpstine) {
     $.getJSON( BASE_PATH + "admin/api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
         $("tbody").empty();
+
+        izracunajProcente(json);
+        DataStranke.setOdbornici(json);
 
         tabelaOdbornika(json)
     });
@@ -172,12 +184,47 @@ function mouseEvents(selektor) {
 
         dokumenta( id );
 
-        drawSvg();
+        //var procenti = izracunajProcente( DataStranke.getOdbornici());
+
+        
 
         $('#modal_id').modal('show')
 
     });
 
+}
+
+function izracunajProcente( podaci ) {
+   console.log('izracunavanje');     
+   //console.log( podaci );     
+
+   // nepoznate, null i sve ostalo stavljam u ostale
+
+   var ukupno = podaci.length;
+
+   var grupisane = _.groupBy(podaci, function (el) {
+       return el.stranka;
+   })
+
+   var statistike = []
+
+
+
+   Object.keys( grupisane ).forEach(function(el) {
+
+        var centi = el.length ;
+        //ostali
+        //nepoznate i stranke koje nisu navedene transformisati u 'ostali'
+
+        statistike.push( {stranka: el ,skracenica:el.split(' ').map(function(item){return item[0]}).join(''), procenat: centi } );         
+   })
+
+   console.log( statistike );
+
+   //sortirati ih
+   //
+
+   drawSvg( statistike );
 }
 
 function info_tab( opstina ) {
