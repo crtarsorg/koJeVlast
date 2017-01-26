@@ -21,7 +21,7 @@ class xPromene extends UFModel {
     public function lista($app){
 
         $conn = Capsule::connection();
-        $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('opstine', 'popstina', '=', 'opid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->orderBy("pid","desc")->get();
+        $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('opstine', 'popstina', '=', 'opid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->orderBy("pid","desc")->limit(10)->get();   //
         $dump="";
 
         for($i=0;$i<count($res);$i++){
@@ -39,6 +39,169 @@ class xPromene extends UFModel {
 
 
     }
+
+
+    public function listaSearch($app){
+
+    $q = $_GET['search']['value'];
+    $numres = $_GET['length'];
+    $start = $_GET['start'];
+    $sort = $_GET['order'][0]['column'];
+    $sortorder = $_GET['order'][0]['dir'];
+
+
+
+    if(empty($q)){$q='%';}
+    if(!$start){$start='0';}
+    if(!$sortorder){$sortorder='desc';}
+    if($numres=="-1"){$numres= 999999999999;}  // $recFiltered
+
+    $qe = explode(" ",$q);
+    if(count($qe)>1){
+        $qe[] = $q;
+    }
+
+
+
+    switch ($sort) {
+        case "0":
+            $sort="aime";
+            break;
+        case "1":
+            $sort="aprezime";;
+            break;
+        case "2":
+            $sort="arodjen";
+            break;
+        case "3":
+            $sort="snaziv";
+            break;
+        case "4":
+            $sort="funkcija";
+            break;
+        case "5":
+            $sort="fmesto";
+            break;
+        case "6":
+            $sort="knaziv";
+            break;
+        case "7":
+            $sort="opstina";
+            break;
+        case "8":
+            $sort="pod";
+            break;
+        case "9":
+            $sort="pdo";
+            break;
+        case "10":
+            $sort="pnavlasti";
+            break;
+        default:
+            $sort="pid";
+    }
+
+
+
+        $conn = Capsule::connection();
+
+        $recFiltered = $conn->table('promene')
+        ->select('aime', 'aprezime','arodjen','snaziv','funkcija','fmesto','knaziv','opstina','pod','pdo','pnavlasti','pid')
+        ->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
+        ->leftJoin('funkcije', 'pfunkcija', '=', 'fid')
+        ->leftJoin('koalicije', 'pkoalicija', '=', 'kid')
+        ->leftJoin('opstine', 'popstina', '=', 'opid')
+        ->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')
+
+        ->where(function ($query) use($qe) {
+                     for ($i = 0; $i < count($qe); $i++){
+                        $query->orwhere('aime', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('aprezime', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('arodjen', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('snaziv', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('funkcija', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('fmesto', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('opstina', 'like',  '' . $qe[$i] .'');
+
+                        if(is_numeric($qe[$i]) ){
+                        $query->orwhere('pod', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('pdo', 'like',  '' . $qe[$i] .'');
+                        }
+                        if($qe[$i]=="0" || $qe[$i]=="1" || $qe[$i]=="2"   ){
+                        $query->orwhere('pnavlasti', '=',  '' . $qe[$i] .'');
+                        }
+                     }
+                })
+
+        ->count();
+
+//prepare and fix limits
+
+
+
+
+        $res = $conn->table('promene')
+        ->select('aime', 'aprezime','arodjen','snaziv','funkcija','fmesto','knaziv','opstina','pod','pdo','pnavlasti','pid')
+        ->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
+        ->leftJoin('funkcije', 'pfunkcija', '=', 'fid')
+        ->leftJoin('koalicije', 'pkoalicija', '=', 'kid')
+        ->leftJoin('opstine', 'popstina', '=', 'opid')
+        ->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')
+
+        ->where(function ($query) use($qe) {
+                     for ($i = 0; $i < count($qe); $i++){
+                        $query->orwhere('aime', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('aprezime', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('arodjen', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('snaziv', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('funkcija', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('fmesto', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('opstina', 'like',  '' . $qe[$i] .'');
+
+                        if(is_numeric($qe[$i]) ){
+                        $query->orwhere('pod', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('pdo', 'like',  '' . $qe[$i] .'');
+                        }
+                        if($qe[$i]=="0" || $qe[$i]=="1" || $qe[$i]=="2"   ){
+                        $query->orwhere('pnavlasti', '=',  '' . $qe[$i] .'');
+                        }
+                     }
+                })
+
+        ->skip($start)->take($numres)
+        ->orderBy($sort, $sortorder)
+        ->get();
+
+
+
+
+
+
+
+        $dump="";
+
+        for($i=0;$i<count($res);$i++){
+            if($res[$i]['pnavlasti']==1){$res[$i]['pnavlasti']="Vlast";}elseif($res[$i]['pnavlasti']==2){$res[$i]['pnavlasti']="Opozicija";}else {$res[$i]['pnavlasti']="/";}
+            //add edit link
+            $res[$i]['pid'] = '<a target="_blank" href="promene/edit/'.$res[$i]['pid'].'">edit</a> ';
+        }
+
+
+        //$res = array_values($res);
+        for($i=0;$i<count($res);$i++){
+            $res[$i] = array_values($res[$i]);
+        }
+
+        $resout['recordsFiltered']= $recFiltered;
+        $resout['recordsTotal']= $conn->table('promene')->count();
+        $resout['data']=$res;
+
+        echo json_encode($resout);
+
+
+    }
+
+
 
     // list akter fields
     public function editPromene($app,$pid){

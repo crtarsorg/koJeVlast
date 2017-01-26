@@ -829,6 +829,17 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         $evt->addPromenaPost($app);
     });
 
+    //Promene data tables search
+    $app->get('/promene/listaSearch', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromene([]);
+        $evt->listaSearch($app);
+    });
+
+
 
     $app->get('/err', function () use ($app) {
 

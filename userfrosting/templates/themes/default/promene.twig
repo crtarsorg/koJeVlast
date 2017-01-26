@@ -21,7 +21,7 @@
 	<div class="col-xs-6 col-sm-6">
 	<a href="{{site.uri.public}}/promene/add">
 		<button type="button" class="btn btn-success js-user-create pull-right" >
-		<i class="fa fa-plus-square"></i> Dodaj novu promeni
+		<i class="fa fa-plus-square"></i> Dodaj novu promenu
 		</button>
 	</a>
 	</div>	
@@ -49,15 +49,16 @@
                 <th>Funk/Mesto</th>
                 <th>Koalicija</th>
                 <th>Opstina</th>
-                <th>Vl/Op</th>
                 <th>Od</th>
                 <th>Do</th>
+                <th>Vl/Op</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
-{% for pr in promene %}
+{% for pr in promeneOLD %}
             <tr>
-                <td><a href="promene/edit/{{pr.pid}}"  >{{pr.aime}}</a> </td>
+                <td><a href="promene/edit/{{pr.pid}}"  >{{pr.aime}}</a></td>
                 <td><a href="promene/edit/{{pr.pid}}"  >{{pr.aprezime}}</a> </td>
                 <td><a href="promene/edit/{{pr.pid}}"  >{{pr.arodjen}}</a> </td>
                 <td><a href="promene/edit/{{pr.pid}}"  >{{pr.snaziv}}</a> </td>
@@ -65,158 +66,18 @@
                 <td><a href="promene/edit/{{pr.pid}}"  >{{pr.fmesto}}</a> </td>
                 <td><a href="promene/edit/{{pr.pid}}"  >{{pr.knaziv}}</a> </td>
                 <td><a href="promene/edit/{{pr.pid}}"  >{{pr.opstina}}</a> </td>
-                <td><a href="promene/edit/{{pr.pid}}"  >{{pr.pnavlasti}}</a> </td>
-
                 <td><a href="promene/edit/{{pr.pid}}"  >{% if pr.pod %}{{ pr.pod|date("d.m.Y") }}{% endif %}</a>  </td>
                 <td><a href="promene/edit/{{pr.pid}}"  >{% if pr.pdo %}{{ pr.pdo|date("d.m.Y") }}{% endif %}</a>  </td>
-
+                <td><a href="promene/edit/{{pr.pid}}"  >{{pr.pnavlasti}}</a> </td>
+                <td><a href="promene/edit/{{pr.pid}}"  >{{pr.pnavlasti}}</a> </td>
             </tr>
 {% endfor %}
         </tbody>
 </table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- live search-->
-<!--
-<div class="clearfix"></div>
-
-<section>
-	<div class="col-sm-12">
-		<div class="form-group">
-		
-			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-search"></i></span>
-				<input type="text" class="form-control" id="search" name="search" autocomplete="off" value="" placeholder="Fast filter" >
-			</div>
-		</div>
-	</div>
-</section>
-
 <div class="clearfix"></div>
 
 
-    <div class="row rowheader"  >					
-        
-						<div class="col-sm-1">
-							Ime
-						</div>
-						
-						<div class="col-sm-1">
-							Prezime</a>
-						</div>
-						
-						<div class="col-sm-1">
-							Datum rodjenja</a>
-						</div>						
-
-
-						<div class="col-sm-1">
-							Stranka
-						</div>
-
-						<div class="col-sm-1">
-							Funkcija
-						</div>
-
-						<div class="col-sm-1">
-							Funk/Mesto
-						</div>
-						
-						<div class="col-sm-1">
-							Koalicija
-						</div>						
-
-						<div class="col-sm-1">
-							Opstina
-						</div>
-
-						<div class="col-sm-1">
-							Vl/Op
-						</div>
-
-						<div class="col-sm-1">
-							Datum od:
-						</div>
-
-						<div class="col-sm-1">
-							Datum do:
-						</div>							
-						
-	</div>	
-
-			
-
-				
-			{# If we are not using server-side pagination, then just render all results immediately #}
-                {% if not paginate_server_side %}
-					{% for pr in promene %}
-					
-					{% set rowid= pr.aime ~ pr.aprezime ~ pr.arodjen ~ pr.azanimanje ~ pr.snaziv ~ pr.funkcija ~ pr.knaziv   %}
-
-    <div class="row rowpromena" id="{{rowid|replace({" " : "","," : "","." : ""}) }}" >					
-        
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.aime}}</a>
-						</div>
-						
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.aprezime}}</a>
-						</div>
-						
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.arodjen}}</a>
-						</div>						
-
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.snaziv}}</a>
-						</div>
-
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.funkcija}}</a>
-						</div>
-
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.fmesto}}</a>
-						</div>						
-						
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.knaziv}}</a>
-						</div>
-
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.opstina}}</a>
-						</div>
-
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{{pr.pnavlasti}}</a>
-						</div>
-
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{% if pr.pod %}{{ pr.pod|date("d.m.Y") }}{% endif %}</a>
-						</div>
-
-						<div class="col-sm-1">
-							<a href="promene/edit/{{pr.pid}}"  >{% if pr.pdo %}{{ pr.pdo|date("d.m.Y") }}{% endif %}</a>
-						</div>							
-						
-	</div>				
-				
-					
-                    {% endfor %}
-                {% endif %}						
-<div class="col-xs-12" style="height:50px;"></div>					
--->
             {% endblock %}
 
 			
@@ -242,6 +103,13 @@
 .dt-buttons{
         padding: 0px 10px;
 }
+.dataTables_wrapper .dataTables_filter {
+    float: none;
+    text-align: right;
+}
+.top{
+    margin-bottom: 60px;
+}
 
 </style>
 
@@ -250,13 +118,31 @@
 
 
 <script>
-//live search 			
+//live search                                //'lBfrtip',
 $( document ).ready(function() {
 
     var DataTables_language={};
     DataTables_language["sr"]={ "info":"Prikaz _START_ do _END_ od ukupno _TOTAL_ redova","infoEmpty":"Prikaz 0 do 0 od ukupno 0 redova","infoFiltered":"(filtrirano od ukupno _MAX_ redova)","infoPostFix":"","lengthMenu":"_MENU_","processing":"Procesiranje u toku...","search":"Pretraga:","zeroRecords":"Nije pronaden nijedan rezultat","paginate": {"first":"Pocetna","previous":"Prethodna","next":"Sledeca","last":"Poslednja"},"decimal":",","thousands":"."};
 
-    $('#tpromene').dataTable({ "language":DataTables_language["sr"],"pageLength": 25, "order":[],"orderClasses":false,"stripeClasses":['even','odd'],"paging":true,"scrollX":false,"searching":true,"info":true, dom: 'lBfrtip',buttons: ['copyHtml5','excelHtml5', 'csvHtml5','print',{extend:'pdf',orientation: 'landscape', pageSize: 'A4'} ],"aLengthMenu": [[10,25,50,100,-1], [10,25,50,100,"Sve"]],   "dom": 'lBfrtip' });
+    $('#tpromene').dataTable({
+        "language":DataTables_language["sr"],
+        "pageLength": 10,
+        "order":[],
+        "orderClasses":false,
+        "stripeClasses":['even','odd'],
+        "paging":true,
+        "scrollX":false,
+        "searching":true,
+        "info":true,
+        "dom": '<"top"flBpti><"bottom"tip><"clear">',
+        buttons: ['copyHtml5','excelHtml5', 'csvHtml5','print',{extend:'pdf',orientation: 'landscape', pageSize: 'A4'} ],
+        "aLengthMenu": [[10,25,50,100,-1], [10,25,50,100,"Sve"]],
+
+        "processing": false,
+        "serverSide": true,
+        "ajax": "{{site.uri.public}}/promene/listaSearch"
+
+        });
 
 
 
