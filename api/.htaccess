@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+
+    RewriteEngine On
+	
+    # Remove trailing slash from any non-directory path (canonicalization) - GET requests only
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_METHOD}  =GET
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+	# Send the URI to index.php (Slim routing)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteRule ^(.*) index.php?r=$1 [QSA,L]
+    RewriteRule ^(.*) subfolder/$1.txt [QSA,L]
+	
+
+
+</IfModule>
