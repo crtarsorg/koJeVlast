@@ -213,16 +213,23 @@ function dokumenta( op_id ) {
               if( data[i].opdkat == 1 ){
                     budz_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/"+data[i].opdfile+"'>"+data[i].opdnaziv+"</a><br/>";
               } 
-              else if( data[i].opdkat == 2 ){
+              else if( data[i].opdkat == 5 ){
                     izvr_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/"+data[i].opdfile+"'>"+data[i].opdnaziv+"</a><br/>";    
               }
-              else if( data[i].opdkat == 3 ){
+              else if( data[i].opdkat == 4 ){
                     trans_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/"+data[i].opdfile+"'>"+data[i].opdnaziv+"</a><br/>";
               }
-              else if( data[i].opdkat == 4 ){
+              else if( data[i].opdkat == 2 ){
                     prinuda_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/"+data[i].opdfile+"'>"+data[i].opdnaziv+"</a><br/>";
               }
           }
+
+          //rezultati izbora
+
+        if(budz_temp =="") budz_temp = "<b>Nema dokumenata</b>";
+        if(izvr_temp =="") izvr_temp = "<b>Nema dokumenata</b>";
+        if(trans_temp =="") trans_temp = "<b>Nema dokumenata</b>";
+        if(trans_temp =="") trans_temp = "<b>Nema dokumenata</b>";  
 
         $("#budzet_dokument").html( budz_temp );
         $("#izvrsenje_dokument").html( izvr_temp );
@@ -342,6 +349,8 @@ function initStranka(argument) {
     var data = DataStranke.getStranke();
 
     for (var i = 0; i < data.length; i++) {
+        if(data[i] == "Nepoznata" || data[i] == "null" || data[i] == "Stranka nije na listi")
+                continue;
         $("#stranka").append("<option value='"+data[i]+"'>"+data[i]+"</option>")
         
     }
