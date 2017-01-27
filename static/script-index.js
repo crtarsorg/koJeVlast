@@ -238,12 +238,30 @@ function izracunajProcente( podaci ) {
    var sortirani = _.sortBy(statistike, function(el){return el.procenat});
    sortirani = sortirani.reverse();
 
+   var svi = [];
    //uzeti samo prve tri i ostale
+   if(sortirani.length > 4){
+        //slice 4 do kraja 
+        //i sve ih saberi
+        svi = sortirani.slice(0,3);
+        ostali = sortirani.slice(4);
+        //sabrati sve procente
+        var ukupno = 0;
 
-   console.log( sortirani );
+        ostali.forEach(function(el) {
+            ukupno+=el.procenat;
+        })
+
+        svi.push({stranka: "Ostale stranke" ,skracenica: "ostale", procenat: ukupno }    );
+
+   }
+   else
+        svi = sortirani;
+
+   console.log( svi );
 
 
-   drawSvg( sortirani );
+   drawSvg( svi );
 }
 
 function info_tab( opstina ) {
@@ -415,7 +433,7 @@ function initStranka(argument) {
     var data = DataStranke.getStranke();
 
     for (var i = 0; i < data.length; i++) {
-        if(data[i] == "Nepoznata" || data[i] == "null" || data[i] == "Stranka nije na listi")
+        if(data[i] == "Nepoznata" || data[i] == null || data[i] == "Stranka nije na listi")
                 continue;
         $("#stranka").append("<option value='"+data[i]+"'>"+data[i]+"</option>")
         
