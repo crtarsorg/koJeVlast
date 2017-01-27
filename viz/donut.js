@@ -65,16 +65,6 @@ function draw() {
 function drawSvg( podaci ) {
 
 
-	 /*var dataset = [
-          	{ age: "lactantes", population: 74},
-      		{ age: "deambuladores", population: 85},
-      		{ age: "2 años", population: 840},
-	 		{ age: "3 años", population: 4579 }, 
-	 		{ age: "4 años", population: 5472 }, 
-	 		{ age: "5 años", population: 7321 },
-
-        ];*/
-
 	d3.selectAll('#viz svg').remove()
 	d3.selectAll('.legenda svg').remove()
 
@@ -197,6 +187,12 @@ function drawSvg( podaci ) {
 
             });
 
+        legend.append('title')
+            .data(pie(data))
+            .text( function(d) {                
+                return d.data.stranka;
+            });
+
         legend.append('rect')
             .attr('width', legendRectSize)
             .attr('height', legendRectSize)
@@ -206,9 +202,8 @@ function drawSvg( podaci ) {
         legend.append('text')
             .data(pie(data))
             .attr('x', legendRectSize + legendSpacing)
-            .attr('y', legendRectSize - legendSpacing)
-            .text(function(d) {
-                /*console.log(d);*/
+            .attr('y', legendRectSize - legendSpacing)            
+            .text(function(d) {                
                 return d.data.skracenica;
             });
 
