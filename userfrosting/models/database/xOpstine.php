@@ -178,7 +178,13 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
 
         //var_dump($post);
 
-        if(file_exists(  __DIR__ .'../../../../../public_html/files/docs/' . $_FILES['file']['name']  )){                  // TODO  zeza na serveru 
+        $updir =  '../files/docs/';
+        $upfiles = scandir($updir);  //array
+
+
+
+        //if(file_exists(  $updir . $_FILES['file']['name']  )){                  // TODO  zeza na serveru     __DIR__ .'../../../../../public_html/files/docs/'
+        if(in_array( $_FILES['file']['name'], $upfiles  )){             
             die('<div class="alert alert-danger">Fajl sa tim imenom vec postoji.</div>');
         }
 
@@ -186,7 +192,7 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
             echo '<div class="alert alert-danger">Niste poslali fajl.</div>';
         }
         else {
-            $r = move_uploaded_file($_FILES['file']['tmp_name'],  __DIR__ .'../../../../../public_html/files/docs/' . $_FILES['file']['name']);
+            $r = move_uploaded_file($_FILES['file']['tmp_name'],  $updir . $_FILES['file']['name']);
             if($r){
                 $resp = "File copied to server. ";
                 //ubaci fajl u bazu
