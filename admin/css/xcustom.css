@@ -1,0 +1,37 @@
+.rowakteri, .rowkoalicija, .rowpromena{
+	margin-top:10px;
+}
+.rowakteri:hover, .rowkoalicija:hover , .rowpromena:hover  {
+	background-color:#CCC;
+}
+.rowakteri a,.rowkoalicija a ,.rowpromena a{
+    display: block !important;
+}
+.rowakteri a:active,.rowakteri a:focus,.rowpromena a:focus{
+    color: red !important;
+	background-color: #CCC;
+}
+.clearfix{
+	clear:both;
+	height:20px;
+}
+.clear{
+	clear:both;
+}
+.stranka{
+	display:block;
+	padding:10px;
+	margin-bottom:5px;
+	background-color:#CCC;
+}
+#stranke, #suk{
+	padding-bottom:100%;
+	height:100%;
+	background-color:rgba(204, 204, 204, 0.20);
+}
+.stranka span {
+	float:right;
+}
+.select2-container{
+	width:100% !important;
+}

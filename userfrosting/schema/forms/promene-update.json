@@ -1,0 +1,100 @@
+{
+    "akter" : {
+        "validators" : {
+            "integer" : 
+			{
+                "message" : "Akter must be an integer."
+            },
+			"required" : {
+				"message" : "Field 'Akter' is mandatory"
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },
+    "stranka" : {
+        "validators" : {
+            "integer" : 
+			{
+                "message" : "Stranka must be an integer."
+            },
+			"required" : {
+				"message" : "Field 'Stranka' is mandatory"
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },	
+    "funk" : {
+        "validators" : {
+            "integer" : 
+			{
+                "message" : "Funkcija must be an integer."
+            },
+			"required" : {
+				"message" : "Field 'Funkcija' is mandatory"
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },
+    "koalicija" : {
+        "validators" : {
+            "integer" : 
+			{
+                "message" : "Koalicija must be an integer."
+            },
+			"required" : {
+				"message" : "Field 'Koalicija' is mandatory"
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },
+    "opstina" : {
+        "validators" : {
+            "integer" : 
+			{
+                "message" : "Opstina must be an integer."
+            },
+			"required" : {
+				"message" : "Field 'Opstina' is mandatory"
+			},
+			"range" : {
+				"min" : 1,
+				"message" : "Field 'Opstina' is mandatory"
+			}
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },
+    "vlast" : {
+        "validators" : {
+            "integer" : 
+			{
+                "message" : "Vlast must be an integer."
+            },
+			"required" : {
+				"message" : "Field 'Vlast' is mandatory"
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    },
+    "altdatumod" : {
+        "validators" : {
+			"required" : {
+				"message" : "Field 'Datum od' is mandatory"
+			}			
+        },
+        "sanitizers" : {
+            "raw" : ""
+        }
+    }	
+}

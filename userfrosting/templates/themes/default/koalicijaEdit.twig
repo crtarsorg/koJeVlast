@@ -1,0 +1,191 @@
+{% extends "layouts/layout-dashboard.twig" %}
+            {% set page_group = "dashboard" %}
+
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Koalicija",
+                    "description" : ""
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block content %}
+			
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >				
+			
+                <h1></h1>
+				
+<pre>
+{{dump}}
+</pre>
+
+{% for koalicija in koalicije %}				
+
+<form name="user" method="post" id="koalicijaAddForm" action="{{form_action}}">
+    <div class="row">					
+					
+						<div id="{{alerts_id | default('form-alerts')}}"></div>
+        
+						<div class="col-sm-7">
+							<div class="form-group">
+						
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input type="text" class="form-control" name="koalicija" autocomplete="off" value="{{koalicija.knaziv}}" placeholder="Naziv koalicije" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-3">
+							<div class="form-group">
+						
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input  type="text" class="form-control" id="datum" name="datum" autocomplete="off" value="{% if koalicija.kosn %}{{ koalicija.kosn|date("d.m.Y") }}{% endif %}" placeholder="Datum osnivanja" >
+									
+									
+									
+								</div>
+							</div>
+						</div>						
+						
+						<div class="col-sm-2">
+								
+								<div class="vert-pad">
+									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
+									<i class="fa fa-edit"></i>{{actionText}}
+									</button>
+								</div> 		
+						</div>						
+						
+	
+	</div>
+	<input type="hidden" id="altdatum" name="altdatum" value="{{koalicija.kosn}}">
+	
+	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
+</form>	
+
+
+
+						<div class="col-sm-6"><h3>Stranke u koaliciji</h3>
+							<div class="form-group" id="suk">
+u koalicii
+							</div>
+						</div>
+
+						<div class="col-sm-6"><h3>Stranke</h3>
+							<div class="form-group" id="stranke">
+stranke						
+
+							</div>
+						</div>	
+
+
+
+
+{% endfor %}
+
+				
+					
+            {% endblock %}
+
+
+			
+			
+{% block page_scripts %}
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+
+
+
+$( document ).ready(function() {
+
+loadStranke();
+loadStrankeUKoaliciji();
+
+function loadStranke(){
+	//Load data for stranke
+	$.ajax({ type: "GET",  url: "{{site.uri.public}}/koalicije/stranke",   success: function(data) { $('#stranke').html(data); } });
+}
+function loadStrankeUKoaliciji(){
+	//Load data for stranke u koaliciji
+	$.ajax({ type: "GET",  url: "{{site.uri.public}}/koalicije/stranke/{{koalicije[0].kid}}",   success: function(data) { $('#suk').html(data); } });
+}
+
+//dodaj stranku u koaliciju
+$('#stranke').on('click', '.btn', function(){
+	$.ajax({ 
+	type: "GET",  
+	url: "{{site.uri.public}}/koalicije/stranke/add/"+{{koalicije[0].kid}}+"/"+$(this).data("id"),   
+	success: function(data) { 
+		loadStrankeUKoaliciji();
+		$("#userfrosting-alerts").fadeOut(200,function(){
+			$('#userfrosting-alerts').html(data);
+			$("#userfrosting-alerts").fadeIn(500, function(){
+				//$("#userfrosting-alerts").fadeOut(5000);
+			});
+		});			
+	} 
+	});
+});
+
+
+//ukloni stranu iz koalicije
+$('#suk').on('click', '.btn', function(){
+	//remove ksid from kstranke
+    console.dir($(this).data("ksid") );
+	$.ajax({ 
+	type: "GET",  
+	url: "{{site.uri.public}}/koalicije/stranke/remove/"+$(this).data("ksid"),   
+	success: function(data) { 
+		loadStrankeUKoaliciji();
+		$("#userfrosting-alerts").fadeOut(200,function(){
+			$('#userfrosting-alerts').html(data);
+			$("#userfrosting-alerts").fadeIn(500, function(){
+				//$("#userfrosting-alerts").fadeOut(5000);
+			});
+		});			
+	} 
+	});
+});
+
+
+
+
+
+
+$('#datum').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatum",  dateFormat: 'dd.mm.yy'  });
+
+
+
+	$("#koalicijaAddForm").submit(function(e) {
+
+		$.ajax({
+			   type: "POST",
+			   url: window.location.href,
+			   data: $("#koalicijaAddForm").serialize(), 
+			   success: function(data)
+			   {
+					
+					$("#userfrosting-alerts").fadeOut(200,function(){
+						$('#userfrosting-alerts').html(data);
+						$("#userfrosting-alerts").fadeIn(500, function(){
+							//$("#userfrosting-alerts").fadeOut(5000);
+						});
+					});					
+					
+					
+					
+			   }
+			 });
+
+		e.preventDefault(); 
+	});
+
+	
+
+	
+	
+});
+</script>				
+{% endblock %}			

@@ -1,0 +1,176 @@
+{% extends "layouts/layout-dashboard.twig" %}
+            {% set page_group = "dashboard" %}
+
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Akteri",
+                    "description" : "Edit aktera."
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block content %}
+                <h1></h1>
+				
+<pre>
+{{dump}}
+</pre>
+
+				
+			{# If we are not using server-side pagination, then just render all results immediately #}
+                {% if not paginate_server_side %}
+					{% for akter in akteri %}
+
+<form name="user" method="post" id="akterEditForm" action="{{form_action}}">
+    <div class="row">					
+					
+						<div id="{{alerts_id | default('form-alerts')}}"></div>
+        
+						<div class="col-sm-4">
+							<div class="form-group">
+						
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input type="text" class="form-control" name="ime" autocomplete="off" value="{{akter.aime}}" placeholder="Ime" >
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input type="text" class="form-control" name="prezime" autocomplete="off" value="{{akter.aprezime}}" placeholder="Prezime" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input type="text" class="form-control" name="zanimanje" autocomplete="off" value="{{akter.azanimanje}}" placeholder="Zanimanje" >
+								</div>
+							</div>
+						</div>						
+						
+						
+	</div>
+
+
+    <div class="row">
+
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input type="text" class="form-control" name="rodjen" autocomplete="off" value="{{akter.arodjen}}" placeholder="Datum rodjenja" >
+								</div>
+							</div>
+						</div>						
+						
+
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input type="text" class="form-control" id="pol" name="pol" autocomplete="off" value="{{akter.apol}}" placeholder="Pol" >
+								</div>
+							</div>
+						</div>							
+
+						
+						<div class="col-sm-4">
+								
+								<div class="vert-pad">
+									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
+									<i class="fa fa-edit"></i>{{actionText}}
+									</button>
+								</div> 		
+						</div>						
+						
+	
+	</div>
+
+	
+
+    <div class="row">
+						<div class="col-sm-12">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<textarea placeholder="Biografija" name="bio" class="form-control" rows="10" >{{akter.abio}}</textarea>
+								</div>
+							</div>
+						</div>	
+	</div>		
+	
+	
+	
+	
+	
+	
+	
+	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
+	<input type="hidden" name="userid" value="{{akter.aid}}">
+	
+</form>					
+					
+                    {% endfor %}
+                {% endif %}						
+				
+				
+            {% endblock %}
+
+
+			
+			
+{% block page_scripts %}
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script>
+$( document ).ready(function() {
+
+	$("#akterEditForm").submit(function(e) {
+
+		$.ajax({
+			   type: "POST",
+			   url: window.location.href,
+			   data: $("#akterEditForm").serialize(), 
+			   success: function(data)
+			   {
+					
+					$("#userfrosting-alerts").fadeOut(200,function(){
+						$('#userfrosting-alerts').html(data);
+						$("#userfrosting-alerts").fadeIn(500, function(){
+							//$("#userfrosting-alerts").fadeOut(5000);
+						});
+					});					
+					
+					
+					
+			   }
+			 });
+
+		e.preventDefault(); 
+	});
+
+        var gender = ["M","Z"];
+
+        $( "#pol" ).autocomplete({
+            source: gender,minLength: 0
+        }).focus(function(){
+            $(this).data("ui-autocomplete").search("");
+        });
+
+	
+
+	
+	
+});
+</script>				
+{% endblock %}			

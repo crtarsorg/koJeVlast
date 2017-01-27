@@ -1,0 +1,317 @@
+{% extends "layouts/layout-dashboard.twig" %}
+            {% set page_group = "dashboard" %}
+
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Funkcije",
+                    "description" : "Lista funkcija."
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block content %}
+                <h1></h1>
+				
+<pre>
+{{dump}}
+</pre>
+
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >
+				
+			{# If we are not using server-side pagination, then just render all results immediately #}
+                {% if not paginate_server_side %}
+					{% for opstina in opstine %}
+<section>
+<form name="user" method="post" id="opstinaEditForm" action="{{form_action}}">
+    <div class="row">
+					
+						<div id="{{alerts_id | default('form-alerts')}}"></div>
+        
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Naziv</span>
+									<input type="text" class="form-control" name="opstina" autocomplete="off" value="{{opstina.opstina}}" placeholder="Opstina" >
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Povrsina</span>
+									<input type="text" class="form-control" name="povrsina" autocomplete="off" value="{{opstina.opov}}" placeholder="Povrsina" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Stanovnika</span>
+									<input type="text" class="form-control" name="stanovnika" autocomplete="off" value="{{opstina.opop}}" placeholder="Broj stanovnika" >
+								</div>
+							</div>
+						</div>							
+						
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Web</span>
+									<input type="text" class="form-control" name="link" autocomplete="off" value="{{opstina.olink}}" placeholder="Web link sajta" >
+								</div>
+							</div>
+						</div>	
+
+
+						
+						
+						<div class="col-sm-12">
+								
+								<div class="vert-pad">
+									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
+									<i class="fa fa-edit"></i>{{actionText}}
+									</button>
+								</div> 		
+						</div>						
+
+						
+	
+	</div>
+
+
+
+	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
+	<input type="hidden" name="userid" value="{{opstina.opid}}">
+
+</form>
+</section>
+                    {% endfor %}
+                {% endif %}						
+
+<div class="clearfix"></div>
+
+<!-- dodaj novi dok za opstinu -->
+<section >
+<form  id="opstinaAddDoc" >
+    <div class="row">
+
+						<div id="{{alerts_id | default('form-alerts')}}"></div>
+
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Naziv dokumenta</span>
+									<input type="text" class="form-control" id="docnaziv" name="docnaziv" autocomplete="off" value="{{opstina.opstina}}" placeholder="Unesite naziv dokumenta (label)" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Dokument</span>
+									<input type="file" class="form-control" id="doc"  name="doc" autocomplete="off" value="" placeholder="" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i> Kategorija</span>
+
+                                    {% set categories = [{"cat_name":"Budžet","cat_val":"1"}, {"cat_name":"Rezultati izbora","cat_val":"2"},{"cat_name":"Prinudna uprava","cat_val":"3"},{"cat_name":"Transfer iz budžeta","cat_val":"4"},{"cat_name":"Izvršenje budžeta","cat_val":"5"}  ] %}
+                                    <select id="kat" name="kat" >
+                                        <option value="" >Izaberite kategoriju dokumenta</option>
+                                       {% for cat in categories %}
+                                            <option  value="{{ cat.cat_val }}"> {{ cat.cat_name }} </option>
+                                            {% endfor %}
+                                      </select>
+
+								</div>
+
+							</div>
+						</div>
+
+
+						<div class="col-sm-12">
+								
+								<div class="vert-pad">
+									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
+									<i class="fa fa-edit"></i>Dodaj novi dokument za opstinu
+									</button>
+								</div>
+						</div>
+
+	</div>
+
+	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
+	<input type="hidden" id="owner" name="owner" value="{{opstine[0].opid}}">
+
+</form>
+<div class="clearfix"></div>
+<div id="docalerts"></div>
+</section>
+
+
+
+
+<h2>Online dokumenta za opštinu:</h2>
+<div id="docsonline">
+
+
+
+</div>
+
+
+
+<div class="clearfix"></div>
+
+            {% endblock %}
+
+
+			
+			
+{% block page_scripts %}
+
+<style>
+.input-group-addon {
+    min-width:155px;
+	text-align: left;
+}
+.doclist{
+    margin-bottom:8px;
+}
+
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script>
+$( document ).ready(function() {
+
+
+  $('#kat').select2();
+
+  getDocsOnline();
+
+
+function  getDocsOnline(){
+
+        $.ajax({
+    		type: "GET",
+    		url: "{{site.uri.public}}/opstine/getDocs/{{opstine[0].opid}}",
+            cache: false,
+            dataType: 'json',
+     		success: function(data)
+    		{
+                //convert data to html
+                var html = '<div class="row"><div class="col-sm-3"><h3>Label</h3></div>'+'<div class="col-sm-3"><h3>File</h3></div>'+'<div class="col-sm-3"><h3>Kategorija</h3></div></div>' ;
+                $.each(data, function(key, value){
+                    console.dir(value);
+                    html += '<div class="row doclist"><div class="col-sm-3">' +value.opdnaziv + '</div>'+'<div class="col-sm-3"><a target="_blank" href="http://kojenavlasti.rs/files/docs/'+value.opdfile+'" >' +value.opdfile + '</a></div>'+'<div class="col-sm-3">' +value.opdkatlabel + '</div></div>'     ;
+                });
+
+
+    		$("#docsonline").fadeOut(200,function(){
+    			$('#docsonline').html(html);
+    			$("#docsonline").fadeIn(500, function(){
+    				//$("#docalerts").fadeOut(5000);
+    			});
+    		});
+
+
+
+    		}
+		});
+}
+
+
+// Add docs
+	$("#opstinaAddDoc").submit(function(e) {
+
+    e.preventDefault();
+
+    if(!$('#docnaziv').val()){ $('#docalerts').html('<div class="alert alert-danger">Niste uneli naziv dokumenta.</div>') ; return false; }
+    if(!$('#kat').val()){ $('#docalerts').html('<div class="alert alert-danger">Niste izabrali kategoriju.</div>') ; return false; }
+
+    var file_data = $('#doc').prop('files')[0];
+    var form_data = new FormData();
+    form_data.append('file', file_data);
+    form_data.append('{{csrf_key}}', '{{csrf_token}}');
+    form_data.append('cat', $('#kat').val());
+    form_data.append('naziv', $('#docnaziv').val());
+    form_data.append('owner', $('#owner').val());
+
+    console.dir($('#kat'));
+
+	$("#docalerts").fadeOut(200,function(){
+						$('#docalerts').html('    <div class="alert alert-info">Please wait... Uploading file... </div>');
+						$("#docalerts").fadeIn(500, function(){
+							//$("#docalerts").fadeOut(5000);
+						});
+					});
+
+		$.ajax({
+			   type: "POST",
+			   url: "{{site.uri.public}}/opstine/addDoc",
+			   data: form_data,
+               cache: false,
+               contentType: false,
+               processData: false,
+ 			   success: function(data)
+			   {
+                    //refresh changes after adding or updating
+                    getDocsOnline();
+
+					$("#docalerts").fadeOut(200,function(){
+						$('#docalerts').html(data);
+						$("#docalerts").fadeIn(500, function(){
+							//$("#docalerts").fadeOut(5000);
+						});
+					});
+
+
+
+			   }
+			 });
+
+
+	});
+
+
+
+
+
+
+// Edit opstina INFO
+	$("#opstinaEditForm").submit(function(e) {
+
+        e.preventDefault();
+
+        $.ajax({
+			   type: "POST",
+			   url: window.location.href,
+			   data: $("#opstinaEditForm").serialize(),
+			   success: function(data)
+			   {
+
+					$("#userfrosting-alerts").fadeOut(200,function(){
+						$('#userfrosting-alerts').html(data);
+						$("#userfrosting-alerts").fadeIn(500, function(){
+							//$("#userfrosting-alerts").fadeOut(5000);
+						});
+					});
+
+
+
+			   }
+			 });
+
+
+	});
+	
+
+});
+</script>				
+{% endblock %}			

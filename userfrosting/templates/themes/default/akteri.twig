@@ -1,0 +1,210 @@
+{% extends "layouts/layout-dashboard.twig" %}
+            {% set page_group = "dashboard" %}
+
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Akteri",
+                    "description" : "Lista aktera."
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block content %}
+
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >	
+
+
+			
+<section>	
+	<div class="col-xs-6 col-sm-6">
+		<h4>Akteri</h4>
+	</div>
+	
+	<div class="col-xs-6 col-sm-6">
+	<a href="{{site.uri.public}}/akteri/add">
+		<button type="button" class="btn btn-success js-user-create pull-right" >
+		<i class="fa fa-plus-square"></i> Dodaj novog aktera
+		</button>
+	</a>
+	</div>	
+</section>			
+				
+<!-- 
+<pre>
+{{dump}}
+</pre>
+ -->
+<!-- live search-->
+
+
+<div class="clearfix"></div>
+
+<table id="takteri" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Rodjen</th>
+                <th>Zanimanje</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for akter in akteri %}
+            <tr>
+                <td><a href="akteri/edit/{{akter.aid}}"  >{{akter.aime}}</a> </td>
+                <td><a href="akteri/edit/{{akter.aid}}"  >{{akter.aprezime}}</a></td>
+                <td><a href="akteri/edit/{{akter.aid}}"  >{{akter.arodjen}}</a></td>
+                <td><a href="akteri/edit/{{akter.aid}}"  >{{akter.azanimanje}}</a></td>
+            </tr>
+{% endfor %}
+        </tbody>
+</table>
+
+
+
+
+
+
+
+
+<!--OLD code  --> <!--
+<div class="clearfix"></div>
+<section>
+	<div class="col-sm-12">
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-search"></i></span>
+				<input type="text" class="form-control" id="search" name="search" autocomplete="off" value="" placeholder="Fast filter" >
+			</div>
+		</div>
+	</div>
+</section>
+<div class="clearfix"></div>
+    <div class="row rowheader"  >
+						<div class="col-sm-3">
+							Ime
+						</div>
+						<div class="col-sm-3">
+							Prezime
+						</div>
+						<div class="col-sm-3">
+							Rodjen
+						</div>
+						<div class="col-sm-3">
+							Zanimanje
+						</div>
+	</div>
+
+			{# If we are not using server-side pagination, then just render all results immediately #}
+                {% if not paginate_server_side %}
+					{% for akter in akteri %}
+
+					{% set rowid= akter.aime ~ akter.aprezime ~ akter.arodjen ~ akter.azanimanje%}
+
+    <div class="row rowakteri" id="{{rowid|replace({" " : "","," : "","." : ""}) }}" >					
+        
+						<div class="col-sm-3">
+							<a href="akteri/edit/{{akter.aid}}"  >{{akter.aime}} {{akter.rowid}}</a>
+						</div>
+						
+						<div class="col-sm-3">
+							<a href="akteri/edit/{{akter.aid}}"  >{{akter.aprezime}}</a>
+						</div>
+						
+						<div class="col-sm-3">
+							<a href="akteri/edit/{{akter.aid}}"  >{{akter.arodjen}}</a>
+						</div>						
+
+						<div class="col-sm-3">
+							<a href="akteri/edit/{{akter.aid}}"  >{{akter.azanimanje}}</a>
+						</div>
+						
+	</div>				
+
+
+                    {% endfor %}
+                {% endif %}
+
+-->
+
+<div class="col-xs-12" style="height:50px;"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {% endblock %}
+
+
+
+
+
+
+
+{% block page_scripts %}
+
+<!--data tables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/s/dt/jszip-2.5.0,dt-1.10.10,b-1.1.0,b-html5-1.1.0,b-print-1.1.0/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/s/dt/jszip-2.5.0,dt-1.10.10,b-1.1.0,b-html5-1.1.0,b-print-1.1.0/datatables.min.js"></script>
+
+
+<script type="text/javascript" language="javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+
+
+<style>
+.dt-buttons{
+        padding: 0px 10px;
+}
+
+</style>
+
+
+
+<script>
+//live search 			
+$( document ).ready(function() {
+
+    var DataTables_language={};
+    DataTables_language["sr"]={ "info":"Prikaz _START_ do _END_ od ukupno _TOTAL_ redova","infoEmpty":"Prikaz 0 do 0 od ukupno 0 redova","infoFiltered":"(filtrirano od ukupno _MAX_ redova)","infoPostFix":"","lengthMenu":"_MENU_","processing":"Procesiranje u toku...","search":"Pretraga:","zeroRecords":"Nije pronaden nijedan rezultat","paginate": {"first":"Pocetna","previous":"Prethodna","next":"Sledeca","last":"Poslednja"},"decimal":",","thousands":"."};
+
+    $('#takteri').dataTable({ "language":DataTables_language["sr"],"pageLength": 25, "order":[],"orderClasses":false,"stripeClasses":['even','odd'],"paging":true,"scrollX":false,"searching":true,"info":true, dom: 'lBfrtip',buttons: ['copyHtml5','excelHtml5', 'csvHtml5','print',{extend:'pdf',orientation: 'landscape', pageSize: 'A4'} ],"aLengthMenu": [[10,25,50,100,-1], [10,25,50,100,"Sve"]],   "dom": 'lBfrtip' });
+
+
+			
+	$("#search").on("keyup", function() {
+		var value = $(this).val();
+		
+		$(".rowakteri").each(function(index) {
+		
+				$row = $(this);
+				var id = $row.attr('id').toLowerCase();
+
+				if (id.indexOf(value.toLowerCase()) < 0 ) {
+					$row.hide();
+				}
+				else {
+					$row.show();
+				}
+
+		});
+	});
+
+});	
+</script>				
+{% endblock %}		

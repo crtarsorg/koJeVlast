@@ -1,0 +1,111 @@
+{% extends "layouts/layout-dashboard.twig" %}
+            {% set page_group = "dashboard" %}
+
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Koalicija",
+                    "description" : ""
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block content %}
+                <h1></h1>
+				
+<pre>
+{{dump}}
+</pre>
+
+				
+
+<form name="user" method="post" id="koalicijaAddForm" action="{{form_action}}">
+    <div class="row">					
+					
+						<div id="{{alerts_id | default('form-alerts')}}"></div>
+        
+						<div class="col-sm-7">
+							<div class="form-group">
+						
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input type="text" class="form-control" name="koalicija" autocomplete="off" value="" placeholder="Naziv koalicije" >
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-3">
+							<div class="form-group">
+						
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input  type="text" class="form-control" id="datum" name="datum" autocomplete="off" value="" placeholder="Datum osnivanja" >
+									
+									
+									
+								</div>
+							</div>
+						</div>						
+						
+						<div class="col-sm-2">
+								
+								<div class="vert-pad">
+									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
+									<i class="fa fa-edit"></i>{{actionText}}
+									</button>
+								</div> 		
+						</div>						
+						
+	
+	</div>
+	<input type="hidden" id="altdatum" name="altdatum" value="">
+	
+	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
+</form>					
+					
+            {% endblock %}
+
+
+			
+			
+{% block page_scripts %}
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+
+
+$( document ).ready(function() {
+
+$('#datum').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatum",  dateFormat: 'dd/mm/yy'  });
+
+
+
+	$("#koalicijaAddForm").submit(function(e) {
+
+		$.ajax({
+			   type: "POST",
+			   url: window.location.href,
+			   data: $("#koalicijaAddForm").serialize(), 
+			   success: function(data)
+			   {
+					
+					$("#userfrosting-alerts").fadeOut(200,function(){
+						$('#userfrosting-alerts').html(data);
+						$("#userfrosting-alerts").fadeIn(500, function(){
+							//$("#userfrosting-alerts").fadeOut(5000);
+						});
+					});					
+					
+					
+					
+			   }
+			 });
+
+		e.preventDefault(); 
+	});
+
+	
+
+	
+	
+});
+</script>				
+{% endblock %}			
