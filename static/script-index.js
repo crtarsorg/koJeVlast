@@ -195,7 +195,7 @@ function mouseEvents(selektor) {
 }
 
 function izracunajProcente( podaci ) {
-   console.log('izracunavanje');     
+   //console.log('izracunavanje');     
    //console.log( podaci );     
 
    // nepoznate, null i sve ostalo stavljam u ostale
@@ -208,23 +208,42 @@ function izracunajProcente( podaci ) {
 
    var statistike = []
 
-
-
    Object.keys( grupisane ).forEach(function(el) {
 
         var centi = el.length ;
         //ostali
         //nepoznate i stranke koje nisu navedene transformisati u 'ostali'
+        var sk_temp = el.replace("'","").split(' ').map(function(item){return item[0]}).join('').toLowerCase();
 
-        statistike.push( {stranka: el ,skracenica:el.split(' ').map(function(item){return item[0]}).join(''), procenat: centi } );         
+        if(el == "Stranka nije na listi" || el =="null" || el =="Nepoznata") 
+            {
+                el = "Ostale stranke";
+                sk_temp = "ostale";
+            }
+
+        var unos = {stranka: el ,skracenica: sk_temp, procenat: centi };    
+
+        var nadjena = _.find(statistike, {stranka:"ostale"});
+
+        if(nadjena != undefined)
+        {
+            nadjena.procenat+= centi;
+            unos = nadjena;
+        }
+
+        statistike.push( unos );         
    })
 
-   console.log( statistike );
 
-   //sortirati ih
-   //
+   var sortirani = _.sortBy(statistike, function(el){return el.procenat});
+   sortirani = sortirani.reverse();
 
-   drawSvg( statistike );
+   //uzeti samo prve tri i ostale
+
+   console.log( sortirani );
+
+
+   drawSvg( sortirani );
 }
 
 function info_tab( opstina ) {
