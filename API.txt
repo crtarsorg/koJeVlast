@@ -1,0 +1,11 @@
+/api/akter/promene/:pid
+/api/opstine
+/api/stranke
+/api/strankaNaVlasti/:id
+/api/strankaNaVlasti
+/api/predlozitePromenu
+/api/akteriPoOpstini/:id
+
+
+
+/opstine/getDocs/:docid
