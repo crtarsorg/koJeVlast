@@ -1,7 +1,7 @@
 
 var BASE_PATH =  "http://admin.kojenavlasti.rs/";
 var OPSTINE =  BASE_PATH + "admin/api/opstine";
-var DATA_PATH = "data/podaciOpstina.json?2";
+//var DATA_PATH = "data/podaciOpstina.json?2";
 
 var FILES_PATH = "partials/"
 
@@ -91,9 +91,9 @@ $.getJSON(BASE_PATH +"admin/api/opstine", function(json, textStatus) {
     DataStranke.setOpstine(json);
 });
 
-$.getJSON(DATA_PATH, function(json, textStatus) {
+/*$.getJSON(DATA_PATH, function(json, textStatus) {
     Data.set(json);
-});
+});*/
 
 
 $.getJSON(stranke_vlast, function(json, textStatus) {
@@ -162,7 +162,7 @@ function mouseEvents(selektor) {
         var temp = $(this).attr('opstina')
         var naslov = "Naslov ";
         
-        var odbornici = Data.get();
+        
         var podaci = DataStranke.getOpstine();
         
         var opstina = podaci.filter(function(el){return el.oidopstine == temp})
@@ -215,7 +215,7 @@ function izracunajProcente( podaci ) {
         //nepoznate i stranke koje nisu navedene transformisati u 'ostali'
         var sk_temp = el.replace("'","").split(' ').map(function(item){return item[0]}).join('').toLowerCase();
 
-        if(el == "Stranka nije na listi" || el =="null" || el =="Nepoznata") 
+        if(el == "Stranka nije na listi" || el ==null || el =="Nepoznata") 
             {
                 el = "Ostale stranke";
                 sk_temp = "ostale";
@@ -223,15 +223,15 @@ function izracunajProcente( podaci ) {
 
         var unos = {stranka: el ,skracenica: sk_temp, procenat: centi };    
 
-        var nadjena = _.find(statistike, {stranka:"ostale"});
+        var nadjena = _.find(statistike, {skracenica:"ostale"});
 
         if(nadjena != undefined)
         {
             nadjena.procenat+= centi;
-            unos = nadjena;
+            //unos = nadjena;
         }
-
-        statistike.push( unos );         
+        else 
+            statistike.push( unos );         
    })
 
 
