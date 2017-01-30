@@ -86,7 +86,7 @@ function drawSvg( podaci ) {
 
     var legendaCont = d3.select('.legendaCont')
     	.style('display', "inline-block")
-    	.style('float', "right")
+    	//.style('float', "right")
     	.style('height', height+"px")
     	.style('width', (width - 200)+"px")
 

@@ -1,11 +1,11 @@
 
-var BASE_PATH =  "http://admin.kojenavlasti.rs/";
-var OPSTINE =  BASE_PATH + "admin/api/opstine";
+var BASE_PATH =  "http://kojenavlasti.rs/";
+var OPSTINE =  BASE_PATH + "api/opstine";
 //var DATA_PATH = "data/podaciOpstina.json?2";
 
 var FILES_PATH = "partials/"
 
-var stranke_vlast = "data/dataApi.json";
+var stranke_vlast = BASE_PATH + "api/strankaNaVlasti";
 
 $("#indikator").load(FILES_PATH +"forma.html")
 
@@ -74,7 +74,7 @@ var DataStranke = (function() {
 
 
 function podaciOdborniciOpstina(idOpstine) {
-    $.getJSON( BASE_PATH + "admin/api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
+    $.getJSON( BASE_PATH + "api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
         $("tbody").empty();
 
         izracunajProcente(json);
@@ -87,7 +87,7 @@ function podaciOdborniciOpstina(idOpstine) {
 
 
 // struktura podatka u fajlu po opstini je losa
-$.getJSON(BASE_PATH +"admin/api/opstine", function(json, textStatus) {
+$.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
     DataStranke.setOpstine(json);
 });
 
