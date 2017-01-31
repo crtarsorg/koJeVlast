@@ -389,6 +389,25 @@ function tabelaOdbornika(podaci) {
 
 
     }
+
+    $(".row-promena").click(function(ev) {
+        ev.preventDefault();
+
+        var upit = "";
+        var kolone = ["ime","stranka","funkcija","koalicija","vlast","promena"];
+
+        var podaci =  $(this).parent().children();
+
+        podaci.each(function (i,el) {
+            upit += kolone[i] + "="+$(el).text()+"&";
+        })
+
+        upit = upit.replace("&promena= &","");
+        
+        window.location.href =  "./posaljitePromenu.html" +"?"+ upit;
+        
+    })
+
 }
 
 
