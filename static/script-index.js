@@ -16,7 +16,7 @@ $.get(FILES_PATH + "modal.html", function(data) {
 
 var base_selektor = "g:not([id='granice'])";
 
-var Data = (function() {
+/*var Data = (function() {
     var _data = [];
     return {
         set: function(d) {
@@ -27,7 +27,7 @@ var Data = (function() {
             return _data;
         }
     }
-})();
+})();*/
 
 
 var DataStranke = (function() {
@@ -272,7 +272,7 @@ function info_tab( opstina ) {
 
     var broj_stanovnika = opstina.opop ;
 
-    $("#stanovnici").html( " " +  broj_stanovnika );
+    $("#stanovnici").html( " " +  broj_stanovnika.toLocaleString('de-DE') );
     $("#povrs").html( " " + povrsina );
 
 }
