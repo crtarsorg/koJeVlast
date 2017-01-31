@@ -352,7 +352,7 @@ function sideDetails(idOpstine) {
 
     var stranke = opstina[0].vlast;
 
-    if(stranke ==undefined) 
+    if(stranke == undefined) 
         return;
 
     naslov_detalji += " " + opstina[0].opstina
@@ -360,6 +360,11 @@ function sideDetails(idOpstine) {
 
     for (var i = 0; i < stranke.length; i++) {
         
+        if(stranke[i] == undefined 
+        || stranke[i] ==null 
+        || stranke[i] =="Nepoznata"
+        || stranke[i] =="Stranka nije na listi") 
+            continue;
         $("#detalji table").append("<tr><td>"+stranke[i]+"</td></tr>")
     }
     
@@ -375,11 +380,13 @@ function tabelaOdbornika(podaci) {
     for (var i = 0; i < podaci.length; i++) {
         var temp = podaci[i];
 
+        var stranka_temp = temp.stranka;
+        if(stranka_temp == null ) stranka_temp = "Nepoznata";
         //setuj promenljive
         var jedan_red =
             '<tr class="single-row">' +
             '<td class="row-ime">' + temp.ime + " " + temp.prezime + '</td>' +
-            '<td class="row-stranka">' + temp.stranka + '</td>' +
+            '<td class="row-stranka">' + stranka_temp + '</td>' +
             '<td class="row-funkcija">' + temp.funkcija + '</td>' +
             '<td class="row-koalicija">' + temp.datrodj + '</td>' +
             '<td class="row-vlast">' + temp.pol + '</td>' +
