@@ -35,42 +35,29 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
-                            <img src="" alt="" class="logo">
-                            <br>
-                            <span>Povrsina: </span><span id="povrs"></span>
-                            <br>
-                            <span>Broj stanovnika: </span><span id="stanovnici"></span>
+                            <div>
+                                <img src="" alt="" class="logo">
+                                <br>
+                                <span>Povrsina: </span><span id="povrs"></span>
+                                <br>
+                                <span>Broj stanovnika: </span><span id="stanovnici"></span>
+                            </div>
                             <br>
                             <!-- <canvas width="360" height="300"></canvas> -->
-                            <div id="viz"></div>
-                            <div class="legendaCont">
-                                <div role="tabpanel">
-                                    <!-- Nav tabs -->
-                                    <!-- <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active">
-                                            <a href="#stranke" aria-controls="stranke" role="tab" data-toggle="tab" class="tab-filter">stranke</a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a href="#koalicije" aria-controls="tab" role="tab" data-toggle="tab" class="tab-filter">koal</a>
-                                        </li>
-                                    </ul> -->
-                                    <!-- Tab panes -->
-                                    <!-- <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="stranke">
-                                            <div class="naslov">
-                                                <h1>Naslov</h1>
-                                            </div>
-                                            <div class="legenda"></div>
-                                        </div>
-                                    </div> -->
-                                </div>
-                                <!-- legenda -->
-                                <div role="tabpanel" class="tab-pane active" id="stranke">
+                            <div>
+                                <div id="viz"></div>
+                                <div class="legendaCont">
                                     <div class="naslov">
                                         <h1>Stranke</h1>
                                     </div>
                                     <div class="legenda"></div>
                                 </div>
+                            </div>
+                            <div style="clear: both;">
+                                <hr>
+                                <h4>Prinudna uprava</h4>
+                                <p>Odluke Vlade Srbije o uvođenju privremenih mera u lokalnu samoupravu (2008 - 2016)</p>
+                                <p id="prinudna_dokument"></p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="tab">
@@ -106,10 +93,6 @@
                             <p>Odobrena sredstva iz tekuće budžetske rezerve Republike Srbije na osnovu odluke Vlade Republike Srbije</p>
                             <p id="transfer_dokument"></p>
                             <!-- transferi -->
-                            <hr>
-                            <h4>Prinudna uprava</h4>
-                            <p>Odluke Vlade Srbije o uvođenju privremenih mera u lokalnu samoupravu (2008 - 2016)</p>
-                            <p id="prinudna_dokument"></p>
                         </div>
                         <!-- budzet -->
                         <div role="tabpanel" class="tab-pane" id="izbori">
