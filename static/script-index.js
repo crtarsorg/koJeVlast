@@ -16,19 +16,6 @@ $.get(FILES_PATH + "modal.html", function(data) {
 
 var base_selektor = "g:not([id='granice'])";
 
-/*var Data = (function() {
-    var _data = [];
-    return {
-        set: function(d) {
-            _data = d;
-        },
-
-        get: function() {
-            return _data;
-        }
-    }
-})();*/
-
 
 var DataStranke = (function() {
     var _data = [];
@@ -139,27 +126,15 @@ $("#mapa").load("srbija.svg", function() {
 
 var trenutna_boja = "rgb(155, 227, 220)";
 
-function mouseEvents(selektor) {
-
-    $(selektor)
-        .on("mouseover.boja", function() {
-            trenutna_boja = $(this).css("fill");
-            $(this).css("fill", "orange");
-
-            sideDetails($(this).attr("opstina"));
-        });
-
-    $(selektor)
-        .on("mouseleave.boja", function() {
-            //uzeti koja je trenutna boja 
-
-            $(this).css("fill", trenutna_boja);
-             $(".detalji_title").html("")
-        });
 
 
-    $(selektor).click(function() {
+var opstinaDetalji = function( id_opstine) {
+        
         var temp = $(this).attr('opstina')
+        if(id_opstine !== undefined && Number.isInteger(id_opstine)){
+            temp = id_opstine;
+        }
+
         var naslov = "Naslov ";
         
         
@@ -190,7 +165,28 @@ function mouseEvents(selektor) {
 
         $('#modal_id').modal('show')
 
-    });
+    }
+
+function mouseEvents(selektor) {
+
+    $(selektor)
+        .on("mouseover.boja", function() {
+            trenutna_boja = $(this).css("fill");
+            $(this).css("fill", "orange");
+
+            sideDetails($(this).attr("opstina"));
+        });
+
+    $(selektor)
+        .on("mouseleave.boja", function() {
+            //uzeti koja je trenutna boja 
+
+            $(this).css("fill", trenutna_boja);
+             $(".detalji_title").html("")
+        });
+
+
+    $(selektor).click( opstinaDetalji );
 
 }
 
@@ -392,7 +388,7 @@ function tabelaOdbornika(podaci) {
             '<td class="row-vlast">' + temp.pol + '</td>' +
             '<td class="row-promena">' + '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
             '</tr>';
-        $(".modal tbody").append(jedan_red);
+        $("#modal_id tbody").append(jedan_red);
 
 
     }

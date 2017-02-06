@@ -1,8 +1,13 @@
 <?php  
 
-$la = $_GET["naziv"];
+	
+	
+	$la = $_GET["naziv"];
 
-		
+	//treba naziv i id
+	
+	// povuci podatke za tu opstinu
+	// iskorisiti postojeci kod za popunjavanje; on je u js-u
 
 
 ?>
@@ -15,6 +20,10 @@ $la = $_GET["naziv"];
 	<title>Opstina</title>
 
 	<?php include_once 'partials/head-part.html'; ?>
+
+	<style type="text/css">
+		.modal-backdrop.in{display: none;}
+	</style>
 </head>
 <body>
 	
@@ -27,10 +36,28 @@ $la = $_GET["naziv"];
 
 ?>
 
+<script src="static/script-index.js"></script>
 
 <script type="text/javascript">
+	
+
+	<?php 
+	//kako dobiti ovaj idlazi se samo na mapi
+	echo "var idOpstine = 71153;\n";
+	
+	?>
+	$.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
+	    DataStranke.setOpstine(json);
+
+	    opstinaDetalji(idOpstine);
+	});
+
+
 	$(".modal").removeClass("fade")
 	$(".modal").removeClass("modal")
+
 </script>
+
+
 </body>
 </html>
