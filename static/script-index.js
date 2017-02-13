@@ -176,8 +176,8 @@ var opstinaDetalji = function( id_opstine) {
 
 function linkovi( id, naslov) {
         $("#shareLink").attr("href",LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
-        $("#fbShare").attr("href",LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
-        $("#twShare").attr("href",LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+        $("#fbShare").attr("href","https://www.facebook.com/sharer/sharer.php?u="+LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+        $("#twShare").attr("href","https://twitter.com/intent/tweet?text="+LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
     }    
 
 function mouseEvents(selektor) {
