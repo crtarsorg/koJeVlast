@@ -1,5 +1,7 @@
 
 var BASE_PATH =  "http://kojenavlasti.rs/";
+var LOKAL =  BASE_PATH;
+//"http://localhost/koJeVlast/";
 var OPSTINE =  BASE_PATH + "api/opstine";
 //var DATA_PATH = "data/podaciOpstina.json?2";
 
@@ -130,7 +132,8 @@ var trenutna_boja = "rgb(155, 227, 220)";
 
 var opstinaDetalji = function( id_opstine) {
         
-        var temp = $(this).attr('opstina')
+        var temp = $(this).attr('opstina');
+
         if(id_opstine !== undefined && Number.isInteger(id_opstine)){
             temp = id_opstine;
         }
@@ -140,7 +143,7 @@ var opstinaDetalji = function( id_opstine) {
         
         var podaci = DataStranke.getOpstine();
         
-        var opstina = podaci.filter(function(el){return el.oidopstine == temp})
+        var opstina = podaci.filter(function(el){return +el.oidopstine == temp})
         
         
         var id = 0;
@@ -148,16 +151,20 @@ var opstinaDetalji = function( id_opstine) {
         if(opstina.length == 0 ){
             return;
         }
+
         //temp = podaci[random_index];
         opstina_temp = opstina[0]
         naslov = opstina_temp.opstina;
         id = opstina_temp.opid;
+        idopstine = opstina_temp.oidopstine;
                 
         podaciOdborniciOpstina( id );// id opstine
         naslov_modal( naslov );
         info_tab( opstina_temp );
 
         dokumenta( id );
+
+        linkovi(idopstine, naslov);
 
         //var procenti = izracunajProcente( DataStranke.getOdbornici());
 
@@ -166,6 +173,12 @@ var opstinaDetalji = function( id_opstine) {
         $('#modal_id').modal('show')
 
     }
+
+function linkovi( id, naslov) {
+        $("#shareLink").attr("href",LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+        $("#fbShare").attr("href",LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+        $("#twShare").attr("href",LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+    }    
 
 function mouseEvents(selektor) {
 
@@ -254,7 +267,7 @@ function izracunajProcente( podaci ) {
    else
         svi = sortirani;
 
-   console.log( svi );
+   //console.log( svi );
 
 
    drawSvg( svi );

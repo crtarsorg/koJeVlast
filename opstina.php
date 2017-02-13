@@ -3,7 +3,7 @@
 	
 	
 	$la = $_GET["naziv"];
-
+	$id = $_GET["id"];
 	//treba naziv i id
 	
 	// povuci podatke za tu opstinu
@@ -23,6 +23,7 @@
 
 	<style type="text/css">
 		.modal-backdrop.in{display: none;}
+		.modal-open{overflow: scroll;}
 	</style>
 </head>
 <body>
@@ -43,7 +44,7 @@
 
 	<?php 
 	//kako dobiti ovaj idlazi se samo na mapi
-	echo "var idOpstine = 71153;\n";
+	echo "var idOpstine = $id;\n";
 	
 	?>
 	$.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {

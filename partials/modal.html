@@ -7,6 +7,10 @@
 .tab-pane.active {
     padding: 10px;
 }
+#linkovi{
+    float: right;
+    font-size: 25px;
+}
 </style>
 <div class="modal fade" id="modal_id">
     <div class="modal-dialog">
@@ -42,6 +46,12 @@
                                 <br>
                                 <span>Broj stanovnika: </span><span id="stanovnici"></span>
                             </div>
+
+                            <span id="linkovi">
+                                <a id="shareLink" href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                <a id="fbShare" href="#fb"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                                <a id="twShare" href="#tw"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                            </span>
                             <br>
                             <!-- <canvas width="360" height="300"></canvas> -->
                             <div>
@@ -108,3 +118,5 @@
         </div>
     </div>
 </div>
+
+
