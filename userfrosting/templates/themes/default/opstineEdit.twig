@@ -196,35 +196,6 @@ $( document ).ready(function() {
   getDocsOnline();
 
 
-function  getDocsOnline(){
-
-        $.ajax({
-    		type: "GET",
-    		url: "{{site.uri.public}}/opstine/getDocs/{{opstine[0].opid}}",
-            cache: false,
-            dataType: 'json',
-     		success: function(data)
-    		{
-                //convert data to html
-                var html = '<div class="row"><div class="col-sm-3"><h3>Label</h3></div>'+'<div class="col-sm-3"><h3>File</h3></div>'+'<div class="col-sm-3"><h3>Kategorija</h3></div></div>' ;
-                $.each(data, function(key, value){
-                    console.dir(value);
-                    html += '<div class="row doclist"><div class="col-sm-3">' +value.opdnaziv + '</div>'+'<div class="col-sm-3"><a target="_blank" href="http://kojenavlasti.rs/files/docs/'+value.opdfile+'" >' +value.opdfile + '</a></div>'+'<div class="col-sm-3">' +value.opdkatlabel + '</div></div>'     ;
-                });
-
-
-    		$("#docsonline").fadeOut(200,function(){
-    			$('#docsonline').html(html);
-    			$("#docsonline").fadeIn(500, function(){
-    				//$("#docalerts").fadeOut(5000);
-    			});
-    		});
-
-
-
-    		}
-		});
-}
 
 
 // Add docs
@@ -310,8 +281,70 @@ function  getDocsOnline(){
 
 
 	});
-	
+
 
 });
+
+
+
+function deleteDoc(docid){
+    if(!docid){alert("Missing docID...");return;}
+
+    //sure to delete ???
+    if (!confirm("Sigurno šelite da obrišete dokument?")) {
+        return;
+    }
+
+
+    $('#docalerts').html('    <div class="alert alert-info">Please wait... Removing file... </div>');
+
+        $.ajax({
+    		type: "GET",
+    		url: "{{site.uri.public}}/opstine/deleteDoc/"+docid,
+            cache: false,
+     		success: function(data)
+    		{
+                $('#docalerts').html('    <div class="alert alert-info">'+data+'</div>');
+                getDocsOnline();
+    		}
+		});
+
+
+}
+
+
+function  getDocsOnline(){
+
+        $.ajax({
+    		type: "GET",
+    		url: "{{site.uri.public}}/opstine/getDocs/{{opstine[0].opid}}",
+            cache: false,
+            dataType: 'json',
+     		success: function(data)
+    		{
+                //convert data to html
+                var html = '<div class="row"><div class="col-sm-3"><h3>Label</h3></div>'+'<div class="col-sm-3"><h3>File</h3></div>'+'<div class="col-sm-3"><h3>Kategorija</h3></div><div class="col-sm-3"><h3>Obriši</h3></div></div>' ;
+                $.each(data, function(key, value){
+                    //console.dir(value);
+                    html += '<div class="row doclist"><div class="col-sm-3">' +value.opdnaziv + '</div>'+'<div class="col-sm-3"><a target="_blank" href="http://kojenavlasti.rs/files/docs/'+value.opdfile+'" >' +value.opdfile + '</a></div>';
+                    html += '<div class="col-sm-3">' +value.opdkatlabel + '</div><div class="col-sm-3"><a href="javascript:;" onClick="deleteDoc(' +value.opdid + ')" >Obriši ' +value.opdnaziv + ' </a></div></div>'     ;
+                });
+
+
+    		$("#docsonline").fadeOut(200,function(){
+    			$('#docsonline').html(html);
+    			$("#docsonline").fadeIn(500, function(){
+    				//$("#docalerts").fadeOut(5000);
+    			});
+    		});
+
+
+
+    		}
+		});
+}
+
+
+
 </script>				
 {% endblock %}			

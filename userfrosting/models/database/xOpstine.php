@@ -184,7 +184,7 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
 
 
         //if(file_exists(  $updir . $_FILES['file']['name']  )){                  // TODO  zeza na serveru     __DIR__ .'../../../../../public_html/files/docs/'
-        if(in_array( $_FILES['file']['name'], $upfiles  )){             
+        if(in_array( $_FILES['file']['name'], $upfiles  )){
             die('<div class="alert alert-danger">Fajl sa tim imenom vec postoji.</div>');
         }
 
@@ -209,7 +209,30 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
         //var_dump($post);
         //var_dump($_FILES);
         die();
+    }
 
+
+    public function opstinaDeleteDoc($app,$docid){
+
+        $updir =  '../files/docs/';
+
+        $conn = Capsule::connection();
+        $dump="";
+        $resp="";
+
+        $res = $conn->table('opdocs')->where('opdid', '=', $docid)->get();
+
+        if($res){
+            //echo $res[0]['opdfile'];
+            //delete file
+            $resdelfile = unlink($updir.$res[0]['opdfile']);
+            $resdeldb = $conn->table('opdocs')->where('opdid', '=', $docid)->delete();
+
+            if($resdeldb){ echo 'Fajl "'.$res[0]['opdfile'].'" je obrisan'; } else { echo 'Fajl "'.$res[0]['opdfile'].'" NIJE obrisan'; }
+
+        } else {
+            echo 'Fajl koji pokušavate da obrišete ne postoji u bazi';
+        }
 
 
     }
@@ -222,7 +245,7 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
         $conn = Capsule::connection();
         $dump="";
 
-        $res = $conn->table('opdocs')->where('opdown', '=', $docid)->orderby('opdkat')->get();
+        $res = $conn->table('opdocs')->where('opdown', '=', $docid)->orderby('opdkat')->orderby('opdid',"DESC")->get();
 
         for($i = 0; $i < count($res); $i++) {
 
