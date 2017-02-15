@@ -225,7 +225,9 @@ if(count($resexist)>0){die('<div class="alert alert-danger">Opstina koju dodajte
         if($res){
             //echo $res[0]['opdfile'];
             //delete file
-            $resdelfile = unlink($updir.$res[0]['opdfile']);
+            if(file_exists($updir.$res[0]['opdfile'])){
+                $resdelfile = unlink($updir.$res[0]['opdfile']);
+            }
             $resdeldb = $conn->table('opdocs')->where('opdid', '=', $docid)->delete();
 
             if($resdeldb){ echo 'Fajl "'.$res[0]['opdfile'].'" je obrisan'; } else { echo 'Fajl "'.$res[0]['opdfile'].'" NIJE obrisan'; }
