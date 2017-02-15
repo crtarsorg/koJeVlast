@@ -7,6 +7,10 @@
 .tab-pane.active {
     padding: 10px;
 }
+#linkovi{
+    float: right;
+    font-size: 25px;
+}
 </style>
 <div class="modal fade" id="modal_id">
     <div class="modal-dialog">
@@ -26,7 +30,7 @@
                             <a href="#tab" aria-controls="tab" role="tab" data-toggle="tab">Odbornici</a>
                         </li>
                         <li role="presentation">
-                            <a href="#budzet" aria-controls="tab" role="tab" data-toggle="tab">Budzet</a>
+                            <a href="#budzet" aria-controls="tab" role="tab" data-toggle="tab">Budžet</a>
                         </li>
                         <li role="presentation">
                             <a href="#izbori" aria-controls="tab" role="tab" data-toggle="tab">Rezultati izbora</a>
@@ -35,42 +39,35 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="home">
-                            <img src="" alt="" class="logo">
-                            <br>
-                            <span>Povrsina: </span><span id="povrs"></span>
-                            <br>
-                            <span>Broj stanovnika: </span><span id="stanovnici"></span>
+                            <div>
+                                <img src="" alt="" class="logo">
+                                <br>
+                                <span>Površina: </span><span id="povrs"></span>
+                                <br>
+                                <span>Broj stanovnika: </span><span id="stanovnici"></span>
+                            </div>
+
+                            <span id="linkovi">
+                                <a  id="shareLink" href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="fbShare" href="#fb"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                                <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="twShare" href="#tw"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                            </span>
                             <br>
                             <!-- <canvas width="360" height="300"></canvas> -->
-                            <div id="viz"></div>
-                            <div class="legendaCont">
-                                <div role="tabpanel">
-                                    <!-- Nav tabs -->
-                                    <!-- <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active">
-                                            <a href="#stranke" aria-controls="stranke" role="tab" data-toggle="tab" class="tab-filter">stranke</a>
-                                        </li>
-                                        <li role="presentation">
-                                            <a href="#koalicije" aria-controls="tab" role="tab" data-toggle="tab" class="tab-filter">koal</a>
-                                        </li>
-                                    </ul> -->
-                                    <!-- Tab panes -->
-                                    <!-- <div class="tab-content">
-                                        <div role="tabpanel" class="tab-pane active" id="stranke">
-                                            <div class="naslov">
-                                                <h1>Naslov</h1>
-                                            </div>
-                                            <div class="legenda"></div>
-                                        </div>
-                                    </div> -->
-                                </div>
-                                <!-- legenda -->
-                                <div role="tabpanel" class="tab-pane active" id="stranke">
+                            <div>
+                                <div id="viz"></div>
+                                <div class="legendaCont">
                                     <div class="naslov">
-                                        <h1>Naslov</h1>
+                                        <h1>Stranke</h1>
                                     </div>
                                     <div class="legenda"></div>
                                 </div>
+                            </div>
+                            <div style="clear: both;">
+                                <hr>
+                                <h4>Prinudna uprava</h4>
+                                <p>Odluke Vlade Srbije o uvođenju privremenih mera u lokalnu samoupravu (2008 - 2016)</p>
+                                <p id="prinudna_dokument"></p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="tab">
@@ -91,25 +88,21 @@
                         </div>
                         <!-- tabela -->
                         <div role="tabpanel" class="tab-pane" id="budzet">
-                            <h4>Budzet</h4>
+                            <h4>Budžet</h4>
                             <p>Usvojeni budžeti lokalnih samouprava po godinama</p>
                             <p id="budzet_dokument"></p>
                             <hr>
                             <!-- izvrsenje -->
-                            <h4>Izvrsenje Budzeta</h4>
+                            <h4>Izvrsenje budžeta</h4>
                             <p>Izveštaj o izvršenju budžeta (trošenju javnih sredstava opštine/grada) po godinama</p>
                             <p id="izvrsenje_dokument"></p>
                             <!-- izvrsenje -->
                             <hr>
                             <!-- transferi -->
-                            <h4>Transferi iz budzeta</h4>
+                            <h4>Transferi iz budžeta</h4>
                             <p>Odobrena sredstva iz tekuće budžetske rezerve Republike Srbije na osnovu odluke Vlade Republike Srbije</p>
                             <p id="transfer_dokument"></p>
                             <!-- transferi -->
-                            <hr>
-                            <h4>Prinudna uprava</h4>
-                            <p>Odluke Vlade Srbije o uvođenju privremenih mera u lokalnu samoupravu (2008 - 2016)</p>
-                            <p id="prinudna_dokument"></p>
                         </div>
                         <!-- budzet -->
                         <div role="tabpanel" class="tab-pane" id="izbori">
@@ -125,3 +118,5 @@
         </div>
     </div>
 </div>
+
+

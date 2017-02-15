@@ -1,11 +1,13 @@
 
-var BASE_PATH =  "http://admin.kojenavlasti.rs/";
-var OPSTINE =  BASE_PATH + "admin/api/opstine";
-var DATA_PATH = "data/podaciOpstina.json?2";
+var BASE_PATH =  "http://kojenavlasti.rs/";
+var LOKAL =  BASE_PATH;
+//"http://localhost/koJeVlast/";
+var OPSTINE =  BASE_PATH + "api/opstine";
+//var DATA_PATH = "data/podaciOpstina.json?2";
 
 var FILES_PATH = "partials/"
 
-var stranke_vlast = "data/dataApi.json";
+var stranke_vlast = BASE_PATH + "api/strankaNaVlasti";
 
 $("#indikator").load(FILES_PATH +"forma.html")
 
@@ -15,19 +17,6 @@ $.get(FILES_PATH + "modal.html", function(data) {
 
 
 var base_selektor = "g:not([id='granice'])";
-
-var Data = (function() {
-    var _data = [];
-    return {
-        set: function(d) {
-            _data = d;
-        },
-
-        get: function() {
-            return _data;
-        }
-    }
-})();
 
 
 var DataStranke = (function() {
@@ -74,7 +63,7 @@ var DataStranke = (function() {
 
 
 function podaciOdborniciOpstina(idOpstine) {
-    $.getJSON( BASE_PATH + "admin/api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
+    $.getJSON( BASE_PATH + "api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
         $("tbody").empty();
 
         izracunajProcente(json);
@@ -87,13 +76,13 @@ function podaciOdborniciOpstina(idOpstine) {
 
 
 // struktura podatka u fajlu po opstini je losa
-$.getJSON(BASE_PATH +"admin/api/opstine", function(json, textStatus) {
+$.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
     DataStranke.setOpstine(json);
 });
 
-$.getJSON(DATA_PATH, function(json, textStatus) {
+/*$.getJSON(DATA_PATH, function(json, textStatus) {
     Data.set(json);
-});
+});*/
 
 
 $.getJSON(stranke_vlast, function(json, textStatus) {
@@ -139,6 +128,58 @@ $("#mapa").load("srbija.svg", function() {
 
 var trenutna_boja = "rgb(155, 227, 220)";
 
+
+
+var opstinaDetalji = function( id_opstine) {
+        
+        var temp = $(this).attr('opstina');
+
+        if(id_opstine !== undefined && Number.isInteger(id_opstine)){
+            temp = id_opstine;
+        }
+
+        var naslov = "Naslov ";
+        
+        
+        var podaci = DataStranke.getOpstine();
+        
+        var opstina = podaci.filter(function(el){return +el.oidopstine == temp})
+        
+        
+        var id = 0;
+
+        if(opstina.length == 0 ){
+            return;
+        }
+
+        //temp = podaci[random_index];
+        opstina_temp = opstina[0]
+        naslov = opstina_temp.opstina;
+        id = opstina_temp.opid;
+        idopstine = opstina_temp.oidopstine;
+                
+        podaciOdborniciOpstina( id );// id opstine
+        naslov_modal( naslov );
+        info_tab( opstina_temp );
+
+        dokumenta( id );
+
+        linkovi(idopstine, naslov);
+
+        //var procenti = izracunajProcente( DataStranke.getOdbornici());
+
+        
+
+        $('#modal_id').modal('show')
+
+    }
+
+function linkovi( id, naslov) {
+        $("#shareLink").attr("href",LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+        $("#fbShare").attr("href","https://www.facebook.com/sharer/sharer.php?u="+LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+        $("#twShare").attr("href","https://twitter.com/intent/tweet?text="+LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+    }    
+
 function mouseEvents(selektor) {
 
     $(selektor)
@@ -158,44 +199,12 @@ function mouseEvents(selektor) {
         });
 
 
-    $(selektor).click(function() {
-        var temp = $(this).attr('opstina')
-        var naslov = "Naslov ";
-        
-        var odbornici = Data.get();
-        var podaci = DataStranke.getOpstine();
-        
-        var opstina = podaci.filter(function(el){return el.oidopstine == temp})
-        
-        
-        var id = 0;
-
-        if(opstina.length == 0 ){
-            return;
-        }
-        //temp = podaci[random_index];
-        opstina_temp = opstina[0]
-        naslov = opstina_temp.opstina;
-        id = opstina_temp.opid;
-                
-        podaciOdborniciOpstina( id );// id opstine
-        naslov_modal( naslov );
-        info_tab( opstina_temp );
-
-        dokumenta( id );
-
-        //var procenti = izracunajProcente( DataStranke.getOdbornici());
-
-        
-
-        $('#modal_id').modal('show')
-
-    });
+    $(selektor).click( opstinaDetalji );
 
 }
 
 function izracunajProcente( podaci ) {
-   console.log('izracunavanje');     
+   //console.log('izracunavanje');     
    //console.log( podaci );     
 
    // nepoznate, null i sve ostalo stavljam u ostale
@@ -208,23 +217,60 @@ function izracunajProcente( podaci ) {
 
    var statistike = []
 
-
-
    Object.keys( grupisane ).forEach(function(el) {
 
         var centi = el.length ;
         //ostali
         //nepoznate i stranke koje nisu navedene transformisati u 'ostali'
+        var sk_temp = el.replace("'","").split(' ').map(function(item){return item[0]}).join('').toLowerCase();
 
-        statistike.push( {stranka: el ,skracenica:el.split(' ').map(function(item){return item[0]}).join(''), procenat: centi } );         
+        if(el == "Stranka nije na listi" || el ==null || el =="Nepoznata") 
+            {
+                el = "Ostale stranke";
+                sk_temp = "ostale";
+            }
+
+        var unos = {stranka: el ,skracenica: sk_temp, procenat: centi };    
+
+        var nadjena = _.find(statistike, {skracenica:"ostale"});
+
+        if(nadjena != undefined)
+        {
+            nadjena.procenat+= centi;
+            //unos = nadjena;
+        }
+        else 
+            statistike.push( unos );         
    })
 
-   console.log( statistike );
 
-   //sortirati ih
-   //
+   var sortirani = _.sortBy(statistike, function(el){return el.procenat});
+   sortirani = sortirani.reverse();
 
-   drawSvg( statistike );
+   var svi = [];
+   //uzeti samo prve tri i ostale
+   if(sortirani.length > 4){
+        //slice 4 do kraja 
+        //i sve ih saberi
+        svi = sortirani.slice(0,3);
+        ostali = sortirani.slice(4);
+        //sabrati sve procente
+        var ukupno = 0;
+
+        ostali.forEach(function(el) {
+            ukupno+=el.procenat;
+        })
+
+        svi.push({stranka: "Ostale stranke" ,skracenica: "ostale", procenat: ukupno }    );
+
+   }
+   else
+        svi = sortirani;
+
+   //console.log( svi );
+
+
+   drawSvg( svi );
 }
 
 function info_tab( opstina ) {
@@ -235,7 +281,7 @@ function info_tab( opstina ) {
 
     var broj_stanovnika = opstina.opop ;
 
-    $("#stanovnici").html( " " +  broj_stanovnika );
+    $("#stanovnici").html( " " +  broj_stanovnika.toLocaleString('de-DE') );
     $("#povrs").html( " " + povrsina );
 
 }
@@ -315,7 +361,7 @@ function sideDetails(idOpstine) {
 
     var stranke = opstina[0].vlast;
 
-    if(stranke ==undefined) 
+    if(stranke == undefined) 
         return;
 
     naslov_detalji += " " + opstina[0].opstina
@@ -323,6 +369,11 @@ function sideDetails(idOpstine) {
 
     for (var i = 0; i < stranke.length; i++) {
         
+        if(stranke[i] == undefined 
+        || stranke[i] ==null 
+        || stranke[i] =="Nepoznata"
+        || stranke[i] =="Stranka nije na listi") 
+            continue;
         $("#detalji table").append("<tr><td>"+stranke[i]+"</td></tr>")
     }
     
@@ -338,20 +389,41 @@ function tabelaOdbornika(podaci) {
     for (var i = 0; i < podaci.length; i++) {
         var temp = podaci[i];
 
+        var stranka_temp = temp.stranka;
+        if(stranka_temp == null ) stranka_temp = "Nepoznata";
         //setuj promenljive
         var jedan_red =
             '<tr class="single-row">' +
             '<td class="row-ime">' + temp.ime + " " + temp.prezime + '</td>' +
-            '<td class="row-stranka">' + temp.stranka + '</td>' +
+            '<td class="row-stranka">' + stranka_temp + '</td>' +
             '<td class="row-funkcija">' + temp.funkcija + '</td>' +
             '<td class="row-koalicija">' + temp.datrodj + '</td>' +
             '<td class="row-vlast">' + temp.pol + '</td>' +
             '<td class="row-promena">' + '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
             '</tr>';
-        $(".modal tbody").append(jedan_red);
+        $("#modal_id tbody").append(jedan_red);
 
 
     }
+
+    $(".row-promena").click(function(ev) {
+        ev.preventDefault();
+
+        var upit = "";
+        var kolone = ["ime","stranka","funkcija","koalicija","vlast","promena"];
+
+        var podaci =  $(this).parent().children();
+
+        podaci.each(function (i,el) {
+            upit += kolone[i] + "="+$(el).text()+"&";
+        })
+
+        upit = upit.replace("&promena= &","");
+        
+        window.location.href =  "./posaljitePromenu.html" +"?"+ upit;
+        
+    })
+
 }
 
 
@@ -396,7 +468,7 @@ function initStranka(argument) {
     var data = DataStranke.getStranke();
 
     for (var i = 0; i < data.length; i++) {
-        if(data[i] == "Nepoznata" || data[i] == "null" || data[i] == "Stranka nije na listi")
+        if(data[i] == "Nepoznata" || data[i] == null || data[i] == "Stranka nije na listi")
                 continue;
         $("#stranka").append("<option value='"+data[i]+"'>"+data[i]+"</option>")
         

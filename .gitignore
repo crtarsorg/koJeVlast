@@ -1,6 +1,8 @@
 _data/
 files/
 data/
+data-old/
+offline podaci
 .phpintel/
 import/
 junk/

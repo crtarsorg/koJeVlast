@@ -3,28 +3,28 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Pošaljite promenu</title>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/font-awesome-4.3.0.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/font-starcraft.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/bootstrap-3.3.2.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/bootstrap-modal-bs3patch.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/bootstrap-modal.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/lib/metisMenu.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/bootstrap-custom.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/bootstrap-switch.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/tablesorter/theme.bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/tablesorter/jquery.tablesorter.pager.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/select2/select2.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/select2/select2-bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/bootstrapradio.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/timeline.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/lib/morris.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/font-awesome-4.3.0.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/font-starcraft.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/bootstrap-3.3.2.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/bootstrap-modal-bs3patch.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/bootstrap-modal.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/lib/metisMenu.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/bootstrap-custom.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/bootstrap-switch.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/tablesorter/theme.bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/tablesorter/jquery.tablesorter.pager.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/select2/select2.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/select2/select2-bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/bootstrapradio.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/timeline.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/lib/morris.css" type="text/css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" type="text/css">
-    <link rel="stylesheet" href="http://admin.kojenavlasti.rs/admin/css/xcustom.css" type="text/css">
+    <link rel="stylesheet" href="http://kojenavlasti.rs/admin/css/xcustom.css" type="text/css">
 </head>
 
 <body>
@@ -103,18 +103,19 @@
         </form>
         <div class="clearfix"></div>
     </div>
-    <script src="http://admin.kojenavlasti.rs/admin/js/jquery-1.11.2.js"></script>
+    <script src="http://kojenavlasti.rs/admin/js/jquery-1.11.2.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script>
     $(document).ready(function() {
 
+        parametri()
 
 
         $("#posaljiPromenuForm").submit(function(e) {
 
             $.ajax({
                 type: "POST",
-                url: "http://admin.kojenavlasti.rs/admin/api/predlozitePromenu",
+                url: "http://kojenavlasti.rs/api/predlozitePromenu",
                 data: $("#posaljiPromenuForm").serialize(),
                 success: function(data) {
                     //refresh changes after adding or updating
@@ -134,11 +135,17 @@
         });
 
 
-
-
-
-
     });
+
+    function parametri(argument) {
+        var queryDict = {}
+
+        //parsiranje get parametara, ako ih ima
+        location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
+
+        $("#akter").val( decodeURIComponent( queryDict['ime'] )  );
+
+    }
     </script>
 </body>
 
