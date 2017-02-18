@@ -78,6 +78,8 @@ function podaciOdborniciOpstina(idOpstine) {
 // struktura podatka u fajlu po opstini je losa
 $.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
     DataStranke.setOpstine(json);
+    initOpstine();
+    initRegioni();
 });
 
 /*$.getJSON(DATA_PATH, function(json, textStatus) {
@@ -94,6 +96,7 @@ $.getJSON(stranke_vlast, function(json, textStatus) {
     //uzmi stranke na vlasti
 
     DataStranke.setStranke(stranke);
+    initStranka();
 });
 
 
@@ -120,9 +123,7 @@ $("#mapa").load("srbija.svg", function() {
 
     })
 
-    initOpstine();
-    initStranka();
-    initRegioni();
+    
 });
 
 
