@@ -897,6 +897,12 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
     ////////////////////////////////////////
 
 
+    $app->get('/api/akteri', function () use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->sviAkteri($app);
+    });
+
     $app->get('/api/akter/promene/:pid', function ($pid) use ($app) {
 
         $evt = new UF\xApi([]);
