@@ -27,7 +27,8 @@
         <thead>
             <th>Id</th>
             <th>Titula</th>
-            <th>Ime i prezime</th>
+            <th>Ime</th>
+            <th>Prezime</th>
             <th>Stranka</th>
             <th>Funkcija</th>
             <th>Koalicija</th>
@@ -40,7 +41,8 @@
         <tfoot>
             <th>Id</th>
             <th>Titula</th>
-            <th>Ime i prezime</th>
+            <th>Ime</th>
+            <th>Prezime</th>
             <th>Stranka</th>
             <th>Funkcija</th>
             <th>Koalicija</th>
@@ -49,10 +51,27 @@
             <th>Datum do</th>
             <th>U vlasti</th>
             <th>Kolona_dodatna</th>
+
         </tfoot>
     </table>
     <script>
     $(document).ready(function() {
+
+        $('#data').DataTable( {
+        	"processing": true,
+            dom: 'lBfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
+            "ajax": 'http://'+window.document.location.hostname + '/api/akteri'
+        } );
+
+    return;
+
+
         $('#data').DataTable({
         	"processing": true,
             dom: 'Bfrtip',
@@ -62,13 +81,12 @@
                 'csvHtml5',
                 'pdfHtml5'
             ],
-            "ajax": '../data/dataTables.json',
+            "ajax": 'http://k.com/partials/_Test.txt',
             columns: [
             
-             { data: "oid"},
-			 { data: "titula"},
-			 { data: "ime_prezime"},
-			 { data: "stranka"},
+             { data: "aid"},
+			 { data: "aime"},
+			 { data: "aprezime"},
 			 { data: "funkcija"},
 			 { data: "koalicija"},
 			 { data: "opstina"},
