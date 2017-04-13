@@ -62,6 +62,42 @@ var DataStranke = (function() {
 
 
 
+
+function mouseEvents(selektor) {
+
+    $(selektor)
+        .on("mouseover.boja", function() {
+
+            trenutna_boja = $(this).css("fill");
+            $(this).css("fill", "orange");
+
+            //treba proslediti id regiona kad je region aktivan
+            var od = $(this).attr( "opstina" );
+            var tip = "opstina";
+
+            if(od == undefined){
+                od = $(this).parent().attr("okrug");
+                tip = "region";
+            }
+            //console.log( $(this).parent().attr("okrug") );
+
+            sideDetailsHandler( od, tip );
+        });
+
+    $(selektor)
+        .on("mouseleave.boja", function() {
+            //uzeti koja je trenutna boja 
+
+            $(this).css("fill", trenutna_boja);
+             $(".detalji_title").html("")
+        });
+
+
+        //mora da bude i region detalji
+    $(selektor).click( sideDetaljiHandler  );
+
+}
+
 function podaciOdborniciOpstina(idOpstine) {
     $.getJSON( BASE_PATH + "api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
         $("tbody").empty();
@@ -140,19 +176,22 @@ var sideDetaljiHandler = function ( event ) {
     }
 }
 
-var regionDetailHandler = function ( elem ) {
-    var temp = $( elem ).parent().attr("okrug");
+var regionDetailHandler = function ( elem, naslov ) {
 
-    //okrug
-    //alert( "Okrug" + temp );  
+    var temp = elem; //id
+    //$( elem ).parent().attr("okrug");
 
     var podaci_po_okrugu = DataStranke.getOpstine();
     var grupisane = _.groupBy(podaci_po_okrugu, function (el) {
        return el.oidokruga;
     })
 
-    var filterd = (grupisane[+temp]);
-    agregacija_okrug(filterd)
+    var filterd = ( grupisane[+temp] );
+    var sumed = agregacija_okrug( filterd )
+
+    //var naslov = "Okrug " + temp;
+
+    sideDetails( naslov, sumed.vlast )
 
     //agregacija - izracunavanje svih parametara
     
@@ -163,11 +202,10 @@ function agregacija_okrug( opstine ) {
     
     var stranke = DataStranke.get();
 
-    
-
-    var init = {opop:0,opov:0,vlast:[]};
+    var init = { opop:0, opov:0, vlast:[] };
 
     var rez  = opstine.reduce(function ( a, b) {
+
         var temp = {};
         temp.opop = +a.opop + +b.opop;
         temp.opov = +a.opov + +b.opov;
@@ -185,22 +223,14 @@ function agregacija_okrug( opstine ) {
             if( b_stranke .length !== 0 && b_stranke[0].vlast !== undefined){
                 temp_ar2 = b_stranke[0].vlast
             }
-        //za neke opstine nema podataka
-        //    
 
         temp.vlast = temp_ar2.concat( temp_ar ) ;
 
-        //broj - count
-        //opop
-        //opov
-        
-
-        //i trebaju mi podaci o strankama na vlasti u tim opstinama
-        //za svaku opstinu
         return temp;
     } , init);
 
-    console.log( rez );
+//    console.log( rez );
+    return rez;
 }
 
 var opstinaDetaljiHandler = function( id_opstine) {
@@ -250,29 +280,7 @@ function linkovi( id, naslov) {
         $("#twShare").attr("href", "https://twitter.com/intent/tweet?text="+LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
     }    
 
-function mouseEvents(selektor) {
 
-    $(selektor)
-        .on("mouseover.boja", function() {
-            trenutna_boja = $(this).css("fill");
-            $(this).css("fill", "orange");
-
-            sideDetails($(this).attr("opstina"));
-        });
-
-    $(selektor)
-        .on("mouseleave.boja", function() {
-            //uzeti koja je trenutna boja 
-
-            $(this).css("fill", trenutna_boja);
-             $(".detalji_title").html("")
-        });
-
-
-        //mora da bude i region detalji
-    $(selektor).click( sideDetaljiHandler  );
-
-}
 
 function izracunajProcente( podaci ) {
    //console.log('izracunavanje');     
@@ -414,12 +422,7 @@ function naslov_modal(naslov) {
 }
 
 
-function sideDetails(idOpstine) {
-
-    var naslov_detalji = "Stranke u vlasti"
-
-
-    $("#detalji table").empty();
+function sideDetailsOpstina(idOpstine) {
     //stranke koje ucestvuju u vlasti 
     var podaciOpstine = DataStranke.get();
 
@@ -437,7 +440,37 @@ function sideDetails(idOpstine) {
     if(stranke == undefined) 
         return;
 
-    naslov_detalji += " " + opstina[0].opstina
+    naslov = opstina[0].opstina
+
+    sideDetails( naslov, stranke );
+}
+
+function sideDetailsRegion( id ,naslov ) {
+    
+    regionDetailHandler( id, naslov );
+}
+
+function sideDetailsHandler( id, op_ili_reg ) {
+
+    if( op_ili_reg == "opstina" ){
+        podaci = sideDetailsOpstina(id, "naslov")
+    }
+    else {
+        podaci = sideDetailsRegion(id, "naslov")
+    }
+
+}
+
+function sideDetails(  naslov , stranke ) {
+
+
+    var naslov_detalji = "Stranke u vlasti"
+
+    $("#detalji table").empty();
+   
+
+    naslov_detalji += " " + naslov;
+
     $(".detalji_title").html(naslov_detalji)
 
     for (var i = 0; i < stranke.length; i++) {
@@ -447,6 +480,7 @@ function sideDetails(idOpstine) {
         || stranke[i] =="Nepoznata"
         || stranke[i] =="Stranka nije na listi") 
             continue;
+
         $("#detalji table").append("<tr><td>"+stranke[i]+"</td></tr>")
     }
     
