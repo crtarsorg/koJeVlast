@@ -9,7 +9,7 @@ var FILES_PATH = "partials/"
 
 var stranke_vlast = BASE_PATH + "api/strankaNaVlasti";
 
-$("#indikator").load(FILES_PATH +"forma.html")
+$("#indikator").load(FILES_PATH +"legenda.html")
 
 $.get(FILES_PATH + "modal.html", function(data) {
     $("#mainWrapper").append(data);
@@ -61,6 +61,42 @@ var DataStranke = (function() {
 })();
 
 
+
+
+function mouseEvents(selektor) {
+
+    $(selektor)
+        .on("mouseover.boja", function() {
+
+            trenutna_boja = $(this).css("fill");
+            $(this).css("fill", "orange");
+
+            //treba proslediti id regiona kad je region aktivan
+            var od = $(this).attr( "opstina" );
+            var tip = "opstina";
+
+            if(od == undefined){
+                od = $(this).parent().attr("okrug");
+                tip = "region";
+            }
+            //console.log( $(this).parent().attr("okrug") );
+
+            sideDetailsHandler( od, tip );
+        });
+
+    $(selektor)
+        .on("mouseleave.boja", function() {
+            //uzeti koja je trenutna boja 
+
+            $(this).css("fill", trenutna_boja);
+             $(".detalji_title").html("")
+        });
+
+
+        //mora da bude i region detalji
+    $(selektor).click( sideDetaljiHandler  );
+
+}
 
 function podaciOdborniciOpstina(idOpstine) {
     $.getJSON( BASE_PATH + "api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
@@ -130,20 +166,83 @@ $("#mapa").load("srbija.svg", function() {
 var trenutna_boja = "rgb(155, 227, 220)";
 
 
+var sideDetaljiHandler = function ( event ) {
+   
+    if( $('[opstina]').css('display') !== 'none' ){
+        opstinaDetaljiHandler( event.target.getAttribute("opstina") );        
+    }
+    else {
+        regionDetailHandler( event.target );
+    }
+}
 
-var opstinaDetalji = function( id_opstine) {
+var regionDetailHandler = function ( elem, naslov ) {
+
+    var temp = elem; //id
+    //$( elem ).parent().attr("okrug");
+
+    var podaci_po_okrugu = DataStranke.getOpstine();
+    var grupisane = _.groupBy(podaci_po_okrugu, function (el) {
+       return el.oidokruga;
+    })
+
+    var filterd = ( grupisane[+temp] );
+    var sumed = agregacija_okrug( filterd )
+
+    //var naslov = "Okrug " + temp;
+
+    sideDetails( naslov, sumed.vlast )
+
+    //agregacija - izracunavanje svih parametara
+    
+}
+
+
+function agregacija_okrug( opstine ) {
+    
+    var stranke = DataStranke.get();
+
+    var init = { opop:0, opov:0, vlast:[] };
+
+    var rez  = opstine.reduce(function ( a, b) {
+
+        var temp = {};
+        temp.opop = +a.opop + +b.opop;
+        temp.opov = +a.opov + +b.opov;
+
+        var a_stranke =
+            stranke.filter(function(c){return c.idopstine == a.oidopstine});
+        var b_stranke =
+            stranke.filter(function(c){return c.idopstine == b.oidopstine});    
+
+        var temp_ar = [];
+        var temp_ar2 = []
+            
+            if( a_stranke.length !== 0 && a_stranke[0].vlast !== undefined) 
+                temp_ar = a_stranke[0].vlast
+            if( b_stranke .length !== 0 && b_stranke[0].vlast !== undefined){
+                temp_ar2 = b_stranke[0].vlast
+            }
+
+        temp.vlast = temp_ar2.concat( temp_ar ) ;
+
+        return temp;
+    } , init);
+
+//    console.log( rez );
+    return rez;
+}
+
+var opstinaDetaljiHandler = function( id_opstine) {
         
         var temp = $(this).attr('opstina');
 
-        if(id_opstine !== undefined && Number.isInteger(id_opstine)){
+        if(id_opstine !== undefined && Number.isInteger(+id_opstine)){
             temp = id_opstine;
         }
 
         var naslov = "Naslov ";
-        
-        
-        var podaci = DataStranke.getOpstine();
-        
+        var podaci = DataStranke.getOpstine();        
         var opstina = podaci.filter(function(el){return +el.oidopstine == temp})
         
         
@@ -176,33 +275,12 @@ var opstinaDetalji = function( id_opstine) {
     }
 
 function linkovi( id, naslov) {
-        $("#shareLink").attr("href",LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
-        $("#fbShare").attr("href","https://www.facebook.com/sharer/sharer.php?u="+LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
-        $("#twShare").attr("href","https://twitter.com/intent/tweet?text="+LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+        $("#shareLink").attr("href", LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+        $("#fbShare").attr("href", "https://www.facebook.com/sharer/sharer.php?u="+LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
+        $("#twShare").attr("href", "https://twitter.com/intent/tweet?text="+LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
     }    
 
-function mouseEvents(selektor) {
 
-    $(selektor)
-        .on("mouseover.boja", function() {
-            trenutna_boja = $(this).css("fill");
-            $(this).css("fill", "orange");
-
-            sideDetails($(this).attr("opstina"));
-        });
-
-    $(selektor)
-        .on("mouseleave.boja", function() {
-            //uzeti koja je trenutna boja 
-
-            $(this).css("fill", trenutna_boja);
-             $(".detalji_title").html("")
-        });
-
-
-    $(selektor).click( opstinaDetalji );
-
-}
 
 function izracunajProcente( podaci ) {
    //console.log('izracunavanje');     
@@ -275,8 +353,10 @@ function izracunajProcente( podaci ) {
 }
 
 function info_tab( opstina ) {
+
     var putanja_logo = "http://kojenavlasti.rs/files/logos/";
-    $(".logo").attr("src",putanja_logo + opstina.ologo);
+    
+    $(".logo").attr("src", putanja_logo + opstina.ologo);
 
     var povrsina = opstina.opov + " km2";
 
@@ -342,12 +422,7 @@ function naslov_modal(naslov) {
 }
 
 
-function sideDetails(idOpstine) {
-
-    var naslov_detalji = "Stranke u vlasti"
-
-
-    $("#detalji table").empty();
+function sideDetailsOpstina(idOpstine) {
     //stranke koje ucestvuju u vlasti 
     var podaciOpstine = DataStranke.get();
 
@@ -365,7 +440,37 @@ function sideDetails(idOpstine) {
     if(stranke == undefined) 
         return;
 
-    naslov_detalji += " " + opstina[0].opstina
+    naslov = opstina[0].opstina
+
+    sideDetails( naslov, stranke );
+}
+
+function sideDetailsRegion( id ,naslov ) {
+    
+    regionDetailHandler( id, naslov );
+}
+
+function sideDetailsHandler( id, op_ili_reg ) {
+
+    if( op_ili_reg == "opstina" ){
+        podaci = sideDetailsOpstina(id, "naslov")
+    }
+    else {
+        podaci = sideDetailsRegion(id, "naslov")
+    }
+
+}
+
+function sideDetails(  naslov , stranke ) {
+
+
+    var naslov_detalji = "Stranke u vlasti"
+
+    $("#detalji table").empty();
+   
+
+    naslov_detalji += " " + naslov;
+
     $(".detalji_title").html(naslov_detalji)
 
     for (var i = 0; i < stranke.length; i++) {
@@ -375,6 +480,7 @@ function sideDetails(idOpstine) {
         || stranke[i] =="Nepoznata"
         || stranke[i] =="Stranka nije na listi") 
             continue;
+
         $("#detalji table").append("<tr><td>"+stranke[i]+"</td></tr>")
     }
     
@@ -441,7 +547,7 @@ function initOpstine() {
 
     ajax.onload = function() {
         var list = JSON.parse(ajax.responseText).map(function(i) { 
-            return {label:i.opstina,value:i.opstina,data:i.oidopstine};      
+            return { label:i.opstina, value:i.opstina, data:i.oidopstine };      
         //{label:i.opstina/*, value:i.oidopstine*/};
          });
         new Awesomplete(
@@ -463,8 +569,10 @@ function initOpstine() {
 }
 
 
-
+/*stranka na vlasti lista*/
 function initStranka(argument) {
+
+
     //napravis selekt opcije
     var data = DataStranke.getStranke();
 
@@ -495,3 +603,4 @@ function initRegioni(argument) {
         $("#regioni").append("<option value='"+jedinstveni[i].idOkrug+"'>"+jedinstveni[i].okrug+"</option>")        
     }
 }
+
