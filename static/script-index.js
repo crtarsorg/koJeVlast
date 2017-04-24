@@ -89,7 +89,9 @@ function mouseEvents(selektor) {
             //uzeti koja je trenutna boja 
 
             $(this).css("fill", trenutna_boja);
-             $(".detalji_title").html("")
+            $(".detalji_title").html("")
+            $("#detalji table").empty();
+            //nedostupni podaci
         });
 
 
@@ -191,7 +193,8 @@ var regionDetailHandler = function ( elem, naslov ) {
 
     //var naslov = "Okrug " + temp;
 
-    sideDetails( naslov, sumed.vlast )
+    if(sumed !== undefined)
+        sideDetails( naslov, sumed.vlast )
 
     //agregacija - izracunavanje svih parametara
     
