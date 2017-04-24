@@ -65,8 +65,10 @@ function bojenje(unosi) {
 	}
 }
 
-function poStranci(argument) {
+function poStranci() {
 	$("#stranka").change(function(event) {
+
+		//debugger;
 		var str = event.target.value;
 
 		//filtriraj skup podataka
@@ -101,6 +103,7 @@ function poStranci(argument) {
 	 	
 	});
 }
+
 
 
 

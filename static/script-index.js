@@ -204,6 +204,12 @@ function agregacija_okrug( opstine ) {
 
     var init = { opop:0, opov:0, vlast:[] };
 
+    if(opstine == undefined)
+        return;
+
+
+    //cifre
+    
     var rez  = opstine.reduce(function ( a, b) {
 
         var temp = {};
@@ -448,6 +454,7 @@ function sideDetailsOpstina(idOpstine) {
 function sideDetailsRegion( id ,naslov ) {
     
     regionDetailHandler( id, naslov );
+    poStranci();
 }
 
 function sideDetailsHandler( id, op_ili_reg ) {
@@ -571,7 +578,6 @@ function initOpstine() {
 
 /*stranka na vlasti lista*/
 function initStranka(argument) {
-
 
     //napravis selekt opcije
     var data = DataStranke.getStranke();
