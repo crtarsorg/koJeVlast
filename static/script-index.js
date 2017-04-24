@@ -154,9 +154,7 @@ $("#mapa").load("srbija.svg", function() {
 
     $("#mapa").prepend("<button class='prijavi btn btn-lg btn-danger'>Prijavi promenu</button>")
 
-    /*  $("#juzna_i_istocna_srbija_1>g").hide()
-      $("#zapadna_backa_2>g").hide()
-      */
+  
 
     $(".prijavi").click(function() {
 
@@ -179,16 +177,21 @@ var sideDetaljiHandlerClick = function ( event ) {
         opstinaDetaljiHandlerClick( event.target.getAttribute("opstina") );        
     }
     else {
-        regionDetailHandlerClick( event.target );
+        regionDetailHandlerClick( event.target, "Naslov regiona" );
     }
 }
 
-var regionDetailHandlerClick = function ( elem, naslov ) {
+
+
+var regionDetailHandlerHover = function ( elem, naslov, side_modal ) {
 
 
     var temp = elem; //id
     
-    if(elem.tagName !==undefined && elem.tagName == "path"){
+    if(Number.isInteger(+elem) ){
+        temp = elem;
+    }    
+    else if(elem.tagName !==undefined && (elem.tagName == "path" || elem.tagName == "polygon" ) ){
         temp = $(elem).parent().attr("okrug")
     }
 
@@ -206,14 +209,9 @@ var regionDetailHandlerClick = function ( elem, naslov ) {
 
 
     if(sumed !== undefined){
-        //modal
+        
         sideDetails( naslov, sumed.vlast )
     }
-        
-
-
-    //alert("las click")
-    
     
 }
 
@@ -278,27 +276,46 @@ var opstinaDetaljiHandlerClick = function( id_opstine) {
             return;
         }
 
-        //temp = podaci[random_index];
-        opstina_temp = opstina[0]
-        naslov = opstina_temp.opstina;
-        id = opstina_temp.opid;
-        idopstine = opstina_temp.oidopstine;
-                
-        podaciOdborniciOpstina( id );// id opstine
-        naslov_modal( naslov );
-        info_tab( opstina_temp );
-
-        dokumenta( id );
-
-        linkovi(idopstine, naslov);
-
-        //var procenti = izracunajProcente( DataStranke.getOdbornici());
-
-        
-
-        $('#modal_id').modal('show')
+        showModal( opstina );
 
     }
+
+function regionDetailHandlerClick( element ) {
+    var id = $(element).parent().attr('okrug');
+
+    //sakrij podatke o budzetima i dokumentima
+    //uzmi podatke o odbornicima za sve opstine
+    //trebaju mi i oni podaci o populaciji i povrsini
+    
+}    
+
+
+function showModal( opstina ) {
+    //temp = podaci[random_index];
+    opstina_temp = opstina[0]
+    naslov = opstina_temp.opstina;
+    id = opstina_temp.opid;
+    idopstine = opstina_temp.oidopstine;
+            
+    podaciOdborniciOpstina( id );// id opstine
+    naslov_modal( naslov );
+    info_tab( opstina_temp );
+
+    dokumenta( id );
+
+    linkovi(idopstine, naslov);
+
+    //var procenti = izracunajProcente( DataStranke.getOdbornici());
+
+    $('#modal_id').modal('show')
+}    
+
+
+function showModalRegion(naslov, podaci) {
+    naslov_modal( naslov );
+    //sakrij tabove budzet, rezultati izbora
+    
+}
 
 function linkovi( id, naslov) {
         $("#shareLink").attr("href", LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
@@ -480,13 +497,14 @@ function sideDetailsOpstina(idOpstine) {
 function sideDetailsHandlerHover( id, op_ili_reg ) {
 
     if( op_ili_reg == "opstina" ){
-        //naslov opstine
+        podaci = sideDetailsOpstina(id, "naslov")
     }
     else {
-        //naslov regiona
+
+        regionDetailHandlerHover( id, "Naslov regiona" );
     }
 
-    podaci = sideDetailsOpstina(id, "naslov")
+    
 
 }
 
