@@ -81,7 +81,7 @@ function mouseEvents(selektor) {
             }
             //console.log( $(this).parent().attr("okrug") );
 
-            sideDetailsHandler( od, tip );
+            sideDetailsHandlerHover( od, tip );
         });
 
     $(selektor)
@@ -96,9 +96,10 @@ function mouseEvents(selektor) {
 
 
         //mora da bude i region detalji
-    $(selektor).click( sideDetaljiHandler  );
+    $(selektor).click( sideDetaljiHandlerClick  );
 
 }
+
 
 function podaciOdborniciOpstina(idOpstine) {
     $.getJSON( BASE_PATH + "api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
@@ -145,7 +146,11 @@ $("#mapa").load("srbija.svg", function() {
     //$("#mapa").trigger("ucitano", ["Custom", "Event"]);
     var selektor = " #mapa path:not(#KiM path,#granice path),#mapa polygon:not(#KiM polygon,#granice polygon)";
 
-    mouseEvents(selektor);
+   // var selektorRegion  = "[okrug] > path";
+
+    mouseEvents( selektor );
+//    mouseEventsRegion( selektorRegion )     
+
 
     $("#mapa").prepend("<button class='prijavi btn btn-lg btn-danger'>Prijavi promenu</button>")
 
@@ -168,19 +173,25 @@ $("#mapa").load("srbija.svg", function() {
 var trenutna_boja = "rgb(155, 227, 220)";
 
 
-var sideDetaljiHandler = function ( event ) {
+var sideDetaljiHandlerClick = function ( event ) {
    
     if( $('[opstina]').css('display') !== 'none' ){
-        opstinaDetaljiHandler( event.target.getAttribute("opstina") );        
+        opstinaDetaljiHandlerClick( event.target.getAttribute("opstina") );        
     }
     else {
-        regionDetailHandler( event.target );
+        regionDetailHandlerClick( event.target );
     }
 }
 
-var regionDetailHandler = function ( elem, naslov ) {
+var regionDetailHandlerClick = function ( elem, naslov ) {
+
 
     var temp = elem; //id
+    
+    if(elem.tagName !==undefined && elem.tagName == "path"){
+        temp = $(elem).parent().attr("okrug")
+    }
+
     //$( elem ).parent().attr("okrug");
 
     var podaci_po_okrugu = DataStranke.getOpstine();
@@ -193,10 +204,16 @@ var regionDetailHandler = function ( elem, naslov ) {
 
     //var naslov = "Okrug " + temp;
 
-    if(sumed !== undefined)
-        sideDetails( naslov, sumed.vlast )
 
-    //agregacija - izracunavanje svih parametara
+    if(sumed !== undefined){
+        //modal
+        sideDetails( naslov, sumed.vlast )
+    }
+        
+
+
+    //alert("las click")
+    
     
 }
 
@@ -242,7 +259,7 @@ function agregacija_okrug( opstine ) {
     return rez;
 }
 
-var opstinaDetaljiHandler = function( id_opstine) {
+var opstinaDetaljiHandlerClick = function( id_opstine) {
         
         var temp = $(this).attr('opstina');
 
@@ -454,20 +471,22 @@ function sideDetailsOpstina(idOpstine) {
     sideDetails( naslov, stranke );
 }
 
-function sideDetailsRegion( id ,naslov ) {
+/*function sideDetailsRegion( id ,naslov ) {
     
     regionDetailHandler( id, naslov );
     poStranci();
-}
+}*/
 
-function sideDetailsHandler( id, op_ili_reg ) {
+function sideDetailsHandlerHover( id, op_ili_reg ) {
 
     if( op_ili_reg == "opstina" ){
-        podaci = sideDetailsOpstina(id, "naslov")
+        //naslov opstine
     }
     else {
-        podaci = sideDetailsRegion(id, "naslov")
+        //naslov regiona
     }
+
+    podaci = sideDetailsOpstina(id, "naslov")
 
 }
 
