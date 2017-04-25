@@ -897,16 +897,23 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
     ////////////////////////////////////////
 
 
-    $app->get('/api/akteri', function () use ($app) {
+    $app->get('/api/akteri', function () use ($app) {                          // svi akteri - sa promenama
 
         $evt = new UF\xApi([]);
         $evt->sviAkteri($app);
     });
 
-    $app->get('/api/akteri/poRegionu/:oid', function ($oid) use ($app) {
+    $app->get('/api/akteri/poRegionu/:oid', function ($oid) use ($app) {         // lista groupby  aktera po regionima
 
         $evt = new UF\xApi([]);
         $evt->sviAkteriPoRegionima($app,$oid);
+    });
+
+    //lista aktera u trazenoj opstini
+    $app->get('/api/akteriPoOpstini/:id', function ($id) use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->akteriPoOpstini($app,$id);
     });
 
 
@@ -943,6 +950,8 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         $evt->strankeNaVlastiPoOpstinama($app);
     });
 
+
+
     $app->get('/api/predlozitePromenu', function () use ($app) {
 
         $evt = new UF\xApi([]);
@@ -955,12 +964,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         $evt->predlozitePromenuPost($app);
     });
 
-    //lista aktera u trazenoj opstini
-    $app->get('/api/akteriPoOpstini/:id', function ($id) use ($app) {
 
-        $evt = new UF\xApi([]);
-        $evt->akteriPoOpstini($app,$id);
-    });
 
 
 
