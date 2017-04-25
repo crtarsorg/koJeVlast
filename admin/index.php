@@ -903,6 +903,13 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         $evt->sviAkteri($app);
     });
 
+    $app->get('/api/akteri/poRegionu/:oid', function ($oid) use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->sviAkteriPoRegionima($app,$oid);
+    });
+
+
     $app->get('/api/akter/promene/:pid', function ($pid) use ($app) {
 
         $evt = new UF\xApi([]);
