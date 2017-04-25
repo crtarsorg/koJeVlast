@@ -183,8 +183,7 @@ var sideDetaljiHandlerClick = function ( event ) {
 
 
 
-var regionDetailHandlerHover = function ( elem, naslov, side_modal ) {
-
+var regionDetailHandlerHover = function ( elem, naslov ) {
 
     var temp = elem; //id
     
@@ -197,24 +196,28 @@ var regionDetailHandlerHover = function ( elem, naslov, side_modal ) {
 
     //$( elem ).parent().attr("okrug");
 
-    var podaci_po_okrugu = DataStranke.getOpstine();
-    var grupisane = _.groupBy(podaci_po_okrugu, function (el) {
-       return el.oidokruga;
-    })
-
-    var filterd = ( grupisane[+temp] );
-    var sumed = agregacija_okrug( filterd )
+    var sumed = podaciRegion( temp );
 
     //var naslov = "Okrug " + temp;
 
-
     if(sumed !== undefined){
-        
         sideDetails( naslov, sumed.vlast )
     }
     
 }
 
+
+function podaciRegion(id_region) {
+    var podaci_po_okrugu = DataStranke.getOpstine();
+    var grupisane = _.groupBy(podaci_po_okrugu, function (el) {
+       return el.oidokruga;
+    })
+
+    var filterd = ( grupisane[+id_region] );
+    var sumed = agregacija_okrug( filterd );
+
+    return sumed;
+}
 
 function agregacija_okrug( opstine ) {
     
@@ -280,13 +283,21 @@ var opstinaDetaljiHandlerClick = function( id_opstine) {
 
     }
 
-function regionDetailHandlerClick( element ) {
+function regionDetailHandlerClick( element, naslov_region ) {
     var id = $(element).parent().attr('okrug');
 
     //sakrij podatke o budzetima i dokumentima
     //uzmi podatke o odbornicima za sve opstine
-    //trebaju mi i oni podaci o populaciji i povrsini
     
+    //stranke u vlasti, populacija i povrsina
+    var podaci = podaciRegion( id );
+
+    
+
+    console.log( podaci );   
+
+    showModalRegion( "naslov", []);
+
 }    
 
 
@@ -314,6 +325,8 @@ function showModal( opstina ) {
 function showModalRegion(naslov, podaci) {
     naslov_modal( naslov );
     //sakrij tabove budzet, rezultati izbora
+    
+    $('#modal_id').modal('show')
     
 }
 
