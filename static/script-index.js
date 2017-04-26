@@ -24,6 +24,8 @@ var DataStranke = (function() {
     var _stranke = [];
     var _Opstine = [];
     var _odbornici = [];
+    var _odborniciRegion = [];
+    var _regioni = [];
 
     return {
         set: function(d) {
@@ -48,6 +50,19 @@ var DataStranke = (function() {
 
         getOdbornici: function() {
             return _odbornici;
+        },
+        setOdborniciRegion: function(d) {
+            _odborniciRegion = d;
+        },
+
+        getOdborniciRegion: function() {
+            return _odborniciRegion;
+        },
+        setRegioni: function ( d ) {
+            _regioni = d;
+        },
+        getRegioni: function ( d ) {
+           return _regioni;
         },
 
         setOpstine: function(d) {
@@ -121,6 +136,22 @@ $.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
     initRegioni();
 });
 
+function podaciAkteriRegion( id_region ) {
+    
+
+    $.getJSON( BASE_PATH + "api/akteri/poRegionu/"+ +id_region, function(json, textStatus) {
+        //$("tbody").empty();
+
+        //izracunajProcente(json);
+        DataStranke.setOdborniciRegion(json);
+        tabelaOdbornikaRegion( json );
+        
+        procentiRegion(json);
+        $('#modal_id').modal('show')
+
+    });
+}
+
 /*$.getJSON(DATA_PATH, function(json, textStatus) {
     Data.set(json);
 });*/
@@ -154,9 +185,7 @@ $("#mapa").load("srbija.svg", function() {
 
     $("#mapa").prepend("<button class='prijavi btn btn-lg btn-danger'>Prijavi promenu</button>")
 
-    /*  $("#juzna_i_istocna_srbija_1>g").hide()
-      $("#zapadna_backa_2>g").hide()
-      */
+  
 
     $(".prijavi").click(function() {
 
@@ -166,7 +195,7 @@ $("#mapa").load("srbija.svg", function() {
 
     })
 
-    
+    //anotate();
 });
 
 
@@ -179,44 +208,56 @@ var sideDetaljiHandlerClick = function ( event ) {
         opstinaDetaljiHandlerClick( event.target.getAttribute("opstina") );        
     }
     else {
-        regionDetailHandlerClick( event.target );
+        regionDetailHandlerClick( event.target, "Naslov regiona" );
     }
 }
 
-var regionDetailHandlerClick = function ( elem, naslov ) {
 
+
+var regionDetailHandlerHover = function ( elem, naslov ) {
 
     var temp = elem; //id
     
-    if(elem.tagName !==undefined && elem.tagName == "path"){
+    if(Number.isInteger(+elem) ){
+        temp = elem;
+    }    
+    else if(elem !==undefined && elem.tagName !==undefined && (elem.tagName == "path" || elem.tagName == "polygon" ) ){
         temp = $(elem).parent().attr("okrug")
     }
 
     //$( elem ).parent().attr("okrug");
+
+    var sumed = podaciRegion( temp );
+
+    //var naslov = "Okrug " + temp;
+
+    if(sumed !== undefined){
+        sideDetails( sumed.naslov, sumed.vlast )
+    }
+    
+}
+
+
+function podaciRegion(id_region) {
 
     var podaci_po_okrugu = DataStranke.getOpstine();
     var grupisane = _.groupBy(podaci_po_okrugu, function (el) {
        return el.oidokruga;
     })
 
-    var filterd = ( grupisane[+temp] );
-    var sumed = agregacija_okrug( filterd )
+    var filterd = ( grupisane[+id_region] );
+    var sumed = agregacija_okrug( filterd );
+    //naziv regiona
 
-    //var naslov = "Okrug " + temp;
+    var regioni = DataStranke.getRegioni();
+    var la = regioni.filter(function( el ) {
+        return el.idOkrug == +id_region;
+    });
 
+    sumed.naslov = la[0].okrug;
 
-    if(sumed !== undefined){
-        //modal
-        sideDetails( naslov, sumed.vlast )
-    }
-        
-
-
-    //alert("las click")
-    
-    
+    return sumed;
 }
-
 
 function agregacija_okrug( opstine ) {
     
@@ -278,27 +319,58 @@ var opstinaDetaljiHandlerClick = function( id_opstine) {
             return;
         }
 
-        //temp = podaci[random_index];
-        opstina_temp = opstina[0]
-        naslov = opstina_temp.opstina;
-        id = opstina_temp.opid;
-        idopstine = opstina_temp.oidopstine;
-                
-        podaciOdborniciOpstina( id );// id opstine
-        naslov_modal( naslov );
-        info_tab( opstina_temp );
-
-        dokumenta( id );
-
-        linkovi(idopstine, naslov);
-
-        //var procenti = izracunajProcente( DataStranke.getOdbornici());
-
-        
-
-        $('#modal_id').modal('show')
+        showModal( opstina );
 
     }
+
+function regionDetailHandlerClick( element, naslov_region ) {
+    var id = $(element).parent().attr('okrug');
+
+    //sakrij podatke o budzetima i dokumentima
+    //uzmi podatke o odbornicima za sve opstine
+    
+    //stranke u vlasti, populacija i povrsina
+    var podaci = podaciRegion( id );
+    podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
+
+    podaciAkteriRegion( id ); //ajax zahtev - podaci za tabelu
+
+    info_tab( podaci );  
+
+    showModalRegion( podaci.naslov, id );
+
+}    
+
+
+function showModal( opstina ) {
+    //temp = podaci[random_index];
+    opstina_temp = opstina[0]
+    naslov = opstina_temp.opstina;
+    id = opstina_temp.opid;
+    idopstine = opstina_temp.oidopstine;
+            
+    podaciOdborniciOpstina( id );// id opstine
+    naslov_modal( naslov );
+    info_tab( opstina_temp );
+
+    dokumenta( id );
+
+    linkovi(idopstine, naslov);
+
+    //var procenti = izracunajProcente( DataStranke.getOdbornici());
+
+    $('#modal_id').modal('show')
+}    
+
+
+function showModalRegion(naslov, id) {
+    naslov_modal( naslov );
+    //sakrij tabove budzet, rezultati izbora
+    
+    podaciAkteriRegion( +id );
+    
+    
+}
 
 function linkovi( id, naslov) {
         $("#shareLink").attr("href", LOKAL + "opstina.php?id=" + id + "&naslov="+naslov);
@@ -308,9 +380,22 @@ function linkovi( id, naslov) {
 
 
 
+function procentiRegion( data ) {
+
+    var mapirani = data.map( function(d) { 
+
+        var temp = {
+            stranka: d.snaziv || "Nepoznata"
+        }
+
+        return temp ; 
+    });
+
+    izracunajProcente( mapirani );
+
+}
+
 function izracunajProcente( podaci ) {
-   //console.log('izracunavanje');     
-   //console.log( podaci );     
 
    // nepoznate, null i sve ostalo stavljam u ostale
 
@@ -324,20 +409,22 @@ function izracunajProcente( podaci ) {
 
    Object.keys( grupisane ).forEach(function(el) {
 
-        var centi = el.length ;
+        var stranka = grupisane[el];
+
+        var centi = stranka.length ;
         //ostali
         //nepoznate i stranke koje nisu navedene transformisati u 'ostali'
         var sk_temp = el.replace("'","").split(' ').map(function(item){return item[0]}).join('').toLowerCase();
 
-        if(el == "Stranka nije na listi" || el ==null || el =="Nepoznata") 
+        if(el == "Stranka nije na listi" || el == "null"  || el == null || el =="Nepoznata") 
             {
                 el = "Ostale stranke";
                 sk_temp = "ostale";
             }
 
-        var unos = {stranka: el ,skracenica: sk_temp, procenat: centi };    
+        var unos = {stranka: el , skracenica: sk_temp, procenat: centi };    
 
-        var nadjena = _.find(statistike, {skracenica:"ostale"});
+        var nadjena = _.find(statistike, {skracenica: unos.skracenica /*"ostale"*/});
 
         if(nadjena != undefined)
         {
@@ -366,7 +453,15 @@ function izracunajProcente( podaci ) {
             ukupno+=el.procenat;
         })
 
-        svi.push({stranka: "Ostale stranke" ,skracenica: "ostale", procenat: ukupno }    );
+        var nadjena1 = _.find(statistike, {skracenica:"ostale"});
+        
+        if(nadjena1 != undefined)
+        {
+            nadjena1.procenat+= ukupno;
+            //unos = nadjena1;
+        }
+        else 
+          svi.push({stranka: "Ostale stranke" ,skracenica: "ostale", procenat: ukupno }    );
 
    }
    else
@@ -480,13 +575,14 @@ function sideDetailsOpstina(idOpstine) {
 function sideDetailsHandlerHover( id, op_ili_reg ) {
 
     if( op_ili_reg == "opstina" ){
-        //naslov opstine
+        podaci = sideDetailsOpstina(id, "naslov")
     }
     else {
-        //naslov regiona
+
+        regionDetailHandlerHover( id, "Naslov regiona" );
     }
 
-    podaci = sideDetailsOpstina(id, "naslov")
+    
 
 }
 
@@ -515,6 +611,28 @@ function sideDetails(  naslov , stranke ) {
     
 }
 
+function tabelaOdbornikaRegion( data ) {
+    //uraditi mapiranje podataka, a onda ih proslediti na tabela odbornici
+    
+    var mapirani = data.map(function(el) { 
+        var temp = {
+            ime : el.aime,
+            prezime : el.aprezime,
+            stranka : el.snaziv,
+            funkcija : el.funkcija,
+            koalicija : el.pkoalicija,
+            vlast : el.pnavlasti == 1? "vlast":"opozicija",
+            //promena : "",
+            datrodj : el.arodjen,
+            pol : el.apol,
+        }    
+        return temp ; 
+    })
+
+    tabelaOdbornika( mapirani );
+
+}
+
 function tabelaOdbornika(podaci) {
 
 
@@ -526,15 +644,19 @@ function tabelaOdbornika(podaci) {
         var temp = podaci[i];
 
         var stranka_temp = temp.stranka;
-        if(stranka_temp == null ) stranka_temp = "Nepoznata";
+
+        if(stranka_temp == null  ) stranka_temp = "Nepoznata";
+        //treba sve parametre proveriti i proveriti da li su null
+        //ako je datum 01.01 - -izbrisati to
+
         //setuj promenljive
         var jedan_red =
             '<tr class="single-row">' +
             '<td class="row-ime">' + temp.ime + " " + temp.prezime + '</td>' +
             '<td class="row-stranka">' + stranka_temp + '</td>' +
             '<td class="row-funkcija">' + temp.funkcija + '</td>' +
-            '<td class="row-koalicija">' + temp.datrodj + '</td>' +
-            '<td class="row-vlast">' + temp.pol + '</td>' +
+            '<td class="row-koalicija">' + temp.koalicija + '</td>' +
+            '<td class="row-vlast">' + temp.vlast + '</td>' +
             '<td class="row-promena">' + '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
             '</tr>';
         $("#modal_id tbody").append(jedan_red);
@@ -625,7 +747,8 @@ function initRegioni(argument) {
     
     var jedinstveni = _.uniq(okruzi, function(e) {return e.okrug} );
 
-   // console.log(jedinstveni);
+    DataStranke.setRegioni( jedinstveni );
+
 
     for (var i = 0; i < jedinstveni.length; i++) {
         $("#regioni").append("<option value='"+jedinstveni[i].idOkrug+"'>"+jedinstveni[i].okrug+"</option>")        
