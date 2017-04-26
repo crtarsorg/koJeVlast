@@ -144,7 +144,8 @@ function podaciAkteriRegion( id_region ) {
 
         //izracunajProcente(json);
         DataStranke.setOdborniciRegion(json);
-        tabelaOdbornikaRegion(json);
+        tabelaOdbornikaRegion( json );
+        
 
 
         //tabelaOdbornika(json)
@@ -246,8 +247,14 @@ function podaciRegion(id_region) {
 
     var filterd = ( grupisane[+id_region] );
     var sumed = agregacija_okrug( filterd );
-    
+    //naziv regiona
 
+    var regioni = DataStranke.getRegioni();
+    var la = regioni.filter(function( el ) {
+        return el.idOkrug == +id_region;
+    });
+
+    sumed.naslov = la[0].okrug;
 
     return sumed;
 }
@@ -326,11 +333,11 @@ function regionDetailHandlerClick( element, naslov_region ) {
     var podaci = podaciRegion( id );
     podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
 
-    podaciAkteriRegion(id); //ajax zahtev - podaci za tabelu
+    podaciAkteriRegion( id ); //ajax zahtev - podaci za tabelu
 
     info_tab( podaci );  
 
-    showModalRegion( "Region 1");
+    showModalRegion( podaci.naslov );
 
 }    
 
@@ -718,7 +725,6 @@ function initRegioni(argument) {
 
     DataStranke.setRegioni( jedinstveni );
 
-   // console.log(jedinstveni);
 
     for (var i = 0; i < jedinstveni.length; i++) {
         $("#regioni").append("<option value='"+jedinstveni[i].idOkrug+"'>"+jedinstveni[i].okrug+"</option>")        
