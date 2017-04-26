@@ -453,7 +453,15 @@ function izracunajProcente( podaci ) {
             ukupno+=el.procenat;
         })
 
-        svi.push({stranka: "Ostale stranke" ,skracenica: "ostale", procenat: ukupno }    );
+        var nadjena1 = _.find(statistike, {skracenica:"ostale"});
+        
+        if(nadjena1 != undefined)
+        {
+            nadjena1.procenat+= ukupno;
+            //unos = nadjena1;
+        }
+        else 
+          svi.push({stranka: "Ostale stranke" ,skracenica: "ostale", procenat: ukupno }    );
 
    }
    else
