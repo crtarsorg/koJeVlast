@@ -7,3 +7,4 @@ offline podaci
 import/
 junk/
 userfrosting/config-userfrosting.php
+admin/cache/
