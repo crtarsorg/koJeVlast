@@ -24,6 +24,8 @@ var DataStranke = (function() {
     var _stranke = [];
     var _Opstine = [];
     var _odbornici = [];
+    var _odborniciRegion = [];
+    var _regioni = [];
 
     return {
         set: function(d) {
@@ -48,6 +50,19 @@ var DataStranke = (function() {
 
         getOdbornici: function() {
             return _odbornici;
+        },
+        setOdborniciRegion: function(d) {
+            _odborniciRegion = d;
+        },
+
+        getOdborniciRegion: function() {
+            return _odborniciRegion;
+        },
+        setRegioni: function ( d ) {
+            _regioni = d;
+        },
+        getRegioni: function ( d ) {
+           return _regioni;
         },
 
         setOpstine: function(d) {
@@ -120,6 +135,21 @@ $.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
     initOpstine();
     initRegioni();
 });
+
+function podaciAkteriRegion( id_region ) {
+    
+
+    $.getJSON( BASE_PATH + "api/akteri/poRegionu/"+ +id_region, function(json, textStatus) {
+        //$("tbody").empty();
+
+        //izracunajProcente(json);
+        DataStranke.setOdborniciRegion(json);
+        tabelaOdbornikaRegion(json);
+
+
+        //tabelaOdbornika(json)
+    });
+}
 
 /*$.getJSON(DATA_PATH, function(json, textStatus) {
     Data.set(json);
@@ -208,6 +238,7 @@ var regionDetailHandlerHover = function ( elem, naslov ) {
 
 
 function podaciRegion(id_region) {
+
     var podaci_po_okrugu = DataStranke.getOpstine();
     var grupisane = _.groupBy(podaci_po_okrugu, function (el) {
        return el.oidokruga;
@@ -215,6 +246,8 @@ function podaciRegion(id_region) {
 
     var filterd = ( grupisane[+id_region] );
     var sumed = agregacija_okrug( filterd );
+    
+
 
     return sumed;
 }
@@ -291,12 +324,13 @@ function regionDetailHandlerClick( element, naslov_region ) {
     
     //stranke u vlasti, populacija i povrsina
     var podaci = podaciRegion( id );
+    podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
 
-    
+    podaciAkteriRegion(id); //ajax zahtev - podaci za tabelu
 
-    console.log( podaci );   
+    info_tab( podaci );  
 
-    showModalRegion( "naslov", []);
+    showModalRegion( "Region 1");
 
 }    
 
@@ -322,7 +356,7 @@ function showModal( opstina ) {
 }    
 
 
-function showModalRegion(naslov, podaci) {
+function showModalRegion(naslov) {
     naslov_modal( naslov );
     //sakrij tabove budzet, rezultati izbora
     
@@ -546,6 +580,28 @@ function sideDetails(  naslov , stranke ) {
     
 }
 
+function tabelaOdbornikaRegion( data ) {
+    //uraditi mapiranje podataka, a onda ih proslediti na tabela odbornici
+    
+    var mapirani = data.map(function(el) { 
+        var temp = {
+            ime : el.aime,
+            prezime : el.aprezime,
+            stranka : el.snaziv,
+            funkcija : el.funkcija,
+            koalicija : el.pkoalicija,
+            vlast : el.pnavlasti == 1? "vlast":"opozicija",
+            //promena : "",
+            datrodj : el.arodjen,
+            pol : el.apol,
+        }    
+        return temp ; 
+    })
+
+    tabelaOdbornika( mapirani );
+
+}
+
 function tabelaOdbornika(podaci) {
 
 
@@ -557,15 +613,19 @@ function tabelaOdbornika(podaci) {
         var temp = podaci[i];
 
         var stranka_temp = temp.stranka;
-        if(stranka_temp == null ) stranka_temp = "Nepoznata";
+
+        if(stranka_temp == null  ) stranka_temp = "Nepoznata";
+        //treba sve parametre proveriti i proveriti da li su null
+        //ako je datum 01.01 - -izbrisati to
+
         //setuj promenljive
         var jedan_red =
             '<tr class="single-row">' +
             '<td class="row-ime">' + temp.ime + " " + temp.prezime + '</td>' +
             '<td class="row-stranka">' + stranka_temp + '</td>' +
             '<td class="row-funkcija">' + temp.funkcija + '</td>' +
-            '<td class="row-koalicija">' + temp.datrodj + '</td>' +
-            '<td class="row-vlast">' + temp.pol + '</td>' +
+            '<td class="row-koalicija">' + temp.koalicija + '</td>' +
+            '<td class="row-vlast">' + temp.vlast + '</td>' +
             '<td class="row-promena">' + '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
             '</tr>';
         $("#modal_id tbody").append(jedan_red);
@@ -655,6 +715,8 @@ function initRegioni(argument) {
 
     
     var jedinstveni = _.uniq(okruzi, function(e) {return e.okrug} );
+
+    DataStranke.setRegioni( jedinstveni );
 
    // console.log(jedinstveni);
 
