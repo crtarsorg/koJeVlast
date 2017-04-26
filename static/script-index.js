@@ -147,6 +147,7 @@ function podaciAkteriRegion( id_region ) {
         tabelaOdbornikaRegion( json );
         
         procentiRegion(json);
+        $('#modal_id').modal('show')
 
     });
 }
@@ -220,7 +221,7 @@ var regionDetailHandlerHover = function ( elem, naslov ) {
     if(Number.isInteger(+elem) ){
         temp = elem;
     }    
-    else if(elem.tagName !==undefined && (elem.tagName == "path" || elem.tagName == "polygon" ) ){
+    else if(elem !==undefined && elem.tagName !==undefined && (elem.tagName == "path" || elem.tagName == "polygon" ) ){
         temp = $(elem).parent().attr("okrug")
     }
 
@@ -231,7 +232,7 @@ var regionDetailHandlerHover = function ( elem, naslov ) {
     //var naslov = "Okrug " + temp;
 
     if(sumed !== undefined){
-        sideDetails( naslov, sumed.vlast )
+        sideDetails( sumed.naslov, sumed.vlast )
     }
     
 }
@@ -336,9 +337,7 @@ function regionDetailHandlerClick( element, naslov_region ) {
 
     info_tab( podaci );  
 
-    
-
-    showModalRegion( podaci.naslov );
+    showModalRegion( podaci.naslov, id );
 
 }    
 
@@ -364,11 +363,12 @@ function showModal( opstina ) {
 }    
 
 
-function showModalRegion(naslov) {
+function showModalRegion(naslov, id) {
     naslov_modal( naslov );
     //sakrij tabove budzet, rezultati izbora
     
-    $('#modal_id').modal('show')
+    podaciAkteriRegion( +id );
+    
     
 }
 
@@ -416,7 +416,7 @@ function izracunajProcente( podaci ) {
         //nepoznate i stranke koje nisu navedene transformisati u 'ostali'
         var sk_temp = el.replace("'","").split(' ').map(function(item){return item[0]}).join('').toLowerCase();
 
-        if(el == "Stranka nije na listi" || el ==null || el =="Nepoznata") 
+        if(el == "Stranka nije na listi" || el == "null"  || el == null || el =="Nepoznata") 
             {
                 el = "Ostale stranke";
                 sk_temp = "ostale";
