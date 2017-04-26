@@ -53,11 +53,18 @@ class xApi extends UFModel {
     //lista groupby aktera po regionima
     public function sviAkteriPoRegionima($app,$oid){
         $conn = Capsule::connection();
+
+    //$resmax = $conn->table('promene')->selectraw( 'max(pid) ')->groupBy('posoba')->get();
+    //die();
+
         //$res = $conn->table('promene')->select("aid","aime","aprezime")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->orderBy('pod','desc')->limit(5)->get();
         $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
         ->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')
         ->leftJoin('opstine', 'popstina', '=', 'opid')
         ->where('oidokruga', '=', $oid)
+
+        //subquery to select MAX pid - latest change - in GROUP BY 
+        ->whereraw('pid IN (SELECT max(pid) FROM promene GROUP BY posoba)')
 
         ->where(function ($query) {
                                 $query->whereNull('pdo');

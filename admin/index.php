@@ -896,14 +896,17 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
     /// API
     ////////////////////////////////////////
 
-
-    $app->get('/api/akteri', function () use ($app) {                          // svi akteri - sa promenama
+    // svi akteri - sa promenama
+    //koristi se samo na tabela.html  (promene)     
+    $app->get('/api/akteri', function () use ($app) {
 
         $evt = new UF\xApi([]);
         $evt->sviAkteri($app);
     });
 
-    $app->get('/api/akteri/poRegionu/:oid', function ($oid) use ($app) {         // lista groupby  aktera po regionima
+    // lista groupby  aktera po regionima, select max PID, samo poslednja promena
+    //
+    $app->get('/api/akteri/poRegionu/:oid', function ($oid) use ($app) {
 
         $evt = new UF\xApi([]);
         $evt->sviAkteriPoRegionima($app,$oid);
@@ -916,7 +919,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         $evt->akteriPoOpstini($app,$id);
     });
 
-
+    //vraca sve promene aktera  - OK
     $app->get('/api/akter/promene/:pid', function ($pid) use ($app) {
 
         $evt = new UF\xApi([]);
