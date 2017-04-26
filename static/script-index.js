@@ -194,7 +194,7 @@ $("#mapa").load("srbija.svg", function() {
 
     })
 
-    
+    //anotate();
 });
 
 

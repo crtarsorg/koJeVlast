@@ -42,7 +42,8 @@
             </div>
         </div>
     </div>
-    <script src="static/script-index.js"></script>
+    <!-- <script src="static/anotate.js"></script> -->
+    <script src="static/script-index.js?1"></script>
 </body>
 
 </html>
