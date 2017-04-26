@@ -897,11 +897,17 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
     ////////////////////////////////////////
 
     // svi akteri - sa promenama
-    //koristi se samo na tabela.html  (promene)     
+    //koristi se samo na tabela.html  (promene)
     $app->get('/api/akteri', function () use ($app) {
 
         $evt = new UF\xApi([]);
         $evt->sviAkteri($app);
+    });
+
+    $app->get('/api/removeCache', function () use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->removeCache($app);
     });
 
     // lista groupby  aktera po regionima, select max PID, samo poslednja promena
