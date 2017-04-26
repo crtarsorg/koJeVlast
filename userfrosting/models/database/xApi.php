@@ -52,6 +52,10 @@ class xApi extends UFModel {
 
     //lista groupby aktera po regionima
     public function sviAkteriPoRegionima($app,$oid){
+
+
+    $this->checkCache("sviAkteriPoRegionima");
+
         $conn = Capsule::connection();
 
     //$resmax = $conn->table('promene')->selectraw( 'max(pid) ')->groupBy('posoba')->get();
@@ -63,7 +67,7 @@ class xApi extends UFModel {
         ->leftJoin('opstine', 'popstina', '=', 'opid')
         ->where('oidokruga', '=', $oid)
 
-        //subquery to select MAX pid - latest change - in GROUP BY 
+        //subquery to select MAX pid - latest change - in GROUP BY
         ->whereraw('pid IN (SELECT max(pid) FROM promene GROUP BY posoba)')
 
         ->where(function ($query) {
@@ -88,7 +92,8 @@ class xApi extends UFModel {
 //        }
 //
 //        echo json_encode($dataout);
-        echo json_encode($res);
+        //echo json_encode($res);
+        $this->createCache("sviAkteriPoRegionima",json_encode($res));
     }
 
 
@@ -231,6 +236,47 @@ class xApi extends UFModel {
         echo json_encode($out);
 
     }
+
+
+
+
+//HELPERS
+public function createCache($call, $data){
+    $fp = fopen("cache/".$call.".json", 'w');
+    fwrite($fp, $data);
+    fclose($fp);
+
+    echo $data;
+}
+
+public function checkCache($call){
+    $flife=3600; //seconds
+
+    if(file_exists("cache/".$call.".json")){
+
+        clearstatcache();
+        $age = time()-filemtime("cache/".$call.".json");
+        if($age>$flife) {
+            //go back and make query
+            return;
+        }else {
+            //serve cached file
+            echo file_get_contents("cache/".$call.".json");
+            die();
+        }
+
+    } else {
+        //go back and make query
+        return;
+    }
+
+
+
+}
+
+
+
+
 
 
 }
