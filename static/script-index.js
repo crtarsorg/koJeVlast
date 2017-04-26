@@ -146,9 +146,8 @@ function podaciAkteriRegion( id_region ) {
         DataStranke.setOdborniciRegion(json);
         tabelaOdbornikaRegion( json );
         
+        procentiRegion(json);
 
-
-        //tabelaOdbornika(json)
     });
 }
 
@@ -337,6 +336,8 @@ function regionDetailHandlerClick( element, naslov_region ) {
 
     info_tab( podaci );  
 
+    
+
     showModalRegion( podaci.naslov );
 
 }    
@@ -379,9 +380,22 @@ function linkovi( id, naslov) {
 
 
 
+function procentiRegion( data ) {
+
+    var mapirani = data.map( function(d) { 
+
+        var temp = {
+            stranka: d.snaziv || "Nepoznata"
+        }
+
+        return temp ; 
+    });
+
+    izracunajProcente( mapirani );
+
+}
+
 function izracunajProcente( podaci ) {
-   //console.log('izracunavanje');     
-   //console.log( podaci );     
 
    // nepoznate, null i sve ostalo stavljam u ostale
 
@@ -395,7 +409,9 @@ function izracunajProcente( podaci ) {
 
    Object.keys( grupisane ).forEach(function(el) {
 
-        var centi = el.length ;
+        var stranka = grupisane[el];
+
+        var centi = stranka.length ;
         //ostali
         //nepoznate i stranke koje nisu navedene transformisati u 'ostali'
         var sk_temp = el.replace("'","").split(' ').map(function(item){return item[0]}).join('').toLowerCase();
@@ -406,9 +422,9 @@ function izracunajProcente( podaci ) {
                 sk_temp = "ostale";
             }
 
-        var unos = {stranka: el ,skracenica: sk_temp, procenat: centi };    
+        var unos = {stranka: el , skracenica: sk_temp, procenat: centi };    
 
-        var nadjena = _.find(statistike, {skracenica:"ostale"});
+        var nadjena = _.find(statistike, {skracenica: unos.skracenica /*"ostale"*/});
 
         if(nadjena != undefined)
         {
