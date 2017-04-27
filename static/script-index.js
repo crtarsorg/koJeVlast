@@ -300,11 +300,14 @@ function tabelaOdbornikaRegion(data) {
 function tabelaOdbornika(podaci) {
 
 
-    //data tables
+    
     //prikazati statistiku - broj aktera, broj odbornika
     // stranka, koalicija, vlast, opozicija
     //redosled prikazivanja
+    
+    console.log( podaci );
 
+    $("#modal_id tbody").html( " " );
     $("#statsOdb").html(" Ukupan broj aktera: " + podaci.length);
 
 
@@ -316,6 +319,7 @@ function tabelaOdbornika(podaci) {
         if (stranka_temp == null) stranka_temp = "Nepoznata";
         //treba sve parametre proveriti i proveriti da li su null
         //ako je datum 01.01 - -izbrisati to
+
 
         //setuj promenljive
         var jedan_red =
