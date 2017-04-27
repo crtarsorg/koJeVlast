@@ -114,7 +114,12 @@ $.getJSON(stranke_vlast, function(json, textStatus) {
 });
 
 
-
+/*1  Budžet 
+2  Rezultati izbora 
+3  Prinudna uprava 
+4  Transfer iz budžeta 
+5  Izvršenje budžeta 
+*/
 function dokumenta(op_id) {
 
     //http://admin.kojenavlasti.rs/admin/opstine/getDocs/71
@@ -127,6 +132,7 @@ function dokumenta(op_id) {
         var izvr_temp = "";
         var trans_temp = "";
         var prinuda_temp = "";
+        var izbori_temp = "";
 
         for (var i = 0, len = data.length; i < len; i++) {
             if (data[i].opdkat == 1) {
@@ -135,8 +141,10 @@ function dokumenta(op_id) {
                 izvr_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/" + data[i].opdfile + "'>" + data[i].opdnaziv + "</a><br/>";
             } else if (data[i].opdkat == 4) {
                 trans_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/" + data[i].opdfile + "'>" + data[i].opdnaziv + "</a><br/>";
-            } else if (data[i].opdkat == 2) {
+            } else if (data[i].opdkat == 3) {
                 prinuda_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/" + data[i].opdfile + "'>" + data[i].opdnaziv + "</a><br/>";
+            } else if (data[i].opdkat == 2) {
+                izbori_temp += "<a target='_blank' href='http://kojenavlasti.rs/files/docs/" + data[i].opdfile + "'>" + data[i].opdnaziv + "</a><br/>";
             }
         }
 
@@ -148,11 +156,15 @@ function dokumenta(op_id) {
             trans_temp = "<b>Nema dokumenata</b>";
         if (prinuda_temp == "") 
             prinuda_temp = "<b>Nema dokumenata</b>";
+        if(izbori_temp =="")
+            izbori_temp = "<b>Nema dokumenata</b>";
 
         $("#budzet_dokument").html(budz_temp);
         $("#izvrsenje_dokument").html(izvr_temp);
         $("#transfer_dokument").html(trans_temp);
         $("#prinudna_dokument").html(prinuda_temp);
+        $("#izbori_dokument").html(izbori_temp);
+        
 
     });
 
