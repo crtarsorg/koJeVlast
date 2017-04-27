@@ -43,6 +43,9 @@
         </div>
     </div>
     <!-- <script src="static/anotate.js"></script> -->
+    
+    <script src="static/data.js"></script>
+    <script src="static/helpers.js"></script>
     <script src="static/script-index.js?1"></script>
 </body>
 
