@@ -54,7 +54,7 @@ class xApi extends UFModel {
     public function sviAkteriPoRegionima($app,$oid){
 
 
-    $this->checkCache("sviAkteriPoRegionima");
+    //$this->checkCache("sviAkteriPoRegionima");
 
         $conn = Capsule::connection();
 
@@ -62,7 +62,8 @@ class xApi extends UFModel {
     //die();
 
         //$res = $conn->table('promene')->select("aid","aime","aprezime")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->orderBy('pod','desc')->limit(5)->get();
-        $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
+        $res = $conn->table('promene')->select("pid","pnavlasti","pod","pdo","aime","aprezime","apol","arodjen","snaziv","funkcija","kid","knaziv","opstina","okrug","ograd")
+        ->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
         ->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')
         ->leftJoin('opstine', 'popstina', '=', 'opid')
         ->where('oidokruga', '=', $oid)
@@ -92,8 +93,8 @@ class xApi extends UFModel {
 //        }
 //
 //        echo json_encode($dataout);
-        //echo json_encode($res);
-        $this->createCache("sviAkteriPoRegionima",json_encode($res));
+        echo json_encode($res);
+        //$this->createCache("sviAkteriPoRegionima",json_encode($res));
     }
 
 
