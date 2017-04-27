@@ -300,8 +300,12 @@ function tabelaOdbornikaRegion(data) {
 function tabelaOdbornika(podaci) {
 
 
-    //ovde bi trebali ubaciti data tables 
-    //$var_novo = $(".single-row").clone();
+    //data tables
+    //prikazati statistiku - broj aktera, broj odbornika
+    // stranka, koalicija, vlast, opozicija
+    //redosled prikazivanja
+
+    $("#statsOdb").html(" Ukupan broj aktera: " + podaci.length);
 
 
     for (var i = 0; i < podaci.length; i++) {
@@ -345,6 +349,8 @@ function tabelaOdbornika(podaci) {
         window.location.href = "./posaljitePromenu.html" + "?" + upit;
 
     })
+
+    $('#tab table').DataTable();
 
 }
 
