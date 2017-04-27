@@ -54,7 +54,7 @@ class xApi extends UFModel {
     public function sviAkteriPoRegionima($app,$oid){
 
 
-    //$this->checkCache("sviAkteriPoRegionima");
+    $this->checkCache("sviAkteriPoRegionima".$oid);
 
         $conn = Capsule::connection();
 
@@ -93,8 +93,8 @@ class xApi extends UFModel {
 //        }
 //
 //        echo json_encode($dataout);
-        echo json_encode($res);
-        //$this->createCache("sviAkteriPoRegionima",json_encode($res));
+        //echo json_encode($res);
+        $this->createCache("sviAkteriPoRegionima".$oid,json_encode($res));
     }
 
 
