@@ -316,7 +316,11 @@ function tabelaOdbornika(podaci) {
 
         var stranka_temp = temp.stranka;
 
-        if (stranka_temp == null) stranka_temp = "Nepoznata";
+        if (stranka_temp == null || stranka_temp == undefined ) stranka_temp = "Nepoznata";
+        if (temp.funkcija == null || temp.funkcija == undefined ) temp.funkcija = "Nepoznata";
+        if (temp.koalicija == null || temp.koalicija == undefined ) temp.koalicija = "Nepoznata";
+        if (temp.vlast == null || temp.vlast == undefined ) temp.vlast = "Nepoznata";
+
         //treba sve parametre proveriti i proveriti da li su null
         //ako je datum 01.01 - -izbrisati to
 
