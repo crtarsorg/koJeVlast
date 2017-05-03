@@ -151,11 +151,11 @@ class xApi extends UFModel {
                 $out[$val['popstina']]['idokruga'] = $val['oidokruga'] ;
 
                 if($val['pnavlasti']==1){
-                    $out[$val['popstina']]['vlast'][]= array($val['sid'],$val['snaziv']);
+                    $out[$val['popstina']]['vlast'][]= array("id"=>$val['sid'],"naziv"=>$val['snaziv']);
 
                     }
                 if($val['pnavlasti']==2){
-                    $out[$val['popstina']]['opozicija'][]= array($val['sid'],$val['snaziv']);
+                    $out[$val['popstina']]['opozicija'][]= array("id"=>$val['sid'],"naziv"=>$val['snaziv']); 
 
                     }
             }
