@@ -137,7 +137,7 @@ class xApi extends UFModel {
 
     public function strankeNaVlastiPoOpstinama($app){
         $conn = Capsule::connection();
-        $res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina","oidopstine","oidokruga")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("popstina","pnavlasti","pstranka")->get();
+        $res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina","oidopstine","oidokruga","sid")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("popstina","pnavlasti","pstranka")->get();
 
         //prepare result
         $out = array();
@@ -150,8 +150,14 @@ class xApi extends UFModel {
                 $out[$val['popstina']]['idopstine'] = $val['oidopstine'] ;
                 $out[$val['popstina']]['idokruga'] = $val['oidokruga'] ;
 
-                if($val['pnavlasti']==1){$out[$val['popstina']]['vlast'][]= $val['snaziv']; }
-                if($val['pnavlasti']==2){$out[$val['popstina']]['opozicija'][]= $val['snaziv']; }
+                if($val['pnavlasti']==1){
+                    $out[$val['popstina']]['vlast'][]= array($val['sid'],$val['snaziv']);
+
+                    }
+                if($val['pnavlasti']==2){
+                    $out[$val['popstina']]['opozicija'][]= array($val['sid'],$val['snaziv']);
+
+                    }
             }
         }
         $out = array_values($out);
