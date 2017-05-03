@@ -203,12 +203,10 @@ function procentiRegion(data) {
 function info_tab(opstina) {
 
     var putanja_logo = "http://kojenavlasti.rs/files/logos/";
-
-    $(".logo").attr("src", putanja_logo + opstina.ologo);
-
     var povrsina = opstina.opov + " km2";
-
     var broj_stanovnika = opstina.opop;
+
+    $(".logo").attr("src", putanja_logo + opstina.ologo );
 
     $("#stanovnici").html(" " + broj_stanovnika.toLocaleString('de-DE'));
     $("#povrs").html(" " + povrsina);
@@ -249,7 +247,6 @@ function sideDetailsHandlerHover(id, op_ili_reg) {
     if (op_ili_reg == "opstina") {
         podaci = sideDetailsOpstina(id, "naslov")
     } else {
-
         regionDetailHandlerHover(id, "Naslov regiona");
     }
 
@@ -258,11 +255,9 @@ function sideDetailsHandlerHover(id, op_ili_reg) {
 function sideDetails(naslov, stranke) {
 
     var naslov_detalji = "Stranke u vlasti"
-
-    $("#detalji table").empty();
-
     naslov_detalji += " " + naslov;
 
+    $("#detalji table").empty();
     $(".detalji_title").html(naslov_detalji)
 
     for (var i = 0; i < stranke.length; i++) {
@@ -284,11 +279,13 @@ function tabelaOdbornikaRegion(data) {
             prezime: el.aprezime,
             stranka: el.snaziv,
             funkcija: el.funkcija,
-            koalicija: el.pkoalicija,
+            koalicija: el.knaziv/*pkoalicija*/,
             vlast: el.pnavlasti == 1 ? "vlast" : "opozicija",
             //promena : "",
             datrodj: el.arodjen,
             pol: el.apol,
+            opstina: el.opstina
+
         }
         return temp;
     })
@@ -297,24 +294,56 @@ function tabelaOdbornikaRegion(data) {
 
 }
 
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
 function tabelaOdbornika(podaci) {
 
-
-    //data tables
-    //prikazati statistiku - broj aktera, broj odbornika
     // stranka, koalicija, vlast, opozicija
     //redosled prikazivanja
+    
+    $("#modal_id tbody").html( " " );
+    
+    //unique opstine
 
-    $("#statsOdb").html(" Ukupan broj aktera: " + podaci.length);
+    var opstine_temp = "";
 
+    if( podaci[0].opstina == '' )
+        opstina_temp = "";
+
+    var not_odbornici = 
+        podaci.filter(function(la){
+            return la.funkcija !=="Odbornik" && la.funkcija !== null
+        });
+
+    var vlast = 
+        podaci.filter(function(la){
+            return la.vlast =="vlast" 
+        });
+    //var unique = podaci.filter( onlyUnique );
+
+    var stranke = _.uniqBy( podaci , 'stranka');    //nesto ne radi sa lodash-om
+    var koalicija = _.uniqBy( podaci , 'koalicija');
+
+    var stats_text = " Ukupan broj aktera: " + podaci.length;
+    stats_text += "<br/>" +  " Ukupan broj aktera koji nisu odbornici: " + not_odbornici.length;
+    stats_text += "<br/>" +  " Ukupan broj stranka: " + stranke.length;
+    stats_text += "<br/>" +  " Ukupan broj koalicija: " + koalicija.length;
+    stats_text += "<br/>" +  " Ukupan broj odbornika na vlasti: " + vlast.length;
+
+    $("#statsOdb").html( stats_text );
 
     for (var i = 0; i < podaci.length; i++) {
         var temp = podaci[i];
 
         var stranka_temp = temp.stranka;
 
-        if (stranka_temp == null) stranka_temp = "Nepoznata";
-        //treba sve parametre proveriti i proveriti da li su null
+        if (stranka_temp == null || stranka_temp == undefined ) stranka_temp = "Nepoznata";
+        if (temp.funkcija == null || temp.funkcija == undefined ) temp.funkcija = "Nepoznata";
+        if (temp.koalicija == null || temp.koalicija == undefined ) temp.koalicija = "Nepoznata";
+        if (temp.vlast == null || temp.vlast == undefined ) temp.vlast = "Nepoznata";
+
         //ako je datum 01.01 - -izbrisati to
 
         //setuj promenljive
@@ -391,7 +420,7 @@ function initStranka(argument) {
     var data = DataStranke.getStranke();
 
     for (var i = 0; i < data.length; i++) {
-        if (data[i] == "Nepoznata" || data[i] == null || data[i] == "Stranka nije na listi")
+        if (data[i] == "Nepoznata" || data[i] == null  || data[i] == "null" || data[i] == "Stranka nije na listi")
             continue;
         $("#stranka").append("<option value='" + data[i] + "'>" + data[i] + "</option>")
 
