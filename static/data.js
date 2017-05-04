@@ -78,9 +78,11 @@ function podaciOdborniciOpstina(idOpstine) {
 
 // struktura podatka u fajlu po opstini je losa
 $.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
+    
     DataStranke.setOpstine(json);
     initOpstine();
     initRegioni();
+    
 });
 
 function podaciAkteriRegion( id_region ) {
@@ -106,7 +108,10 @@ $.getJSON(stranke_vlast, function(json, textStatus) {
 
     var stranke = [];
     
-    json.forEach(function(el, ind){stranke = _.union(stranke, el.vlast)})
+    json.forEach(function(el, ind){
+        stranke = _.union(stranke, el.vlast);
+    })
+    stranke = _.uniqBy(stranke,"id");
     //uzmi stranke na vlasti
 
     DataStranke.setStranke(stranke);
@@ -114,7 +119,8 @@ $.getJSON(stranke_vlast, function(json, textStatus) {
 });
 
 
-/*1  Budžet 
+/*
+1  Budžet 
 2  Rezultati izbora 
 3  Prinudna uprava 
 4  Transfer iz budžeta 

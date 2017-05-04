@@ -98,8 +98,12 @@ var regionDetailHandlerHover = function(elem, naslov) {
 
     if (Number.isInteger(+elem)) {
         temp = elem;
-    } else if (elem !== undefined && elem.tagName !== undefined && (elem.tagName == "path" || elem.tagName == "polygon")) {
-        temp = $(elem).parent().attr("okrug")
+    } else if (
+        elem !== undefined && elem.tagName !== undefined 
+        && 
+        (elem.tagName == "path" || elem.tagName == "polygon") ) {
+
+        temp = $(elem).parent().attr("okrug");
     }
 
     var sumed = podaciRegion(temp);
@@ -262,10 +266,11 @@ function sideDetails(naslov, stranke) {
 
     for (var i = 0; i < stranke.length; i++) {
 
-        if (stranke[i] == undefined || stranke[i] == null || stranke[i] == "Nepoznata" || stranke[i] == "Stranka nije na listi")
+        if (stranke[i].naziv == undefined || stranke[i].naziv == null 
+            || stranke[i].naziv == "Nepoznata" || stranke[i].naziv == "Stranka nije na listi")
             continue;
 
-        $("#detalji table").append("<tr><td>" + stranke[i] + "</td></tr>")
+        $("#detalji table").append("<tr><td>" + stranke[i].naziv + "</td></tr>")
     }
 
 }
@@ -414,21 +419,21 @@ function initOpstine() {
 }
 
 /*stranka na vlasti lista*/
-function initStranka(argument) {
+function initStranka( ) {
 
     //napravis selekt opcije
     var data = DataStranke.getStranke();
 
     for (var i = 0; i < data.length; i++) {
-        if (data[i] == "Nepoznata" || data[i] == null  || data[i] == "null" || data[i] == "Stranka nije na listi")
+        if (data[i].naziv == "Nepoznata" || data[i].naziv == null  || data[i].naziv == "null" || data[i].naziv == "Stranka nije na listi")
             continue;
-        $("#stranka").append("<option value='" + data[i] + "'>" + data[i] + "</option>")
+        $("#stranka").append("<option value='" + data[i].id + "'>" + data[i].naziv + "</option>")
 
     }
 
 }
 
-function initRegioni(argument) {
+function initRegioni( ) {
     var data = DataStranke.getOpstine();
 
     //trebaju mi unique regioni
@@ -436,9 +441,9 @@ function initRegioni(argument) {
         return { okrug: el.okrug, idOkrug: el.oidokruga }
     })
 
-    var jedinstveni = _.uniq(okruzi, function(e) {
-        return e.okrug });
-
+    var jedinstveni = _.uniqBy(okruzi,"idOkrug");
+       
+       
     DataStranke.setRegioni(jedinstveni);
 
 

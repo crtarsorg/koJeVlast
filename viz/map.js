@@ -68,6 +68,7 @@ function bojenje(unosi) {
 function poStranci() {
 	$("#stranka").change(function(event) {
 
+
 		//debugger;
 		var str = event.target.value;
 
@@ -76,13 +77,14 @@ function poStranci() {
 		//var arr = Object.keys(temp).map(function (key) { return temp[key]; });
 		
 		var filt = temp.filter(function(el) {
+
 			var temp_el = el.vlast;
-			var ukupno = temp_el !=undefined? temp_el.length : 0;
+			var ukupno = temp_el != undefined ? temp_el.length : 0;
 
 			if(ukupno ==0) return false;
 
 			var broj = temp_el.filter(function (el1) {
-				return el1 == str;
+				return el1.id == +str;
 			}).length;
 			
 			
