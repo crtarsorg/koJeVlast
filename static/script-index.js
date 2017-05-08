@@ -295,7 +295,7 @@ function tabelaOdbornikaRegion(data) {
         return temp;
     })
 
-    tabelaOdbornika(mapirani);
+    tabelaOdbornika(mapirani, true);
 
 }
 
@@ -303,22 +303,6 @@ function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-
-function function_name(argument) {
-    // body...
-}
-
-
-
-function sortiranjeOdbornika(data) {
-
-//sve ostalo > odbornik > null || undefined    
-
-    data.sort( function(a, b) {
-      return b.funkcija.length - a.funkcija.length;
-    })
-    return data;
-}
 
 function statsOdbornici( podaci ) {
     var not_odbornici = 
@@ -344,14 +328,9 @@ function statsOdbornici( podaci ) {
 
 }
 
-function tabelaOdbornika(podaci) {
+function tabelaOdbornika(podaci, region) {
    
     $( '#tab table ' ).dataTable().api().clear();
-    //soritranje, prvo funkcije na vlasti
-    
-    //$("#modal_id tbody").html( " " );
-    
-    //unique opstine
 
     var opstine_temp = "";
 
@@ -359,37 +338,6 @@ function tabelaOdbornika(podaci) {
         opstina_temp = "";
 
     statsOdbornici(podaci);
-
-    
-
-    //podaci = sortiranjeOdbornika( podaci );
-
-    /*for (var i = 0; i < podaci.length; i++) {
-        var temp = podaci[i];
-
-        var stranka_temp = temp.stranka;
-
-        if (stranka_temp == null || stranka_temp == undefined ) stranka_temp = "Nepoznata";
-        if (temp.funkcija == null || temp.funkcija == undefined ) temp.funkcija = "Nepoznata";
-        if (temp.koalicija == null || temp.koalicija == undefined ) temp.koalicija = "Nepoznata";
-        if (temp.vlast == null || temp.vlast == undefined ) temp.vlast = "Nepoznata";
-
-        //ako je datum 01.01 - -izbrisati to
-
-        //setuj promenljive
-        var jedan_red =
-            '<tr class="single-row">' +
-            '<td class="row-ime">' + temp.ime + " " + temp.prezime + '</td>' +
-            '<td class="row-stranka">' + stranka_temp + '</td>' +
-            '<td class="row-funkcija">' + temp.funkcija + '</td>' +
-            '<td class="row-koalicija">' + temp.koalicija + '</td>' +
-            '<td class="row-vlast">' + temp.vlast + '</td>' +
-            '<td class="row-promena">' + '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>' + '</td>' +
-            '</tr>';
-        $("#modal_id tbody").append(jedan_red);
-
-
-    }*/
 
     var columns =  [ 
         {
@@ -466,6 +414,8 @@ function tabelaOdbornika(podaci) {
 
     ]
 
+
+    //hook for passing params
     $(".row-promena").click(function(ev) {
         ev.preventDefault();
 
@@ -485,6 +435,29 @@ function tabelaOdbornika(podaci) {
     })
     
 
+    if ( region ) {
+
+        if( $("#opstina-col").length ==0 )
+            {
+                $('thead tr').append("<th id='opstina-col'>Opstina</th>");
+            }
+       
+
+        columns.push({
+        "targets": 6,
+        "data": "opstina",
+        "render": function ( data, type, full, meta ) {
+            console.log( "promena :" + data );
+
+            return data;
+            }
+
+        })
+    }
+     else{
+            $('#opstina-col').remove()
+        }
+
     var table = $('#tab table').DataTable(
             {
                 data:podaci,
@@ -495,14 +468,7 @@ function tabelaOdbornika(podaci) {
             }
         );
 
-    //mozda samo treba rucno izbrisati deo sa enumeracijom
-    //table.destroy();
-    //table.draw();
-    /*$('#tab table').DataTable({
-        "order": [[ 2, "desc" ]],
-         paging: false,
-        searching: false
-    });*/
+ 
 
 }
 
