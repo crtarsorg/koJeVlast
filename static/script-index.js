@@ -303,20 +303,24 @@ function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-function tabelaOdbornika(podaci) {
 
-    // stranka, koalicija, vlast, opozicija
-    //redosled prikazivanja
-    
-    $("#modal_id tbody").html( " " );
-    
-    //unique opstine
+function function_name(argument) {
+    // body...
+}
 
-    var opstine_temp = "";
 
-    if( podaci[0].opstina == '' )
-        opstina_temp = "";
 
+function sortiranjeOdbornika(data) {
+
+//sve ostalo > odbornik > null || undefined    
+
+    data.sort( function(a, b) {
+      return b.funkcija.length - a.funkcija.length;
+    })
+    return data;
+}
+
+function statsOdbornici( podaci ) {
     var not_odbornici = 
         podaci.filter(function(la){
             return la.funkcija !=="Odbornik" && la.funkcija !== null
@@ -336,10 +340,31 @@ function tabelaOdbornika(podaci) {
     stats_text += "<br/>" +  " Ukupan broj stranka: " + stranke.length;
     stats_text += "<br/>" +  " Ukupan broj koalicija: " + koalicija.length;
     stats_text += "<br/>" +  " Ukupan broj odbornika na vlasti: " + vlast.length;
-
     $("#statsOdb").html( stats_text );
 
-    for (var i = 0; i < podaci.length; i++) {
+}
+
+function tabelaOdbornika(podaci) {
+   
+    $( '#tab table ' ).dataTable().api().clear();
+    //soritranje, prvo funkcije na vlasti
+    
+    //$("#modal_id tbody").html( " " );
+    
+    //unique opstine
+
+    var opstine_temp = "";
+
+    if( podaci[0].opstina == '' )
+        opstina_temp = "";
+
+    statsOdbornici(podaci);
+
+    
+
+    //podaci = sortiranjeOdbornika( podaci );
+
+    /*for (var i = 0; i < podaci.length; i++) {
         var temp = podaci[i];
 
         var stranka_temp = temp.stranka;
@@ -364,7 +389,82 @@ function tabelaOdbornika(podaci) {
         $("#modal_id tbody").append(jedan_red);
 
 
-    }
+    }*/
+
+    var columns =  [ 
+        {
+        "targets": 0,
+        "data": "ime",
+        "render": function ( data, type, full, meta ) {
+            if (data == null || data == undefined ) 
+                data = "Nepoznata";
+
+                //console.log( "Ime Prezime:" + data );
+            return data + " " + full.prezime;
+            }
+
+        },
+        {
+        "targets": 1,
+        "data": "stranka",
+        "render": function ( data, type, full, meta ) {
+            if (data == null || data == undefined ) 
+                data = "Nepoznata";
+
+            //console.log( "stranka:" + data );
+            return data;
+            }
+
+        },
+        {
+        "targets": 2,
+        "data": "funkcija",
+        "render": function ( data, type, full, meta ) {
+            if (data == null || data == undefined ) 
+                data = "Nepoznata";
+
+            //console.log( "funkcija :" + data );
+            return data;
+            }
+
+        },
+        {
+        "targets": 3,
+        "data": "koalicija",
+        "render": function ( data, type, full, meta ) {
+            if (data == null || data == undefined ) 
+                data = "Nepoznata";
+            
+            //console.log( "koalicija :" + data );
+
+            return data;
+            }
+
+        },
+        {
+        "targets": 4,
+        "data": "vlast",
+        "render": function ( data, type, full, meta ) {
+            if (data == null || data == undefined ) 
+                data = "Nepoznata";
+
+            //console.log( "vlast :" + data );
+            return data;
+            }
+
+        },
+         {
+        "targets": 5,
+        //"data": "promena",
+        "render": function ( data, type, full, meta ) {
+            //console.log( "promena :" + data );
+
+            return '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>';
+            }
+
+        },
+
+    ]
 
     $(".row-promena").click(function(ev) {
         ev.preventDefault();
@@ -383,8 +483,26 @@ function tabelaOdbornika(podaci) {
         window.location.href = "./posaljitePromenu.html" + "?" + upit;
 
     })
+    
 
-    $('#tab table').DataTable();
+    var table = $('#tab table').DataTable(
+            {
+                data:podaci,
+                "columnDefs": columns, 
+                destroy:true,
+                "order": [ 2, "desc" ],
+                 
+            }
+        );
+
+    //mozda samo treba rucno izbrisati deo sa enumeracijom
+    //table.destroy();
+    //table.draw();
+    /*$('#tab table').DataTable({
+        "order": [[ 2, "desc" ]],
+         paging: false,
+        searching: false
+    });*/
 
 }
 
