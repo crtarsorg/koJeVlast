@@ -99,9 +99,8 @@ var regionDetailHandlerHover = function(elem, naslov) {
     if (Number.isInteger(+elem)) {
         temp = elem;
     } else if (
-        elem !== undefined && elem.tagName !== undefined 
-        && 
-        (elem.tagName == "path" || elem.tagName == "polygon") ) {
+        elem !== undefined && elem.tagName !== undefined &&
+        (elem.tagName == "path" || elem.tagName == "polygon")) {
 
         temp = $(elem).parent().attr("okrug");
     }
@@ -125,7 +124,7 @@ var opstinaDetaljiHandlerClick = function(id_opstine) {
     var naslov = "Naslov ";
     var podaci = DataStranke.getOpstine();
     var opstina = podaci.filter(function(el) {
-        return +el.oidopstine == temp ;
+        return +el.oidopstine == temp;
     })
 
     var id = 0;
@@ -179,7 +178,7 @@ function showModal(opstina) {
 
 
 function showModalRegion(naslov, id) {
-    naslov_modal( naslov );
+    naslov_modal(naslov);
     podaciAkteriRegion(+id);
 }
 
@@ -210,7 +209,7 @@ function info_tab(opstina) {
     var povrsina = opstina.opov + " km2";
     var broj_stanovnika = opstina.opop;
 
-    $(".logo").attr("src", putanja_logo + opstina.ologo );
+    $(".logo").attr("src", putanja_logo + opstina.ologo);
 
     $("#stanovnici").html(" " + broj_stanovnika.toLocaleString('de-DE'));
     $("#povrs").html(" " + povrsina);
@@ -230,8 +229,8 @@ function sideDetailsOpstina(idOpstine) {
         return el.idopstine == idOpstine;
     });
 
-    if (opstina == undefined || 
-        opstina == null || 
+    if (opstina == undefined ||
+        opstina == null ||
         opstina.length == 0)
         return;
 
@@ -266,8 +265,7 @@ function sideDetails(naslov, stranke) {
 
     for (var i = 0; i < stranke.length; i++) {
 
-        if (stranke[i].naziv == undefined || stranke[i].naziv == null 
-            || stranke[i].naziv == "Nepoznata" || stranke[i].naziv == "Stranka nije na listi")
+        if (stranke[i].naziv == undefined || stranke[i].naziv == null || stranke[i].naziv == "Nepoznata" || stranke[i].naziv == "Stranka nije na listi")
             continue;
 
         $("#detalji table").append("<tr><td>" + stranke[i].naziv + "</td></tr>")
@@ -284,7 +282,7 @@ function tabelaOdbornikaRegion(data) {
             prezime: el.aprezime,
             stranka: el.snaziv,
             funkcija: el.funkcija,
-            koalicija: el.knaziv/*pkoalicija*/,
+            koalicija: el.knaziv /*pkoalicija*/ ,
             vlast: el.pnavlasti == 1 ? "vlast" : "opozicija",
             //promena : "",
             datrodj: el.arodjen,
@@ -299,115 +297,109 @@ function tabelaOdbornikaRegion(data) {
 
 }
 
-function onlyUnique(value, index, self) { 
+function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
 
-function statsOdbornici( podaci ) {
-    var not_odbornici = 
-        podaci.filter(function(la){
-            return la.funkcija !=="Odbornik" && la.funkcija !== null
+function statsOdbornici(podaci) {
+    var not_odbornici =
+        podaci.filter(function(la) {
+            return la.funkcija !== "Odbornik" && la.funkcija !== null
         });
 
-    var vlast = 
-        podaci.filter(function(la){
-            return la.vlast =="vlast" 
+    var vlast =
+        podaci.filter(function(la) {
+            return la.vlast == "vlast"
         });
     //var unique = podaci.filter( onlyUnique );
 
-    var stranke = _.uniqBy( podaci , 'stranka');    //nesto ne radi sa lodash-om
-    var koalicija = _.uniqBy( podaci , 'koalicija');
+    var stranke = _.uniqBy(podaci, 'stranka'); //nesto ne radi sa lodash-om
+    var koalicija = _.uniqBy(podaci, 'koalicija');
 
     var stats_text = " Ukupan broj aktera: " + podaci.length;
-    stats_text += "<br/>" +  " Ukupan broj aktera koji nisu odbornici: " + not_odbornici.length;
-    stats_text += "<br/>" +  " Ukupan broj stranka: " + stranke.length;
-    stats_text += "<br/>" +  " Ukupan broj koalicija: " + koalicija.length;
-    stats_text += "<br/>" +  " Ukupan broj odbornika na vlasti: " + vlast.length;
-    $("#statsOdb").html( stats_text );
+    stats_text += "<br/>" + " Ukupan broj aktera koji nisu odbornici: " + not_odbornici.length;
+    stats_text += "<br/>" + " Ukupan broj stranka: " + stranke.length;
+    stats_text += "<br/>" + " Ukupan broj koalicija: " + koalicija.length;
+    stats_text += "<br/>" + " Ukupan broj odbornika na vlasti: " + vlast.length;
+    $("#statsOdb").html(stats_text);
 
 }
 
 function tabelaOdbornika(podaci, region) {
-   
-    $( '#tab table ' ).dataTable().api().clear();
+
+    $('#tab table ').dataTable().api().clear();
 
     var opstine_temp = "";
 
-    if( podaci[0].opstina == '' )
+    if (podaci[0].opstina == '')
         opstina_temp = "";
 
     statsOdbornici(podaci);
 
-    var columns =  [ 
-        {
-        "targets": 0,
-        "data": "ime",
-        "render": function ( data, type, full, meta ) {
-            if (data == null || data == undefined ) 
-                data = "Nepoznata";
+    var columns = [{
+            "targets": 0,
+            "data": "ime",
+            "render": function(data, type, full, meta) {
+                if (data == null || data == undefined)
+                    data = "Nepoznata";
 
                 //console.log( "Ime Prezime:" + data );
-            return data + " " + full.prezime;
+                return data + " " + full.prezime;
             }
 
-        },
-        {
-        "targets": 1,
-        "data": "stranka",
-        "render": function ( data, type, full, meta ) {
-            if (data == null || data == undefined ) 
-                data = "Nepoznata";
+        }, {
+            "targets": 1,
+            "data": "stranka",
+            "render": function(data, type, full, meta) {
+                if (data == null || data == undefined)
+                    data = "Nepoznata";
 
-            //console.log( "stranka:" + data );
-            return data;
+                //console.log( "stranka:" + data );
+                return data;
             }
 
-        },
-        {
-        "targets": 2,
-        "data": "funkcija",
-        "render": function ( data, type, full, meta ) {
-            if (data == null || data == undefined ) 
-                data = "Nepoznata";
+        }, {
+            "targets": 2,
+            "data": "funkcija",
+            "render": function(data, type, full, meta) {
+                if (data == null || data == undefined)
+                    data = "Nepoznata";
 
-            //console.log( "funkcija :" + data );
-            return data;
+                //console.log( "funkcija :" + data );
+                return data;
             }
 
-        },
-        {
-        "targets": 3,
-        "data": "koalicija",
-        "render": function ( data, type, full, meta ) {
-            if (data == null || data == undefined ) 
-                data = "Nepoznata";
-            
-            //console.log( "koalicija :" + data );
+        }, {
+            "targets": 3,
+            "data": "koalicija",
+            "render": function(data, type, full, meta) {
+                if (data == null || data == undefined)
+                    data = "Nepoznata";
 
-            return data;
+                //console.log( "koalicija :" + data );
+
+                return data;
             }
 
-        },
-        {
-        "targets": 4,
-        "data": "vlast",
-        "render": function ( data, type, full, meta ) {
-            if (data == null || data == undefined ) 
-                data = "Nepoznata";
+        }, {
+            "targets": 4,
+            "data": "vlast",
+            "render": function(data, type, full, meta) {
+                if (data == null || data == undefined)
+                    data = "Nepoznata";
 
-            //console.log( "vlast :" + data );
-            return data;
+                //console.log( "vlast :" + data );
+                return data;
             }
 
-        },
-         {
-        "targets": 5,
-        //"data": "promena",
-        "render": function ( data, type, full, meta ) {
-            //console.log( "promena :" + data );
+        }, {
+            "targets": 5,
+            //"data": "promena",
+            "render": function(data, type, full, meta) {
+                //console.log( "promena :" + data );
 
-            return '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>';
+                return '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>';
             }
 
         },
@@ -433,42 +425,38 @@ function tabelaOdbornika(podaci, region) {
         window.location.href = "./posaljitePromenu.html" + "?" + upit;
 
     })
-    
 
-    if ( region ) {
 
-        if( $("#opstina-col").length ==0 )
-            {
-                $('thead tr').append("<th id='opstina-col'>Opstina</th>");
-            }
-       
+    if (region) {
 
-        columns.push({
-        "targets": 6,
-        "data": "opstina",
-        "render": function ( data, type, full, meta ) {
-            console.log( "promena :" + data );
-
-            return data;
-            }
-
-        })
-    }
-     else{
-            $('#opstina-col').remove()
+        if ($("#opstina-col").length == 0) {
+            $('thead tr').append("<th id='opstina-col'>Opstina</th>");
         }
 
-    var table = $('#tab table').DataTable(
-            {
-                data:podaci,
-                "columnDefs": columns, 
-                destroy:true,
-                "order": [ 2, "desc" ],
-                 
-            }
-        );
 
- 
+        columns.push({
+            "targets": 6,
+            "data": "opstina",
+            "render": function(data, type, full, meta) {
+                //console.log( "promena :" + data );
+
+                return data;
+            }
+
+        });
+    } else {
+        $('#opstina-col').remove()
+    }
+
+    var table = $('#tab table').DataTable({
+        data: podaci,
+        "columnDefs": columns,
+        destroy: true,
+        "order": [2, "desc"],
+
+    });
+
+
 
 }
 
@@ -492,7 +480,8 @@ function initOpstine() {
             var tekst = ev.originalEvent.text;
 
             var opstina_temp = list.filter(function(el) {
-                return el.value == tekst });
+                return el.value == tekst
+            });
             var query = "[opstina='" + opstina_temp[0].data + "']";
 
             $(query).css("fill", "red")
@@ -503,13 +492,13 @@ function initOpstine() {
 }
 
 /*stranka na vlasti lista*/
-function initStranka( ) {
+function initStranka() {
 
     //napravis selekt opcije
     var data = DataStranke.getStranke();
 
     for (var i = 0; i < data.length; i++) {
-        if (data[i].naziv == "Nepoznata" || data[i].naziv == null  || data[i].naziv == "null" || data[i].naziv == "Stranka nije na listi")
+        if (data[i].naziv == "Nepoznata" || data[i].naziv == null || data[i].naziv == "null" || data[i].naziv == "Stranka nije na listi")
             continue;
         $("#stranka").append("<option value='" + data[i].id + "'>" + data[i].naziv + "</option>")
 
@@ -517,7 +506,7 @@ function initStranka( ) {
 
 }
 
-function initRegioni( ) {
+function initRegioni() {
     var data = DataStranke.getOpstine();
 
     //trebaju mi unique regioni
@@ -525,9 +514,9 @@ function initRegioni( ) {
         return { okrug: el.okrug, idOkrug: el.oidokruga }
     })
 
-    var jedinstveni = _.uniqBy(okruzi,"idOkrug");
-       
-       
+    var jedinstveni = _.uniqBy(okruzi, "idOkrug");
+
+
     DataStranke.setRegioni(jedinstveni);
 
 
