@@ -8,7 +8,7 @@ var FILES_PATH = "partials/"
 
 $("#indikator").load(FILES_PATH + "legenda.html")
 
-$.get(FILES_PATH + "modal.html", function(data) {
+$.get(FILES_PATH + "modal.html?3", function(data) {
     $("#mainWrapper").append(data);
 });
 
