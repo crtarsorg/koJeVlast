@@ -16,10 +16,17 @@
 
 #viz {
     margin: 50px 0;
+    min-height: 300px;
 }
 
 .prijavi {
     position: absolute;
     right: 20%;
     top: 15%;
+}
+
+.legend-title {
+  
+  font-weight: bold;
+  margin-left: 20px;
 }

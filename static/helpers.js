@@ -136,6 +136,9 @@ function podaciRegion(id_region) {
         return el.idOkrug == +id_region;
     });
 
+    if(la.length == 0)
+        return undefined;
+
     sumed.naslov = la[0].okrug;
 
     return sumed;
