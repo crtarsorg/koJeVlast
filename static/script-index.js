@@ -402,7 +402,16 @@ function tabelaOdbornika(podaci, region) {
                 return '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>';
             }
 
-        },
+        },{
+            "targets": 6,
+            "data": "opstina",
+            "render": function(data, type, full, meta) {
+                //console.log( "promena :" + data );
+
+                return data;
+            }
+
+        }
 
     ]
 
@@ -427,26 +436,7 @@ function tabelaOdbornika(podaci, region) {
     })
 
 
-    if (region) {
-
-        if ($("#opstina-col").length == 0) {
-            $('thead tr').append("<th id='opstina-col'>Opstina</th>");
-        }
-
-
-        columns.push({
-            "targets": 6,
-            "data": "opstina",
-            "render": function(data, type, full, meta) {
-                //console.log( "promena :" + data );
-
-                return data;
-            }
-
-        });
-    } else {
-        $('#opstina-col').remove()
-    }
+   
 
     var table = $('#tab table').DataTable({
         data: podaci,
