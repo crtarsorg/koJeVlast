@@ -155,7 +155,7 @@ class xApi extends UFModel {
 
                     }
                 if($val['pnavlasti']==2){
-                    $out[$val['popstina']]['opozicija'][]= array("id"=>$val['sid'],"naziv"=>$val['snaziv']); 
+                    $out[$val['popstina']]['opozicija'][]= array("id"=>$val['sid'],"naziv"=>$val['snaziv']);
 
                     }
             }
@@ -164,6 +164,92 @@ class xApi extends UFModel {
         echo json_encode($out);
 
     }
+
+
+    public function stats($app){
+
+        $conn = Capsule::connection();
+        $stats = array();
+
+        //ukupno promena
+        $res = $conn->table('promene')->count();
+        $stats['data']['promena'] = $res;
+
+        //ukupno aktera
+        $res = $conn->table('promene')->select('pid')->groupBy('posoba')->get();
+        $stats['data']['aktera'] = count($res);
+
+        //ukupno aktivnih aktera
+        //SELECT * FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>'2017-05-10' ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod GROUP by promene.posoba
+        $res = $conn->select($conn->raw('SELECT promene.pid FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>"2017-05-10" ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod WHERE promene.pnavlasti=0 OR promene.pnavlasti=1 OR promene.pnavlasti=2   GROUP by promene.posoba'));
+        $stats['data']['akteri_aktivni'] = count($res);
+
+
+        //ukupno aktivnih aktera na vlasti
+        //SELECT * FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>'2017-05-10' ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod GROUP by promene.posoba
+        $res = $conn->select($conn->raw('SELECT promene.pid FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>"2017-05-10" ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod WHERE promene.pnavlasti=1  GROUP BY promene.posoba'));
+        $stats['data']['akteri_aktivni_vlast'] = count($res);
+
+        //ukupno aktivnih aktera u opoziciji
+        //SELECT * FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>'2017-05-10' ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod GROUP by promene.posoba
+        $res = $conn->select($conn->raw('SELECT promene.pid FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>"2017-05-10" ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod WHERE promene.pnavlasti=2  GROUP BY promene.posoba'));
+        $stats['data']['akteri_aktivni_opozicija'] = count($res);
+
+        //ukupno aktivnih aktera bez statusa
+        //SELECT * FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>'2017-05-10' ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod GROUP by promene.posoba
+        $res = $conn->select($conn->raw('SELECT promene.pid FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>"2017-05-10" ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod WHERE promene.pnavlasti=0  GROUP BY promene.posoba'));
+        $stats['data']['akteri_aktivni_bez_statusa'] = count($res);
+
+
+        //akteri vlast
+        $res = $conn->table('promene')->select("pid")->where('pnavlasti', '=', '1')->groupBy('posoba')->get();
+        $stats['data']['akteri_vlast'] = count($res);
+
+        //akteri opozicija
+        $res = $conn->table('promene')->select("pid")->where('pnavlasti', '=', '2')->groupBy('posoba')->get();
+        $stats['data']['akteri_opozicija'] = count($res);
+
+        //akteri bez statusa
+        $res = $conn->table('promene')->select("pid")->where('pnavlasti', '!=', '1')->where('pnavlasti', '!=', '2')->groupBy('posoba')->get();
+        $stats['data']['akteri_bez_statusa'] = count($res);
+
+
+        //muskraci
+        $res = $conn->table('promene')->select("pid")->leftJoin('akteri', 'posoba', '=', 'aid')->where('apol', '=', 'M')->groupBy('posoba')->get();
+        $stats['data']['muskaraca'] = count($res);
+
+        //zene
+        $res = $conn->table('promene')->select("pid")->leftJoin('akteri', 'posoba', '=', 'aid')->where('apol', '=', 'Z')->groupBy('posoba')->get();
+        $stats['data']['zena'] = count($res);
+
+        //bez pola
+        $res = $conn->table('promene')->select("pid")->leftJoin('akteri', 'posoba', '=', 'aid')->where('apol', '!=', 'M')->where('apol', '!=', 'Z')->groupBy('posoba')->get();
+        $stats['data']['bez_pola'] = count($res);
+
+        //ukupno partija
+        $res = $conn->table('promene')->select('pid')->groupBy('pstranka')->get();
+        $stats['data']['partija'] = count($res);
+
+        //ukupno opstina
+        $res = $conn->table('promene')->select('pid')->groupBy('popstina')->get();
+        $stats['data']['opstina'] = count($res);
+
+
+        //ukupno regiona
+        $res = $conn->table('promene')->select('pid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupBy('oidokruga')->get();
+        $stats['data']['regiona'] = count($res);
+
+
+        echo json_encode($stats);
+
+//echo "<pre>";
+//var_dump($res);
+//echo "</pre>";
+//die();
+
+
+    }
+
 
 
     public function predlozitePromenu($app){
