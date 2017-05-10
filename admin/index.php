@@ -961,6 +961,15 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 
 
 
+    //lista sve opstine sa strankama na vlasti
+    $app->get('/api/stats', function () use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->stats($app);
+    });
+
+
+
     $app->get('/api/predlozitePromenu', function () use ($app) {
 
         $evt = new UF\xApi([]);
