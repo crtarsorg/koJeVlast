@@ -11,6 +11,7 @@ var DataStranke = (function() {
     var _odbornici = [];
     var _odborniciRegion = [];
     var _regioni = [];
+    var _promene = [];
 
     return {
         set: function(d) {
@@ -56,6 +57,13 @@ var DataStranke = (function() {
 
         getOpstine: function() {
             return _Opstine;
+        },
+        setPromene: function(d) {
+            _promene = d;
+        },
+
+        getPromene: function() {
+            return _promene;
         }
     }
 })();
@@ -78,12 +86,21 @@ function podaciOdborniciOpstina(idOpstine) {
 
 // struktura podatka u fajlu po opstini je losa
 $.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
-    
+
     DataStranke.setOpstine(json);
     initOpstine();
     initRegioni();
-    
+
 });
+
+$.getJSON(BASE_PATH +"api/imajuPromene", function(json, textStatus) {
+
+    DataStranke.setPromene(json);
+
+});
+
+
+
 
 function podaciAkteriRegion( id_region ) {
 
@@ -91,7 +108,6 @@ function podaciAkteriRegion( id_region ) {
 
         DataStranke.setOdborniciRegion(json);
         tabelaOdbornikaRegion( json );
-        
         procentiRegion(json);
         $('#modal_id').modal('show')
 
@@ -107,7 +123,7 @@ $.getJSON(stranke_vlast, function(json, textStatus) {
     DataStranke.set(json)
 
     var stranke = [];
-    
+
     json.forEach(function(el, ind){
         stranke = _.union(stranke, el.vlast);
     })
@@ -170,7 +186,6 @@ function dokumenta(op_id) {
         $("#transfer_dokument").html(trans_temp);
         $("#prinudna_dokument").html(prinuda_temp);
         $("#izbori_dokument").html(izbori_temp);
-        
 
     });
 

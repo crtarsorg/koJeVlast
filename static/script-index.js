@@ -343,9 +343,12 @@ function tabelaOdbornika(podaci, region) {
             "render": function(data, type, full, meta) {
                 if (data == null || data == undefined)
                     data = "Nepoznata";
-
+                var unos = data + " " + full.prezime;
+                if(full.promena){
+                    unos = '<a href="#" class="expand" id="'+full.id+'">'+ unos +'</a>'
+                }
                 //console.log( "Ime Prezime:" + data );
-                return data + " " + full.prezime;
+                return unos;
             }
 
         }, {
@@ -402,7 +405,7 @@ function tabelaOdbornika(podaci, region) {
                 return '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>';
             }
 
-        },{
+        }, {
             "targets": 6,
             "data": "opstina",
             "render": function(data, type, full, meta) {
@@ -435,20 +438,53 @@ function tabelaOdbornika(podaci, region) {
 
     })
 
+    var imajuPromene = DataStranke.getPromene();
 
-   
+    podaci = podaci.map(function(elem) {
+        var promena = imajuPromene.filter(function(el) {
+            return el.id == elem.id;
+        });
+
+        if (promena.length > 0)
+            elem.promena = true;
+
+        return elem;
+    })
 
     var table = $('#tab table').DataTable({
         data: podaci,
         "columnDefs": columns,
         destroy: true,
         "order": [2, "desc"],
+        drawCallback:drawCallbackHandler
 
     });
 
 
 
 }
+
+var drawCallbackHandler = function (ev) {
+        $(".expand").click(function (ev) {
+            ev.preventDefault();
+
+            $this = $(ev.target)
+            
+
+            var id = $this.attr("id");
+
+            $.getJSON("http://kojenavlasti.rs/api/akter/promene/"+id, function(json, textStatus) {
+                //dodaj ih u tableu
+                //sortiraj po datumima od
+                console.log(json);
+                console.log($this);
+                $this.parent().css('height', "100px");
+
+                //appenduj nesto da se jasno vide  datumi promena
+
+            });
+        })
+    }
 
 
 function initOpstine() {
