@@ -468,19 +468,39 @@ var drawCallbackHandler = function (ev) {
         $(".expand").click(function (ev) {
             ev.preventDefault();
 
-            $this = $(ev.target)
-            
+            $this = $(ev.target);
 
             var id = $this.attr("id");
 
             $.getJSON("http://kojenavlasti.rs/api/akter/promene/"+id, function(json, textStatus) {
                 //dodaj ih u tableu
                 //sortiraj po datumima od
-                console.log(json);
-                console.log($this);
+                //console.log(json);
+                //console.log($this);
                 $this.parent().css('height', "100px");
 
+                var $temp = $("<tr class='added'></tr>");
+                $this.parents('tr').after( $temp );
+
+                //treba proveriti da li se vec nalazi tu neki element
+                //ako vec postoji jedan added, onda nemoj da dodajes dalje
+
                 //appenduj nesto da se jasno vide  datumi promena
+                for (var i = 0; i < json.length; i++) {
+                    var msg =
+                        "<div>"
+                        + json[i].posoba
+                        + json[i].aime
+                        + json[i].aprezime
+                        + json[i].funkcija
+                        + json[i].snaziv
+                        + json[i].knaziv
+                        + json[i].pod
+                        + json[i].pdo
+                        +"</div>";
+
+                        $temp.append(msg);
+                }
 
             });
         })
