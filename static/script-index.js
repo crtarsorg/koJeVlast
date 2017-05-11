@@ -456,6 +456,7 @@ function tabelaOdbornika(podaci, region) {
         "columnDefs": columns,
         destroy: true,
         "order": [2, "desc"],
+        /*"scrollX": true,*/
         drawCallback:drawCallbackHandler
 
     });
@@ -479,7 +480,7 @@ var drawCallbackHandler = function (ev) {
                 //console.log($this);
                 $this.parent().css('height', "100px");
 
-                var $temp = $("<tr class='added'></tr>");
+                var $temp = $("<tr class='added'><td colspan='7'></td></tr>");
                 $this.parents('tr').after( $temp );
 
                 //treba proveriti da li se vec nalazi tu neki element
@@ -488,7 +489,7 @@ var drawCallbackHandler = function (ev) {
                 //appenduj nesto da se jasno vide  datumi promena
                 for (var i = 0; i < json.length; i++) {
                     var msg =
-                        "<div>"
+
                         + json[i].posoba
                         + json[i].aime
                         + json[i].aprezime
@@ -497,9 +498,9 @@ var drawCallbackHandler = function (ev) {
                         + json[i].knaziv
                         + json[i].pod
                         + json[i].pdo
-                        +"</div>";
+                        +"";
 
-                        $temp.append(msg);
+                        $temp.find("td").append(msg);
                 }
 
             });
