@@ -969,6 +969,13 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
     });
 
 
+    //akteri koji imaju vise od 1 promene
+    $app->get('/api/imajuPromene', function () use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->akteriKojImajuPromene($app);
+    });
+
 
     $app->get('/api/predlozitePromenu', function () use ($app) {
 

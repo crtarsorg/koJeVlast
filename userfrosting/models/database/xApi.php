@@ -166,6 +166,16 @@ class xApi extends UFModel {
     }
 
 
+    public function akteriKojImajuPromene($app){
+
+        $conn = Capsule::connection();
+        $res = $conn->select($conn->raw('SELECT posoba AS id, count(posoba) AS broj FROM promene GROUP BY posoba HAVING broj>1 ORDER BY broj DESC'));
+
+        echo json_encode($res);
+
+
+    }
+
     public function stats($app){
 
         $conn = Capsule::connection();
@@ -182,6 +192,7 @@ class xApi extends UFModel {
         //ukupno aktivnih aktera
         //SELECT * FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>'2017-05-10' ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod GROUP by promene.posoba
         $res = $conn->select($conn->raw('SELECT promene.pid FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>"2017-05-10" ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod WHERE promene.pnavlasti=0 OR promene.pnavlasti=1 OR promene.pnavlasti=2   GROUP by promene.posoba'));
+
         $stats['data']['akteri_aktivni'] = count($res);
 
 
