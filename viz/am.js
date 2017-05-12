@@ -1,3 +1,6 @@
+//ili mozda ovo
+//https://eventbrite.github.io/britecharts/tutorial-donut.html
+
 function drawSvg(data) {
 
     //http://jsfiddle.net/amcharts/W6Dw8/

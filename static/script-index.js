@@ -343,9 +343,12 @@ function tabelaOdbornika(podaci, region) {
             "render": function(data, type, full, meta) {
                 if (data == null || data == undefined)
                     data = "Nepoznata";
-
+                var unos = data + " " + full.prezime;
+                if(full.promena){
+                    unos = '<a href="#" class="expand" id="'+full.id+'">'+ unos +'</a>'
+                }
                 //console.log( "Ime Prezime:" + data );
-                return data + " " + full.prezime;
+                return unos;
             }
 
         }, {
@@ -402,7 +405,16 @@ function tabelaOdbornika(podaci, region) {
                 return '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>';
             }
 
-        },
+        }, {
+            "targets": 6,
+            "data": "opstina",
+            "render": function(data, type, full, meta) {
+                //console.log( "promena :" + data );
+
+                return data;
+            }
+
+        }
 
     ]
 
@@ -426,39 +438,94 @@ function tabelaOdbornika(podaci, region) {
 
     })
 
+    var imajuPromene = DataStranke.getPromene();
 
-    if (region) {
-
-        if ($("#opstina-col").length == 0) {
-            $('thead tr').append("<th id='opstina-col'>Opstina</th>");
-        }
-
-
-        columns.push({
-            "targets": 6,
-            "data": "opstina",
-            "render": function(data, type, full, meta) {
-                //console.log( "promena :" + data );
-
-                return data;
-            }
-
+    podaci = podaci.map(function(elem) {
+        var promena = imajuPromene.filter(function(el) {
+            return el.id == elem.id;
         });
-    } else {
-        $('#opstina-col').remove()
-    }
+
+        if (promena.length > 0)
+            elem.promena = true;
+
+        return elem;
+    })
 
     var table = $('#tab table').DataTable({
         data: podaci,
         "columnDefs": columns,
         destroy: true,
         "order": [2, "desc"],
+        /*"scrollX": true,*/
+        drawCallback:drawCallbackHandler
 
     });
 
 
 
 }
+
+var drawCallbackHandler = function (ev) {
+
+        $(".expand").click(function (ev) {
+            ev.preventDefault();
+
+            $this = $(ev.target);
+
+            var $dodat =  $this.parents('tr').next(".added")
+
+            if($dodat.length >0){
+                $dodat.toggle()
+                return;
+            }
+
+            //morao bih pitati da li postoji, ako postoji, 
+            //ne trazi podatke sa servera
+
+            var id = $this.attr("id");
+
+            $.getJSON("http://kojenavlasti.rs/api/akter/promene/"+id, function(json, textStatus) {
+                //dodaj ih u tableu
+                //sortiraj po datumima od
+                //console.log(json);
+                //console.log($this);
+                $this.parent().css('height', "100px");
+
+                var $temp = $("<tr class='added'><td colspan='7'></td></tr>");
+                $this.parents('tr').after( $temp );
+
+                //treba proveriti da li se vec nalazi tu neki element
+                //ako vec postoji jedan added, onda nemoj da dodajes dalje
+
+                // prvi unos je trenutni, njega ne uzimam
+                json.shift();
+
+
+                //appenduj nesto da se jasno vide  datumi promena
+                for (var i = 0; i < json.length; i++) {
+
+                    var tempPdo = "nepoznato";
+                    if(json[i].pdo !==null && json[i].pdo!== undefined)
+                        tempPdo = json[i].pdo;
+
+                    var msg =
+
+                        //+ json[i].posoba
+                        json[i].pod + " - "
+                        + tempPdo +" "
+                        + json[i].aime +" "
+                        + json[i].aprezime +" "
+                        + json[i].funkcija +" "
+                        + json[i].snaziv +" "
+                        + json[i].knaziv +" "
+                        +"<br/>";
+
+                        $temp.find("td").append(msg);
+                }
+
+            });
+        })
+    }
 
 
 function initOpstine() {
