@@ -466,10 +466,21 @@ function tabelaOdbornika(podaci, region) {
 }
 
 var drawCallbackHandler = function (ev) {
+
         $(".expand").click(function (ev) {
             ev.preventDefault();
 
             $this = $(ev.target);
+
+            var $dodat =  $this.parents('tr').next(".added")
+
+            if($dodat.length >0){
+                $dodat.toggle()
+                return;
+            }
+
+            //morao bih pitati da li postoji, ako postoji, 
+            //ne trazi podatke sa servera
 
             var id = $this.attr("id");
 
@@ -486,19 +497,28 @@ var drawCallbackHandler = function (ev) {
                 //treba proveriti da li se vec nalazi tu neki element
                 //ako vec postoji jedan added, onda nemoj da dodajes dalje
 
+                // prvi unos je trenutni, njega ne uzimam
+                json.shift();
+
+
                 //appenduj nesto da se jasno vide  datumi promena
                 for (var i = 0; i < json.length; i++) {
+
+                    var tempPdo = "nepoznato";
+                    if(json[i].pdo !==null && json[i].pdo!== undefined)
+                        tempPdo = json[i].pdo;
+
                     var msg =
 
-                        + json[i].posoba
-                        + json[i].aime
-                        + json[i].aprezime
-                        + json[i].funkcija
-                        + json[i].snaziv
-                        + json[i].knaziv
-                        + json[i].pod
-                        + json[i].pdo
-                        +"";
+                        //+ json[i].posoba
+                        json[i].pod + " - "
+                        + tempPdo +" "
+                        + json[i].aime +" "
+                        + json[i].aprezime +" "
+                        + json[i].funkcija +" "
+                        + json[i].snaziv +" "
+                        + json[i].knaziv +" "
+                        +"<br/>";
 
                         $temp.find("td").append(msg);
                 }
