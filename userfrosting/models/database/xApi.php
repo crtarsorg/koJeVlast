@@ -189,40 +189,58 @@ class xApi extends UFModel {
         $res = $conn->table('promene')->select('pid')->groupBy('posoba')->get();
         $stats['data']['aktera'] = count($res);
 
+        $ukupno_aktera = count($res);
+
         //ukupno aktivnih aktera
-        //SELECT * FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>'2017-05-10' ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod GROUP by promene.posoba
-        $res = $conn->select($conn->raw('SELECT promene.pid FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>"2017-05-10" ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod WHERE promene.pnavlasti=0 OR promene.pnavlasti=1 OR promene.pnavlasti=2   GROUP by promene.posoba'));
+        // vraca aktere sa maximalnim datumom PDO kod kojih je PDO NULL (jos su na funkciji) a ako ima vise pomena u istom danu vraca onu sa najvecim PID-om
+        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo>"'.@date('Y-m-d').'" )  ORDER BY pod desc, pid desc) x GROUP BY posoba'));
 
         $stats['data']['akteri_aktivni'] = count($res);
+        //set vals to 0
+        $stats['data']['akteri_aktivni_vlast'] = 0;
+        $stats['data']['akteri_aktivni_opozicija'] = 0;
+        $stats['data']['akteri_aktivni_bez_statusa'] = 0;
 
 
-        //ukupno aktivnih aktera na vlasti
-        //SELECT * FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>'2017-05-10' ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod GROUP by promene.posoba
-        $res = $conn->select($conn->raw('SELECT promene.pid FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>"2017-05-10" ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod WHERE promene.pnavlasti=1  GROUP BY promene.posoba'));
-        $stats['data']['akteri_aktivni_vlast'] = count($res);
+        foreach($res as $key => $val){
 
-        //ukupno aktivnih aktera u opoziciji
-        //SELECT * FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>'2017-05-10' ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod GROUP by promene.posoba
-        $res = $conn->select($conn->raw('SELECT promene.pid FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>"2017-05-10" ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod WHERE promene.pnavlasti=2  GROUP BY promene.posoba'));
-        $stats['data']['akteri_aktivni_opozicija'] = count($res);
-
-        //ukupno aktivnih aktera bez statusa
-        //SELECT * FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>'2017-05-10' ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod GROUP by promene.posoba
-        $res = $conn->select($conn->raw('SELECT promene.pid FROM `promene` join (select pid, posoba, max(pod) as maxDate from promene where (pdo is NULL or pdo>"2017-05-10" ) GROUP by posoba ) m ON m.posoba=promene.posoba AND m.maxDate = promene.pod WHERE promene.pnavlasti=0  GROUP BY promene.posoba'));
-        $stats['data']['akteri_aktivni_bez_statusa'] = count($res);
+//echo "<pre>";
+//var_dump($val);
+//echo "</pre>";
 
 
-        //akteri vlast
-        $res = $conn->table('promene')->select("pid")->where('pnavlasti', '=', '1')->groupBy('posoba')->get();
-        $stats['data']['akteri_vlast'] = count($res);
+            switch ($val['pnavlasti']) {
+                case 1:
+                    $stats['data']['akteri_aktivni_vlast']++;
+                    //napuni array sa ID stranke - kasnije prebroj i zameni sa nazivom stranke
+                    $temp['akteri_aktivni_vlast_stranka'][]=$val['snaziv'];
+                    break;
+                case 2:
+                    $stats['data']['akteri_aktivni_opozicija']++;
+                    $temp['akteri_aktivni_opozicija_stranka'][]=$val['snaziv'];
+                    break;
+                default:
+                    $stats['data']['akteri_aktivni_bez_statusa']++;
+                    $temp['akteri_aktivni_bez_statusa_stranka'][]=$val['snaziv'];
+            }
 
-        //akteri opozicija
-        $res = $conn->table('promene')->select("pid")->where('pnavlasti', '=', '2')->groupBy('posoba')->get();
-        $stats['data']['akteri_opozicija'] = count($res);
+        }
 
-        //akteri bez statusa
-        $res = $conn->table('promene')->select("pid")->where('pnavlasti', '!=', '1')->where('pnavlasti', '!=', '2')->groupBy('posoba')->get();
-        $stats['data']['akteri_bez_statusa'] = count($res);
+        $aavs = array_count_values($temp['akteri_aktivni_vlast_stranka']);
+        arsort($aavs,SORT_NUMERIC );
+        $stats['data']['akteri_aktivni_vlast_stranka'] = $aavs ;
+
+        $aaos = array_count_values($temp['akteri_aktivni_opozicija_stranka']);
+        arsort($aaos,SORT_NUMERIC );
+        $stats['data']['akteri_aktivni_opozicija_stranka'] = $aaos ;
+
+
+        $aabss = array_count_values($temp['akteri_aktivni_bez_statusa_stranka']);
+        arsort($aabss,SORT_NUMERIC );
+        $stats['data']['akteri_aktivni_bez_statusa_stranka'] = $aabss ;
+
+
+
 
 
         //muskraci
@@ -316,11 +334,14 @@ class xApi extends UFModel {
     }
 
 
-    // lista aktera po opstinama ime prez zanimanje rodjen + STRANKA + FUNKCIJA
+    // lista aktera po opstinama ime prez zanimanje rodjen + STRANKA + FUNKCIJA    - POTREBNO DORADITI SA POSLEDNJIM PODACIMA
     public function akteriPoOpstini($app,$id){
         $conn = Capsule::connection();
-        $res = $conn->table('promene')->select("popstina","posoba","aime","aprezime","apol","arodjen","opstina","funkcija","snaziv")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('popstina', '=', $id)->groupby("posoba")->get();
-
+        //$res = $conn->table('promene')->select("popstina","posoba","aime","aprezime","apol","arodjen","opstina","funkcija","snaziv")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('popstina', '=', $id)->groupby("posoba")->get();
+        $res = $conn->table('promene')->select()->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('popstina', '=', $id)->groupby("posoba")->get();
+echo "<pre>";
+//var_dump($res);
+echo "</pre>";
         //prepare result
         $out = array();
         foreach ($res as $val) {
@@ -333,6 +354,8 @@ class xApi extends UFModel {
             $out[$val['posoba']]['opstina']= $val['opstina'];
             $out[$val['posoba']]['funkcija']= $val['funkcija'];
             $out[$val['posoba']]['stranka']= $val['snaziv'];
+
+
 
         }
 
