@@ -213,7 +213,7 @@ class xApi extends UFModel {
                 case 1:
                     $stats['data']['akteri_aktivni_vlast']++;
                     //napuni array sa ID stranke - kasnije prebroj i zameni sa nazivom stranke
-                    $temp['akteri_aktivni_vlast_stranka'][]=$val['snaziv'];
+                    //$temp['akteri_aktivni_vlast_stranka'][]=$val['snaziv'];
                     //stranka not null
                     if($val['snaziv']){ $temp['akteri_aktivni_vlast_stranka'][]=$val['snaziv'];} else {$temp['akteri_aktivni_vlast_stranka'][]="xx";}
                     break;
