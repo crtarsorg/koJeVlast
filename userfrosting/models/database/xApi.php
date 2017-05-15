@@ -214,14 +214,16 @@ class xApi extends UFModel {
                     $stats['data']['akteri_aktivni_vlast']++;
                     //napuni array sa ID stranke - kasnije prebroj i zameni sa nazivom stranke
                     $temp['akteri_aktivni_vlast_stranka'][]=$val['snaziv'];
+                    //stranka not null
+                    if($val['snaziv']){ $temp['akteri_aktivni_vlast_stranka'][]=$val['snaziv'];} else {$temp['akteri_aktivni_vlast_stranka'][]="xx";}
                     break;
                 case 2:
                     $stats['data']['akteri_aktivni_opozicija']++;
-                    $temp['akteri_aktivni_opozicija_stranka'][]=$val['snaziv'];
+                    if($val['snaziv']){$temp['akteri_aktivni_opozicija_stranka'][]=$val['snaziv'];}else{$temp['akteri_aktivni_opozicija_stranka'][]="xx";}
                     break;
                 default:
                     $stats['data']['akteri_aktivni_bez_statusa']++;
-                    $temp['akteri_aktivni_bez_statusa_stranka'][]=$val['snaziv'];
+                    if($val['snaziv']){$temp['akteri_aktivni_bez_statusa_stranka'][]=$val['snaziv'];}else{$temp['akteri_aktivni_bez_statusa_stranka'][]="xx";}
             }
 
         }
