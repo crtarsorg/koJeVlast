@@ -295,9 +295,9 @@ class xApi extends UFModel {
 
     public function predlozitePromenuPost($app){
 
-        echo "<pre>";
+      /*  echo "<pre>";
         var_dump($_POST);
-        echo "</pre>";
+        echo "</pre>";*/
 
         ///Validacija POST-a
         $post = $app->request->post();
@@ -341,9 +341,9 @@ class xApi extends UFModel {
         $conn = Capsule::connection();
         //$res = $conn->table('promene')->select("popstina","posoba","aime","aprezime","apol","arodjen","opstina","funkcija","snaziv")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('popstina', '=', $id)->groupby("posoba")->get();
         $res = $conn->table('promene')->select()->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('popstina', '=', $id)->groupby("posoba")->get();
-echo "<pre>";
+/*echo "<pre>";
 //var_dump($res);
-echo "</pre>";
+echo "</pre>";*/
         //prepare result
         $out = array();
         foreach ($res as $val) {
