@@ -71,6 +71,8 @@ $("#mapa").load("srbija.svg", function() {
 
     })
 
+    var zoom = svgPanZoom("#mapa svg")
+
     //anotate();
 });
 
