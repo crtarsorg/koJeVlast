@@ -116,6 +116,7 @@ var regionDetailHandlerHover = function(elem, naslov) {
 }
 
 var opstinaDetaljiHandlerClick = function(id_opstine) {
+    $("#spinner, #fade").removeClass('hidden');
 
     var temp = $(this).attr('opstina');
 
@@ -140,6 +141,7 @@ var opstinaDetaljiHandlerClick = function(id_opstine) {
 }
 
 function regionDetailHandlerClick(element, naslov_region) {
+    $("#spinner, #fade").removeClass('hidden');
     var id = $(element).parent().attr('okrug');
 
     //sakrij podatke o budzetima i dokumentima
@@ -153,6 +155,7 @@ function regionDetailHandlerClick(element, naslov_region) {
 
     info_tab(podaci);
 
+    //$("#spinner, #fade").toggleClass('hidden'); //ovo treba da se stavi tamo gde se dobavljaju podaci
     showModalRegion(podaci.naslov, id);
 
 }
@@ -175,6 +178,7 @@ function showModal(opstina) {
 
     //var procenti = izracunajProcente( DataStranke.getOdbornici());
 
+    $("#spinner, #fade").toggleClass('hidden');
     $('#modal_id').modal('show')
 }
 
