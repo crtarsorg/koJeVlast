@@ -1,0 +1,110 @@
+<style type="text/css">
+.logo {
+    max-height: 85px;
+    float: left;
+}
+
+.tab-pane.active {
+    padding: 10px;
+}
+</style>
+<div class="modal fade" id="modal_id">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Opstina</h4>
+            </div>
+            <div class="modal-body">
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Info</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#tab" aria-controls="tab" role="tab" data-toggle="tab">Odbornici</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#budzet" aria-controls="tab" role="tab" data-toggle="tab">Budžet</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#izbori" aria-controls="tab" role="tab" data-toggle="tab">Rezultati izbora</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <div>
+                                <img src="" alt="" class="logo">
+                                <br>
+                                <span>Površina: </span><span id="povrs"></span>
+                                <br>
+                                <span>Broj stanovnika: </span><span id="stanovnici"></span>
+                            </div>
+                            <br>
+                            <!-- <canvas width="360" height="300"></canvas> -->
+                            <div>
+                                <div id="viz"></div>
+                                <div class="legendaCont">
+                                    <div class="naslov">
+                                        <h1>Stranke</h1>
+                                    </div>
+                                    <div class="legenda"></div>
+                                </div>
+                            </div>
+                            <div style="clear: both;">
+                                <hr>
+                                <h4>Prinudna uprava</h4>
+                                <p>Odluke Vlade Srbije o uvođenju privremenih mera u lokalnu samoupravu (2008 - 2016)</p>
+                                <p id="prinudna_dokument"></p>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Ime i prezime</th>
+                                        <th>Stranka</th>
+                                        <th>Javna funkcija</th>
+                                        <th>koalicija</th>
+                                        <th>U vlasti?</th>
+                                        <th>Promena?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- tabela -->
+                        <div role="tabpanel" class="tab-pane" id="budzet">
+                            <h4>Budžet</h4>
+                            <p>Usvojeni budžeti lokalnih samouprava po godinama</p>
+                            <p id="budzet_dokument"></p>
+                            <hr>
+                            <!-- izvrsenje -->
+                            <h4>Izvrsenje budžeta</h4>
+                            <p>Izveštaj o izvršenju budžeta (trošenju javnih sredstava opštine/grada) po godinama</p>
+                            <p id="izvrsenje_dokument"></p>
+                            <!-- izvrsenje -->
+                            <hr>
+                            <!-- transferi -->
+                            <h4>Transferi iz budžeta</h4>
+                            <p>Odobrena sredstva iz tekuće budžetske rezerve Republike Srbije na osnovu odluke Vlade Republike Srbije</p>
+                            <p id="transfer_dokument"></p>
+                            <!-- transferi -->
+                        </div>
+                        <!-- budzet -->
+                        <div role="tabpanel" class="tab-pane" id="izbori">
+                            <h4>Rezultati izbora</h4>
+                            <p>Rezultati lokalnih izbora u opštini/gradu po biračkim mestima (2012, 2016)</p>
+                        </div>
+                        <!-- transferi -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

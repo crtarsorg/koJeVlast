@@ -1,0 +1,28 @@
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php70” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddType application/x-httpd-ea-php70 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
+
+
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+#rewite /test/ to test.html
+RewriteBase /
+
+   # Remove trailing slash from any non-directory path (canonicalization) - GET requests only
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_METHOD}  =GET
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    #rewrite all request to requestname.html page
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ partials/$1.html [L]
+
+</IfModule>
