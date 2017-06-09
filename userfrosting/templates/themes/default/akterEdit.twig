@@ -10,11 +10,24 @@
             {% endblock %}
 
             {% block content %}
-                <h1></h1>
-				
-<pre>
+
+<section>
+	<div class="col-xs-6 col-sm-6 form-group">
+		<h4></h4>
+	</div>
+
+	<div class="col-xs-6 col-sm-6 form-group">
+		<button type="button" class="btn btn-success js-user-create pull-right" onclick="addPromenaGet()">
+		<i class="fa fa-plus-square"></i> Dodaj novu promenu
+		</button>
+	</div>
+</section>
+
+<!--<pre>
 {{dump}}
-</pre>
+</pre>-->
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >
+
 
 				
 			{# If we are not using server-side pagination, then just render all results immediately #}
@@ -104,7 +117,7 @@
 							
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-									<textarea placeholder="Biografija" name="bio" class="form-control" rows="10" >{{akter.abio}}</textarea>
+									<textarea placeholder="Biografija" name="bio" class="form-control" rows="6" >{{akter.abio}}</textarea>
 								</div>
 							</div>
 						</div>	
@@ -122,8 +135,42 @@
 </form>					
 					
                     {% endfor %}
-                {% endif %}						
-				
+                {% endif %}
+
+
+<div class="clearfix"></div>
+<h2>Lista promena (click to edit):</h2>
+<div id="lista">List</div>
+
+<div class="clearfix"></div>
+
+
+
+
+<!-- Modal -->
+<div id="modalEditor" class="modal fade " role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="modalresp">Edit</h4>
+      </div>
+      <form name="user" method="post" id="promeneEditFormModal" >
+          <div class="modal-body" id="modalEditForm">
+
+          </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 				
             {% endblock %}
 
@@ -132,7 +179,195 @@
 			
 {% block page_scripts %}
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 <script>
+
+//akter PROMENE
+$( document ).ready(function() {
+
+
+	ucitajPromene({{aid}});
+
+    $('#modalEditor').on('hidden', function () {
+
+        $('#ui-datepicker-div').remove();
+
+    });
+
+});
+
+    //edit promene
+    function editPromenaGet(promenaid){
+
+        //console.dir(promenaid);
+
+        $.ajax({
+    	  type: "GET",
+    	  url: "{{site.uri.public}}/promene/editPromenaForm/"+promenaid,
+    	  success: function(data)
+    	  {
+            $("#modalEditForm").html(data);
+            $("#modalresp").html("Edit");
+
+            $("#modalEditor").modal('show');
+
+        	//$("#akter").select2({placeholder: "Akter"});
+        	$("#stranka").select2({placeholder: "Stranka"});
+        	$("#funk").select2({placeholder: "Funkcija"});
+        	$("#koalicija").select2({placeholder: "Koalicije"});
+        	$("#opstina").select2({placeholder: "Opstina"});
+        	$("#vlast").select2({placeholder: "U vlasti"});
+        	$("#fmesto").select2({placeholder: "Funkcija mesto"});
+
+            $('#datumod').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumod",  dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
+                if(e.keyCode == 8 || e.keyCode == 46) {
+                    $.datepicker._clearDate(this);
+                }
+            });
+            $('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
+                if(e.keyCode == 8 || e.keyCode == 46) {
+                    $.datepicker._clearDate(this);
+                }
+            });
+
+    	  }
+    	});
+    }
+
+    //dodaj promenu
+    function addPromenaGet(){
+
+        $.ajax({
+    	  type: "GET",
+    	  url: "{{site.uri.public}}/promene/addPromenaForm/"+{{aid}},
+    	  success: function(data)
+    	  {
+            $("#modalEditForm").html(data);
+            $("#modalresp").html("Add");
+
+            $("#modalEditor").modal('show');
+
+        	//$("#akter").select2({placeholder: "Akter"});
+        	$("#stranka").select2({placeholder: "Stranka"});
+        	$("#funk").select2({placeholder: "Funkcija"});
+        	$("#koalicija").select2({placeholder: "Koalicije"});
+        	$("#opstina").select2({placeholder: "Opstina"});
+        	$("#vlast").select2({placeholder: "U vlasti"});
+        	$("#fmesto").select2({placeholder: "Funkcija mesto"});
+
+            $('#datumod').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumod",  dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
+                if(e.keyCode == 8 || e.keyCode == 46) {
+                    $.datepicker._clearDate(this);
+                }
+            });
+            $('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
+                if(e.keyCode == 8 || e.keyCode == 46) {
+                    $.datepicker._clearDate(this);
+                }
+            });
+
+    	  }
+    	});
+    }
+
+
+	$("#promeneEditFormModal").submit(function(e) {
+
+        e.preventDefault();
+
+
+
+        if($("#novapromena").val()==1){
+            var formurl = "{{site.uri.public}}/promene/add";
+        } else {
+            var formurl = "{{site.uri.public}}/promene/edit/"+$("#modalpid").val();
+        }
+
+        console.dir(formurl);
+        console.dir($("#novapromena").val());
+
+
+        $.ajax({
+			   type: "POST",
+			   url: formurl,
+			   data: $("#promeneEditFormModal").serialize(),
+			   success: function(data)
+			   {
+                    //refresh changes after adding or updating
+                    ucitajPromene({{aid}});
+
+					$("#modalresp").fadeOut(200,function(){
+						$('#modalresp').html(data);
+						$("#modalresp").fadeIn(500, function(){
+							//$("#userfrosting-alerts").fadeOut(5000);
+						});
+					});
+
+
+
+			   }
+			 });
+
+
+	});
+
+
+
+	function ucitajPromene(aid){
+
+		if(!aid){ $("#lista").html("No data sent");return; }
+
+		$.ajax({
+			   type: "GET",
+			   url: "{{site.uri.public}}/api/akter/promene/"+aid,
+			   dataType: "json",
+			   success: function(data)
+			   {
+				//console.dir(data)	;
+				var dataOut = '<div class="row" style="margin-bottom:20px; font-weight:600;"><div class="col-sm-2">Ime</div><div class="col-sm-2">Stanka</div><div class="col-sm-2">Funkcija</div><div class="col-sm-2">Koalicija</div><div class="col-sm-2">Opstina</div><div class="col-sm-2">Od - do</div>    </div> <div class="clearfix"></div>';
+				$.each(data, function( index, value ) {
+
+                var pod = moment(value['pod']).utc(+1).format('DD.MM.YYYY')
+                var pdo = moment(value['pdo']).utc(+1).format('DD.MM.YYYY')
+
+
+					dataOut += '<a onClick="editPromenaGet('+value['pid']+')"   ><div class="row rowpromena">'	;
+						dataOut += '<div class="col-sm-2">'+value['aime']+' '+ value['aprezime'] +'</div>'	;
+						dataOut += '<div class="col-sm-2">'+value['snaziv']+'</div>'	;
+						dataOut += '<div class="col-sm-2">'+value['funkcija']+' <br>( '+value['fmesto']+' )</div>'	;
+						dataOut += '<div class="col-sm-2">'+value['knaziv']+'</div>'	;
+						dataOut += '<div class="col-sm-2">'+value['opstina']+'</div>'	;
+						dataOut += '<div class="col-sm-2">Od:'+pod+'<br>Do:'+pdo+'</div>'	;
+
+					dataOut += '</div></a>'	;
+				});
+
+
+
+					$("#lista").fadeOut(200,function(){
+						$('#lista').html(dataOut);
+						$("#lista").fadeIn(500, function(){
+							//$("#lista").fadeOut(5000);
+						});
+					});
+
+			   }
+			 });
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////
+//akter INFO - EDIT
 $( document ).ready(function() {
 
 	$("#akterEditForm").submit(function(e) {
@@ -140,19 +375,19 @@ $( document ).ready(function() {
 		$.ajax({
 			   type: "POST",
 			   url: window.location.href,
-			   data: $("#akterEditForm").serialize(), 
+			   data: $("#akterEditForm").serialize(),
 			   success: function(data)
 			   {
-					
+
 					$("#userfrosting-alerts").fadeOut(200,function(){
 						$('#userfrosting-alerts').html(data);
 						$("#userfrosting-alerts").fadeIn(500, function(){
 							//$("#userfrosting-alerts").fadeOut(5000);
 						});
-					});					
-					
-					
-					
+					});
+
+
+
 			   }
 			 });
 
@@ -172,5 +407,32 @@ $( document ).ready(function() {
 	
 	
 });
-</script>				
+</script>
+
+<style>
+.modal {
+    width:80%;
+    margin-left: -40%;
+}
+.modal-dialog, .modal-content {
+    width:100%;
+}
+.modal-dialog{
+    margin:0;
+}
+.ui-datepicker{
+    z-index:9999999 !important;
+}
+.rowpromena:hover{
+    display:block;
+}
+.rowpromena:hover{
+    background-color: #f5f5f5;
+    cursor:pointer;
+}
+
+</style>
+
+
+
 {% endblock %}			

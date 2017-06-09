@@ -1,0 +1,191 @@
+
+            {% block content %}
+
+<pre>
+{{dump}}
+</pre>
+
+				
+			{# If we are not using server-side pagination, then just render all results immediately #}
+                {% if not paginate_server_side %}
+					{% for pr in promene %}
+
+<!--<form name="user" method="post" id="promeneEditFormModal" action="{{form_action}}"> -->
+
+    <div class="row">					
+					
+						<div id="{{alerts_id | default('form-alerts')}}"></div>
+        
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{akter|raw}}		
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{stranka|raw}}
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{funk|raw}}
+								</div>
+							</div>
+						</div>						
+						
+						
+	</div>
+
+
+
+
+    <div class="row">					
+					
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{koal|raw}}
+								</div>
+							</div>
+						</div>	
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{ops|raw}}
+								</div>
+							</div>
+						</div>	
+
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{funkmesto|raw}}
+								</div>
+							</div>
+						</div>						
+						
+						
+	</div>
+
+
+    <div class="row">
+
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input  type="text" class="form-control" id="datumod" name="datumod" autocomplete="off" value="{% if pod %}{{ pod|date("d.m.Y") }}{% endif %}" placeholder="Datum od" >
+								</div>
+							</div>
+						</div>						
+						
+
+						<div class="col-sm-4">
+							<div class="form-group">
+							
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+									<input  type="text" class="form-control" id="datumdo" name="datumdo" autocomplete="off" value="{% if pdo %}{{ pdo|date("d.m.Y") }}{% endif %}" placeholder="Datum do" >
+								</div>
+							</div>
+						</div>							
+
+						
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-edit"></i></span>{{vlast|raw}}
+								</div>
+							</div>
+						</div>						
+						
+	
+	</div>
+
+
+	<div class="row">
+						<div class="col-sm-12">
+								
+								<div class="vert-pad">
+									<button id="editAkter" type="submit" class="btn btn-block btn-md btn-primary ">
+									<i class="fa fa-edit"></i>{{actionText}}
+									</button>
+								</div> 		
+						</div>		
+	</div>
+	
+	
+	
+<input type="hidden" id="altdatumod" name="altdatumod" value="{{pod}}">
+<input type="hidden" id="altdatumdo" name="altdatumdo" value="{{pdo}}">
+<input type="hidden" id="modalpid" name="modalpid" value="{{pid}}">
+<input type="hidden" id="novapromena" name="novapromena" value="{{novapromena}}">
+
+	
+	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
+	
+<!--</form>	-->
+					
+                    {% endfor %}
+                {% endif %}						
+
+
+				
+            {% endblock %}
+
+
+			
+			
+{% block page_scripts %}
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+
+<script>
+$( document ).ready(function() {
+
+
+
+	$("#promeneEditForm").submit(function(e) {
+
+		$.ajax({
+			   type: "POST",
+			   url: window.location.href,
+			   data: $("#promeneEditForm").serialize(), 
+			   success: function(data)
+			   {
+                    //refresh changes after adding or updating
+                    //ucitajPromene($("#akter").val());
+
+					$("#userfrosting-alerts").fadeOut(200,function(){
+						$('#userfrosting-alerts').html(data);
+						$("#userfrosting-alerts").fadeIn(500, function(){
+							//$("#userfrosting-alerts").fadeOut(5000);
+						});
+					});					
+					
+					
+					
+			   }
+			 });
+
+		e.preventDefault(); 
+	});
+
+
+
+	
+	
+	
+});
+</script>				
+{% endblock %}

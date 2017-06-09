@@ -61,7 +61,8 @@ class xAkter extends UFModel {
             "paginate_server_side" => false,
             "dump" => $dump,
             "actionText" => "Update",
-            "akteri" => $res
+            "akteri" => $res,
+            "aid" => $aid
         ]);
 
     }

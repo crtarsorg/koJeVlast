@@ -797,7 +797,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         $evt->lista($app);
     });
 
-    //Promene edit data - forma
+    //Promene edit data - forma - cela strana OLD
     $app->get('/promene/edit/:pid', function ($pid) use ($app) {
 
         if (!$app->user->checkAccess('uri_promene_edit')){
@@ -805,6 +805,25 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         }
         $evt = new UF\xPromene([]);
         $evt->editPromene($app,$pid);
+    });
+
+    //Promene edit data - SAMO FORMA
+    $app->get('/promene/editPromenaForm/:pid', function ($pid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromene([]);
+        $evt->editPromeneFORM($app,$pid);
+    });
+
+    $app->get('/promene/addPromenaForm/:pid', function ($pid) use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromene([]);
+        $evt->addPromenaZaKorisnika($app,$pid);
     });
 
 

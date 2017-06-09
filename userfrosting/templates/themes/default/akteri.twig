@@ -42,90 +42,28 @@
 <table id="takteri" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
+                <th>Edit</th>
                 <th>Ime</th>
                 <th>Prezime</th>
                 <th>Rodjen</th>
                 <th>Zanimanje</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
 {% for akter in akteri %}
             <tr>
-                <td><a href="akteri/edit/{{akter.aid}}"  >{{akter.aime}}</a> </td>
-                <td><a href="akteri/edit/{{akter.aid}}"  >{{akter.aprezime}}</a></td>
-                <td><a href="akteri/edit/{{akter.aid}}"  >{{akter.arodjen}}</a></td>
-                <td><a href="akteri/edit/{{akter.aid}}"  >{{akter.azanimanje}}</a></td>
+                <td><a href="akteri/edit/{{akter.aid}}"  >Edit</a></td>
+                <td>{{akter.aime}}</td>
+                <td>{{akter.aprezime}}</td>
+                <td>{{akter.arodjen}}</td>
+                <td>{{akter.azanimanje}}</td>
+                <td><a href="akteri/edit/{{akter.aid}}"  >Edit</a></td>
             </tr>
 {% endfor %}
         </tbody>
 </table>
 
-
-
-
-
-
-
-
-<!--OLD code  --> <!--
-<div class="clearfix"></div>
-<section>
-	<div class="col-sm-12">
-		<div class="form-group">
-			<div class="input-group">
-				<span class="input-group-addon"><i class="fa fa-search"></i></span>
-				<input type="text" class="form-control" id="search" name="search" autocomplete="off" value="" placeholder="Fast filter" >
-			</div>
-		</div>
-	</div>
-</section>
-<div class="clearfix"></div>
-    <div class="row rowheader"  >
-						<div class="col-sm-3">
-							Ime
-						</div>
-						<div class="col-sm-3">
-							Prezime
-						</div>
-						<div class="col-sm-3">
-							Rodjen
-						</div>
-						<div class="col-sm-3">
-							Zanimanje
-						</div>
-	</div>
-
-			{# If we are not using server-side pagination, then just render all results immediately #}
-                {% if not paginate_server_side %}
-					{% for akter in akteri %}
-
-					{% set rowid= akter.aime ~ akter.aprezime ~ akter.arodjen ~ akter.azanimanje%}
-
-    <div class="row rowakteri" id="{{rowid|replace({" " : "","," : "","." : ""}) }}" >					
-        
-						<div class="col-sm-3">
-							<a href="akteri/edit/{{akter.aid}}"  >{{akter.aime}} {{akter.rowid}}</a>
-						</div>
-						
-						<div class="col-sm-3">
-							<a href="akteri/edit/{{akter.aid}}"  >{{akter.aprezime}}</a>
-						</div>
-						
-						<div class="col-sm-3">
-							<a href="akteri/edit/{{akter.aid}}"  >{{akter.arodjen}}</a>
-						</div>						
-
-						<div class="col-sm-3">
-							<a href="akteri/edit/{{akter.aid}}"  >{{akter.azanimanje}}</a>
-						</div>
-						
-	</div>				
-
-
-                    {% endfor %}
-                {% endif %}
-
--->
 
 <div class="col-xs-12" style="height:50px;"></div>
 
@@ -206,5 +144,12 @@ $( document ).ready(function() {
 	});
 
 });	
-</script>				
-{% endblock %}		
+</script>
+
+<style>
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+    background-color: #d9534f;
+}
+</style>
+
+{% endblock %}
