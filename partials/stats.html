@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Statitike o podacima u sistemu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script> 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script> 
+    <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script> 
+    <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script> 
+    <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script> 
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"> -->
+
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <h3>Ukupan broj promena, objasniti promene</h3>
+            <div id="brPromena"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Opstine</h3>
+                <div id="opstine"></div>
+            </div>
+            <div class="col-lg-6">
+                <h3>Regioni</h3>
+				<div id="regioni"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+            <h3>Muskarci i zene</h3>
+            <div id="muskarci"></div>
+            <div id="zene"></div>
+
+            </div>
+            <div class="col-lg-6">
+            	<h3>Stranke</h3>
+            	<div id="stranke"></div>
+            </div>
+            <div class="col-lg-12">
+            	<h3>Akteri po strankama i statusima</h3>
+				<table id="strankeTabela">
+					
+				</table>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+    function onlyUnique(value, index, self) { 
+	    return self.indexOf(value) === index;
+	}
+    //http://kojenavlasti.rs/api/stats
+    $(function() {
+
+        $.get("./nav.html", function(data) {
+            $("body").prepend(data);
+        });
+
+        $.get('http://kojenavlasti.rs/api/stats', function(data) {
+        	data = JSON.parse(data);
+        	data = data.data
+        	//console.log( data );
+
+			$("#brPromena").html(data.promena);
+
+        	$("#opstine").html(data.opstina);
+        	$("#regioni").html(data.regiona);
+
+
+        	$("#muskarci").html(data.muskaraca);
+        	$("#zene").html(data.zene);
+
+        	$("#stranke").html(data.partija);
+
+
+        	var zajedno = {};
+
+        	var vlast_stranke  =
+				Object.keys(
+					data.akteri_aktivni_vlast_stranka);
+
+			var opozicija_stranke  =
+				Object.keys(
+					data.akteri_aktivni_opozicija_stranka);
+
+			var sve_stranke = vlast_stranke.concat(opozicija_stranke)
+
+        	/*zajedno.vlast = data.akteri_aktivni_vlast_stranka
+        		;
+        	zajedno.opozicija =
+        		data.akteri_aktivni_opozicija_stranka;*/
+
+
+        	sve_stranke = sve_stranke.filter(onlyUnique)
+
+        	var res = [];
+        	for (var i = 0; i < sve_stranke.length; i++) {
+
+        		var temp = {};
+        		var temp1 = []
+        		temp.naziv = sve_stranke[i];
+        		temp.vlast = data.akteri_aktivni_vlast_stranka[sve_stranke[i]] || 0 ;
+        		temp.opozicija = data.akteri_aktivni_opozicija_stranka[sve_stranke[i]] || 0 ;
+
+        		temp1 =
+        			[temp.naziv,
+        			temp.vlast,
+        			temp.opozicija ];
+
+        		res.push(temp1)
+        	}
+
+        	$('#strankeTabela').DataTable( {
+			        data: res,
+			        columns: [
+			            { title: "stranka" },
+			            { title: "vlast" },
+			            { title: "opozicija" }
+
+			        ]
+			    } );
+
+        });
+
+
+    })
+    </script>
+</body>
+
+</html>
