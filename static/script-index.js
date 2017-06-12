@@ -86,6 +86,16 @@ function resetColors(argument) {
 
 var sideDetaljiHandlerClick = function(event) {
 
+// mark current selection
+//$('#mapa > svg polygon ').each(function(){
+//    $(this).css("fill", "rgb(155, 227, 220)");
+//    $(this).removeAttr( "class" )
+//});
+//
+//console.dir($(this));
+//$(this).attr("class", "current");
+
+
     if ($('[opstina]').css('display') !== 'none') {
         opstinaDetaljiHandlerClick(event.target.getAttribute("opstina"));
     } else {
