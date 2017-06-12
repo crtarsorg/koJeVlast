@@ -8,7 +8,7 @@ var FILES_PATH = "partials/"
 
 $("#indikator").load(FILES_PATH + "legenda.html")
 
-$.get(FILES_PATH + "modal.html?3", function(data) {
+$.get(FILES_PATH + "modal.html?4", function(data) {
     $("#mainWrapper").append(data);
 });
 
@@ -59,7 +59,7 @@ $("#mapa").load("srbija.svg", function() {
     // var selektorRegion  = "[okrug] > path";
 
     mouseEvents(selektor);
-    //    mouseEventsRegion( selektorRegion )     
+    //    mouseEventsRegion( selektorRegion )
 
     $("#mapa").prepend("<button class='prijavi btn btn-lg btn-danger'>Prijavi promenu</button>")
 

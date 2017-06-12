@@ -49,7 +49,7 @@
                 <h3 class="detalji_title">Stranke u vlasti</h3>
                 <table class="table table-striped">
                     <tbody>
-                        
+
                     </tbody>
                 </table>
             </div>
