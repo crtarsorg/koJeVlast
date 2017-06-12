@@ -34,3 +34,6 @@
 #tab td{
     text-align: center;
 }
+.current{
+	fill: red !important;
+}

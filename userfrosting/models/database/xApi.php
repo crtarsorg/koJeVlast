@@ -215,15 +215,15 @@ class xApi extends UFModel {
                     //napuni array sa ID stranke - kasnije prebroj i zameni sa nazivom stranke
                     //$temp['akteri_aktivni_vlast_stranka'][]=$val['snaziv'];
                     //stranka not null
-                    if($val['snaziv']){ $temp['akteri_aktivni_vlast_stranka'][]=$val['snaziv'];} else {$temp['akteri_aktivni_vlast_stranka'][]="xx";}
+                    if($val['snaziv']){ $temp['akteri_aktivni_vlast_stranka'][]=$val['snaziv'];} else {$temp['akteri_aktivni_vlast_stranka'][]="Nepoznata";}  // former XX
                     break;
                 case 2:
                     $stats['data']['akteri_aktivni_opozicija']++;
-                    if($val['snaziv']){$temp['akteri_aktivni_opozicija_stranka'][]=$val['snaziv'];}else{$temp['akteri_aktivni_opozicija_stranka'][]="xx";}
+                    if($val['snaziv']){$temp['akteri_aktivni_opozicija_stranka'][]=$val['snaziv'];}else{$temp['akteri_aktivni_opozicija_stranka'][]="Nepoznata";}     // former XX
                     break;
                 default:
                     $stats['data']['akteri_aktivni_bez_statusa']++;
-                    if($val['snaziv']){$temp['akteri_aktivni_bez_statusa_stranka'][]=$val['snaziv'];}else{$temp['akteri_aktivni_bez_statusa_stranka'][]="xx";}
+                    if($val['snaziv']){$temp['akteri_aktivni_bez_statusa_stranka'][]=$val['snaziv'];}else{$temp['akteri_aktivni_bez_statusa_stranka'][]="Nepoznata";}      // former XX
             }
 
         }
