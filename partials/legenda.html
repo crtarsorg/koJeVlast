@@ -51,28 +51,20 @@ $(function() {
     $('.nav-tabs a').click(function(e) {
         e.preventDefault()
         $(this).tab('show')
-        //moram da svicujem
-    })
 
-    $.fn.bootstrapSwitch.defaults.onText = 'opstine';
-    $.fn.bootstrapSwitch.defaults.offText = 'regioni';
+        console.log( );
 
-    $("[name='my-checkbox']").bootstrapSwitch();
+        var state = $(e.target).attr('href');
 
-    $('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-
-        $('#regioni-wrap').toggleClass('hidden');
-        $('#opstina-wrap').toggleClass('hidden');
-
-        if (state) {
+        if (state=="#opstineTab") {
             //prikazi opstine na mapi
             $("[opstina]").show()
         } else {
             //prikazi regione na mapi
             $("[opstina]").hide()
         }
-
-    });
+        //moram da svicujem
+    })
 
 })
 </script>
