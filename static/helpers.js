@@ -8,6 +8,51 @@ function izracunajProcente(podaci) {
         return el.stranka;
     })
 
+    //izbacivanje nepoznatih stranaka iz liste
+    statistike = grupisanjeOstalih( grupisane );
+
+
+    var sortirani = _.sortBy(statistike, function(el) {
+        return el.procenat });
+    sortirani = sortirani.reverse();
+
+    //sve stranke sortirane prema broju mandata
+
+    var svi = [];
+
+    //ne pojavljuju se ostali
+    //uzeti samo prve tri i ostale
+    if (sortirani.length > 3) {
+        //slice 4 do kraja 
+        //i sve ih saberi
+        svi = sortirani.slice(0, 3); //manje ili jednako
+        ostali = sortirani.slice(3); //
+        //sabrati sve procente
+        var ukupnoOstale = 0;
+
+        ostali.forEach(function(el) {
+            ukupnoOstale += el.procenat;
+        })
+
+        var nadjena1 = _.find(statistike, { skracenica: "ostale" });
+
+        //ako je u prve 3
+        if (nadjena1 != undefined && _.find(svi, nadjena1)!== undefined ) {
+             ukupnoOstale += nadjena1.procenat;
+            //unos = nadjena1;
+        }
+        //ako nije u prve tri vec je sabrana kao ostali
+
+        svi.push({ stranka: "Ostale stranke", skracenica: "ostale", procenat: ukupnoOstale });
+
+    }
+    else {
+        svi = sortirani;
+    }
+    drawSvg(svi);
+}
+
+function grupisanjeOstalih(grupisane) {
     var statistike = []
 
     Object.keys(grupisane).forEach(function(el) {
@@ -39,42 +84,8 @@ function izracunajProcente(podaci) {
             statistike.push(unos);
     })
 
-
-    var sortirani = _.sortBy(statistike, function(el) {
-        return el.procenat });
-    sortirani = sortirani.reverse();
-
-    var svi = [];
-    //uzeti samo prve tri i ostale
-    if (sortirani.length > 4) {
-        //slice 4 do kraja 
-        //i sve ih saberi
-        svi = sortirani.slice(0, 3);
-        ostali = sortirani.slice(4);
-        //sabrati sve procente
-        var ukupno = 0;
-
-        ostali.forEach(function(el) {
-            ukupno += el.procenat;
-        })
-
-        var nadjena1 = _.find(statistike, { skracenica: "ostale" });
-
-        if (nadjena1 != undefined) {
-            nadjena1.procenat += ukupno;
-            //unos = nadjena1;
-        } else
-            svi.push({ stranka: "Ostale stranke", skracenica: "ostale", procenat: ukupno });
-
-    } 
-    else {
-        svi = sortirani;
-    }    
-
-    drawSvg(svi);
+    return statistike
 }
-
-
 
 function agregacija_okrug(opstine) {
 
