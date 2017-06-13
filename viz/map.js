@@ -92,9 +92,6 @@ function poStranci() {
 			return (broj) > 0; ///ukupno
 
 		})
-		//prodji kroz sve filtrirane i ofarbaj ih
-		/*console.log(filt);
-		debugger;*/
 
 		bojenje(filt);
 
