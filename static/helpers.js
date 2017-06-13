@@ -34,16 +34,15 @@ function izracunajProcente(podaci) {
             ukupnoOstale += el.procenat;
         })
 
-        var nadjena1 = _.find(statistike, { skracenica: "ostale" });
+        var nadjena1 = _.find(svi, { skracenica: "ostale" });
 
         //ako je u prve 3
-        if (nadjena1 != undefined && _.find(svi, nadjena1)!== undefined ) {
-             ukupnoOstale += nadjena1.procenat;
-            //unos = nadjena1;
+        if (nadjena1 != undefined ) {
+             nadjena1.procenat += ukupnoOstale;
+            //samo se sabira na postojecu
         }
-        //ako nije u prve tri vec je sabrana kao ostali
-
-        svi.push({ stranka: "Ostale stranke", skracenica: "ostale", procenat: ukupnoOstale });
+        else //ako nije u prve tri vec je sabrana kao ostali
+            svi.push({ stranka: "Ostale stranke", skracenica: "ostale", procenat: ukupnoOstale });
 
     }
     else {
