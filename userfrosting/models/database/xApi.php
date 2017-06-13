@@ -43,7 +43,7 @@ class xApi extends UFModel {
 
         $dataout = array();
         foreach($res as $key=>$val){
-            $dataout['data'][] = array($val[aid],'',$val[aime],$val[aprezime],$val[snaziv],$val[funkcija],$val[knaziv],$val[opstina],$val[pod],$val[pdo],$val[pnavlasti],'');
+            $dataout['data'][] = array($val[aid],$val[aime],$val[aprezime],$val[snaziv],$val[funkcija],$val[knaziv],$val[opstina],$val[pod],$val[pdo],$val[pnavlasti]);
         }
 
         echo json_encode($dataout);
