@@ -80,7 +80,9 @@ function grupisanjeOstalih(grupisane) {
             nadjena.procenat += centi;
             //unos = nadjena;
         } else
+        {//prvi put pronadjena
             statistike.push(unos);
+        }
     })
 
     return statistike
