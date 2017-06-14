@@ -49,6 +49,11 @@ var sideDetaljiHandlerClick = function(event) {
 //console.dir($(this));
 //$(this).attr("class", "current");
 
+	if(event.target.getAttribute("opstina") == null){
+		//kosovo
+		alert("Podaci za opstine na KiM nisu dostupne jer su iste u statusu prinudne uprave/privremenog organa ")
+		return;
+	}
 
     if ($('[opstina]').css('display') !== 'none') {
         opstinaDetaljiHandlerClick(event.target.getAttribute("opstina"));
