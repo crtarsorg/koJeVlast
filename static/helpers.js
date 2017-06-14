@@ -1,3 +1,11 @@
+
+
+
+function resetColors(argument) {
+    $(base_selektor + ">*").css("fill", "rgb(155, 227, 220)");
+}
+
+
 function izracunajProcente(podaci) {
 
     // nepoznate, null i sve ostalo stavljam u ostale

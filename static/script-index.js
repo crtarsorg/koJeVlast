@@ -6,7 +6,7 @@ var OPSTINE = BASE_PATH + "api/opstine";
 var FILES_PATH = "partials/"
 
 
-$("#indikator").load(FILES_PATH + "legenda.html")
+$("#indikator").load(FILES_PATH + "legenda.html?1")
 
 $.get(FILES_PATH + "modal.html?4", function(data) {
     $("#mainWrapper").append(data);
@@ -45,9 +45,6 @@ $("#mapa").load("srbija.svg", function() {
 
 var trenutna_boja = "rgb(155, 227, 220)";
 
-function resetColors(argument) {
-    $(base_selektor + ">*").css("fill", "rgb(155, 227, 220)");
-}
 
 
 

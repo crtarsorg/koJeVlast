@@ -23,7 +23,7 @@
                 <div role="tabpanel" class="tab-pane active" id="opstineTab">
                     <label class="col-md-4 control-label" for="stranka">Opština</label>
                     <div class="col-md-4">
-                        <input type="text" name="" id="opstinaSearch" class="form-control" value="" required="required" pattern="" title="" placeholder="Unesite naziv">
+                        <input type="text" name="" id="opstinaSearch" class="form-control"  placeholder="Unesite naziv">
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="okruziTab">
@@ -73,6 +73,17 @@ $(function() {
             $("[opstina]").hide()
         }
         //moram da svicujem
+    })
+
+
+    $("#reset").click(function (argument) {
+        //mapu vrati na pocetno stanje
+        //resetuj opcije
+        debugger;
+        $("#stranka").prop('selectedIndex',0);
+        $("#regioni").prop('selectedIndex',0);
+        resetColors();
+
     })
 
 })
