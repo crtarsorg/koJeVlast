@@ -6,7 +6,7 @@ var OPSTINE = BASE_PATH + "api/opstine";
 var FILES_PATH = "partials/"
 
 
-$("#indikator").load(FILES_PATH + "legenda.html?1")
+$("#indikator").load(FILES_PATH + "legenda.html?2")
 
 $.get(FILES_PATH + "modal.html?4", function(data) {
     $("#mainWrapper").append(data);
