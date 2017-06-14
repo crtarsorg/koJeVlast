@@ -52,11 +52,13 @@ var sideDetaljiHandlerClick = function(event) {
 
 
     if ($('[opstina]').css('display') !== 'none') {
-    		if(event.target.getAttribute("opstina") == null){
-				//kosovo
-				alert("Podaci za opstine na KiM nisu dostupne jer su iste u statusu prinudne uprave/privremenog organa ")
-				return;
-			}
+
+		if(event.target.getAttribute("opstina") == null){
+			//kosovo
+			alert("Podaci za opstine na KiM nisu dostupne jer su iste u statusu prinudne uprave/privremenog organa ")
+			return;
+		}
+
         opstinaDetaljiHandlerClick(event.target.getAttribute("opstina"));
     } else {
         regionDetailHandlerClick(event.target, "Naslov regiona");

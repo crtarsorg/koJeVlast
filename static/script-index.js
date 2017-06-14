@@ -8,7 +8,7 @@ var FILES_PATH = "partials/"
 
 $("#indikator").load(FILES_PATH + "legenda.html?2")
 
-$.get(FILES_PATH + "modal.html?4", function(data) {
+$.get(FILES_PATH + "modal.html?1", function(data) {
     $("#mainWrapper").append(data);
 });
 
@@ -265,7 +265,8 @@ function tabelaOdbornika(podaci, region) {
             "render": function(data, type, full, meta) {
                 //console.log( "promena :" + data );
 
-                return '<a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>';
+                return '<a href="./posaljitePromenu.html" target="_blank">'+
+                ' <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>';
             }
 
         }, {
