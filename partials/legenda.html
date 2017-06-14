@@ -1,29 +1,29 @@
 <!-- https://leaverou.github.io/awesomplete/ -->
 <!-- http://bootsnipp.com/forms -->
-
 <style type="text/css">
-    .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
-        background-color: grey;
-    }
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:focus,
+.nav-pills>li.active>a:hover {
+    background-color: grey;
+}
 </style>
-
-<form class="form-horizontal">
+<div class="form-horizontal">
     <fieldset>
         <!-- Form Name -->
         <legend>Legenda</legend>
         <div class="form-group">
-
-                <ul class="nav nav-pills " style="margin-left: 158px;" >
-                    <li class="active"><a href="#opstineTab">Opštine</a></li>
-                    <li><a href="#okruziTab">Okruzi</a></li>
-                </ul>
-
+            <ul class="nav nav-pills " style="margin-left: 158px;">
+                <li class="active"><a href="#opstineTab">Opštine</a></li>
+                <li><a href="#okruziTab">Okruzi</a></li>
+            </ul>
+        </div>
+        <div class="form-group">
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="opstineTab">
                     <label class="col-md-4 control-label" for="stranka">Opština</label>
                     <div class="col-md-4">
-                        <input type="text" name="" id="opstinaSearch" class="form-control"  placeholder="Unesite naziv">
+                        <input type="text" name="" id="opstinaSearch" class="form-control" placeholder="Unesite naziv">
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="okruziTab">
@@ -35,6 +35,7 @@
                     </div>
                 </div>
             </div>
+            <!-- .tab-content -->
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="stranka">Stranka na vlasti</label>
@@ -45,13 +46,13 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="reset">Reset</label>
+            <label class="col-md-4 control-label" for="reset"></label>
             <div class="col-md-4">
                 <button id="reset" class="btn btn-default">Reset</button>
             </div>
         </div>
     </fieldset>
-</form>
+</div>
 <script src="viz/map.js"></script>
 <script type="text/javascript">
 $(function() {
@@ -76,12 +77,12 @@ $(function() {
     })
 
 
-    $("#reset").click(function (argument) {
+    $("#reset").click(function(argument) {
         //mapu vrati na pocetno stanje
         //resetuj opcije
         debugger;
-        $("#stranka").prop('selectedIndex',0);
-        $("#regioni").prop('selectedIndex',0);
+        $("#stranka").prop('selectedIndex', 0);
+        $("#regioni").prop('selectedIndex', 0);
         resetColors();
 
     })
