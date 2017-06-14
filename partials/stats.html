@@ -22,47 +22,97 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
     <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 
 </head>
 
+
+
+<style>
+.statsrow{
+    margin-bottom: 20px;
+}
+
+.statbox h3{
+    font-size: 18px;
+    color: #231f20;
+}
+.statbox i{
+    color: #bdbcbc;
+}
+
+.statbox h3 span{
+    font-size: 24px;
+    color: #62a698;
+    margin-left: 10px;
+}
+
+</style>
+
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <h3>Ukupan broj promena, objasniti promene</h3>
-            <div id="brPromena"></div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h3>Opstine</h3>
-                <div id="opstine"></div>
-            </div>
-            <div class="col-lg-6">
-                <h3>Regioni</h3>
-				<div id="regioni"></div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-lg-6">
-            <h3>Muskarci i zene</h3>
-            <div id="muskarci"></div>
-            <div id="zene"></div>
+        <div class="row statsrow">
+
+            <div class="col-lg-3 statbox">
+                <h3>Ukupan broj promena<sup><i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i></sup> <span id="brPromena"></span></h3>
+            </div>
+
+            <div class="col-lg-2 statbox">
+                <h3>Broj opština<sup><i class="fa fa-question-circle" data-box="hopstina" aria-hidden="true"></i></sup> <span id="opstine"></span></h3>
 
             </div>
-            <div class="col-lg-6">
-            	<h3>Stranke</h3>
-            	<div id="stranke"></div>
+
+            <div class="col-lg-3 statbox">
+                <h3>Broj muškaraca / žena<sup><i class="fa fa-question-circle" data-box="hmz" aria-hidden="true"></i></sup> <span id="muskarci"></span> / <span id="zene"></span></h3>
+
+
             </div>
-            <div class="col-lg-12">
-            	<h3>Akteri po strankama i statusima</h3>
-				<table id="strankeTabela">
-					
-				</table>
+
+            <div class="col-lg-2 statbox">
+                <h3>Broj regiona<sup><i class="fa fa-question-circle" data-box="hreg" aria-hidden="true"></i></sup> <span id="regioni"></span></h3>
+
+            </div>
+
+            <div class="col-lg-2 statbox">
+            	<h3>Stranke<sup><i class="fa fa-question-circle" data-box="hstr" aria-hidden="true"></i></sup> <span id="stranke"></span></h3>
+
             </div>
         </div>
 
     </div>
+
+
+            <div class="col-lg-12">
+            	<h3>Akteri po strankama i statusima</h3>
+				<table id="strankeTabela">
+
+				</table>
+            </div>
+
+<div id="explain" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
     <script type="text/javascript">
 
     function onlyUnique(value, index, self) { 
@@ -71,11 +121,26 @@
     //http://kojenavlasti.rs/api/stats
     $(function() {
 
+
+    $(".statsrow i").on("click", function(e){
+        //console.dir(e.currentTarget.dataset.box);
+
+        tar = e.currentTarget.dataset.box;
+        if(tar=="hpromena"){ $('.modal-title').html('Ukupan broj promena'); $('.modal-body').html('Ovaj broj se odnosi na ukupan broj promena funkcija u lokalnoj samoupravi, promena stranaka, promena koalicija...'); $('#explain').modal('show');   }
+        if(tar=="hopstina"){ $('.modal-title').html('Ukupan broj opština'); $('.modal-body').html('Ovaj broj se odnosi na ukupan broj opština u kojima su zabeležene promene'); $('#explain').modal('show');   }
+        if(tar=="hmz"){ $('.modal-title').html('Broj muškaraca / žena'); $('.modal-body').html('Obajsnjenje za Broj muškaraca / žena'); $('#explain').modal('show');   }
+        if(tar=="hreg"){ $('.modal-title').html('Broj regiona'); $('.modal-body').html('Obajsnjenje za Broj regiona'); $('#explain').modal('show');   }
+        if(tar=="hstr"){ $('.modal-title').html('Stranke'); $('.modal-body').html('Obajsnjenje za Stranke'); $('#explain').modal('show');   }
+
+    } );
+
+
+
         $.get("./nav.html", function(data) {
             $("body").prepend(data);
         });
 
-        $.get('http://kojenavlasti.rs/api/stats', function(data) {
+        $.get('../api/stats', function(data) {
         	data = JSON.parse(data);
         	data = data.data
         	//console.log( data );
@@ -87,7 +152,7 @@
 
 
         	$("#muskarci").html(data.muskaraca);
-        	$("#zene").html(data.zene);
+        	$("#zene").html(data.zena);
 
         	$("#stranke").html(data.partija);
 
