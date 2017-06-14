@@ -1,18 +1,27 @@
 <!-- https://leaverou.github.io/awesomplete/ -->
 <!-- http://bootsnipp.com/forms -->
+
+<style type="text/css">
+    .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+        background-color: grey;
+    }
+</style>
+
 <form class="form-horizontal">
     <fieldset>
         <!-- Form Name -->
         <legend>Legenda</legend>
         <div class="form-group">
-            <ul class="nav nav-tabs" style="padding-left: 15%;">
-                <li class="active"><a href="#opstineTab">Opstine</a></li>
-                <li><a href="#okruziTab">Okruzi</a></li>
-            </ul>
+
+                <ul class="nav nav-pills " style="margin-left: 158px;" >
+                    <li class="active"><a href="#opstineTab">Opštine</a></li>
+                    <li><a href="#okruziTab">Okruzi</a></li>
+                </ul>
+
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="opstineTab">
-                    <label class="col-md-4 control-label" for="stranka">Opstina</label>
+                    <label class="col-md-4 control-label" for="stranka">Opština</label>
                     <div class="col-md-4">
                         <input type="text" name="" id="opstinaSearch" class="form-control" value="" required="required" pattern="" title="" placeholder="Unesite naziv">
                     </div>
@@ -20,27 +29,26 @@
                 <div role="tabpanel" class="tab-pane" id="okruziTab">
                     <label class="col-md-4 control-label" for="regioni">Okrug</label>
                     <div class="col-md-4">
-                        <select id="regioni" name="regioni" class="form-control" >
+                        <select id="regioni" name="regioni" class="form-control">
                             <option value="" placeholder="Izaberite"></option>
                         </select>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
         <div class="form-group">
             <label class="col-md-4 control-label" for="stranka">Stranka na vlasti</label>
             <div class="col-md-4">
                 <select id="stranka" name="stranka" class="form-control">
                     <option value=""></option>
-
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <button>Clear</button>
+            <label class="col-md-4 control-label" for="reset">Reset</label>
+            <div class="col-md-4">
+                <button id="reset" class="btn btn-default">Reset</button>
+            </div>
         </div>
     </fieldset>
 </form>
@@ -48,7 +56,7 @@
 <script type="text/javascript">
 $(function() {
 
-    $('.nav-tabs a').click(function(e) {
+    $('.nav-pills a').click(function(e) {
         e.preventDefault()
         $(this).tab('show')
 
@@ -57,7 +65,7 @@ $(function() {
         //
         var state = $(e.target).attr('href');
 
-        if (state=="#opstineTab") {
+        if (state == "#opstineTab") {
             //prikazi opstine na mapi
             $("[opstina]").show()
         } else {

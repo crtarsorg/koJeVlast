@@ -99,7 +99,7 @@ function agregacija_okrug(opstine) {
 
 
     //cifre
-
+    //XXXX treba sabrati i odbornike
     var rez = opstine.reduce(function(a, b) {
 
         var temp = {};
@@ -122,12 +122,14 @@ function agregacija_okrug(opstine) {
             temp_ar2 = b_stranke[0].vlast
         }
 
+        //stranke vlast sabrati a i b
+
         temp.vlast = temp_ar2.concat(temp_ar);
 
         return temp;
     }, init);
 
-    
+
     return rez;
 }
 

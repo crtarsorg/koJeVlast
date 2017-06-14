@@ -134,7 +134,7 @@ function sideDetails(naslov, stranke) {
         if (stranke[i].naziv == undefined || stranke[i].naziv == null || stranke[i].naziv == "Nepoznata" || stranke[i].naziv == "Stranka nije na listi")
             continue;
 
-        $("#detalji table").append("<tr><td>" + stranke[i].naziv + "</td></tr>")
+        $("#detalji table").append("<tr><td>" + stranke[i].naziv + " (" +  stranke[i].odbornika +  ") </td></tr>")
     }
 
 }
