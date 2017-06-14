@@ -17,6 +17,7 @@
     #opis {
         max-height: 300px;
         margin-top: 100px;
+        display: none;
     }
     #spinner{
         top: 30%;
