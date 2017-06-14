@@ -49,13 +49,14 @@ var sideDetaljiHandlerClick = function(event) {
 //console.dir($(this));
 //$(this).attr("class", "current");
 
-	if(event.target.getAttribute("opstina") == null){
-		//kosovo
-		alert("Podaci za opstine na KiM nisu dostupne jer su iste u statusu prinudne uprave/privremenog organa ")
-		return;
-	}
+
 
     if ($('[opstina]').css('display') !== 'none') {
+    		if(event.target.getAttribute("opstina") == null){
+				//kosovo
+				alert("Podaci za opstine na KiM nisu dostupne jer su iste u statusu prinudne uprave/privremenog organa ")
+				return;
+			}
         opstinaDetaljiHandlerClick(event.target.getAttribute("opstina"));
     } else {
         regionDetailHandlerClick(event.target, "Naslov regiona");
@@ -136,7 +137,7 @@ function regionDetailHandlerClick(element, naslov_region) {
 
 
 function sideDetailsOpstina(idOpstine) {
-    //stranke koje ucestvuju u vlasti 
+    //stranke koje ucestvuju u vlasti
     var podaciOpstine = DataStranke.get();
 
     var opstina = podaciOpstine.filter(function(el) {
