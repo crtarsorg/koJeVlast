@@ -63,10 +63,10 @@
     <div id="fade" class="hidden"></div>
     <!-- <script src="static/anotate.js"></script> -->
 
-    <script src="static/data.js?1"></script>
-    <script src="static/helpers.js?2"></script>
-    <script src="static/eventHandlers.js?4"></script>
-    <script src="static/script-index.js?2"></script>
+    <script src="static/data.js?2"></script>
+    <script src="static/helpers.js?3"></script>
+    <script src="static/eventHandlers.js?1"></script>
+    <script src="static/script-index.js?1"></script>
 
 
 </body>
