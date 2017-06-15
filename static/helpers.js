@@ -113,6 +113,8 @@ function agregacija_okrug(opstine) {
         var temp = {};
         temp.opop = +a.opop + +b.opop;
         temp.opov = +a.opov + +b.opov;
+        //temp.odbornika = +a.odbornika + +b.odbornika;
+
 
         var a_stranke =
             stranke.filter(function(c) {
@@ -120,6 +122,12 @@ function agregacija_okrug(opstine) {
         var b_stranke =
             stranke.filter(function(c) {
                 return c.idopstine == b.oidopstine });
+
+
+        if(a_stranke.length == 0 && a.opop!=undefined){
+            a_stranke = [];
+            a_stranke.push(a);
+        }
 
         var temp_ar = [];
         var temp_ar2 = []
@@ -137,13 +145,49 @@ function agregacija_okrug(opstine) {
         return temp;
     }, init);
 
-
+    rez.vlast = ocisti_grupisi(rez.vlast)
+    //izbaciti null unose, sabrati stranke sa istim id-em
     return rez;
 }
 
 
+Array.prototype.indexOfStr = function(f)
+{
+    for(var i=0; i<this.length; ++i)
+    {
+        if( this[i].id == f.id )
+            return i;
+    }
+    return -1;
+};
+
+function ocisti_grupisi( stranke ) {
+
+    var retArr = []
+
+    stranke.forEach(function(el, ind) {
+
+        var indexStr = retArr.indexOfStr(el);
+        if(  indexStr > -1 ){
+            retArr[indexStr].odbornika +=el.odbornika;
+        }
+        else {
+            if(el.id !== null)
+                retArr.push(el);
+        }
+
+    });
+
+    retArr.sort(function(a, b) {
+      return b.odbornika - a.odbornika;
+    });
+    return retArr;
+}
+
 function podaciRegion(id_region) {
 
+
+    //mozda ne treba get opstine
     var podaci_po_okrugu = DataStranke.getOpstine();
     var grupisane = _.groupBy(podaci_po_okrugu, function(el) {
         return el.oidokruga;

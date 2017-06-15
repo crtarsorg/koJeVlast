@@ -134,6 +134,8 @@ function sideDetails(naslov, stranke) {
         $("#detalji table").append("<tr><td>" + stranke[i].naziv + " (" +  stranke[i].odbornika +  ") </td></tr>")
     }
 
+    $("#opis").removeClass('hidden')
+
 }
 
 function tabelaOdbornikaRegion(data) {

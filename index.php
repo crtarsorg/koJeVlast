@@ -13,11 +13,11 @@
         background: url("./static/body-bg.jpg") !important;
         height: 100%;
     }
-    
+
     #opis {
         max-height: 300px;
         margin-top: 100px;
-        display: none;
+
     }
     #spinner{
         top: 30%;
@@ -45,7 +45,7 @@
     <div class="container-fluid" id="mainWrapper">
         <div id="mapa" class="col-lg-8"></div>
         <div id="indikator" class="col-lg-4"> </div>
-        <div id="opis" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        <div id="opis" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 hidden ">
             <div id="detalji" class="clear" >
                 <h3 class="detalji_title">Stranke u vlasti</h3>
                 <table class="table table-striped">
