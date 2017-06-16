@@ -26,8 +26,7 @@ function mouseEvents(selektor) {
             //uzeti koja je trenutna boja 
 
             $(this).css("fill", trenutna_boja);
-            $(".detalji_title").html("")
-            $("#detalji table").empty();
+            $("#opis").addClass("hidden")
             //nedostupni podaci
         });
     //mora da bude i region detalji

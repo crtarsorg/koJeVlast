@@ -105,9 +105,6 @@ function agregacija_okrug(opstine) {
     if (opstine == undefined)
         return;
 
-
-    //cifre
-    //XXXX treba sabrati i odbornike
     var rez = opstine.reduce(function(a, b) {
 
         var temp = {};
@@ -178,9 +175,7 @@ function ocisti_grupisi( stranke ) {
 
     });
 
-    retArr.sort(function(a, b) {
-      return b.odbornika - a.odbornika;
-    });
+    
     return retArr;
 }
 

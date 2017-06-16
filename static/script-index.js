@@ -126,6 +126,10 @@ function sideDetails(naslov, stranke) {
     $("#detalji table").empty();
     $(".detalji_title").html(naslov_detalji)
 
+
+    stranke.sort(function(a, b) {
+      return b.odbornika - a.odbornika;
+    });
     for (var i = 0; i < stranke.length; i++) {
 
         if (stranke[i].naziv == undefined || stranke[i].naziv == null || stranke[i].naziv == "Nepoznata" || stranke[i].naziv == "Stranka nije na listi")
