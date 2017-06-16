@@ -260,9 +260,11 @@ function tabelaOdbornika(podaci, region) {
             "render": function(data, type, full, meta) {
                 if (data == null || data == undefined)
                     data = "Nepoznata";
+                if(+data == 1) return "vlast";
+                if(+data == 2) return "opozicija";
 
                 //console.log( "vlast :" + data );
-                return data;
+                //return data;
             }
 
         }, {
