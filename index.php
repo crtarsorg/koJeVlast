@@ -35,6 +35,21 @@
     .navbar-brand{
         padding: 5px;
     }
+    .banner-text{
+        display: inline-block;
+        font-size: 32px;
+        color: white;
+        background-color: #9FD8D6;
+        padding:  5px 15px 5px 30px;
+
+        border-radius: 10px;
+    }
+    .banner img{
+        margin-right: -25px;
+        position: relative;
+
+    }
+
     </style>
 </head>
 
@@ -44,7 +59,15 @@
 		include_once 'partials/nav.html';
 	?>	
 
+    <div class="container-fluid">
 
+        <a href="partials/stats.html">
+        <div class="banner">
+            <img src="static/icons/preletaci.svg">
+            <div class="banner-text">Pregledajte najaktivnije preletače i ostale statistike</div>
+        </div>
+        </a>
+    </div>
     <div class="container-fluid" id="mainWrapper">
         <div id="mapa" class="col-lg-8"></div>
         <div id="indikator" class="col-lg-4"> </div>
