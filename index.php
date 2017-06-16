@@ -64,7 +64,7 @@
         <a href="partials/stats.html">
         <div class="banner">
             <img src="static/icons/preletaci.svg">
-            <div class="banner-text">Pregledajte najaktivnije preletače i ostale statistike</div>
+            <div class="banner-text">Pregledajte najaktivnije preletače i ostale statistike <span class="glyphicon glyphicon-play" aria-hidden="true" style="font-size: 24px"></span></div>
         </div>
         </a>
     </div>
