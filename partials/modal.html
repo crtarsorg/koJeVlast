@@ -19,6 +19,102 @@
 #viz{
     min-height: 300px;
 }
+
+.logo-opstina{
+    padding: 10px 0;
+    position: relative;
+    max-width: 150px;
+    float: left;
+}
+.general{
+    float: left;
+    width: 80%;
+    padding: 30px 5px 5px 5px;
+}
+.clear{clear: both;}
+
+</style>
+
+<style>
+.statsrow{
+    margin-bottom: 20px;
+}
+
+.statbox h3{
+    font-size: 18px;
+    color: #231f20;
+}
+.statbox i{
+    color: #bdbcbc;
+}
+
+.statbox h3 span{
+    font-size: 24px;
+    color: #62a698;
+    margin-left: 10px;
+}
+
+
+
+.statboxnice{
+    margin-top: 10px;
+    text-align: center;
+}
+.statboxnice h3{
+    font-size: 14px;
+    color: #64A49C;
+    border-top: 7px solid #64A49C;
+    text-align: center;
+    padding-top: 7px;
+    margin: 0;
+    margin-bottom: 40px;
+}
+.statboxnice i{
+    color: #bdbcbc;
+    cursor: pointer;
+}
+.triangle {
+    min-height:30px;
+    width:100%;
+    position:relative;
+    overflow:hidden;
+}
+.triangle:after {
+    /* min-height: 50px; */
+    width: 100%;
+    position: relative;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(90deg);
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: red; */
+    margin: auto;
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 10px solid white;
+    border-bottom: 10px solid #fff;
+    border-right: 20px solid #64a49c;
+}
+
+.statboxnice span{
+    font-size: 24px;
+    line-height: 60px;
+    color: #FFF;
+    background-color: #62a698;
+    display: block;
+    border-radius: 50%;
+    width:60px;
+    height:60px;
+    margin: auto;
+}
+
+
 </style>
 <div class="modal fade" id="modal_id">
     <div class="modal-dialog">
@@ -55,14 +151,15 @@
                                 <span>Površina: </span><span id="povrs"></span>
                                 <br>
                                 <span>Broj stanovnika: </span><span id="stanovnici"></span>
-                            </div>
 
-                            <span id="linkovi">
-                                <a  id="shareLink" href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
-                                <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="fbShare" href="#fb"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
-                                <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="twShare" href="#tw"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
-                            </span>
-                            <br>
+
+                                <span id="linkovi">
+                                    <a  id="shareLink" href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                    <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="fbShare" href="#fb"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                                    <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="twShare" href="#tw"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                                </span>
+                            </div>
+                            <div class="clear"></div>
                             <!-- <canvas width="360" height="300"></canvas> -->
                             <div>
                                 <div id="viz"></div>
@@ -82,7 +179,40 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="tab">
 
+
                             <div id="statsOdb"></div>
+
+                            <div >
+                                <div class="col-lg-2 statboxnice">
+                                    <span id="brAktera"></span>
+                                    <div class="triangle"></div>
+                                    <h3>Ukupan broj aktera<sup><i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i></sup> </h3>
+                                </div>
+
+                                <div class="col-lg-2 statboxnice">
+                                    <span id="brNotOdbornici"></span>
+                                    <div class="triangle"></div>
+                                    <h3>Akteri koji nisu odbornici<sup><i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i></sup> </h3>
+                                </div>
+
+                                <div class="col-lg-2 statboxnice">
+                                    <span id="brStranka"></span>
+                                    <div class="triangle"></div>
+                                    <h3>Broj stranka<sup><i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i></sup> </h3>
+                                </div>
+
+                                <div class="col-lg-2 statboxnice">
+                                    <span id="brKoalcija"></span>
+                                    <div class="triangle"></div>
+                                    <h3>Broj koalicija<sup><i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i></sup> </h3>
+                                </div>
+
+                                <div class="col-lg-2 statboxnice">
+                                    <span id="brVlasti"></span>
+                                    <div class="triangle"></div>
+                                    <h3>Broj odbornika na vlasti<sup><i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i></sup> </h3>
+                                </div>
+                            </div>
 
                             <table class="table table-hover">
                                 <thead>

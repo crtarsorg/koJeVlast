@@ -1,3 +1,5 @@
+var BASE_PATH =  "http://kojenavlasti.rs/";
+
 var LOKAL = BASE_PATH;
 //"http://localhost/koJeVlast/";
 var OPSTINE = BASE_PATH + "api/opstine";
@@ -186,12 +188,19 @@ function statsOdbornici(podaci) {
     var stranke = _.uniqBy(podaci, 'stranka'); //nesto ne radi sa lodash-om
     var koalicija = _.uniqBy(podaci, 'koalicija');
 
-    var stats_text = " Ukupan broj aktera: " + podaci.length;
+
+$("#brAktera").html( podaci.length );
+$("#brNotOdbornici").html( not_odbornici.length );
+$("#brStranka").html( stranke.length );
+$("#brKoalcija").html( koalicija.length );
+$("#brVlasti").html( vlast.length );
+
+    /*var stats_text = " Ukupan broj aktera: " + podaci.length;
     stats_text += "<br/>" + " Ukupan broj aktera koji nisu odbornici: " + not_odbornici.length;
     stats_text += "<br/>" + " Ukupan broj stranka: " + stranke.length;
     stats_text += "<br/>" + " Ukupan broj koalicija: " + koalicija.length;
     stats_text += "<br/>" + " Ukupan broj odbornika na vlasti: " + vlast.length;
-    $("#statsOdb").html(stats_text);
+    $("#statsOdb").html(stats_text);*/
 
 }
 

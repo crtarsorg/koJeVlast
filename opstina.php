@@ -1,11 +1,11 @@
-<?php  
+<?php
 
-	
-	
+
 	$la = $_GET["naziv"];
 	$id = $_GET["id"];
 	//treba naziv i id
-	
+
+
 	// povuci podatke za tu opstinu
 	// iskorisiti postojeci kod za popunjavanje; on je u js-u
 
