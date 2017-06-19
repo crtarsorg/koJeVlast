@@ -260,7 +260,15 @@ function tabelaOdbornika(podaci, region) {
 
                 //console.log( "koalicija :" + data );
 
-                return data;
+                var naziv = data;
+                if(data.length > 50){
+                    naziv = data.substr(0, 50);
+
+                    naziv = naziv.substr(0, naziv.lastIndexOf(" "))
+                    naziv+= " ... "; //verovatno treba ovde upitnik
+                }
+
+                return  "<span title='"+data+"'>"+naziv+"</span>";
             }
 
         }, {
