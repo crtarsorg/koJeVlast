@@ -59,7 +59,7 @@
 		include_once 'partials/nav.html';
 	?>	
 
-    <div class="container-fluid">
+    <div class="container-fluid baner-container">
 
         <a href="partials/stats.html">
         <div class="banner">
@@ -95,6 +95,10 @@
     <script src="static/eventHandlers.js?1"></script>
     <script src="static/script-index.js?2"></script>
 
+
+<script>
+    $(".baner-container").delay(15000).fadeOut(300);
+</script>
 
 </body>
 
