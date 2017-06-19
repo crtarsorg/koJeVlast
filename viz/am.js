@@ -10,9 +10,7 @@ function drawSvg(data) {
         "type": "pie",
         "balloonText": "[[stranka]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
         "colors": [
-            "red",
-            "blue",
-            "orange"
+             "#3A5967", "#BE1E2D",  "#9FD8D6",  "#63A39B"
         ],
        /* "allLabels": [
 		{

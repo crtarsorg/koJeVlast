@@ -55,9 +55,9 @@
 
 <body>
 
-	<?php 
+	<?php
 		include_once 'partials/nav.html';
-	?>	
+	?>
 
     <div class="container-fluid baner-container">
 
@@ -96,9 +96,9 @@
     <script src="static/script-index.js?2"></script>
 
 
-<script>
-    $(".baner-container").delay(15000).fadeOut(300);
-</script>
+    <script>
+        $(".baner-container").delay(15000).fadeOut(300);
+    </script>
 
 </body>
 
