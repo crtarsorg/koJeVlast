@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Statitike o podacima u sistemu</title>
+    <title>Statistike o podacima u sistemu</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <base href="./partials">
 
@@ -141,39 +141,37 @@
             <img src="../static/icons/stats1.svg" alt="">
             <div class="highlight">
                 <h3>Najčešće stranke u vlasti</h3>
-                <div><ul id="ul_stranke">
-                    <li>item1i</li>
-                    <li>item2i</li>
-                    <li>item3i</li>
-                    <li>item4i</li>
-                    <li>item5i</li>
-                </ul></div>
+                <div>
+                    <ul id="ul_stranke">
+
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="highlight-container col-md-3">
             <img src="../static/icons/stats_2.svg" alt="">
             <div class="highlight">
                 <h3>Top 5 preletača</h3>
-                <div><ul>
-                    <li>item1i</li>
-                    <li>item2i</li>
-                    <li>item3i</li>
-                    <li>item4i</li>
-                    <li>item5i</li>
-                </ul></div>
+                <div>
+                    <ul id="ul_preletaci">
+
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="highlight-container col-md-3">
             <img src="../static/icons/stats_3.svg" alt="">
             <div class="highlight">
                 <h3>Opštine sa najviše promena</h3>
-                <div><ul>
-                    <li>item1i</li>
-                    <li>item2i</li>
-                    <li>item3i</li>
-                    <li>item4i</li>
-                    <li>item5i</li>
-                </ul></div>
+                <div>
+                    <ul>
+                        <li>item1i</li>
+                        <li>item2i</li>
+                        <li>item3i</li>
+                        <li>item4i</li>
+                        <li>item5i</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -220,13 +218,6 @@
             	<h3>Stranke<sup><i class="fa fa-question-circle" data-box="hstr" aria-hidden="true"></i></sup> </h3>
 
             </div>
-
-
-
-
-
-
-
 
 
 
@@ -299,6 +290,24 @@
             $("body").prepend(data);
         });
 
+
+
+        function prveStranke( podaci ) {
+            var c = 0;
+
+            for (var i = 0; i < podaci.length; i++) {
+                if( c >= 5)return;
+
+                var naziv = podaci[i][0];
+
+                if(["Stranka nije na listi","Nepoznata"].indexOf(naziv) ==-1){
+                    $("#ul_stranke").append("<li>"+naziv+"</li>");
+                    c++;
+
+                }
+            }
+        }
+
         $.get('../api/stats', function(data) {
         	data = JSON.parse(data);
         	data = data.data
@@ -353,6 +362,9 @@
         		res.push(temp1)
         	}
 
+            var na_vlasti = res.slice( 0, 10 );
+
+
         	$('#strankeTabela').DataTable( {
 			        data: res,
 			        columns: [
@@ -364,6 +376,28 @@
 			    } );
 
         });
+
+
+        $.get("http://kojenavlasti.rs/api/imajuPromene", function (data) {
+            data = JSON.parse(data);
+            var prvih_5 = data.slice(0,5);
+
+            for (var i = 0; i < prvih_5.length; i++) {
+                var la = prvih_5[i].id;
+                $.get("http://kojenavlasti.rs//api/akter/promene/"+la, function(d) {
+                    d = JSON.parse(d);
+                    d = d[0];
+                    $("#ul_preletaci").append("<li>" + d.aime + " " +d.aprezime + "</li>")
+                    //console.log(d[0]);
+                })
+            }
+
+            //prodji za svakog i nabavi ime
+        })
+
+        function function_name(argument) {
+            // body...
+        }
 
 
     })
