@@ -204,6 +204,22 @@ $("#brVlasti").html( vlast.length );
 
 }
 
+
+function skraceno( data ) {
+    var naziv = data ;
+
+    if( data == null || data == undefined)
+        return "nepoznato";
+
+    if(data.length > 50){
+        naziv = data.substr(0, 50);
+
+        naziv = naziv.substr(0, naziv.lastIndexOf(" "))
+        naziv+= " ... "; //verovatno treba ovde upitnik
+    }
+    return naziv;
+}
+
 function tabelaOdbornika(podaci, region) {
 
     $('#tab table ').dataTable().api().clear();
@@ -258,15 +274,8 @@ function tabelaOdbornika(podaci, region) {
                 if (data == null || data == undefined)
                     data = "Nepoznata";
 
-                //console.log( "koalicija :" + data );
-
                 var naziv = data;
-                if(data.length > 50){
-                    naziv = data.substr(0, 50);
-
-                    naziv = naziv.substr(0, naziv.lastIndexOf(" "))
-                    naziv+= " ... "; //verovatno treba ovde upitnik
-                }
+                naziv = skraceno( data );
 
                 return  "<span title='"+data+"'>"+naziv+"</span>";
             }
@@ -361,7 +370,7 @@ var drawCallbackHandler = function (ev) {
 
             $this = $(ev.target);
 
-            var $dodat =  $this.parents('tr').next(".added")
+            var $dodat =  $this.parents('tr').nextAll(".added")
 
             if($dodat.length >0){
                 $dodat.toggle()
@@ -379,32 +388,40 @@ var drawCallbackHandler = function (ev) {
                 //treba proveriti da li se vec nalazi tu neki element
                 //ako vec postoji jedan added, onda nemoj da dodajes dalje
 
-                var $temp = $("<tr class='added'><td colspan='7'></td></tr>");
-                $this.parents('tr').after( $temp );
-
                 // prvi unos je trenutni, njega ne uzimam
                 json.shift();
 
                 //appenduj nesto da se jasno vide  datumi promena
                 for (var i = 0; i < json.length; i++) {
 
-                    var tempPdo = "nepoznato";
+                    var $temp = $("<tr class='added'></tr>");
+                    $this.parents('tr').after( $temp );
+
+                    var tempPdo = "";
+
                     if(json[i].pdo !==null && json[i].pdo!== undefined)
-                        tempPdo = json[i].pdo;
+                        tempPdo = " - " + json[i].pdo;
+
+
+                        /* + json[i].aime +" "
+                        + json[i].aprezime +" "*/
+
+                    koalicija = skraceno( json[i].knaziv );
+                    stranka = json[i].snaziv? "Nepoznata": json[i].snaziv;
+                    funkcija = json[i].funkcija? "Nepoznata": json[i].funkcija;
 
                     var msg =
+                         "<td>" + json[i].pod + "<br/>" + tempPdo + "</td>"
+                        +"<td>" + stranka + "</td>"
+                        +"<td>" + funkcija + "</td>"
+                        +"<td title='"+json[i].knaziv+"'>" + koalicija + "</td>"
+                        +"<td>/</td>"
+                        +'<td><a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a></td>'
+                        +"<td>"+ json[i].opstina +"</td>"
+                        ;
 
-                        //+ json[i].posoba
-                        json[i].pod + " - "
-                        + tempPdo +" "
-                        + json[i].aime +" "
-                        + json[i].aprezime +" "
-                        + json[i].funkcija +" "
-                        + json[i].snaziv +" "
-                        + json[i].knaziv +" "
-                        +"<br/>";
-
-                        $temp.find("td").append(msg);
+                        //.find("td")
+                        $temp.append(msg);
                 }
 
             });
