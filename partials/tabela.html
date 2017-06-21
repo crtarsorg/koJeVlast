@@ -84,7 +84,14 @@
                 'csvHtml5',
                 'pdfHtml5'
             ],
-            "ajax": 'http://'+window.document.location.hostname + '/api/akteri'
+            "ajax": 'http://'+window.document.location.hostname + '/api/akteri',
+            "initComplete": function( settings, json ) {
+               var params = window.location.search.length
+               if(params > 5 ){
+                    params = params.split("?osoba=")[1];
+                    this.search(params).draw()
+               }
+              }
         } );
 
     return;
