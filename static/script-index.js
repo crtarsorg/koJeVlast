@@ -358,7 +358,7 @@ function tabelaOdbornika(podaci, region) {
         /*"scrollX": true,*/
         drawCallback:drawCallbackHandler,
         "language": {
-            "search": "Pretražite:"
+            "search": "Pretražite:",
             "lengthMenu": "Prikazano _MENU_ unosa po strani",
             "zeroRecords": "Nema unosa ",
             "info": "Prikazana strana _PAGE_ od _PAGES_",
