@@ -31,7 +31,7 @@ function izracunajProcente(podaci) {
     //ne pojavljuju se ostali
     //uzeti samo prve tri i ostale
     if (sortirani.length > 3) {
-        //slice 4 do kraja 
+        //slice 4 do kraja
         //i sve ih saberi
         svi = sortirani.slice(0, 3); //manje ili jednako
         ostali = sortirani.slice(3); //
@@ -69,8 +69,12 @@ function grupisanjeOstalih(grupisane) {
         var centi = stranka.length;
         //ostali
         //nepoznate i stranke koje nisu navedene transformisati u 'ostali'
+        
         var sk_temp = el.replace("'", "").split(' ').map(function(item) {
             return item[0] }).join('').toLowerCase();
+        if(el.startsWith('grupa')){
+            sk_temp = "gg";
+        }
 
         if (el == "Stranka nije na listi" || 
             el == "null" || el == null || 

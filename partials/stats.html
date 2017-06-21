@@ -385,10 +385,10 @@
 
             for (var i = 0; i < prvih_5.length; i++) {
                 var la = prvih_5[i].id;
-                $.get("http://kojenavlasti.rs//api/akter/promene/"+la, function(d) {
+                $.get("http://kojenavlasti.rs/api/akter/promene/"+la, function(d) {
                     d = JSON.parse(d);
                     d = d[0];
-                    $("#ul_preletaci").append("<li>" + d.aime + " " +d.aprezime + "</li>")
+                    $("#ul_preletaci").append("<li><a href='"+'http://kojenavlasti.rs/partials/tabela.html?osoba='+d.aime + " " +d.aprezime+"'>" + d.aime + " " +d.aprezime + "</a></li>")
                     //console.log(d[0]);
                 })
             }
