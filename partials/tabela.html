@@ -88,8 +88,8 @@
             "initComplete": function( settings, json ) {
                var params = window.location.search
                if(params.length > 5 ){
-                    params = params.split("?osoba=")[1];
-                    this.search(params).draw()
+                    params = decodeURIComponent (params.split("?osoba=")[1]);
+                    $(this[0]).DataTable().search(params).draw()
                }
               }
         } );
