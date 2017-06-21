@@ -356,7 +356,10 @@ function tabelaOdbornika(podaci, region) {
         destroy: true,
         "order": [2, "desc"],
         /*"scrollX": true,*/
-        drawCallback:drawCallbackHandler
+        drawCallback:drawCallbackHandler,
+        "language": {
+            "search": "Pretražite:"
+          },
 
     });
 

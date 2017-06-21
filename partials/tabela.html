@@ -85,6 +85,9 @@
                 'pdfHtml5'
             ],
             "ajax": 'http://'+window.document.location.hostname + '/api/akteri',
+            "language": {
+                "search": "Pretražite:"
+              },
             "initComplete": function( settings, json ) {
                var params = window.location.search
                if(params.length > 5 ){
