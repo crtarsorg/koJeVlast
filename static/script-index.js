@@ -272,8 +272,9 @@ function tabelaOdbornika(podaci, region) {
             "data": "koalicija",
             "render": function(data, type, full, meta) {
                 if (data == null || data == undefined)
-                    data = "Nepoznata";
+                    data = "Bez koalicije";
 
+                //bez koalicije
                 var naziv = data;
                 naziv = skraceno( data );
 

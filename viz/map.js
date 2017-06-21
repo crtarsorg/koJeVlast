@@ -1,3 +1,6 @@
+var BOJA = "#BE1E2D";
+
+
 $(function() {
 
 	//ucitaj podatke po koaliciji
@@ -54,13 +57,13 @@ function bojenje(unosi) {
 
 	for (var i = 0; i < unosi.length; i++) {
 		var temp_op = unosi[i];
-		var low = temp_op.opstina.toLocaleLowerCase();
-		var a = $("g[id*='"+low+"']") //[id$='"+low+"']
-		a.children().css("fill","red");
+		var id_opstine = temp_op.idopstine;
 
-		//probelm sa efektom selektovanja
-		//debugger;
-		//na osnovu id-eva pronadji opstine i ofarbaj ih
+		var a = $("g[opstina='"+id_opstine+"']");
+
+		if(a.length == 0)
+			console.log('nedostajuci ' + id_opstine);
+		a.children().css("fill",BOJA);
 
 	}
 }
@@ -69,7 +72,7 @@ function poStranci() {
 	$("#stranka").change(function(event) {
 
 
-		//debugger;
+
 		var str = event.target.value;
 
 		//filtriraj skup podataka
@@ -92,6 +95,8 @@ function poStranci() {
 			return (broj) > 0; ///ukupno
 
 		})
+
+		//debugger;
 
 		bojenje(filt);
 
