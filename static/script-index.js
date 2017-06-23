@@ -57,7 +57,7 @@ function showModal(opstina) {
     opstina_temp = opstina[0]
     naslov = opstina_temp.opstina;
     id = opstina_temp.opid;
-    idopstine = opstina_temp.oidopstine;
+    idopstine = + opstina_temp.oidopstine;
 
     podaciOdborniciOpstina(id); // id opstine
     naslov_modal(naslov);

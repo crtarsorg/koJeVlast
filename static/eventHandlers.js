@@ -78,6 +78,11 @@ var regionDetailHandlerHover = function(elem, naslov) {
         temp = $(elem).parent().attr("okrug");
     }
 
+    if(+temp==0){
+        //beograd
+        sideDetailsOpstina(70106, 200);
+        return;
+    }
     var sumed = podaciRegion(temp);
 
     if (sumed !== undefined) {
@@ -92,10 +97,10 @@ var regionDetailHandlerHover = function(elem, naslov) {
 var opstinaDetaljiHandlerClick = function(id_opstine) {
     $("#spinner, #fade").removeClass('hidden');
 
-    var temp = $(this).attr('opstina');
+    var temp = +$(this).attr('opstina');
 
     if (id_opstine !== undefined && Number.isInteger(+id_opstine)) {
-        temp = id_opstine;
+        temp = +id_opstine;
     }
 
     var naslov = "Naslov ";
@@ -122,22 +127,41 @@ function regionDetailHandlerClick(element, naslov_region) {
     //uzmi podatke o odbornicima za sve opstine
 
     //stranke u vlasti, populacija i povrsina
-    var podaci = podaciRegion(id);
-    podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
+    var podaci;
+    if(+id ==0 ){//beograd
+        var podaci = DataStranke.getOpstine();
+        var opstina = podaci.filter(function(el) {
+            return +el.opid == 200;
+        })
+        podaci = opstina;
+    }
+    else{
+        podaci = podaciRegion(id);    
+    }
 
-    podaciAkteriRegion(id); //ajax zahtev - podaci za tabelu
 
-    info_tab(podaci);
+
+    if(+id ==0 ){
+        showModal(podaci);
+    }
+
+    else{
+        podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
+        podaciAkteriRegion(id); //ajax zahtev - podaci za tabelu  
+        info_tab(podaci);
 
     //$("#spinner, #fade").toggleClass('hidden'); //ovo treba da se stavi tamo gde se dobavljaju podaci
-    showModalRegion(podaci.naslov, id);
+        showModalRegion(podaci.naslov, id);
+    }
+
+   
 
 }
 
 
 
 
-function sideDetailsOpstina(idOpstine) {
+function sideDetailsOpstina(idOpstine, idBeograd) {
     //stranke koje ucestvuju u vlasti
     var podaciOpstine = DataStranke.get();
 
@@ -151,6 +175,13 @@ function sideDetailsOpstina(idOpstine) {
         return;
 
     var stranke = opstina[0].vlast;
+    var ret = opstina.filter(function(el) {
+        return el.id == idBeograd
+    });
+    if( ret.length > 0){
+        stranke = ret[0].vlast;
+        opstina = ret;
+    }
 
     if (stranke == undefined)
         return;

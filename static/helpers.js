@@ -69,10 +69,10 @@ function grupisanjeOstalih(grupisane) {
         var centi = stranka.length;
         //ostali
         //nepoznate i stranke koje nisu navedene transformisati u 'ostali'
-        
+
         var sk_temp = el.replace("'", "").split(' ').map(function(item) {
             return item[0] }).join('').toLowerCase();
-        if(el.startsWith('grupa')){
+        if(el.toLowerCase().startsWith('grupa') || el.toLowerCase().startsWith('gg') ){
             sk_temp = "gg";
         }
 
