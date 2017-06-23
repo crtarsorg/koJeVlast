@@ -376,6 +376,20 @@ class xApi extends UFModel {
     }
 
 
+
+
+    public function top5promenaOpstine($app){
+        $conn = Capsule::connection();
+        $res = $conn->select($conn->raw(' SELECT opstina, count(*) as brPromena FROM `promene` LEFT JOIN opstine ON popstina=opstine.opid group by popstina ORDER BY `brPromena` DESC LIMIT 5 '));
+
+        echo json_encode($res);
+
+}
+
+
+
+
+
 public function removeCache($app){
     $files = glob('cache/*'); // get all file names
     foreach($files as $file){ // iterate files

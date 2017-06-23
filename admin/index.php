@@ -1009,7 +1009,11 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
     });
 
 
+    $app->get('/api/top5promenaOpstine', function () use ($app) {
 
+        $evt = new UF\xApi([]);
+        $evt->top5promenaOpstine($app);
+    });
 
 
     $app->run();
