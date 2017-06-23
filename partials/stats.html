@@ -164,12 +164,8 @@
             <div class="highlight">
                 <h3>Opštine sa najviše promena</h3>
                 <div>
-                    <ul>
-                        <li>item1i</li>
-                        <li>item2i</li>
-                        <li>item3i</li>
-                        <li>item4i</li>
-                        <li>item5i</li>
+                    <ul id="ulOpPromene">
+                       
                     </ul>
                 </div>
             </div>
@@ -396,8 +392,19 @@
             //prodji za svakog i nabavi ime
         })
 
-        function function_name(argument) {
-            // body...
+        $.get("http://kojenavlasti.rs//api/top5promenaOpstine",top5);
+
+        function top5(data) {
+
+            data = JSON.parse(data);
+            for (var i = 0; i < data.length; i++) {
+
+                var temp = data[i];
+                $("#ulOpPromene").append("<li>" + temp.opstina + "</li>")
+                    //console.log(d[0]);
+
+            }
+
         }
 
 
