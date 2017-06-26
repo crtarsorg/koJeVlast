@@ -96,7 +96,7 @@ function poStranci() {
 
 		})
 
-		//debugger;
+		debugger;
 
 		bojenje(filt);
 

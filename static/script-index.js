@@ -181,7 +181,8 @@ function statsOdbornici(podaci) {
 
     var vlast =
         podaci.filter(function(la) {
-            return la.vlast == "vlast"
+            return la.vlast == 1;
+            //"vlast"
         });
     //var unique = podaci.filter( onlyUnique );
 
