@@ -138,7 +138,7 @@ class xApi extends UFModel {
     public function strankeNaVlastiPoOpstinama($app){
         $conn = Capsule::connection();
         //$res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina","oidopstine","oidokruga","sid")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("popstina","pnavlasti","pstranka")->toSql();
-        $res = $conn->select($conn->raw(' select count(DISTINCT posoba) AS odbornika,`popstina`, `snaziv`, `pnavlasti`, `opstina`, `oidopstine`, `oidokruga`, `sid` from `promene` left join `akteri` on `posoba` = `aid` left join `stranke` on `pstranka` = `sid` left join `funkcije` on `pfunkcija` = `fid` left join `koalicije` on `pkoalicija` = `kid` left join `funkcije_mesto` on `pfm` = `fmid` left join `opstine` on `popstina` = `opid` group by `popstina`, `pnavlasti`, `pstranka` '));
+        $res = $conn->select($conn->raw(' select count(DISTINCT posoba) AS odbornika,`popstina`,  case when `snaziv` IS null then "nepoznata" else `snaziv` end as `snaziv`, `pnavlasti`, `opstina`, `oidopstine`, `oidokruga`, `sid` from `promene` left join `akteri` on `posoba` = `aid` left join `stranke` on `pstranka` = `sid` left join `funkcije` on `pfunkcija` = `fid` left join `koalicije` on `pkoalicija` = `kid` left join `funkcije_mesto` on `pfm` = `fmid` left join `opstine` on `popstina` = `opid` group by `popstina`, `pnavlasti`, `pstranka` '));
 
 
 //echo "<pre>";
@@ -162,7 +162,7 @@ class xApi extends UFModel {
 
                     }
                 if($val['pnavlasti']==2){
-                    $out[$val['popstina']]['opozicija'][]= array("id"=>$val['sid'],"naziv"=>$val['snaziv'],"odbornika"=>$val['odbornika']); 
+                    $out[$val['popstina']]['opozicija'][]= array("id"=>$val['sid'],"naziv"=>$val['snaziv'],"odbornika"=>$val['odbornika']);
 
                     }
             }
