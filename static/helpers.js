@@ -1,4 +1,8 @@
-
+function closePopup() {
+    $(".popup-close").on("click", function() {
+        $(this).parent().fadeOut(1000);
+    })
+}
 
 
 function resetColors(argument) {

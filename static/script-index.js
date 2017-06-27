@@ -44,14 +44,12 @@ $("#mapa").load("srbija.svg", function() {
     //anotate();
     var popup = "<div class='popup'><span class='popup-close'><i class='fa fa-times' aria-hidden='true'></i></span><p>Pređite mišem preko mape, kliknite na opštinu/okrug pogledajte info o... prijavite promenu</p></div>";
     $("#mapa").prepend(popup);
+
+    closePopup();
 });
 
 
 var trenutna_boja = "rgb(155, 227, 220)";
-
-
-
-
 
 
 function showModal(opstina) {
@@ -72,7 +70,7 @@ function showModal(opstina) {
     //var procenti = izracunajProcente( DataStranke.getOdbornici());
 
     $("#spinner, #fade").toggleClass('hidden');
-    $('#modal_id').modal('show')
+    $('#modal_id').modal('show');
 }
 
 

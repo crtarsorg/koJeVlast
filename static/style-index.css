@@ -110,6 +110,7 @@ body {
     height: 22px;
     color: #d1d2d4;
     box-shadow: 2px 2px 3px #ccc;
+    text-align: center;
 }
 /*FORMA*/
 #indikator div.col-md-4 {
@@ -228,6 +229,9 @@ div.awesomplete {
 .statsrow{
     margin-bottom: 20px;
 }
+.statsrownice {
+    margin-top: 50px;
+}
 
 .statbox h3{
     font-size: 18px;
@@ -247,19 +251,23 @@ div.awesomplete {
 
 .statboxnice{
     text-align: center;
+    padding: 0;
 }
 .statboxnice h3{
-    font-size: 18px;
+    font-size: 15px;
     color: #64A49C;
     border-top: 7px solid #64A49C;
     text-align: center;
     padding-top: 7px;
     margin: 0;
     margin-bottom: 40px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 .statboxnice i{
     color: #bdbcbc;
     cursor: pointer;
+    margin-left: 5px;
 }
 .triangle {
     min-height:40px;
@@ -306,6 +314,12 @@ div.awesomplete {
     line-height: initial;
     right: -219px;
     top: 15px;
+    text-transform: none;
+    font-weight: normal;
+    font-size: 16px;
+}
+.statboxnice .popup i {
+    margin-left: 0;
 }
 
 .highlight-container img{
@@ -313,19 +327,24 @@ div.awesomplete {
     float: left;
 }
 .highlight{
-    min-height: 150px;
+    min-height: 182px;
     background-color: #62a698;
     border-radius: 20px;
     color: white;
     margin-left: 30px;
     margin-top: 40px;
+    padding: 0 20px 20px 50px;
 }
 .highlight h3{
-    margin-left: 60px;
-    padding: 5px;
+    padding: 20px 0 5px 0;
+    text-transform: uppercase;
+    font-size: 16px;
 }
 
 .highlight ul{
-    margin-left: 30px;
+    padding: 0;
     list-style-type: none;
+}
+.highlight a {
+    color: #fff !important;
 }

@@ -139,37 +139,32 @@
     </div>
 </div>
 
+    <script src="static/helpers.js?4"></script>
 
 
     <script type="text/javascript">
 
-    function onlyUnique(value, index, self) { 
-	    return self.indexOf(value) === index;
-	}
-    //http://kojenavlasti.rs/api/stats
-    $(function() {
+        function onlyUnique(value, index, self) { 
+    	    return self.indexOf(value) === index;
+    	}
+        //http://kojenavlasti.rs/api/stats
+        $(function() {
 
 
-    $(".statsrownice i").on("click", function(e){
-        //console.dir(e.currentTarget.dataset.box);
+        $(".statsrownice i").on("click", function(e){
+            //console.dir(e.currentTarget.dataset.box);
 
-        tar = e.currentTarget.dataset.box;
-        if(tar=="hpromena"){ $('.modal-title').html('Ukupan broj promena'); $('.modal-body').html('Ovaj broj se odnosi na ukupan broj promena funkcija u lokalnoj samoupravi, promena stranaka, promena koalicija...'); $('#explain').modal('show');   }
-        if(tar=="hopstina"){ $('.modal-title').html('Ukupan broj opština'); $('.modal-body').html('Ovaj broj se odnosi na ukupan broj opština u kojima su zabeležene promene'); $('#explain').modal('show');   }
-        if(tar=="hm"){ $('.modal-title').html('Broj muškaraca '); $('.modal-body').html('Obajsnjenje za Broj muškaraca '); $('#explain').modal('show');   }
-        if(tar=="hz"){ $('.modal-title').html('Broj žena'); $('.modal-body').html('Obajsnjenje za Broj žena'); $('#explain').modal('show');   }
-        if(tar=="hreg"){ $('.modal-title').html('Broj regiona'); $('.modal-body').html('Obajsnjenje za Broj regiona'); $('#explain').modal('show');   }
-        if(tar=="hstr"){ $('.modal-title').html('Stranke'); $('.modal-body').html('Obajsnjenje za Stranke'); $('#explain').modal('show');   }
+            tar = e.currentTarget.dataset.box;
+            if(tar=="hpromena"){ $('.modal-title').html('Ukupan broj promena'); $('.modal-body').html('Ovaj broj se odnosi na ukupan broj promena funkcija u lokalnoj samoupravi, promena stranaka, promena koalicija...'); $('#explain').modal('show');   }
+            if(tar=="hopstina"){ $('.modal-title').html('Ukupan broj opština'); $('.modal-body').html('Ovaj broj se odnosi na ukupan broj opština u kojima su zabeležene promene'); $('#explain').modal('show');   }
+            if(tar=="hm"){ $('.modal-title').html('Broj muškaraca '); $('.modal-body').html('Obajsnjenje za Broj muškaraca '); $('#explain').modal('show');   }
+            if(tar=="hz"){ $('.modal-title').html('Broj žena'); $('.modal-body').html('Obajsnjenje za Broj žena'); $('#explain').modal('show');   }
+            if(tar=="hreg"){ $('.modal-title').html('Broj regiona'); $('.modal-body').html('Obajsnjenje za Broj regiona'); $('#explain').modal('show');   }
+            if(tar=="hstr"){ $('.modal-title').html('Stranke'); $('.modal-body').html('Obajsnjenje za Stranke'); $('#explain').modal('show');   }
 
-    } );
+        } );
 
-
-
-        $.get("./nav.html", function(data) {
-            $("body").prepend(data);
-        });
-
-
+        closePopup();
 
         function prveStranke( podaci ) {
             var c = 0;
