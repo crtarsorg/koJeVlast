@@ -304,7 +304,7 @@ function tabelaOdbornika(podaci, region) {
                 //console.log( "promena :" + data );
 
                 return '<a href="./posaljitePromenu.html" target="_blank">'+
-                ' <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a>';
+                ' <img src="static/promene.svg" style="width: 22px;"/></a>';
             }
 
         }, {
