@@ -45,7 +45,7 @@
                     <h3>Opštine sa najviše promena</h3>
                     <div>
                         <ul id="ulOpPromene">
-                           
+
                         </ul>
                     </div>
                 </div>
@@ -279,7 +279,7 @@
             //prodji za svakog i nabavi ime
         })
 
-        $.get("http://kojenavlasti.rs//api/top5promenaOpstine",top5);
+        $.get("http://kojenavlasti.rs/api/top5promenaOpstine",top5);
 
         function top5(data) {
 

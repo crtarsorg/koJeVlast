@@ -301,7 +301,7 @@ function tabelaOdbornika(podaci, region) {
             "render": function(data, type, full, meta) {
                 //console.log( "promena :" + data );
 
-                return '<a href="./posaljitePromenu.html" target="_blank">'+
+                return '<a href="./posaljite-promenu.php?ime='+full.ime + " "+full.ime + '" target="_blank">'+
                 ' <img src="static/promene.svg" style="width: 22px;"/></a>';
             }
 
