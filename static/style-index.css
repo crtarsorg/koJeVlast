@@ -1,5 +1,15 @@
-#mapa {
-    text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+@font-face {
+    font-family: DinPro;
+    src: url(fonts/DINPro-Regular.otf);
+}
+
+body {
+    /* or http://lea.verou.me/css3patterns/ */
+    background: url("body-bg.jpg") !important;
+    height: 100%;
+    font-family: "Roboto", sans-serif;
 }
 
 .pomeren {
@@ -14,13 +24,152 @@
     margin: 10px;
 }
 
-
-.prijavi {
-    position: absolute;
-    right: 20%;
-    top: 15%;
+#viz {
+    margin: 50px 0;
 }
 
+/*NAVBAR*/
+/*.navbar-nav {
+    margin: 0 auto;
+    float: none;
+    display: table;
+}*/
+.prijavi {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+.prijavi a {
+    color: #fff !important;
+}
+@media screen and (max-width: 768px) {
+    .navbar-nav {
+        margin: 7.5px -15px;
+        display: block;
+    }
+}
+
+/*MAPA*/
+#mapa {
+    text-align: center;
+    margin-top: 30px;
+}
+#mapa:hover {
+    cursor: pointer;
+}
+#mapa svg {
+    transform-origin: 0px 0px;
+    transform: scale(1);
+}
+@media screen and (max-width: 1400px) {
+    #mapa svg {
+        transform: scale(1.2);
+    }
+}
+@media screen and (max-width: 1199px) {
+    #mapa {
+        text-align: left;
+        padding-left: 80px;
+    }
+    #mapa svg {
+        transform: scale(1);
+    }
+}
+@media screen and (max-width: 620px) {
+    #mapa {
+        height: 460px;
+        text-align: center;
+        padding: 0;
+    }
+    #mapa svg {
+        transform: scale(0.6);
+        transform-origin: 100px 0px;
+    }
+}
+.popup {
+    position: absolute;
+    right: 17%;
+    top: 12%;
+    z-index: 1;
+    width: 205px;
+    background: #efefee;
+    color: #6d6e70;
+    padding: 20px;
+    box-shadow: 2px 2px 5px #ccc;
+    font-family: "DinPro", serif;
+    font-size: 16px;
+}
+.popup-close {
+    position: absolute;
+    top: -11px;
+    left: -11px;
+    background: #efefee;
+    font-family: "DinPro", serif;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    color: #d1d2d4;
+    box-shadow: 2px 2px 3px #ccc;
+}
+/*FORMA*/
+#indikator div.col-md-4 {
+    min-width: 200px;
+}
+div.awesomplete {
+    display: block !important;
+}
+
+/*OPIS*/
+#opis {
+    margin-top: 100px;
+}
+@media screen and (max-width: 1199px) {
+    #opis {
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
+    .table-striped>tbody>tr:nth-of-type(even) {
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
+/*DETALJI*/
+.broj-odbornika {
+    margin-left: 5px;
+    color: #63a39b;
+    font-weight: bold;
+}
+
+/*DATA TABLES*/
+.buttons-copy, .buttons-excel, .buttons-csv, .buttons-pdf {
+    padding: 6px 12px !important;
+    line-height: 1.42857143 !important;
+    color: #777 !important;
+    background-color: #fff !important;
+    border: 1px solid #ddd !important;
+    background-image: none !important;
+    font-size: 14px !important;
+    margin: 0 !important;
+    margin-left: -1px !important;
+}
+.buttons-copy {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+.buttons-pdf {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.buttons-copy:hover, .buttons-excel:hover, .buttons-csv:hover, .buttons-pdf:hover {
+    background: rgba(255,255,255,0.5) !important;
+}
+.dataTables_info {
+    float: left;
+    font-size: 14px;
+}
+
+/*proveri da li je potrebno*/
 .legend-title {
 
   font-weight: bold;
@@ -31,5 +180,37 @@
     text-align: center;
 }
 .current{
-	fill: red !important;
+    fill: red !important;
+}
+
+
+#spinner{
+    top: 30%;
+    left:40%;
+    position: fixed;
+    z-index: 5;
+}
+#fade{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.78);
+    top: 0;
+    position: absolute;
+}
+.navbar-brand{
+    padding: 5px;
+}
+.banner-text{
+    display: inline-block;
+    font-size: 32px;
+    color: white;
+    background-color: #9FD8D6;
+    padding:  5px 15px 5px 30px;
+
+    border-radius: 10px;
+}
+.banner img{
+    margin-right: -25px;
+    position: relative;
+
 }
