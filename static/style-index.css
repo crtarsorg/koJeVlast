@@ -169,6 +169,15 @@ div.awesomplete {
     font-size: 14px;
 }
 
+.dataTables_length {
+    float: none !important;
+}
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    padding: 6px 12px;
+}
+
 /*proveri da li je potrebno*/
 .legend-title {
 
@@ -213,4 +222,110 @@ div.awesomplete {
     margin-right: -25px;
     position: relative;
 
+}
+
+/*STATISTIKE*/
+.statsrow{
+    margin-bottom: 20px;
+}
+
+.statbox h3{
+    font-size: 18px;
+    color: #231f20;
+}
+.statbox i{
+    color: #bdbcbc;
+}
+
+.statbox h3 span{
+    font-size: 24px;
+    color: #62a698;
+    margin-left: 10px;
+}
+
+
+
+.statboxnice{
+    text-align: center;
+}
+.statboxnice h3{
+    font-size: 18px;
+    color: #64A49C;
+    border-top: 7px solid #64A49C;
+    text-align: center;
+    padding-top: 7px;
+    margin: 0;
+    margin-bottom: 40px;
+}
+.statboxnice i{
+    color: #bdbcbc;
+    cursor: pointer;
+}
+.triangle {
+    min-height:40px;
+    width:100%;
+    position:relative;
+    overflow:hidden;
+}
+.triangle:after {
+    /* min-height: 50px; */
+    width: 100%;
+    position: relative;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(90deg);
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: red; */
+    margin: auto;
+    font-size: 0px;
+    line-height: 0%;
+    width: 0px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 40px solid #64a49c;
+}
+
+.statboxnice .stat-number {
+    font-size: 24px;
+    line-height: 80px;
+    color: #FFF;
+    background-color: #62a698;
+    display: block;
+    border-radius: 50%;
+    width:80px;
+    height:80px;
+    margin: auto;
+}
+
+.statboxnice .popup {
+    line-height: initial;
+    right: -219px;
+    top: 15px;
+}
+
+.highlight-container img{
+    max-height: 80px;
+    float: left;
+}
+.highlight{
+    min-height: 150px;
+    background-color: #62a698;
+    border-radius: 20px;
+    color: white;
+    margin-left: 30px;
+    margin-top: 40px;
+}
+.highlight h3{
+    margin-left: 60px;
+    padding: 5px;
+}
+
+.highlight ul{
+    margin-left: 30px;
+    list-style-type: none;
 }

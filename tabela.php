@@ -2,33 +2,20 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Tabela sa podacima</title>
-    <base href="/partials">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<title>Tabele sa podacima</title>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/js/dataTables.bootstrap.min.js"></script>
-
-    <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-    <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-    <script src="//cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.13/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
-
-    <link rel="stylesheet" type="text/css" href="../static/style-index.css">
+	<?php include_once 'partials/head-part.html'; ?>
 
 </head>
 
 <body>
 
-    <div class="container">
+	<?php
+		include_once 'partials/nav.html';
+	?>
+
+	<div class="container">
 
         <table id="data" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -62,11 +49,6 @@
 
     <script>
     $(document).ready(function() {
-    //load nav
-    $.get("./partials/nav.html", function( data ) {
-        $("body").prepend(data);
-    });
-
     //load data
         $('#data').DataTable( {
         	"processing": true,
