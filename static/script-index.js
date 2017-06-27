@@ -29,7 +29,7 @@ $("#mapa").load("srbija.svg", function() {
     mouseEvents(selektor);
     //    mouseEventsRegion( selektorRegion )
 
-    $("#mapa").prepend("<button class='prijavi btn btn-lg btn-danger'>Prijavi promenu</button>")
+    //$("#mapa").prepend("<button class='prijavi btn btn-lg btn-danger'>Prijavi promenu</button>")
 
     $(".prijavi").click(function() {
 
@@ -42,6 +42,8 @@ $("#mapa").load("srbija.svg", function() {
     var zoom = svgPanZoom("#mapa svg")
 
     //anotate();
+    var popup = "<div class='popup'><span class='popup-close'><i class='fa fa-times' aria-hidden='true'></i></span><p>Pređite mišem preko mape, kliknite na opštinu/okrug pogledajte info o... prijavite promenu</p></div>";
+    $("#mapa").prepend(popup);
 });
 
 
@@ -137,7 +139,7 @@ function sideDetails(naslov, stranke) {
         if (stranke[i].naziv == undefined || stranke[i].naziv == null /*|| stranke[i].naziv == "Nepoznata" || stranke[i].naziv == "Stranka nije na listi"*/)
             continue;
 
-        $("#detalji table").append("<tr><td>" + stranke[i].naziv + " (" +  stranke[i].odbornika +  ") </td></tr>")
+        $("#detalji table").append("<tr><td>" + stranke[i].naziv + "<span class='broj-odbornika'>(" +  stranke[i].odbornika +  ")</span></td></tr>")
     }
 
     $("#opis").removeClass('hidden')
