@@ -8,3 +8,4 @@ import/
 junk/
 userfrosting/config-userfrosting.php
 admin/cache/
+api/.gitignore

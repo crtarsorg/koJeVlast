@@ -200,7 +200,11 @@ class xApi extends UFModel {
 
         //ukupno aktivnih aktera
         // vraca aktere sa maximalnim datumom PDO kod kojih je PDO NULL (jos su na funkciji) a ako ima vise pomena u istom danu vraca onu sa najvecim PID-om
-        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo>"'.@date('Y-m-d').'" )  ORDER BY pod desc, pid desc) x GROUP BY posoba'));
+        //'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo>"'.@date('Y-m-d').'" )  ORDER BY pod desc, pid desc) x GROUP BY posoba'
+
+
+        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and posoba not in(select * from osobe_pocetak_kraj) ORDER BY pod desc, pid desc) x GROUP BY posoba'));
+
 
         $stats['data']['akteri_aktivni'] = count($res);
         //set vals to 0
@@ -356,7 +360,9 @@ class xApi extends UFModel {
                               ->orWhere('pdo', '>', 'now');
                 })->groupby("posoba")->get();*/
 
-        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene_detalji WHERE (pdo is NULL or pdo >NOW() ) and popstina = '.$id.' and posoba not in (SELECT posoba FROM promene_detalji where popstina = '.$id.' group by posoba,pod, fid HAVING count(*)>1) group by posoba,pod, fid ORDER BY posoba desc, pid desc) x GROUP BY posoba'));
+        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene_detalji WHERE (pdo is NULL or pdo >NOW() ) and popstina = '.$id.' and posoba not in (SELECT posoba FROM promene where popstina = '.$id.' group by posoba,pod, pfunkcija HAVING count(*)>1) group by posoba,pod, fid ORDER BY posoba desc, pid desc) x GROUP BY posoba'));
+
+
 //echo "<pre>";
 //var_dump($res);
 //echo "</pre>";
