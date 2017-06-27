@@ -131,6 +131,7 @@
         location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
 
         $("#akter").val( decodeURIComponent( queryDict['ime'] )  );
+        $("#opstina").val( decodeURIComponent( queryDict['opstina'] )  );
 
     }
     </script>
