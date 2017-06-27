@@ -290,7 +290,7 @@ div.awesomplete {
     border-right: 40px solid #64a49c;
 }
 
-.statboxnice span{
+.statboxnice .stat-number {
     font-size: 24px;
     line-height: 80px;
     color: #FFF;
@@ -300,6 +300,12 @@ div.awesomplete {
     width:80px;
     height:80px;
     margin: auto;
+}
+
+.statboxnice .popup {
+    line-height: initial;
+    right: -219px;
+    top: 15px;
 }
 
 .highlight-container img{

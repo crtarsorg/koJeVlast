@@ -53,43 +53,46 @@
         </div>
 
             <div class="row statsrownice">
-
-
                 <div class="col-lg-2 statboxnice">
-                    <span id="brPromena"></span>
+                    <span id="brPromena" class="stat-number"></span>
                     <div class="triangle"></div>
-                    <h3>Ukupan broj promena<sup><i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i></sup> </h3>
+                    <h3>Ukupan broj promena
+                        <sup>
+                            <i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i>
+                            <div class='popup'><span class='popup-close'><i class='fa fa-times' aria-hidden='true'></i></span><p>Ovaj broj se odnosi na ukupan broj promena funkcija u lokalnoj samoupravi, promena stranaka, promena koalicija...</p></div>
+                        </sup>
+                    </h3>
                 </div>
 
                 <div class="col-lg-2 statboxnice">
-                    <span id="opstine"></span>
+                    <span id="opstine" class="stat-number"></span>
                     <div class="triangle"></div>
                     <h3>Broj opština<sup><i class="fa fa-question-circle" data-box="hopstina" aria-hidden="true"></i></sup> </h3>
 
                 </div>
 
                 <div class="col-lg-2 statboxnice">
-                    <span id="muskarci"></span>
+                    <span id="muskarci" class="stat-number"></span>
                     <div class="triangle"></div>
                     <h3>Broj muškaraca<sup><i class="fa fa-question-circle" data-box="hm" aria-hidden="true"></i></sup> </h3>
                 </div>
 
                 <div class="col-lg-2 statboxnice">
-                    <span id="zene"></span>
+                    <span id="zene" class="stat-number"></span>
                     <div class="triangle"></div>
                     <h3>Broj žena<sup><i class="fa fa-question-circle" data-box="hz" aria-hidden="true"></i></sup>  </h3>
                 </div>
 
 
                 <div class="col-lg-2 statboxnice">
-                    <span id="regioni"></span>
+                    <span id="regioni" class="stat-number"></span>
                     <div class="triangle"></div>
                     <h3>Broj regiona<sup><i class="fa fa-question-circle" data-box="hreg" aria-hidden="true"></i></sup> </h3>
 
                 </div>
 
                 <div class="col-lg-2 statboxnice">
-                    <span id="stranke"></span>
+                    <span id="stranke" class="stat-number"></span>
                     <div class="triangle"></div>
                 	<h3>Stranke<sup><i class="fa fa-question-circle" data-box="hstr" aria-hidden="true"></i></sup> </h3>
 
