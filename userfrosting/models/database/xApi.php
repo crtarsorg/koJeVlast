@@ -189,21 +189,25 @@ class xApi extends UFModel {
         $stats = array();
 
         //ukupno promena
-        $res = $conn->table('promene')->count();
-        $stats['data']['promena'] = $res;
+        //$res = $conn->table('promene')->count();
+        //$stats['data']['promena'] = $res;
 
         //ukupno aktera
-        $res = $conn->table('promene')->select('pid')->groupBy('posoba')->get();
-        $stats['data']['aktera'] = count($res);
+        //$res = $conn->table('promene')->select('pid')->groupBy('posoba')->get();
+        //$stats['data']['aktera'] = count($res);
 
-        $ukupno_aktera = count($res);
+        //$ukupno_aktera = count($res);
 
         //ukupno aktivnih aktera
         // vraca aktere sa maximalnim datumom PDO kod kojih je PDO NULL (jos su na funkciji) a ako ima vise pomena u istom danu vraca onu sa najvecim PID-om
         //'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo>"'.@date('Y-m-d').'" )  ORDER BY pod desc, pid desc) x GROUP BY posoba'
 
 
-        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and posoba not in(select * from osobe_pocetak_kraj) ORDER BY pod desc, pid desc) x GROUP BY posoba'));
+        $upit = 'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and posoba not in(select * from osobe_pocetak_kraj) ORDER BY pod desc, pid desc) x GROUP BY posoba';
+
+        $res = $conn->select($conn->raw( $upit ));
+
+        $stats['data']['opstina'] = $conn->select($conn->raw( "select COUNT(DISTINCT popstina) from (". $upit." ) la" ));
 
 
         $stats['data']['akteri_aktivni'] = count($res);
@@ -273,13 +277,13 @@ class xApi extends UFModel {
         $stats['data']['partija'] = count($res);
 
         //ukupno opstina
-        $res = $conn->table('promene')->select('pid')->groupBy('popstina')->get();
-        $stats['data']['opstina'] = count($res);
+       /* $res = $conn->table('promene')->select('pid')->groupBy('popstina')->get();
+        $stats['data']['opstina'] = count($res);*/
 
 
         //ukupno regiona
-        $res = $conn->table('promene')->select('pid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupBy('oidokruga')->get();
-        $stats['data']['regiona'] = count($res);
+        /*$res = $conn->table('promene')->select('pid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupBy('oidokruga')->get();
+        $stats['data']['regiona'] = count($res);*/
 
 
         echo json_encode($stats);

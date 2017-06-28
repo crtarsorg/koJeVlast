@@ -53,7 +53,8 @@
         </div>
 
         <div class="statsrownice">
-            <div class="col-lg-2 statboxnice">
+
+            <!-- <div class="col-lg-2 statboxnice">
                 <span id="brPromena" class="stat-number"></span>
                 <div class="triangle"></div>
                 <h3>Ukupan broj promena
@@ -61,13 +62,34 @@
                         <i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i>
                     </sup>
                 </h3>
-            </div>
+            </div> -->
+
 
             <div class="col-lg-2 statboxnice">
                 <span id="opstine" class="stat-number"></span>
                 <div class="triangle"></div>
                 <h3>Broj opština<sup><i class="fa fa-question-circle" data-box="hopstina" aria-hidden="true"></i></sup> </h3>
 
+            </div>
+
+            <div class="col-lg-2 statboxnice">
+                <span id="odbInfo" class="stat-number"></span>
+                <div class="triangle"></div>
+                <h3>Broj odbornika sa informacijama
+                    <sup>
+                        <i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i>
+                    </sup>
+                </h3>
+            </div>
+
+            <div class="col-lg-2 statboxnice">
+                <span id="odbNoInfo" class="stat-number"></span>
+                <div class="triangle"></div>
+                <h3>Broj odbornika bez informacija
+                    <sup>
+                        <i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i>
+                    </sup>
+                </h3>
             </div>
 
             <div class="col-lg-2 statboxnice">
@@ -80,14 +102,6 @@
                 <span id="zene" class="stat-number"></span>
                 <div class="triangle"></div>
                 <h3>Broj žena<sup><i class="fa fa-question-circle" data-box="hz" aria-hidden="true"></i></sup>  </h3>
-            </div>
-
-
-            <div class="col-lg-2 statboxnice">
-                <span id="regioni" class="stat-number"></span>
-                <div class="triangle"></div>
-                <h3>Broj regiona<sup><i class="fa fa-question-circle" data-box="hreg" aria-hidden="true"></i></sup> </h3>
-
             </div>
 
             <div class="col-lg-2 statboxnice">
@@ -158,8 +172,8 @@
             if(tar=="hstr") text = "Objašnjenje za stranke";
 
             sup.prepend("<div class='popup'><span class='popup-close'><i class='fa fa-times' aria-hidden='true'></i></span><p>" +  text + "</p></div>");
-            
-            closePopup();     
+
+            closePopup();
 
         });
 
