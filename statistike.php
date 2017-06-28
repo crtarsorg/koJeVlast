@@ -323,12 +323,12 @@
 
             $('#preletaciTabela').DataTable( {
                     data: data,
-                  /*  columns: [
-                        { title: "stranka" },
-                        { title: "vlast" },
-                        { title: "opozicija" }
+                    columns: [
+                        { title: "Ime i prezime" },
+                        { title: "Opština" },
+                        { title: "Broj promena stranka" }
 
-                    ],*/
+                    ],
                     "language": {
                         "search": "Pretražite:",
                         "lengthMenu": "Prikazano _MENU_ unosa po strani",

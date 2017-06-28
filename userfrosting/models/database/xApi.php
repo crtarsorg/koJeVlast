@@ -186,7 +186,7 @@ class xApi extends UFModel {
     public function preletaci($app)
     {
         $conn = Capsule::connection();
-        $res = $conn->select($conn->raw('SELECT count(broj) as prelet, posoba, akteri.* from ( SELECT posoba, COUNT( DISTINCT pstranka) as broj FROM promene group by posoba, pstranka ) la left JOIN akteri on la.posoba =akteri.aid group by posoba having prelet > 1 ORDER BY `prelet` DESC'));
+        $res = $conn->select($conn->raw('SELECT concat( aime, " ", aprezime) as ime, opstina, count(broj) as prelet from ( SELECT posoba, COUNT( DISTINCT pstranka) as broj, popstina FROM promene group by posoba, pstranka ) la left JOIN akteri on la.posoba =akteri.aid left join opstine on la.popstina = opstine.opid group by posoba having prelet > 1 ORDER BY `prelet` DESC'));
 
         echo json_encode($res);
     }
