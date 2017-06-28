@@ -168,7 +168,7 @@
             if(tar=="hopstina") text = "Ovaj broj se odnosi na ukupan broj opština u kojima su zabeležene promene";
             if(tar=="hm") text = "Objašnjenje za broj muškaraca";
             if(tar=="hz") text = "Objašnjenje za broj žena";
-            if(tar=="hnoinfo") text = "Broj odbornika za koje su dostupne  informacije o pripadnosti stranci";
+            if(tar=="hinfo") text = "Broj odbornika za koje su dostupne  informacije o pripadnosti stranci";
             if(tar=="hnoinfo") text = "Broj odbornika za koje nisu dostupne  informacije o pripadnosti stranci";
             if(tar=="hstr") text = "Objašnjenje za stranke";
 
