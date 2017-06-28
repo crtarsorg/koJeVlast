@@ -325,7 +325,7 @@
             })*/
 
             var columns = [{
-                "name": "Ime i prezime",
+                "title": "Ime i prezime",
                 "targets": 0,
                 "data": "ime",
                 "render": function(data, type, full, meta) {
@@ -334,7 +334,7 @@
                 }
 
             }, {
-                "name": "Opština",
+                "title": "Opština",
                 "targets": 1,
                 "data": "opstina",
                 "render": function(data, type, full, meta) {
@@ -342,7 +342,7 @@
                 }
 
             }, {
-                "name": "Broj promena stranaka",
+                "title": "Broj promena stranaka",
                 "targets": 2,
                 "data": "prelet",
                 "render": function(data, type, full, meta) {
