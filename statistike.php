@@ -318,7 +318,7 @@
             }
         })
 
-        $.get("http://kojenavlasti.rs/api/top5promenaOpstine", function (data) {
+        $.get("http://kojenavlasti.rs/api/preletaci", function (data) {
             data = JSON.parse(data);
 
             $('#preletaciTabela').DataTable( {
