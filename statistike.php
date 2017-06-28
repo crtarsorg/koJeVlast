@@ -327,7 +327,7 @@
 
             for (var i = 0; i < nek.length; i++) {
 
-                $("#ul_preletaci").append("<li><a href='"+'tabela.php?osoba='+nek[i]+"'>" + nek[i]+ "</a></li>")
+                $("#ul_preletaci").append("<li><a href='"+'tabela.php?osoba='+nek[i].ime+"'>" + nek[i].ime+ "</a></li>")
             }
 
             /* data = data.map(function (el) {
