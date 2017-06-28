@@ -17,17 +17,7 @@
 
     <div class="container">
         <div class="baneri-highlight">
-            <div class="highlight-container col-md-4">
-                <img src="static/icons/stats1.svg" alt="">
-                <div class="highlight">
-                    <h3>Najčešće stranke u vlasti</h3>
-                    <div>
-                        <ul id="ul_stranke">
 
-                        </ul>
-                    </div>
-                </div>
-            </div>
             <div class="highlight-container col-md-4">
                 <img src="static/icons/stats_2.svg" alt="">
                 <div class="highlight">
@@ -39,6 +29,19 @@
                     </div>
                 </div>
             </div>
+
+            <div class="highlight-container col-md-4">
+                <img src="static/icons/stats1.svg" alt="">
+                <div class="highlight">
+                    <h3>Najčešće stranke u vlasti</h3>
+                    <div>
+                        <ul id="ul_stranke">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
             <div class="highlight-container col-md-4">
                 <img src="static/icons/stats_3.svg" alt="">
                 <div class="highlight">
@@ -115,8 +118,15 @@
         <div class="statsrow">
         </div>
 
+        <div class="preletaci-tabela">
+            <h3>Preletači</h3>
+            <table id="preletaciTabela">
+
+            </table>
+        </div>
+
         <div class="stranke-tabela">
-            <h3>Akteri po strankama i statusima</h3>
+            <h3>Vlast/opozicija po strankama</h3>
             <table id="strankeTabela">
 
             </table>
@@ -124,11 +134,11 @@
 
     </div>
 
-
+<!--
 <div id="explain" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
-        <!-- Modal content-->
+
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -144,6 +154,8 @@
 
     </div>
 </div>
+ -->
+
 
     <script src="static/helpers.js?5"></script>
 
@@ -297,19 +309,38 @@
 
         function top5(data) {
 
-            data = JSON.parse(data);
-            for (var i = 0; i < data.length; i++) {
+                data = JSON.parse(data);
+                for (var i = 0; i < data.length; i++) {
 
-                var temp = data[i];
-                $("#ulOpPromene").append("<li>" + temp.opstina + "</li>")
-                    //console.log(d[0]);
-
+                    var temp = data[i];
+                    $("#ulOpPromene").append("<li>" + temp.opstina + "</li>")
+                }
             }
+        })
 
-        }
+        $.get("http://kojenavlasti.rs/api/top5promenaOpstine", function (data) {
+            data = JSON.parse();
 
+            $('#preletaciTabela').DataTable( {
+                    data: data,
+                  /*  columns: [
+                        { title: "stranka" },
+                        { title: "vlast" },
+                        { title: "opozicija" }
 
-    })
+                    ],*/
+                    "language": {
+                        "search": "Pretražite:",
+                        "lengthMenu": "Prikazano _MENU_ unosa po strani",
+                        "zeroRecords": "Nema unosa ",
+                        "info": "Prikazana strana _PAGE_ od _PAGES_",
+                        "infoEmpty": "Nema unosa",
+                        "infoFiltered": "(filtrirano od dostupnih _MAX_ unosa)"
+                      },
+
+                } );
+
+        })
     </script>
     </main>
 </body>
