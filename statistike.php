@@ -329,7 +329,7 @@
                 "targets": 0,
                 "data": "ime",
                 "render": function(data, type, full, meta) {
-                        unos = '<a href="tabela.php?osoba="'+data +'" >'+ data +'</a>'
+                        unos = '<a href="tabela.php?osoba='+data +'" >'+ data +'</a>'
                     return unos;
                 }
 
