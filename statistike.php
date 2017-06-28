@@ -323,8 +323,14 @@
         $.get("http://kojenavlasti.rs/api/preletaci", function (data) {
             data = JSON.parse(data);
 
-            preletaci_f(data.slice(0,5));
-           /* data = data.map(function (el) {
+            var nek = data.slice(0,5) ;
+
+            for (var i = 0; i < nek.length; i++) {
+
+                $("#ul_preletaci").append("<li><a href='"+'tabela.php?osoba='+nek[i]+"'>" + nek[i]+ "</a></li>")
+            }
+
+            /* data = data.map(function (el) {
                 return [el.ime, el.opstina, el.prelet]
             })*/
 
