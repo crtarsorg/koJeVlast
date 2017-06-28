@@ -118,7 +118,7 @@
         <div class="statsrow">
         </div>
 
-        <div class="stranke-tabela h3">
+        <div class="preletaci-tabela">
             <h3>Preletači</h3>
             <table id="preletaciTabela">
 

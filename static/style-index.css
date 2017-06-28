@@ -197,7 +197,7 @@ div.awesomplete {
 .stranke-tabela {
     clear: both;
 }
-.stranke-tabela h3 {
+.stranke-tabela h3, .preletaci-tabela {
     font-family: "DinPro", serif;
 }
 .stranke-tabela .dataTables_length {
