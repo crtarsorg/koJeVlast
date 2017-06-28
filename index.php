@@ -20,7 +20,7 @@
         <a href="statistike.php">
         <div class="banner">
             <img src="static/icons/preletaci.svg">
-            <div class="banner-text">Pregledajte najaktivnije preletače i ostale statistike <span class="glyphicon glyphicon-play" aria-hidden="true" style="font-size: 24px"></span></div>
+            <div class="banner-text">Pregledajte najaktivnije preletače i ostale statistike <span class="glyphicon glyphicon-play" aria-hidden="true"></span></div>
         </div>
         </a>
     </div>

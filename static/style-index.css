@@ -11,6 +11,9 @@ body {
     height: 100%;
     font-family: "Roboto", sans-serif;
 }
+main {
+    margin-top: 70px;
+}
 
 .pomeren {
     transform: scale(1.05);
@@ -219,20 +222,37 @@ div.awesomplete {
 .navbar-brand{
     padding: 5px 15px;
 }
-.banner-text{
+.banner-text {
     display: inline-block;
     font-size: 32px;
     color: white;
     background-color: #9FD8D6;
     padding: 5px 15px 5px 30px;
     font-family: "DinPro", serif;
-
     border-radius: 10px;
 }
-.banner img{
+.banner-text .glyphicon {
+    font-size: 24px;
+}
+.banner img {
     margin-right: -25px;
     position: relative;
+}
 
+@media screen and (max-width: 992px) {
+    .banner {
+        text-align: center;
+    }
+    .banner img {
+        width: 75px;
+    }
+    .banner-text {
+        font-size: 20px;
+    }
+    .banner-text .glyphicon {
+        font-size: 12px;
+        top: -1px;
+    }
 }
 
 /*STATISTIKE*/
