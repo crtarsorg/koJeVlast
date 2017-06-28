@@ -325,14 +325,16 @@
             })*/
 
             var columns = [{
+                "name": "Ime i prezime",
                 "targets": 0,
                 "data": "ime",
                 "render": function(data, type, full, meta) {
-                        unos = '<a href="tabela.php?osoba="'+data +' >'+ data +'</a>'
+                        unos = '<a href="tabela.php?osoba="'+data +'" >'+ data +'</a>'
                     return unos;
                 }
 
             }, {
+                "name": "Opština",
                 "targets": 1,
                 "data": "opstina",
                 "render": function(data, type, full, meta) {
@@ -340,6 +342,7 @@
                 }
 
             }, {
+                "name": "Broj promena stranaka",
                 "targets": 2,
                 "data": "prelet",
                 "render": function(data, type, full, meta) {
