@@ -59,7 +59,6 @@
                 <h3>Ukupan broj promena
                     <sup>
                         <i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i>
-                        <div class='popup'><span class='popup-close'><i class='fa fa-times' aria-hidden='true'></i></span><p>Ovaj broj se odnosi na ukupan broj promena funkcija u lokalnoj samoupravi, promena stranaka, promena koalicija...</p></div>
                     </sup>
                 </h3>
             </div>
@@ -132,7 +131,7 @@
     </div>
 </div>
 
-    <script src="static/helpers.js?4"></script>
+    <script src="static/helpers.js?5"></script>
 
 
     <script type="text/javascript">
@@ -144,20 +143,25 @@
         $(function() {
 
 
-        $(".statsrownice i").on("click", function(e){
-            //console.dir(e.currentTarget.dataset.box);
+        $(".statsrownice .fa-question-circle").on("click", function(e){
+            resetPopups();
 
+            var sup = $(this).parent();
             tar = e.currentTarget.dataset.box;
-            if(tar=="hpromena"){ $('.modal-title').html('Ukupan broj promena'); $('.modal-body').html('Ovaj broj se odnosi na ukupan broj promena funkcija u lokalnoj samoupravi, promena stranaka, promena koalicija...'); $('#explain').modal('show');   }
-            if(tar=="hopstina"){ $('.modal-title').html('Ukupan broj opština'); $('.modal-body').html('Ovaj broj se odnosi na ukupan broj opština u kojima su zabeležene promene'); $('#explain').modal('show');   }
-            if(tar=="hm"){ $('.modal-title').html('Broj muškaraca '); $('.modal-body').html('Obajsnjenje za Broj muškaraca '); $('#explain').modal('show');   }
-            if(tar=="hz"){ $('.modal-title').html('Broj žena'); $('.modal-body').html('Obajsnjenje za Broj žena'); $('#explain').modal('show');   }
-            if(tar=="hreg"){ $('.modal-title').html('Broj regiona'); $('.modal-body').html('Obajsnjenje za Broj regiona'); $('#explain').modal('show');   }
-            if(tar=="hstr"){ $('.modal-title').html('Stranke'); $('.modal-body').html('Obajsnjenje za Stranke'); $('#explain').modal('show');   }
 
-        } );
+            var text;
+            if(tar=="hpromena") text = "Ovaj broj se odnosi na ukupan broj promena funkcija u lokalnoj samoupravi, promena stranaka, promena koalicija...";
+            if(tar=="hopstina") text = "Ovaj broj se odnosi na ukupan broj opština u kojima su zabeležene promene";
+            if(tar=="hm") text = "Objašnjenje za broj muškaraca";
+            if(tar=="hz") text = "Objašnjenje za broj žena";
+            if(tar=="hreg") text = "Objašnjenje za broj regiona";
+            if(tar=="hstr") text = "Objašnjenje za stranke";
 
-        closePopup();
+            sup.prepend("<div class='popup'><span class='popup-close'><i class='fa fa-times' aria-hidden='true'></i></span><p>" +  text + "</p></div>");
+            
+            closePopup();     
+
+        });
 
         function prveStranke( podaci ) {
             var c = 0;

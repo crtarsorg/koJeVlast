@@ -200,7 +200,7 @@ div.awesomplete {
 .stranke-tabela h3 {
     font-family: "DinPro", serif;
 }
-.strankeTabela_wrapper .dataTables_length {
+.stranke-tabela .dataTables_length {
     float: left !important;
     padding: 6px 0 !important;
 }
