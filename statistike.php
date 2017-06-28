@@ -319,7 +319,7 @@
         })
 
         $.get("http://kojenavlasti.rs/api/top5promenaOpstine", function (data) {
-            data = JSON.parse();
+            data = JSON.parse(data);
 
             $('#preletaciTabela').DataTable( {
                     data: data,
