@@ -32,8 +32,7 @@ $("#mapa").load("srbija.svg", function() {
     //$("#mapa").prepend("<button class='prijavi btn btn-lg btn-danger'>Prijavi promenu</button>")
 
     $(".prijavi").click(function() {
-
-        var url = "./posaljitePromenu.html";
+        //var url = "./posaljitePromenu.html";
         var win = window.open(url, '_blank');
         win.focus();
 

@@ -34,13 +34,21 @@ body {
     float: none;
     display: table;
 }*/
+.navbar-default .navbar-nav>li>a:hover {
+    background-color: #e7e7e7;
+}
 .prijavi {
     color: #fff;
     background-color: #d9534f;
     border-color: #d43f3a;
+    *margin-top: 10px;
 }
 .prijavi a {
     color: #fff !important;
+    *padding: 5px 15px !important;
+}
+.prijavi a:hover {
+    color: #333 !important;
 }
 @media screen and (max-width: 768px) {
     .navbar-nav {
@@ -52,7 +60,7 @@ body {
 /*MAPA*/
 #mapa {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 #mapa:hover {
     cursor: pointer;
@@ -60,6 +68,7 @@ body {
 #mapa svg {
     transform-origin: 0px 0px;
     transform: scale(1);
+    width: 100%;
 }
 @media screen and (max-width: 1400px) {
     #mapa svg {
@@ -208,14 +217,15 @@ div.awesomplete {
     position: absolute;
 }
 .navbar-brand{
-    padding: 5px;
+    padding: 5px 15px;
 }
 .banner-text{
     display: inline-block;
     font-size: 32px;
     color: white;
     background-color: #9FD8D6;
-    padding:  5px 15px 5px 30px;
+    padding: 5px 15px 5px 30px;
+    font-family: "DinPro", serif;
 
     border-radius: 10px;
 }
@@ -320,6 +330,13 @@ div.awesomplete {
 }
 .statboxnice .popup i {
     margin-left: 0;
+}
+
+@media screen and (max-width: 700px) {
+    .statboxnice .popup {
+        right: 0;
+        top: -160px;
+    }
 }
 
 .highlight-container img{

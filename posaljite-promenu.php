@@ -17,15 +17,15 @@
 
     <div class="container">
         <h3>Pošalji promenu</h3>
-        <p>Koristeci ovu formu mozete poslati zahtev za promenu odredjen informacije <b>ukoliko smatrate da ona nije istinita</b>.</p>
-        <p>Prilikom slanja zahteva molimo vas da obavezno obratite paznju na sledece</p>
+        <p>Koristeći ovu formu možete poslati zahtev za promenu određene informacije <b>ukoliko smatrate da ona nije istinita</b>.</p>
+        <p>Prilikom slanja zahteva molimo Vas da obavezno obratite pažnju na sledeće</p>
         <p>
             <ul>
-                <li>Obavezno ostavite <b>e-mail adresu</b> ukoliko zelite da vas obavestimo o uspesnoj promeni</li>
-                <li>Obavezno navedite <b>osobu ili stranku</b> na koju se promena odnosi kao i <b>opstinu</b> na kojoj je potrebno izvsriti promenu</li>
-                <li>Obavezno navedite link ili mesto na kome mozemoda verifikujemo promenu. <b>Bez verifikacije ni jedna promena nece biti izvrsena</b>.</li>
+                <li>Obavezno ostavite <b>e-mail adresu</b> ukoliko želite da Vas obavestimo o uspešnoj promeni</li>
+                <li>Obavezno navedite <b>osobu ili stranku</b> na koju se promena odnosi kao i <b>opštinu</b> na kojoj je potrebno izvršiti promenu</li>
+                <li>Obavezno navedite link ili mesto na kom možemo da verifikujemo promenu. <b>Bez verifikacije nijedna promena neće biti izvršena</b>.</li>
             </ul>
-            <b>Zahvaljujemo vam na vasoj posvecenosti</b>
+            <b>Zahvaljujemo Vam na vašoj posvećenosti.</b>
         </p>
         <div id="form-alerts"></div>
         <div id="userfrosting-alerts"></div>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <b>Vasa e-mail adresa*</b>
+                        <b>Vaša e-mail adresa*</b>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-edit"></i></span>
                             <input type="text" class="form-control" id="email" name="email" autocomplete="off" value="trt@mrt.com" placeholder="E-mail">
@@ -60,16 +60,16 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <b>Promena koju ste primetili (npr. Članovi i odbornici prokupačkog SDS napustili stranku i formirali grupu gradjana od 05.12.2016 godine  )*</b>
+                        <b>Promena koju ste primetili (npr. Članovi i odbornici prokupačkog SDS napustili stranku i formirali grupu građana od 05.12.2016 godine)*</b>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                            <textarea rows="5" type="text" class="form-control" id="promena" name="promena" value="" placeholder="Promena">Članovi i odbornici prokupačkog SDS napustili stranku i formirali grupu gradjana od 05.12.2016 godine </textarea>
+                            <textarea rows="5" type="text" class="form-control" id="promena" name="promena" value="" placeholder="Promena">Članovi i odbornici prokupačkog SDS napustili stranku i formirali grupu građana od 05.12.2016 godine</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <b>Mesto / link / publikacija na kome se mogu potvrditi vase tvrdnje</b>
+                        <b>Mesto / link / publikacija na kome se mogu potvrditi Vaše tvrdnje</b>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-edit"></i></span>
                             <input type="text" class="form-control" id="potvrda" name="potvrda" autocomplete="off" value="google.rs" placeholder="">
