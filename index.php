@@ -46,16 +46,9 @@
     <div id="fade" class="hidden"></div>
     <!-- <script src="static/anotate.js"></script> -->
 
-    <script src="static/data.js?2"></script>
-    <script src="static/helpers.js?4"></script>
-    <script src="static/eventHandlers.js?2"></script>
-    <script src="static/script-index.js?10"></script>
-
 
     <script>
         $(".baner-container").delay(15000).fadeOut(300);
     </script>
 
-</body>
-
-</html>
+<?php include_once "footer.php"; ?>

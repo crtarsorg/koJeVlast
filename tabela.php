@@ -15,7 +15,7 @@
 		include_once 'partials/nav.html';
 	?>
 
-	<div class="container">
+	<div class="container tabela-container">
 
         <table id="data" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -51,6 +51,7 @@
     $(document).ready(function() {
     //load data
         $('#data').DataTable( {
+            "responsive": true,
         	"processing": true,
             dom: 'lBfrtip',
             buttons: [
@@ -81,6 +82,5 @@
 
     });
     </script>
-</body>
 
-</html>
+    <?php include_once "footer.php"; ?>

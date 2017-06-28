@@ -16,7 +16,7 @@
     ?>
 
     <div class="container">
-        <div class="row baneri-highlight">
+        <div class="baneri-highlight">
             <div class="highlight-container col-md-4">
                 <img src="static/icons/stats1.svg" alt="">
                 <div class="highlight">
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="row statsrownice">
+        <div class="statsrownice">
             <div class="col-lg-2 statboxnice">
                 <span id="brPromena" class="stat-number"></span>
                 <div class="triangle"></div>
@@ -95,21 +95,14 @@
                 <span id="stranke" class="stat-number"></span>
                 <div class="triangle"></div>
             	<h3>Stranke<sup><i class="fa fa-question-circle" data-box="hstr" aria-hidden="true"></i></sup> </h3>
-
             </div>
-
-
-
         </div>
 
 
-
-        <div class="row statsrow">
-
-
+        <div class="statsrow">
         </div>
 
-        <div class="col-lg-12">
+        <div class="stranke-tabela">
             <h3>Akteri po strankama i statusima</h3>
             <table id="strankeTabela">
 
@@ -297,6 +290,7 @@
 
     })
     </script>
+    </main>
 </body>
 
 </html>

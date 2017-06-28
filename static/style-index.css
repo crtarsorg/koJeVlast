@@ -12,7 +12,7 @@ body {
     font-family: "Roboto", sans-serif;
 }
 main {
-    margin-top: 70px;
+    margin: 70px 0;
 }
 
 .pomeren {
@@ -191,6 +191,20 @@ div.awesomplete {
     padding: 6px 12px;
 }
 
+#strankeTabela {
+    width: 100% !important;
+}
+.stranke-tabela {
+    clear: both;
+}
+.stranke-tabela h3 {
+    font-family: "DinPro", serif;
+}
+.strankeTabela_wrapper .dataTables_length {
+    float: left !important;
+    padding: 6px 0 !important;
+}
+
 /*proveri da li je potrebno*/
 .legend-title {
 
@@ -255,7 +269,22 @@ div.awesomplete {
     }
 }
 
+/*TABELA*/
+@media (min-width: 768px) {
+    .tabela-container {
+        width: 100%
+    }
+}
+@media (min-width: 1200px) {
+    .tabela-container {
+        width: 1170px;
+    }
+}
 /*STATISTIKE*/
+.baneri-highlight {
+    position: relative;
+    overflow: hidden;
+}
 .statsrow{
     margin-bottom: 20px;
 }
@@ -276,9 +305,6 @@ div.awesomplete {
     color: #62a698;
     margin-left: 10px;
 }
-
-
-
 .statboxnice{
     text-align: center;
     padding: 0;
