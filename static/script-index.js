@@ -19,7 +19,7 @@ var base_selektor = "g:not([id='granice'])";
 
 
 //glavni load
-$("#mapa").load("srbija.svg", function() {
+$("#mapa").load("srbija.svg?1", function() {
 
     //$("#mapa").trigger("ucitano", ["Custom", "Event"]);
     var selektor = " #mapa path:not(#KiM path,#granice path),#mapa polygon:not(#KiM polygon,#granice polygon)";
