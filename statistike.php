@@ -288,8 +288,10 @@
         });
 
 
-        $.get("http://kojenavlasti.rs/api/imajuPromene", function (data) {
-            data = JSON.parse(data);
+        //$.get("http://kojenavlasti.rs/api/imajuPromene", preletaci_f)
+
+        var preletaci_f = function (data) {
+            //data = JSON.parse(data);
             var prvih_5 = data.slice(0,5);
 
             for (var i = 0; i < prvih_5.length; i++) {
@@ -297,13 +299,13 @@
                 $.get("http://kojenavlasti.rs/api/akter/promene/"+la, function(d) {
                     d = JSON.parse(d);
                     d = d[0];
-                    $("#ul_preletaci").append("<li><a href='"+'http://kojenavlasti.rs/partials/tabela.html?osoba='+d.aime + " " +d.aprezime+"'>" + d.aime + " " +d.aprezime + "</a></li>")
+                    $("#ul_preletaci").append("<li><a href='"+'tabela.php?osoba='+d.aime + " " +d.aprezime+"'>" + d.aime + " " +d.aprezime + "</a></li>")
                     //console.log(d[0]);
                 })
             }
 
             //prodji za svakog i nabavi ime
-        })
+        };
 
         $.get("http://kojenavlasti.rs/api/top5promenaOpstine",top5);
 
@@ -320,6 +322,8 @@
 
         $.get("http://kojenavlasti.rs/api/preletaci", function (data) {
             data = JSON.parse(data);
+
+            preletaci_f(data.slice(0,5));
            /* data = data.map(function (el) {
                 return [el.ime, el.opstina, el.prelet]
             })*/
