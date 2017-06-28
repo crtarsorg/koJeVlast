@@ -320,6 +320,9 @@
 
         $.get("http://kojenavlasti.rs/api/preletaci", function (data) {
             data = JSON.parse(data);
+            data = data.map(function (el) {
+                return [el.ime, el.opstina, el.prelet]
+            })
 
             $('#preletaciTabela').DataTable( {
                     data: data,
