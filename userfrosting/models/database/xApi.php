@@ -207,8 +207,8 @@ class xApi extends UFModel {
 
         $res = $conn->select($conn->raw( $upit ));
 
-        $stats['data']['opstina'] = $conn->select($conn->raw( "select COUNT(DISTINCT popstina) from (". $upit." ) la" ));
-
+        $broj_op = $conn->select($conn->raw( "select COUNT(DISTINCT popstina) as broj from (". $upit." ) la" ));
+        $stats['data']['opstina'] = $broj_op['broj'];
 
         $stats['data']['akteri_aktivni'] = count($res);
         //set vals to 0
