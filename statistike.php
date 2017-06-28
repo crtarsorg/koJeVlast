@@ -354,6 +354,7 @@
             $('#preletaciTabela').DataTable( {
                     data: data,
                     "columnDefs": columns,
+                    "order": [2, "desc"],
                     "language": {
                         "search": "Pretražite:",
                         "lengthMenu": "Prikazano _MENU_ unosa po strani",
