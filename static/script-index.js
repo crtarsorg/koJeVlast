@@ -445,6 +445,7 @@ function initOpstine() {
 
     ajax.onload = function() {
         var list = JSON.parse(ajax.responseText).map(function(i) {
+            if(+i.oidopstine == 79014) return "";
             return { label: i.opstina, value: i.opstina, data: i.oidopstine };
             //{label:i.opstina/*, value:i.oidopstine*/};
         });
