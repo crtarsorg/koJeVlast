@@ -258,22 +258,17 @@ class xApi extends UFModel {
 
 
 
-        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and posoba not in(select * from osobe_pocetak_kraj) ORDER BY pod desc, pid desc) x GROUP BY posoba) la group by apol';
+        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and posoba not in(select * from osobe_pocetak_kraj) ORDER BY pod desc, pid desc) x GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';
         $res_pol = $conn->select($conn->raw( $upit_pol ));
 
-                print_r("<pre>");
-                var_dump($res_pol);
-                print_r("</pre>");
-                die();
-        
 
         //muskraci
         /*$res = $conn->table('promene')->select("pid")->leftJoin('akteri', 'posoba', '=', 'aid')->where('apol', '=', 'M')->groupBy('posoba')->get();*/
-        $stats['data']['muskaraca'] = count($res);
+        $stats['data']['muskaraca'] = $res_pol[0]['broj']; //ubaciti proveru da li je [0][apol]=="M"
 
         //zene
         /*$res = $conn->table('promene')->select("pid")->leftJoin('akteri', 'posoba', '=', 'aid')->where('apol', '=', 'Z')->groupBy('posoba')->get();*/
-        $stats['data']['zena'] = count($res);
+        $stats['data']['zena'] = $res_pol[1]['broj'];
 
         //bez pola
         /*$res = $conn->table('promene')->select("pid")->leftJoin('akteri', 'posoba', '=', 'aid')->where('apol', '!=', 'M')->where('apol', '!=', 'Z')->groupBy('posoba')->get();
