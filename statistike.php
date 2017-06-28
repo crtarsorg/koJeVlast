@@ -266,7 +266,7 @@
             prveStranke(na_vlasti);
 
 
-        	$('#strankeTabela').DataTable( {
+        	/*$('#strankeTabela').DataTable( {
 			        data: res,
 			        columns: [
 			            { title: "stranka" },
@@ -283,7 +283,7 @@
                         "infoFiltered": "(filtrirano od dostupnih _MAX_ unosa)"
                       },
 
-			    } );
+			    } );*/
 
         });
 
