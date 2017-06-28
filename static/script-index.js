@@ -475,7 +475,7 @@ function initStranka() {
     var data = DataStranke.getStranke();
 
     for (var i = 0; i < data.length; i++) {
-        if (data[i].naziv == "Nepoznata" || data[i].naziv == null || data[i].naziv == "null" || data[i].naziv == "Stranka nije na listi")
+        if (data[i].naziv == "Nepoznata" || data[i].naziv == null || data[i].naziv == "null" || data[i].naziv == "Stranka nije na listi" || data[i].id ==200)
             continue;
         $("#stranka").append("<option value='" + data[i].id + "'>" + data[i].naziv + "</option>")
 
