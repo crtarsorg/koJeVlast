@@ -77,7 +77,7 @@
                 <div class="triangle"></div>
                 <h3>Broj odbornika sa informacijama
                     <sup>
-                        <i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i>
+                        <i class="fa fa-question-circle" data-box="hinfo" aria-hidden="true"></i>
                     </sup>
                 </h3>
             </div>
@@ -87,7 +87,7 @@
                 <div class="triangle"></div>
                 <h3>Broj odbornika bez informacija
                     <sup>
-                        <i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i>
+                        <i class="fa fa-question-circle" data-box="hnoinfo" aria-hidden="true"></i>
                     </sup>
                 </h3>
             </div>
@@ -168,7 +168,8 @@
             if(tar=="hopstina") text = "Ovaj broj se odnosi na ukupan broj opština u kojima su zabeležene promene";
             if(tar=="hm") text = "Objašnjenje za broj muškaraca";
             if(tar=="hz") text = "Objašnjenje za broj žena";
-            if(tar=="hreg") text = "Objašnjenje za broj regiona";
+            if(tar=="hnoinfo") text = "Broj odbornika za koje su dostupne  informacije o pripadnosti stranci";
+            if(tar=="hnoinfo") text = "Broj odbornika za koje nisu dostupne  informacije o pripadnosti stranci";
             if(tar=="hstr") text = "Objašnjenje za stranke";
 
             sup.prepend("<div class='popup'><span class='popup-close'><i class='fa fa-times' aria-hidden='true'></i></span><p>" +  text + "</p></div>");
@@ -198,17 +199,19 @@
         	data = data.data
         	//console.log( data );
 
-			$("#brPromena").html(data.promena);
+			//$("#brPromena").html(data.promena);
 
         	$("#opstine").html(data.opstina);
-        	$("#regioni").html(data.regiona);
+        	//$("#regioni").html(data.regiona);
 
 
         	$("#muskarci").html(data.muskaraca);
         	$("#zene").html(data.zena);
 
-        	$("#stranke").html(data.partija);
 
+            $("#stranke").html(data.partija);
+            $("#odbNoInfo").html(data.akteri_aktivni_bez_statusa);
+            $("#odbInfo").html(data.akteri_aktivni_vlast+data.akteri_aktivni_opozicija);
 
         	var zajedno = {};
 
