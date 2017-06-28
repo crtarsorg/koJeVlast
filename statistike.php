@@ -320,9 +320,9 @@
 
         $.get("http://kojenavlasti.rs/api/preletaci", function (data) {
             data = JSON.parse(data);
-            data = data.map(function (el) {
+           /* data = data.map(function (el) {
                 return [el.ime, el.opstina, el.prelet]
-            })
+            })*/
 
             var columns = [{
                 "targets": 0,
@@ -341,7 +341,7 @@
 
             }, {
                 "targets": 2,
-                "data": "funkcija",
+                "data": "prelet",
                 "render": function(data, type, full, meta) {
                     return data;
                 }
