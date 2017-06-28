@@ -324,14 +324,33 @@
                 return [el.ime, el.opstina, el.prelet]
             })
 
+            var columns = [{
+                "targets": 0,
+                "data": "ime",
+                "render": function(data, type, full, meta) {
+                        unos = '<a href="tabela.php?osoba="'+data +' >'+ data +'</a>'
+                    return unos;
+                }
+
+            }, {
+                "targets": 1,
+                "data": "opstina",
+                "render": function(data, type, full, meta) {
+                    return data;
+                }
+
+            }, {
+                "targets": 2,
+                "data": "funkcija",
+                "render": function(data, type, full, meta) {
+                    return data;
+                }
+
+            }];
+
             $('#preletaciTabela').DataTable( {
                     data: data,
-                    columns: [
-                        { title: "Ime i prezime" },
-                        { title: "Opština" },
-                        { title: "Broj promena stranka" }
-
-                    ],
+                    "columnDefs": columns,
                     "language": {
                         "search": "Pretražite:",
                         "lengthMenu": "Prikazano _MENU_ unosa po strani",
