@@ -11,9 +11,35 @@
 
 <body>
 
-	<?php
-		include_once 'partials/nav.html';
-	?>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="static/icons/logo.svg"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Početna</a></li>
+                   <!--  <li><a href="partials/uporedjivanje.html">Uporedjivanje opstina</a></li> -->
+                    <li class="active"><a href="tabela.php">Tabele sa podacima</a></li>
+                    <li><a href="statistike.php">Statistike</a></li>
+                    <li><a href="o-nama.php">O nama</a>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="prijavi"><a href="posaljite-promenu.php">Prijavi promenu</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
+    <main>
 
 	<div class="container tabela-container">
 
