@@ -138,7 +138,7 @@ class xApi extends UFModel {
     public function strankeNaVlastiPoOpstinama($app){
         $conn = Capsule::connection();
         //$res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina","oidopstine","oidokruga","sid")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("popstina","pnavlasti","pstranka")->toSql();
-        $res = $conn->select($conn->raw(' select count(DISTINCT posoba) AS odbornika,`popstina`,  case when `snaziv` IS null then "Nepoznata" else `snaziv` end as `snaziv`, `pnavlasti`, `opstina`, `oidopstine`, `oidokruga`, `sid` from `promene` left join `akteri` on `posoba` = `aid` left join `stranke` on `pstranka` = `sid` left join `funkcije` on `pfunkcija` = `fid` left join `koalicije` on `pkoalicija` = `kid` left join `funkcije_mesto` on `pfm` = `fmid` left join `opstine` on `popstina` = `opid`  where (posoba, pfunkcija) in (select posoba, pfunkcija from osoba_pocetak_kraj_1 ) group by `popstina`, `pnavlasti`, `pstranka` '));
+        $res = $conn->select($conn->raw(' select count(DISTINCT posoba) AS odbornika,`popstina`,  case when `snaziv` IS null then "Nepoznata" else `snaziv` end as `snaziv`, `pnavlasti`, `opstina`, `oidopstine`, `oidokruga`, `sid` from `promene` left join `akteri` on `posoba` = `aid` left join `stranke` on `pstranka` = `sid` left join `funkcije` on `pfunkcija` = `fid` left join `koalicije` on `pkoalicija` = `kid` left join `funkcije_mesto` on `pfm` = `fmid` left join `opstine` on `popstina` = `opid`  where (posoba, pfunkcija,  pnavlasti) in (select posoba, pfunkcija , pnavlasti from osoba_pocetak_kraj_1 ) group by `popstina`, `pnavlasti`, `pstranka` '));
 
 
 //echo "<pre>";
@@ -211,7 +211,7 @@ class xApi extends UFModel {
         //'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo>"'.@date('Y-m-d').'" )  ORDER BY pod desc, pid desc) x GROUP BY posoba'
 
 
-        $upit = 'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and posoba in (select posoba from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x GROUP BY posoba';
+        $upit = 'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x GROUP BY posoba';
 
         $res = $conn->select($conn->raw( $upit ));
 
@@ -266,7 +266,7 @@ class xApi extends UFModel {
 
 
 
-        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and  posoba in (select posoba from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';
+        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and  (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';
         $res_pol = $conn->select($conn->raw( $upit_pol ));
 
 
@@ -366,7 +366,7 @@ class xApi extends UFModel {
         $conn = Capsule::connection();
 
 
-        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene_detalji WHERE (pdo is NULL or pdo >NOW() ) and popstina = '.$id.' and (posoba, pfunkcija)  in (SELECT posoba, pfunkcija FROM promene where popstina = '.$id.' group by posoba,pod, pfunkcija HAVING count(*) = 1) group by posoba,pod, fid ORDER BY posoba desc, pid desc) x GROUP BY posoba'));
+        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene_detalji WHERE (pdo is NULL or pdo >NOW() ) and popstina = '.$id.' and (posoba, pfunkcija, pnavlasti)  in (SELECT posoba, pfunkcija, pnavlasti FROM promene where popstina = '.$id.' group by posoba,pod, pfunkcija HAVING count(*) = 1) group by posoba,pod, fid ORDER BY posoba desc, pid desc) x GROUP BY posoba'));
 
 
 
