@@ -320,7 +320,7 @@ function tabelaOdbornika(podaci, region) {
             "targets": 5,
             "data": function(data, type, full, meta){
                 if(region ) return data.opstina;
-                return new Date(data.datum).toLocaleDate('rs');
+                return new Date(data.datum).toLocaleDateString('sr');
             },
             "render": function(data, type, full, meta) {
                 //console.log( "promena :" + data );
