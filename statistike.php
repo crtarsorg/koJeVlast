@@ -301,14 +301,6 @@
 
 			        ],
                     "language": jezik,
-                    /*{
-                        "search": "Pretražite:",
-                        "lengthMenu": "Prikazano _MENU_ unosa po strani",
-                        "zeroRecords": "Nema unosa ",
-                        "info": "Prikazana strana _PAGE_ od _PAGES_",
-                        "infoEmpty": "Nema unosa",
-                        "infoFiltered": "(filtrirano od dostupnih _MAX_ unosa)"
-                      }*/
 
 			    } );
 
@@ -317,7 +309,7 @@
 
         //$.get("http://kojenavlasti.rs/api/imajuPromene", preletaci_f)
 
-        var preletaci_f = function (data) {
+        /*var preletaci_f = function (data) {
             //data = JSON.parse(data);
             var prvih_5 = data.slice(0,5);
 
@@ -326,13 +318,13 @@
                 $.get("http://kojenavlasti.rs/api/akter/promene/"+la, function(d) {
                     d = JSON.parse(d);
                     d = d[0];
-                    $("#ul_preletaci").append("<li><a href='"+'tabela.php?osoba='+d.aime + " " +d.aprezime+"'>" + d.aime + " " +d.aprezime + "</a></li>")
+                    $("#ul_preletaci").append("<li><a href='"+'tabela.php?osoba='+d.id+"'>" + d.aime + " " +d.aprezime + "</a></li>")
                     //console.log(d[0]);
                 })
             }
 
             //prodji za svakog i nabavi ime
-        };
+        };*/
 
         $.get("http://kojenavlasti.rs/api/top5promenaOpstine",top5);
 
@@ -354,7 +346,7 @@
 
             for (var i = 0; i < nek.length; i++) {
 
-                $("#ul_preletaci").append("<li><a href='"+'tabela.php?osoba='+nek[i].ime+"'>" + nek[i].ime+ "</a></li>")
+                $("#ul_preletaci").append("<li><a href='"+'tabela.php?osoba='+nek[i].id+"'>" + nek[i].ime+ "</a></li>")
             }
 
             /* data = data.map(function (el) {
