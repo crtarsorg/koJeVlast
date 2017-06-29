@@ -195,7 +195,7 @@ function statsOdbornici(podaci) {
 
     var vlast =
         podaci.filter(function(la) {
-            return la.vlast == 1;
+            return la.vlast == 1 && funkcija_odbornik.indexOf( +la.fid  ) >-1;
             //"vlast"
         });
     //var unique = podaci.filter( onlyUnique );
