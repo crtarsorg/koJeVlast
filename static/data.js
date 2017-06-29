@@ -77,11 +77,11 @@ function podaciOdborniciOpstina(idOpstine) {
 
         //ne gledamo izvrsnu vlast
         var funkcija_odbornik = [1,2,3,4,6]
-        json = json.filter(function(la) {
+        json1 = json.filter(function(la) {
             return funkcija_odbornik.indexOf( +la.fid  ) >-1
         })
 
-        izracunajProcente(json);
+        izracunajProcente(json1);
         DataStranke.setOdbornici(json);
 
         tabelaOdbornika(json)
