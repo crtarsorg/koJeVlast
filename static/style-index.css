@@ -191,13 +191,13 @@ div.awesomplete {
     padding: 6px 12px;
 }
 
-#strankeTabela {
+#strankeTabela, #preletaciTabela {
     width: 100% !important;
 }
-.stranke-tabela {
+.preletaci-tabela, .stranke-tabela {
     clear: both;
 }
-.stranke-tabela h3, .preletaci-tabela {
+.stranke-tabela h3, .preletaci-tabela h3 {
     font-family: "DinPro", serif;
 }
 .stranke-tabela .dataTables_length, .preletaci-tabela .dataTables_length {
@@ -281,6 +281,17 @@ div.awesomplete {
     }
 }
 /*STATISTIKE*/
+.statistika-spinner {
+    background: rgba(100,100,100,0.2);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 1;
+    margin-top: -70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .baneri-highlight {
     position: relative;
     overflow: hidden;

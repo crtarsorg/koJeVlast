@@ -40,6 +40,12 @@
         </div>
     </nav>
     <main>
+    
+    <div class="statistika-spinner">
+        <div id="statistika-spinner">
+            <img src="static/default.svg">
+        </div>
+    </div>
 
     <div class="container">
         <div class="baneri-highlight">
@@ -232,7 +238,7 @@
             }
         }
 
-        $.get('../api/stats', function(data) {
+        $.get('http://kojenavlasti.rs/api/stats', function(data) {
         	data = JSON.parse(data);
         	data = data.data
         	//console.log( data );
@@ -308,6 +314,9 @@
                         "infoEmpty": "Nema unosa",
                         "infoFiltered": "(filtrirano od dostupnih _MAX_ unosa)"
                       },
+                    "initComplete": function(settings, json) {
+                        $(".statistika-spinner").addClass("hidden");
+                    }
 
 			    } );
 
