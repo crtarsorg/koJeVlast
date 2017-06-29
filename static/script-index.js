@@ -128,17 +128,30 @@ function sideDetails(naslov, stranke) {
     $(".detalji_title").html(naslov_detalji)
 
 
+    //grupisi nepoznate stranke
+    var nepoznate = stranke.filter(function(el) {
+        return el.naziv == "Nepoznata";
+    })
+   
+
     stranke.sort(function(a, b) {
       return b.odbornika - a.odbornika;
     });
     for (var i = 0; i < stranke.length; i++) {
 
-        if (stranke[i].naziv == undefined || stranke[i].naziv == null /*|| stranke[i].naziv == "Nepoznata" || stranke[i].naziv == "Stranka nije na listi"*/)
+        //preskakanje
+        if (stranke[i].naziv == undefined || stranke[i].naziv == null 
+            || stranke[i].naziv == "Nepoznata" /*|| stranke[i].naziv == "Stranka nije na listi"*/)
             continue;
 
         $("#detalji table").append("<tr><td>" + stranke[i].naziv + "<span class='broj-odbornika'>(" +  stranke[i].odbornika +  ")</span></td></tr>")
     }
 
+    if(nepoznate.length >0){
+        var nepoznate_br = nepoznate.reduce(function(a,b){return a.odbornika+b.odbornika});
+        if(nepoznate_br > 0 )
+            $("#detalji table").append("<tr><td> Nepoznata <span class='broj-odbornika'>(" +  nepoznate_br +  ")</span></td></tr>")
+        }
     $("#opis").removeClass('hidden')
 
 }
