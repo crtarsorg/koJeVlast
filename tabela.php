@@ -60,6 +60,9 @@
                 'csvHtml5',
                 'pdfHtml5'
             ],
+            "search": {
+                "regex": true
+              },
             "ajax": 'http://'+window.document.location.hostname + '/api/akteri',
             "language": {
                     "search": "Pretražite:",

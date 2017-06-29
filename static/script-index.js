@@ -189,11 +189,11 @@ function statsOdbornici(podaci) {
     var koalicija = _.uniqBy(podaci, 'koalicija');
 
 
-$("#brAktera").html( podaci.length );
-$("#brNotOdbornici").html( not_odbornici.length );
-$("#brStranka").html( stranke.length );
-$("#brKoalcija").html( koalicija.length );
-$("#brVlasti").html( vlast.length );
+    $("#brAktera").html( podaci.length );
+    $("#brNotOdbornici").html( not_odbornici.length );
+    $("#brStranka").html( stranke.length );
+    $("#brKoalcija").html( koalicija.length );
+    $("#brVlasti").html( vlast.length );
 
     /*var stats_text = " Ukupan broj aktera: " + podaci.length;
     stats_text += "<br/>" + " Ukupan broj aktera koji nisu odbornici: " + not_odbornici.length;
@@ -379,7 +379,10 @@ var drawCallbackHandler = function (ev) {
 
             $this = $(ev.target);
 
-            var $dodat =  $this.parents('tr').nextAll(".added")
+            //treba uzeti i id
+            var id = $this.attr('id');
+
+            var $dodat = $this.parents('tr').nextAll(".added-"+id)
 
             if($dodat.length >0){
                 $dodat.toggle()
@@ -389,7 +392,6 @@ var drawCallbackHandler = function (ev) {
             //morao bih pitati da li postoji, ako postoji,
             //ne trazi podatke sa servera
 
-            var id = $this.attr("id");
 
             $.getJSON("http://kojenavlasti.rs/api/akter/promene/"+id, function(json, textStatus) {
 
@@ -403,7 +405,7 @@ var drawCallbackHandler = function (ev) {
                 //appenduj nesto da se jasno vide  datumi promena
                 for (var i = 0; i < json.length; i++) {
 
-                    var $temp = $("<tr class='added'></tr>");
+                    var $temp = $("<tr class='added added-"+id+"'></tr>");
                     $this.parents('tr').after( $temp );
 
                     var tempPdo = "";

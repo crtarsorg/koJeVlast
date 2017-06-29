@@ -189,7 +189,7 @@ function ocisti_grupisi( stranke ) {
 
     });
 
-    
+
     return retArr;
 }
 
