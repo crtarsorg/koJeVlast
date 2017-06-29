@@ -119,7 +119,12 @@ function agregacija_okrug(opstine) {
     if (opstine == undefined)
         return;
 
+
+    //uzmi sve opstine i saberi stranke na vlasti i opoziciju
     var rez = opstine.reduce(function(a, b) {
+
+        var temp_ar = [];
+        var temp_ar2 = []
 
         var temp = {};
         temp.opop = +a.opop + +b.opop;
@@ -127,24 +132,29 @@ function agregacija_okrug(opstine) {
         //temp.odbornika = +a.odbornika + +b.odbornika;
 
 
-        var a_stranke =
-            stranke.filter(function(c) {
-                return c.idopstine == a.oidopstine });
+
+        // ne moze ovako, uzima ideve od svih ranijih
+        if( a.opop == 0 ) {
+            var a_stranke =
+                stranke.filter(function(c) {
+                    return c.idopstine == a.oidopstine });
+
+            if (a_stranke.length !== 0 && a_stranke[0].vlast !== undefined)
+                temp_ar = a_stranke[0].vlast
+
+            if(a_stranke.length == 0 && a.opop!=undefined){
+                a_stranke = [];
+                a_stranke.push(a);
+            }
+
+        }
+
         var b_stranke =
             stranke.filter(function(c) {
                 return c.idopstine == b.oidopstine });
 
 
-        if(a_stranke.length == 0 && a.opop!=undefined){
-            a_stranke = [];
-            a_stranke.push(a);
-        }
 
-        var temp_ar = [];
-        var temp_ar2 = []
-
-        if (a_stranke.length !== 0 && a_stranke[0].vlast !== undefined)
-            temp_ar = a_stranke[0].vlast
         if (b_stranke.length !== 0 && b_stranke[0].vlast !== undefined) {
             temp_ar2 = b_stranke[0].vlast
         }
