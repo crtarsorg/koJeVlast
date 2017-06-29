@@ -79,26 +79,7 @@
         $('#data').DataTable( {
             "responsive": true,
         	"processing": true,
-            "columnDefs":[
-                {
-                    "targets": 8,
-                    "render": function(data, type, full, meta) {
-                        //console.log( "promena :" + data );
-
-                        return new Date(data).toLocaleDateString('sr');
-                    }
-
-                },
-                {
-                    "targets": 9,
-                    "render": function(data, type, full, meta) {
-                        //console.log( "promena :" + data );
-
-                        return new Date(data).toLocaleDateString('sr');
-                    }
-
-                }
-                ],
+           
             dom: 'lBfrtip',
             buttons: [
                 'copyHtml5',
