@@ -306,21 +306,11 @@
 			            { title: "Broj odbornika u opoziciji" }
 
 			        ],
-<<<<<<< HEAD
-                    "language": {
-                        "search": "Pretražite:",
-                        "lengthMenu": "Prikazano _MENU_ unosa po strani",
-                        "zeroRecords": "Nema unosa ",
-                        "info": "Prikazana strana _PAGE_ od _PAGES_",
-                        "infoEmpty": "Nema unosa",
-                        "infoFiltered": "(filtrirano od dostupnih _MAX_ unosa)"
-                      },
                     "initComplete": function(settings, json) {
                         $(".statistika-spinner").addClass("hidden");
                     }
-=======
+
                     "language": jezik,
->>>>>>> origin/master
 
 			    } );
 
