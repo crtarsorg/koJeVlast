@@ -418,8 +418,9 @@ var drawCallbackHandler = function (ev) {
                         + json[i].aprezime +" "*/
 
                     koalicija = skraceno( json[i].knaziv );
-                    stranka = json[i].snaziv? "Nepoznata": json[i].snaziv;
-                    funkcija = json[i].funkcija? "Nepoznata": json[i].funkcija;
+                    stranka = json[i].snaziv == null? "Nepoznata": json[i].snaziv;
+                    funkcija = json[i].funkcija  == null? "Nepoznata": json[i].funkcija;
+                    vlast = json[i].pnavlasti ==1 ? "vlast": "opozicija";
 
                     var msg =
                         "<td>" + json[i].aime +" "
@@ -427,7 +428,7 @@ var drawCallbackHandler = function (ev) {
                         +"<td>" + stranka + "</td>"
                         +"<td>" + funkcija + "</td>"
                         +"<td title='"+json[i].knaziv+"'>" + koalicija + "</td>"
-                        +"<td>/</td>"
+                        +"<td>"+vlast+"</td>"
                         +'<td><a href="./posaljitePromenu.html" target="_blank">  <img src="static/promene.svg" style="width: 22px;"/></a></td>'
                         +"<td>" + json[i].pod + "<br/>" + tempPdo + "</td>"
                         ;
