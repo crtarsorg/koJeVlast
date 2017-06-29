@@ -211,7 +211,7 @@ class xApi extends UFModel {
         //'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo>"'.@date('Y-m-d').'" )  ORDER BY pod desc, pid desc) x GROUP BY posoba'
 
 
-        $upit = 'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x GROUP BY posoba';
+        $upit = 'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x  where pfunkcija not in (5,7,8,9) GROUP BY posoba';
 
         $res = $conn->select($conn->raw( $upit ));
 
@@ -266,7 +266,7 @@ class xApi extends UFModel {
 
 
 
-        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and  (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';
+        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and  (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x where pfunkcija not in (5,7,8,9) GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';
         $res_pol = $conn->select($conn->raw( $upit_pol ));
 
 

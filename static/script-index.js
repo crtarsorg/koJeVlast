@@ -314,18 +314,8 @@ function tabelaOdbornika(podaci, region) {
                 return data;
             }
 
-        }, {
+        },  {
             "targets": 5,
-            //"data": "promena",
-            "render": function(data, type, full, meta) {
-                //console.log( "promena :" + data );
-
-                return '<a href="./posaljite-promenu.php?ime='+full.ime + " "+full.prezime+"&opstina="+full.opstina + '" target="_blank">'+
-                ' <img src="static/promene.svg" style="width: 22px;"/></a>';
-            }
-
-        }, {
-            "targets": 6,
             "data": function(data, type, full, meta){
                 if(region ) return data.opstina;
                 return data.datum;
@@ -334,6 +324,17 @@ function tabelaOdbornika(podaci, region) {
                 //console.log( "promena :" + data );
 
                 return data;
+            }
+
+        },
+        {
+            "targets": 6,
+            //"data": "promena",
+            "render": function(data, type, full, meta) {
+                //console.log( "promena :" + data );
+
+                return '<a href="./posaljite-promenu.php?ime='+full.ime + " "+full.prezime+"&opstina="+full.opstina + '" target="_blank">'+
+                ' <img src="static/promene.svg" style="width: 22px;"/></a>';
             }
 
         }
