@@ -366,7 +366,7 @@ class xApi extends UFModel {
         $conn = Capsule::connection();
 
 
-        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene_detalji WHERE (pdo is NULL or pdo >NOW() ) and popstina = '.$id.' and posoba  in (SELECT posoba FROM promene where popstina = '.$id.' group by posoba,pod, pfunkcija HAVING count(*) = 1) group by posoba,pod, fid ORDER BY posoba desc, pid desc) x GROUP BY posoba'));
+        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene_detalji WHERE (pdo is NULL or pdo >NOW() ) and popstina = '.$id.' and (posoba, pfunkcija)  in (SELECT posoba, pfunkcija FROM promene where popstina = '.$id.' group by posoba,pod, pfunkcija HAVING count(*) = 1) group by posoba,pod, fid ORDER BY posoba desc, pid desc) x GROUP BY posoba'));
 
 
 
