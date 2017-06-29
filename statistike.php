@@ -166,27 +166,7 @@
 
     </div>
 
-<!--
-<div id="explain" class="modal fade" role="dialog">
-    <div class="modal-dialog">
 
-
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
- -->
 
 
     <script src="static/helpers.js?5"></script>
@@ -317,24 +297,6 @@
         });
 
 
-        //$.get("http://kojenavlasti.rs/api/imajuPromene", preletaci_f)
-
-        /*var preletaci_f = function (data) {
-            //data = JSON.parse(data);
-            var prvih_5 = data.slice(0,5);
-
-            for (var i = 0; i < prvih_5.length; i++) {
-                var la = prvih_5[i].id;
-                $.get("http://kojenavlasti.rs/api/akter/promene/"+la, function(d) {
-                    d = JSON.parse(d);
-                    d = d[0];
-                    $("#ul_preletaci").append("<li><a href='"+'tabela.php?osoba='+d.id+"'>" + d.aime + " " +d.aprezime + "</a></li>")
-                    //console.log(d[0]);
-                })
-            }
-
-            //prodji za svakog i nabavi ime
-        };*/
 
         $.get("http://kojenavlasti.rs/api/top5promenaOpstine",top5);
 
@@ -368,7 +330,7 @@
                 "targets": 0,
                 "data": "ime",
                 "render": function(data, type, full, meta) {
-                        unos = '<a href="tabela.php?osoba='+data +'" >'+ data +'</a>'
+                        unos = '<a href="tabela.php?osoba=^'+full.ime +'[^\\d]" >'+ data +'</a>'
                     return unos;
                 }
 
