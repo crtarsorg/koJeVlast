@@ -411,3 +411,19 @@ div.awesomplete {
 .highlight a {
     color: #fff !important;
 }
+
+/*O NAMA*/
+.o-nama a {
+    color: #3a5967;
+}
+.o-nama h2 {
+    font-family: "DinPro", serif;
+    margin-bottom: 20px;
+}
+.o-nama .jumbotron h2 {
+    color: #3a5967;
+    font-weight: bold;
+}
+.o-nama .jumbotron p {
+    font-size: 16px;
+}
