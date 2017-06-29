@@ -203,7 +203,7 @@ function statsOdbornici(podaci) {
 
 
     $("#brAktera").html( podaci.length );
-    $("#brNotOdbornici").html( not_odbornici.length );
+    $("#brOdbornici").html(  not_odbornici.length );
     $("#brStranka").html( stranke.length );
     $("#brKoalcija").html( koalicija.length );
     $("#brVlasti").html( vlast.length );
