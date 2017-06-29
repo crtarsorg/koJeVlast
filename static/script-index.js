@@ -427,7 +427,7 @@ var drawCallbackHandler = function (ev) {
                         +"<td>" + funkcija + "</td>"
                         +"<td title='"+json[i].knaziv+"'>" + koalicija + "</td>"
                         +"<td>/</td>"
-                        +'<td><a href="./posaljitePromenu.html" target="_blank"> <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span></a></td>'
+                        +'<td><a href="./posaljitePromenu.html" target="_blank">  <img src="static/promene.svg" style="width: 22px;"/></a></td>'
                         +"<td>"+ json[i].opstina +"</td>"
                         ;
 
