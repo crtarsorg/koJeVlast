@@ -185,10 +185,12 @@ function onlyUnique(value, index, self) {
 }
 
 
+var funkcija_odbornik = [1,2,3,4,6]
+
 function statsOdbornici(podaci) {
-    var not_odbornici =
+    var odbornici_yes =
         podaci.filter(function(la) {
-            return la.funkcija !== "Odbornik" && la.funkcija !== null
+            return funkcija_odbornik.indexOf( +la.fid  ) >-1 
         });
 
     var vlast =
@@ -203,7 +205,7 @@ function statsOdbornici(podaci) {
 
 
     $("#brAktera").html( podaci.length );
-    $("#brOdbornici").html(  not_odbornici.length );
+    $("#brOdbornici").html(  odbornici_yes.length );
     $("#brStranka").html( stranke.length );
     $("#brKoalcija").html( koalicija.length );
     $("#brVlasti").html( vlast.length );
