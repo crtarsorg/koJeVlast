@@ -381,14 +381,7 @@ function tabelaOdbornika(podaci, region) {
         "order": [2, "desc"],
         /*"scrollX": true,*/
         initComplete:drawCallbackHandler,
-        "language": {
-            "search": "Pretražite:",
-            "lengthMenu": "Prikazano _MENU_ unosa po strani",
-            "zeroRecords": "Nema unosa ",
-            "info": "Prikazana strana _PAGE_ od _PAGES_",
-            "infoEmpty": "Nema unosa",
-            "infoFiltered": "(filtrirano od dostupnih _MAX_ unosa)"
-          },
+        "language": jezik,
 
     });
 

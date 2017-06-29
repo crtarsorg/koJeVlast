@@ -90,14 +90,7 @@
                 "regex": true
               },
             "ajax": 'http://'+window.document.location.hostname + '/api/akteri',
-            "language": {
-                    "search": "Pretražite:",
-                "lengthMenu": "Prikazano _MENU_ unosa po strani",
-                "zeroRecords": "Nema unosa ",
-                "info": "Prikazana strana _PAGE_ od _PAGES_",
-                "infoEmpty": "Nema unosa",
-                "infoFiltered": "(filtrirano od dostupnih _MAX_ unosa)"
-              },
+            "language":jezik,
             "initComplete": function( settings, json ) {
                var params = window.location.search
                if(params.length > 5 ){
