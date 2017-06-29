@@ -78,7 +78,7 @@ function podaciOdborniciOpstina(idOpstine) {
         //ne gledamo izvrsnu vlast
         var funkcija_odbornik = [1,2,3,4,6]
         json = json.filter(function(la) {
-            return la.funkcija_odbornik.indexOf( +la.fid  ) >-1
+            return funkcija_odbornik.indexOf( +la.fid  ) >-1
         })
 
         izracunajProcente(json);
