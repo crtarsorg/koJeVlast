@@ -330,7 +330,7 @@
                 "targets": 0,
                 "data": "ime",
                 "render": function(data, type, full, meta) {
-                        unos = '<a href="tabela.php?osoba=^'+full.ime +'[^\\d]" >'+ data +'</a>'
+                        unos = '<a href="tabela.php?osoba=^'+full.id +'[^\\d]" >'+ data +'</a>'
                     return unos;
                 }
 
