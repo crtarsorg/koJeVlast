@@ -59,19 +59,19 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <b>Vaš predlog je u vezi sa (unesite ime osobe ili stranke)*</b>
+                        <b>Vaš predlog je u vezi sa</b>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                            <input type="text" class="form-control" id="akter" name="akter" autocomplete="off" value="Petar" placeholder="">
+                            <input type="text" class="form-control" id="akter" name="akter" autocomplete="off" value="" placeholder="Unesite ime osobe ili stranke">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <b>Na opštini? (unesite opštinu na kojoj deluje osoba ili stranka)* </b>
+                        <b>Na opštini?</b>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                            <input type="text" class="form-control" id="opstina" name="opstina" autocomplete="off" value="Mladenovac" placeholder="Opština">
+                            <input type="text" class="form-control" id="opstina" name="opstina" autocomplete="off" value="" placeholder="Unesite opštinu na kojoj deluje osoba ili stranka">
                         </div>
                     </div>
                 </div>
@@ -80,16 +80,16 @@
                         <b>Vaša e-mail adresa*</b>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                            <input type="text" class="form-control" id="email" name="email" autocomplete="off" value="trt@mrt.com" placeholder="E-mail">
+                            <input type="text" class="form-control" id="email" name="email" autocomplete="off" value="" placeholder="Unesite e-mail adresu">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <b>Promena koju ste primetili (npr. Članovi i odbornici prokupačkog SDS napustili stranku i formirali grupu građana od 05.12.2016 godine)*</b>
+                        <b>Promena koju ste primetili</b>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                            <textarea rows="5" type="text" class="form-control" id="promena" name="promena" value="" placeholder="Promena">Članovi i odbornici prokupačkog SDS napustili stranku i formirali grupu građana od 05.12.2016 godine</textarea>
+                            <textarea rows="5" type="text" class="form-control" id="promena" name="promena" value="" placeholder="Npr. Članovi i odbornici lokalne stranke napustili stranku i formirali grupu građana od 05.12.2016. godine"></textarea>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                         <b>Mesto / link / publikacija na kome se mogu potvrditi Vaše tvrdnje</b>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-edit"></i></span>
-                            <input type="text" class="form-control" id="potvrda" name="potvrda" autocomplete="off" value="google.rs" placeholder="">
+                            <input type="text" class="form-control" id="potvrda" name="potvrda" autocomplete="off" value="" placeholder="Unesite izvor">
                         </div>
                     </div>
                 </div>
@@ -156,8 +156,11 @@
         //parsiranje get parametara, ako ih ima
         location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
 
-        $("#akter").val( decodeURIComponent( queryDict['ime'] )  );
-        $("#opstina").val( decodeURIComponent( queryDict['opstina'] )  );
+        if(queryDict['ime'].lenght == 0) {}
+        else $("#akter").val( decodeURIComponent( queryDict['ime'] )  );
+
+        if(queryDict['opstina'].lenght == 0) {}
+        else $("#opstina").val( decodeURIComponent( queryDict['opstina'] )  );
 
     }
     </script>
