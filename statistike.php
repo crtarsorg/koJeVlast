@@ -269,19 +269,20 @@
         	$('#strankeTabela').DataTable( {
 			        data: res,
 			        columns: [
-			            { title: "stranka" },
-			            { title: "vlast" },
-			            { title: "opozicija" }
+			            { title: "Stranka" },
+			            { title: "Broj odbornika u vlasti" },
+			            { title: "Broj odbornika u opoziciji" }
 
 			        ],
-                    "language": {
+                    "language": jezik,
+                    /*{
                         "search": "Pretražite:",
                         "lengthMenu": "Prikazano _MENU_ unosa po strani",
                         "zeroRecords": "Nema unosa ",
                         "info": "Prikazana strana _PAGE_ od _PAGES_",
                         "infoEmpty": "Nema unosa",
                         "infoFiltered": "(filtrirano od dostupnih _MAX_ unosa)"
-                      },
+                      }*/
 
 			    } );
 
@@ -352,7 +353,7 @@
                 }
 
             }, {
-                "title": "Broj promena stranaka",
+                "title": "Broj stranaka",
                 "targets": 2,
                 "data": "prelet",
                 "render": function(data, type, full, meta) {
@@ -365,14 +366,7 @@
                     data: data,
                     "columnDefs": columns,
                     "order": [2, "desc"],
-                    "language": {
-                        "search": "Pretražite:",
-                        "lengthMenu": "Prikazano _MENU_ unosa po strani",
-                        "zeroRecords": "Nema unosa ",
-                        "info": "Prikazana strana _PAGE_ od _PAGES_",
-                        "infoEmpty": "Nema unosa",
-                        "infoFiltered": "(filtrirano od dostupnih _MAX_ unosa)"
-                      },
+                    "language": jezik,
 
                 } );
 
