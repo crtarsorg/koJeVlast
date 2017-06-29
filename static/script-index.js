@@ -231,6 +231,13 @@ function tabelaOdbornika(podaci, region) {
 
     statsOdbornici(podaci);
 
+    if(region){
+        $("#opstina-col").html("Opština")
+    }
+    else{
+        $("#opstina-col").html("Datum")
+    }
+
     var columns = [{
             "targets": 0,
             "data": "ime",
@@ -306,7 +313,10 @@ function tabelaOdbornika(podaci, region) {
 
         }, {
             "targets": 6,
-            "data": "datum",
+            "data": function(data, type, full, meta){
+                if(region ) return data.opstina;
+                return data.datum;
+            },
             "render": function(data, type, full, meta) {
                 //console.log( "promena :" + data );
 
