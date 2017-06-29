@@ -75,6 +75,12 @@ function podaciOdborniciOpstina(idOpstine) {
     $.getJSON( BASE_PATH + "api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
         $("tbody").empty();
 
+        //ne gledamo izvrsnu vlast
+        var funkcija_odbornik = [1,2,3,4,6]
+        json = json.filter(function(la) {
+            return la.funkcija_odbornik.indexOf( +la.fid  ) >-1
+        })
+
         izracunajProcente(json);
         DataStranke.setOdbornici(json);
 
