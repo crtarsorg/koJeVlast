@@ -387,6 +387,7 @@ class xApi extends UFModel {
             $out[$val['posoba']]['stranka']= $val['snaziv'];
             $out[$val['posoba']]['vlast']= $val['pnavlasti'];
             $out[$val['posoba']]['koalicija']= $val['knaziv'];
+            $out[$val['posoba']]['datum']= $val['pod'];
 
 
 

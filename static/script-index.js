@@ -306,7 +306,7 @@ function tabelaOdbornika(podaci, region) {
 
         }, {
             "targets": 6,
-            "data": "opstina",
+            "data": "datum",
             "render": function(data, type, full, meta) {
                 //console.log( "promena :" + data );
 
@@ -422,13 +422,14 @@ var drawCallbackHandler = function (ev) {
                     funkcija = json[i].funkcija? "Nepoznata": json[i].funkcija;
 
                     var msg =
-                         "<td>" + json[i].pod + "<br/>" + tempPdo + "</td>"
+                        "<td>" + json[i].aime +" "
+                                + json[i].aprezime + "</td>"
                         +"<td>" + stranka + "</td>"
                         +"<td>" + funkcija + "</td>"
                         +"<td title='"+json[i].knaziv+"'>" + koalicija + "</td>"
                         +"<td>/</td>"
                         +'<td><a href="./posaljitePromenu.html" target="_blank">  <img src="static/promene.svg" style="width: 22px;"/></a></td>'
-                        +"<td>"+ json[i].opstina +"</td>"
+                        +"<td>" + json[i].pod + "<br/>" + tempPdo + "</td>"
                         ;
 
                         //.find("td")
