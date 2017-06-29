@@ -200,7 +200,7 @@ div.awesomplete {
 .stranke-tabela h3, .preletaci-tabela {
     font-family: "DinPro", serif;
 }
-.stranke-tabela .dataTables_length {
+.stranke-tabela .dataTables_length, .preletaci-tabela .dataTables_length {
     float: left !important;
     padding: 6px 0 !important;
 }
@@ -410,4 +410,20 @@ div.awesomplete {
 }
 .highlight a {
     color: #fff !important;
+}
+
+/*O NAMA*/
+.o-nama a {
+    color: #3a5967;
+}
+.o-nama h2 {
+    font-family: "DinPro", serif;
+    margin-bottom: 20px;
+}
+.o-nama .jumbotron h2 {
+    color: #3a5967;
+    font-weight: bold;
+}
+.o-nama .jumbotron p {
+    font-size: 16px;
 }
