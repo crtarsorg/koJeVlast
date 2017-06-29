@@ -308,7 +308,7 @@
 			        ],
                     "initComplete": function(settings, json) {
                         $(".statistika-spinner").addClass("hidden");
-                    }
+                    },
 
                     "language": jezik,
 
