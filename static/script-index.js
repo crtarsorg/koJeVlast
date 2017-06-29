@@ -356,7 +356,7 @@ function tabelaOdbornika(podaci, region) {
         destroy: true,
         "order": [2, "desc"],
         /*"scrollX": true,*/
-        drawCallback:drawCallbackHandler,
+        initComplete:drawCallbackHandler,
         "language": {
             "search": "Pretražite:",
             "lengthMenu": "Prikazano _MENU_ unosa po strani",
