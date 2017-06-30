@@ -175,7 +175,7 @@ function sideDetailsOpstina(idOpstine, idBeograd) {
         return;
 
     var stranke = opstina[0].vlast;
-    var ret = opstina.filter(function(el) {
+    var ret = podaciOpstine.filter(function(el) {
         return el.id == idBeograd
     });
     if( ret.length > 0){
