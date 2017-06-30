@@ -225,6 +225,23 @@ class xApi extends UFModel {
         $stats['data']['akteri_aktivni_opozicija'] = 0;
         $stats['data']['akteri_aktivni_bez_statusa'] = 0;
 
+        $stats['data']['saStranka'] = 0;
+        $stats['data']['bezStranka'] = 0;
+
+        $sa_stranka = array_filter($res, function ($el)
+        {
+            return $el['pstranka'] !=14;   
+        });
+
+        $bez_stranka = array_filter($res, function ($el)
+        {
+            return $el['pstranka'] ==14;   
+        });
+
+
+        $stats['data']['saStranka'] = count($sa_stranka);
+        $stats['data']['bezStranka'] = count($bez_stranka);
+
 
         foreach($res as $key => $val){
 
