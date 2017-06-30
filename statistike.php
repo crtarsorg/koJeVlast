@@ -234,8 +234,8 @@
 
 
             $("#stranke").html(data.partija);
-            $("#odbNoInfo").html(data.akteri_aktivni_bez_statusa);
-            $("#odbInfo").html(data.akteri_aktivni_vlast+data.akteri_aktivni_opozicija);
+            $("#odbNoInfo").html(data.bezStranka);
+            $("#odbInfo").html(data.saStranka);
 
         	var zajedno = {};
 
