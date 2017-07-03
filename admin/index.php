@@ -7,6 +7,11 @@ if($corsOrigin=="http://kojenavlasti.rs" || $corsOrigin=="http://127.0.0.1" || $
 header("Access-Control-Allow-Origin: ".$corsOrigin);
 header("Access-Control-Allow-Methods: PUT, GET, POST");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+} else {
+    //this allows CORS for EVERYONE
+header("Access-Control-Allow-Origin: ".$corsOrigin);
+header("Access-Control-Allow-Methods: PUT, GET, POST");
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");    
 }
 
     // This is the path to initialize.php, your site's gateway to the rest of the UF codebase!  Make sure that it is correct!
