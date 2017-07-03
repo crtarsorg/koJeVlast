@@ -59,7 +59,7 @@ class xPromene extends UFModel {
 
     $qe = explode(" ",$q);
     if(count($qe)>1){
-        //$qe[] = $q."%";
+        $qe[] = $q;//."%";
     } else{
         //$qe[] = $q."%";
     }
@@ -117,29 +117,28 @@ class xPromene extends UFModel {
         ->leftJoin('opstine', 'popstina', '=', 'opid')
         ->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')
 
-        ->where('aime', 'like',  '' . $qe[0] .'%')
-        ->where('aprezime', 'like',  '' . $qe[1] .'%')
+//        ->where('aime', 'like',  '' . $qe[0] .'%')
+//        ->where('aprezime', 'like',  '' . $qe[1] .'%')
 
-//        ->where(function ($query) use($qe) {
-//                     for ($i = 0; $i < count($qe); $i++){
-//                        $query->orwhere('aime', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('aprezime', 'like',  '' . $qe[$i] .'');
-//disable - now we need to serach first name / last name only
-//                        $query->orwhere('arodjen', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('snaziv', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('funkcija', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('fmesto', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('opstina', 'like',  '' . $qe[$i] .'');
+        ->where(function ($query) use($qe) {
+                     for ($i = 0; $i < count($qe); $i++){
+                        $query->orwhere('aime', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('aprezime', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('arodjen', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('snaziv', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('funkcija', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('fmesto', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('opstina', 'like',  '' . $qe[$i] .'');
 
-//                        if(is_numeric($qe[$i]) ){
-//                        $query->orwhere('pod', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('pdo', 'like',  '' . $qe[$i] .'');
-//                        }
-//                        if($qe[$i]=="0" || $qe[$i]=="1" || $qe[$i]=="2"   ){
-//                        $query->orwhere('pnavlasti', '=',  '' . $qe[$i] .'');
-//                        }
-//                     }
-//                })
+                        if(is_numeric($qe[$i]) ){
+                        $query->orwhere('pod', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('pdo', 'like',  '' . $qe[$i] .'');
+                        }
+                        if($qe[$i]=="0" || $qe[$i]=="1" || $qe[$i]=="2"   ){
+                        $query->orwhere('pnavlasti', '=',  '' . $qe[$i] .'');
+                        }
+                     }
+                })
 
         ->count();
 
@@ -155,29 +154,29 @@ class xPromene extends UFModel {
         ->leftJoin('opstine', 'popstina', '=', 'opid')
         ->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')
 
-        ->where('aime', 'like',  '' . $qe[0] .'%')
-        ->where('aprezime', 'like',  '' . $qe[1] .'%')
+//        ->where('aime', 'like',  '' . $qe[0] .'%')
+//        ->where('aprezime', 'like',  '' . $qe[1] .'%')
 
-//        ->where(function ($query) use($qe) {
-//                     for ($i = 0; $i < count($qe); $i++){
-//                        $query->orwhere('aime', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('aprezime', 'like',  '' . $qe[$i] .'');
-//
-//                        $query->orwhere('arodjen', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('snaziv', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('funkcija', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('fmesto', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('opstina', 'like',  '' . $qe[$i] .'');
-//
-//                        if(is_numeric($qe[$i]) ){
-//                        $query->orwhere('pod', 'like',  '' . $qe[$i] .'');
-//                        $query->orwhere('pdo', 'like',  '' . $qe[$i] .'');
-//                        }
-//                        if($qe[$i]=="0" || $qe[$i]=="1" || $qe[$i]=="2"   ){
-//                        $query->orwhere('pnavlasti', '=',  '' . $qe[$i] .'');
-//                        }
-//                     }
-//                })
+        ->where(function ($query) use($qe) {
+                     for ($i = 0; $i < count($qe); $i++){
+                        $query->orwhere('aime', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('aprezime', 'like',  '' . $qe[$i] .'');
+
+                        $query->orwhere('arodjen', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('snaziv', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('funkcija', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('fmesto', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('opstina', 'like',  '' . $qe[$i] .'');
+
+                        if(is_numeric($qe[$i]) ){
+                        $query->orwhere('pod', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('pdo', 'like',  '' . $qe[$i] .'');
+                        }
+                        if($qe[$i]=="0" || $qe[$i]=="1" || $qe[$i]=="2"   ){
+                        $query->orwhere('pnavlasti', '=',  '' . $qe[$i] .'');
+                        }
+                     }
+                })
 
         ->skip($start)->take($numres)
         ->orderBy($sort, $sortorder)
