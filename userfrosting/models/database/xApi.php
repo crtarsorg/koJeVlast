@@ -43,7 +43,14 @@ class xApi extends UFModel {
 
         $dataout = array();
         foreach($res as $key=>$val){
-            $dataout['data'][] = array($val[aid],$val[aime],$val[aprezime],$val[snaziv],$val[funkcija],$val[knaziv],$val[opstina],$val[pod],$val[pdo],$val[pnavlasti]);
+
+            if($val[pnavlasti]==1) {$navlasti = "Vlast";} else if($val[pnavlasti]==2){$navlasti = "Opozicija";} else {$navlasti = "";}
+            //proveri da li je validan datum i serviraj
+            if($val[pod] == @date('Y-m-d',strtotime($val[pod]))) { $datumod = @date('d.m.Y',strtotime($val[pod]))  ; } else { $datumod ="";}
+            if($val[pdo] == @date('Y-m-d',strtotime($val[pdo]))) { $datumdo = @date('d.m.Y',strtotime($val[pdo]))  ; } else { $datumdo ="";}
+
+
+            $dataout['data'][] = array($val[aid],$val[aime],$val[aprezime],$val[snaziv],$val[funkcija],$val[knaziv],$val[opstina],$datumod,$datumdo,$navlasti);
         }
 
         echo json_encode($dataout);
@@ -383,9 +390,18 @@ class xApi extends UFModel {
     public function akteriPoOpstini($app,$id){
         $conn = Capsule::connection();
 
+        // Mihajlov view - ne obuhvata sve odbornike
+        //$res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene_detalji WHERE (pdo is NULL or pdo >NOW() ) and popstina = '.$id.' and (posoba, pfunkcija, pnavlasti)  in (SELECT posoba, pfunkcija, pnavlasti FROM promene where popstina = '.$id.' group by posoba,pod, pfunkcija HAVING count(*) = 1) group by posoba,pod, fid ORDER BY posoba desc, pid desc) x GROUP BY posoba'));
 
-        $res = $conn->select($conn->raw('SELECT * FROM (SELECT * FROM promene_detalji WHERE (pdo is NULL or pdo >NOW() ) and popstina = '.$id.' and (posoba, pfunkcija, pnavlasti)  in (SELECT posoba, pfunkcija, pnavlasti FROM promene where popstina = '.$id.' group by posoba,pod, pfunkcija HAVING count(*) = 1) group by posoba,pod, fid ORDER BY posoba desc, pid desc) x GROUP BY posoba'));
-
+        //priveremeni resore stare funkcionalnosti dok ne resimo odbornike koji nedostaju
+        $res = $conn->table('promene')->select()->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('popstina', '=', $id)
+        ->where(function($query){
+                return $query
+                    ->whereNull('pdo')
+                    ->orWhere('pdo', '>', 'now');
+        })
+        ->groupby("posoba")
+        ->get();
 
 
 //echo "<pre>";
