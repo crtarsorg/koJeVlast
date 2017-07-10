@@ -337,7 +337,6 @@ class xApi extends UFModel {
 
         //echo "forma za predlog promene";
         $app->render('predloziPromenu.twig', [
-            "headpart" => file_get_contents("http://".$_SERVER["SERVER_NAME"]."/partials/head-part.html")
         ]);
 
     }
