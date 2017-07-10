@@ -1001,13 +1001,13 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
     });
 
 
-    $app->get('/api/predlozitePromenu', function () use ($app) {
+    $app->get('/api/posaljitePromenu', function () use ($app) {
 
         $evt = new UF\xApi([]);
         $evt->predlozitePromenu($app);
     });
 
-    $app->post('/api/predlozitePromenu', function () use ($app) {
+    $app->post('/api/posaljitePromenu', function () use ($app) {
 
         $evt = new UF\xApi([]);
         $evt->predlozitePromenuPost($app);
