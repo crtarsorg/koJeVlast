@@ -1,38 +1,98 @@
-            {% block content %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pošaljite promenu</title>
 
 
-<link rel="stylesheet" href="{{site.uri.public}}/css/font-awesome-4.3.0.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/font-starcraft.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/bootstrap-3.3.2.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/bootstrap-modal-bs3patch.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/bootstrap-modal.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/lib/metisMenu.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/bootstrap-custom.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/bootstrap-switch.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/tablesorter/theme.bootstrap.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/tablesorter/jquery.tablesorter.pager.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/select2/select2.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/select2/select2-bootstrap.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/bootstrapradio.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/timeline.css" type="text/css" >
-<link rel="stylesheet" href="{{site.uri.public}}/css/lib/morris.css" type="text/css" >
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" type="text/css" >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >
 
-<div id="formpage" style="width: 80%; margin: 0 auto;">
+    <!-- bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
 
-                <h3>Pošalji promenu</h3>
-                <p>Koristeci ovu formu mozete poslati zahtev za promenu odredjen informacije <b>ukoliko smatrate da ona nije istinita</b>.</p>
-                <p>Prilikom slanja zahteva molimo vas da obavezno obratite paznju na sledece</p>
-                <p>
-                <ul>
-                    <li>Obavezno ostavite <b>e-mail adresu</b> ukoliko zelite da vas obavestimo o uspesnoj promeni</li>
-                    <li>Obavezno navedite <b>osobu ili stranku</b> na koju se promena odnosi kao i <b>opstinu</b> na kojoj je potrebno izvsriti promenu</li>
-                    <li>Obavezno navedite link ili mesto na kome mozemoda verifikujemo promenu. <b>Bez verifikacije ni jedna promena nece biti izvrsena</b>.</li>
+
+
+    <!-- stilovi  -->
+    <link rel="stylesheet" type="text/css" href="{{site.uri.public}}/../static/style-index.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.1/awesomplete.min.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
+
+
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-101911387-1', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+
+</head>
+
+<body>
+
+   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="../static/icons/logo.svg"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Početna</a></li>
+                   <!--  <li><a href="partials/uporedjivanje.html">Uporedjivanje opstina</a></li> -->
+                    <li><a href="tabela.php">Tabele sa podacima</a></li>
+                    <li><a href="statistike.php">Statistike</a></li>
+                    <li><a href="o-nama.php">O nama</a></li>
                 </ul>
-                <b>Zahvaljujemo vam na vasoj posvecenosti</b>
-                </p>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="prijavi"><a href="posaljite-promenu.php">Prijavi promenu</a></li>
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
+
+
+    <main>
+    <div class="container">
+
+        <h3>Pošalji promenu</h3>
+        <p>Koristeći ovu formu možete poslati zahtev za promenu određene informacije <b>ukoliko smatrate da ona nije istinita</b>.</p>
+        <p>Prilikom slanja zahteva molimo Vas da obavezno obratite pažnju na sledeće</p>
+        <p>
+            <ul>
+                <li>Obavezno ostavite <b>e-mail adresu</b> ukoliko želite da Vas obavestimo o uspešnoj promeni</li>
+                <li>Obavezno navedite <b>osobu ili stranku</b> na koju se promena odnosi kao i <b>opštinu</b> na kojoj je potrebno izvršiti promenu</li>
+                <li>Obavezno navedite link ili mesto na kom možemo da verifikujemo promenu. <b>Bez verifikacije nijedna promena neće biti izvršena</b>.</li>
+            </ul>
+            <b>Zahvaljujemo Vam na vašoj posvećenosti.</b>
+        </p>
+
+
+
+<div id="formpage" >
+
 
 
 <div id="{{alerts_id | default('form-alerts')}}"></div>
@@ -47,10 +107,10 @@
 
 						<div class="col-sm-12">
 							<div class="form-group">
-                                <b>Vaš predlog je u vezi sa (unesite ime osobe ili stranke)*</b>
+                                <b>Vaš predlog je u vezi sa</b>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-									<input  type="text" class="form-control" id="akter" name="akter" autocomplete="off" value="Petar" placeholder="" >
+									<input  type="text" class="form-control" id="akter" name="akter" autocomplete="off" value="" placeholder="Unesite ime osobe ili stranke" >
 								</div>
 							</div>
 						</div>
@@ -58,10 +118,10 @@
 
 						<div class="col-sm-12">
 							<div class="form-group">
-                                <b>Na opštini? (unesite opštinu na kojoj deluje osoba ili stranka)* </b>
+                                <b>Na opštini?</b>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-									<input  type="text" class="form-control" id="opstina" name="opstina" autocomplete="off" value="Mladenovac" placeholder="Opština" >
+									<input  type="text" class="form-control" id="opstina" name="opstina" autocomplete="off" value="" placeholder="Unesite opštinu na kojoj deluje osoba ili stranka" >
 								</div>
 							</div>
 						</div>							
@@ -69,30 +129,30 @@
 						
 						<div class="col-sm-12">
 							<div class="form-group">
-							    <b>Vasa e-mail adresa*</b>
+							    <b>Vaša e-mail adresa*</b>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-									<input  type="text" class="form-control" id="email" name="email" autocomplete="off" value="trt@mrt.com" placeholder="E-mail" >
+									<input  type="text" class="form-control" id="email" name="email" autocomplete="off" value="" placeholder="Unesite e-mail adresu" >
 								</div>
 							</div>
 						</div>
 
 						<div class="col-sm-12">
 							<div class="form-group">
-							    <b>Promena koju ste primetili (npr. Članovi i odbornici prokupačkog SDS napustili stranku i formirali grupu gradjana od 05.12.2016 godine  )*</b>
+							    <b>Promena koju ste primetili</b>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-									<textarea rows="5"   type="text" class="form-control" id="promena" name="promena"  value="" placeholder="Promena" >Članovi i odbornici prokupačkog SDS napustili stranku i formirali grupu gradjana od 05.12.2016 godine </textarea>
+									<textarea rows="5" type="text" class="form-control" id="promena" name="promena" value="" placeholder="Npr. Članovi i odbornici lokalne stranke napustili stranku i formirali grupu građana od 05.12.2016. godine"></textarea>
 								</div>
 							</div>
 						</div>
 
 						<div class="col-sm-12">
 							<div class="form-group">
-							    <b>Mesto / link / publikacija na kome se mogu potvrditi vase tvrdnje</b>
+							    <b>Mesto / link / publikacija na kome se mogu potvrditi Vaše tvrdnje</b>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-									<input  type="text" class="form-control" id="potvrda" name="potvrda" autocomplete="off" value="google.rs" placeholder="" >
+									<input  type="text" class="form-control" id="potvrda" name="potvrda" autocomplete="off" value="" placeholder="Unesite izvor" >
 								</div>
 							</div>
 						</div>
@@ -125,6 +185,9 @@
 
 
 </div>
+
+    </div>
+</main>
 
 
 
@@ -175,5 +238,38 @@ $( document ).ready(function() {
 	
 	
 });
-</script>				
+</script>
+
+
+
+    <script src="http://kojenavlasti.rs/admin/js/jquery-1.11.2.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script>
+    $(document).ready(function() {
+
+        parametri()
+
+
+
+
+    });
+
+    function parametri(argument) {
+        var queryDict = {}
+
+        //parsiranje get parametara, ako ih ima
+        location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
+
+        if(queryDict['ime'].lenght == 0) {}
+        else $("#akter").val( decodeURIComponent( queryDict['ime'] )  );
+
+        if(queryDict['opstina'].lenght == 0) {}
+        else $("#opstina").val( decodeURIComponent( queryDict['opstina'] )  );
+
+    }
+    </script>
+
+
 {% endblock %}
+    </body>
+</html>

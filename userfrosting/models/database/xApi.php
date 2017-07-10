@@ -337,7 +337,7 @@ class xApi extends UFModel {
 
         //echo "forma za predlog promene";
         $app->render('predloziPromenu.twig', [
-
+            "headpart" => file_get_contents("http://".$_SERVER["SERVER_NAME"]."/partials/head-part.html")
         ]);
 
     }
@@ -377,6 +377,7 @@ class xApi extends UFModel {
         $res =  $conn->table('zahtevi')->insert([  'zakter' => $_POST['akter'] , 'zopstina' => $_POST['opstina'] , 'zmail' => $_POST['email'] ,'zopis' => $_POST['promena'] , 'zdokaz' => $_POST['potvrda'] , 'zstatus' => "Novo"  ]);
 
         if($res){
+            $this->sendEmail("Korisnik je poslao novi predlog promene na sajtu kojenavlasti.rs");
             die('<div class="alert alert-success">Uspešno ste prosledili zahtev za promenu podataka.</div>');
         }else {
             die('<div class="alert alert-danger">Zahtev NIJE prosledjen... Doslo je do greske.</div>');
@@ -492,12 +493,27 @@ public function checkCache($call){
 }
 
 
+public function sendEmail($subject){
+
+        $sendTo = "office@crta.rs";
+        //$subject = $subject;
+        $from = "info@kojenavlati.rs";
+        $reply = "info@kojenavlati.rs";
+        $headers = "From: " . "<" . $from .">\r\n";
+        $headers .= "Reply-To: " . $reply . "\r\n";
+        $headers .= "Content-Type: text/html;charset=utf-8\r\n";
+        $headers .= "Return-path: " . $reply;
+        $poruka = 	"";
+
+        @mail($sendTo, $subject, $poruka, $headers, "-f {$from}");
 
 
 
 
 }
 
+
+}
 
 
 ?>
