@@ -504,12 +504,14 @@ public function sendEmail($subject){
         $headers .= "Return-path: " . $reply;
         $poruka = 	"";
 
-        @mail($sendTo, $subject, $poruka, $headers, "-f {$from}");
+        @mail($sendTo, $subject, $poruka, $headers, "-f{$from}");
 
-
-
+//$r = mail($to, $subject, $message, $headers, '-fwebmaster@example.com');
 
 }
+
+
+
 
 
 }
