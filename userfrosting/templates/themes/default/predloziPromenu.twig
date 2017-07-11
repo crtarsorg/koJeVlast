@@ -210,6 +210,19 @@ $( document ).ready(function() {
 
 	$("#posaljiPromenuForm").submit(function(e) {
 
+        e.preventDefault();
+
+
+        var showLoader = '<div id="spinner" ><img src="{{site.uri.public}}/../static/default.svg"> </div>';
+        $("#userfrosting-alerts").fadeOut(200,function(){
+			$('#userfrosting-alerts').html(showLoader);
+			$("#userfrosting-alerts").fadeIn(200, function(){
+				//$("#userfrosting-alerts").fadeOut(5000);
+			});
+		});
+
+        return;
+
 		$.ajax({
 			   type: "POST",
 			   url: "{{site.uri.public}}/api/posaljitePromenu",
@@ -222,14 +235,14 @@ $( document ).ready(function() {
 						$("#userfrosting-alerts").fadeIn(500, function(){
 							//$("#userfrosting-alerts").fadeOut(5000);
 						});
-					});					
+					});
 
-					
-					
+
+
 			   }
 			 });
 
-		e.preventDefault(); 
+
 	});
 
 
