@@ -873,6 +873,28 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         $evt->listaSearch($app);
     });
 
+    //promene - lista promena i brisanje
+    $app->get('/promene/brisanje', function () use ($app) {
+
+        if (!$app->user->checkAccess('uri_promene_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromene([]);
+        $evt->listaPromenaZaBrisanje($app);
+    });
+    $app->post('/promene/brisanje/:pid', function ($pid) use ($app) {
+
+
+        if (!$app->user->checkAccess('uri_promene_edit')){
+            $app->notFound();
+        }
+        $evt = new UF\xPromene([]);
+        $evt->listaPromenaZaBrisanjePromene($app,$pid);
+    });
+
+
+
+
 
 
     $app->get('/err', function () use ($app) {

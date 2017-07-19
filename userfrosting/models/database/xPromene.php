@@ -733,6 +733,74 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
     }
 
 
+    //lista promena za brisanje                         - promene/brisanje
+    public function listaPromenaZaBrisanje($app){
+
+        $conn = Capsule::connection();
+        $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('opstine', 'popstina', '=', 'opid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->orderBy("opstina","asc")->orderBy("aime","asc")->orderBy("aprezime","asc") ->limit(100) ->get();   //
+        $dump="";
+
+        for($i=0;$i<count($res);$i++){
+            if($res[$i]['pnavlasti']==1){$res[$i]['pnavlasti']="Vlast";}elseif($res[$i]['pnavlasti']==2){$res[$i]['pnavlasti']="Opozicija";}else {$res[$i]['pnavlasti']="/";}
+        }
+
+        //$dump= print_r($res,true);
+
+        $app->render('promeneZaBrisanje.twig', [
+            "paginate_server_side" => false,
+            "dump" => $dump,
+            //"akteri" => isset($akteri) ? $akteri : []
+            "promene" => $res
+        ]);
+
+
+    }
+
+
+    public function listaPromenaZaBrisanjePromene($app,$pid){
+        $dump="";
+        //$dump .= "\r\n".print_r($_POST,true);
+        //echo $dump;
+//echo "<pre>";
+//var_dump($app->alerts->getAndClearMessages());
+//echo "</pre>";
+
+
+//echo $pid;
+        $errors = array();
+
+        $conn = Capsule::connection();
+        //uzmi sadasnje podatke
+        $currdata = $conn->table('promene')->where('pid', '=', $pid)->get();
+
+//echo "<pre>";
+//var_dump($currdata);
+//echo "</pre>";
+//
+//        die();
+
+        if(count($currdata)<1) {$errors[]="Nije uspelo... Mozda je vec obrisan... Ozvezite stranu";}
+        else {
+
+            $resins =  $conn->table('promene_deleted')->insert([ 'pid' => $currdata[0]['pid'] ,  'posoba' => $currdata[0]['posoba'] , 'pstranka' => $currdata[0]['pstranka'] , 'pfunkcija' => $currdata[0]['pfunkcija'] ,'pfm' => $currdata[0]['pfm'] , 'pkoalicija' => $currdata[0]['pkoalicija'] , 'popstina' => $currdata[0]['popstina'] , 'pnavlasti' => $currdata[0]['pnavlasti'], 'pod' => $currdata[0]['pod'] , 'pdo' => $currdata[0]['pdo']  ]);
+
+            if(!$resins){ $errors[]="GRESKA... Promena NIJE backup-ovana... Kontaktirajte podrsku."; }
+
+            $currdatadel = $conn->table('promene')->where('pid', '=', $pid)->delete();
+        }
+
+//echo "<pre>";
+//var_dump($currdatadel);
+//echo "</pre>";
+
+
+if(count($errors)) { echo "".implode("<br>",$errors);} else { echo "OBRISAN";}
+
+
+    }
+
+
+
 
 }
 

@@ -46,11 +46,17 @@
             </li>
         {% endif %}	
 
-		{% if checkAccess('uri_funk') %}	<!-- uri_promene -->
+		{% if checkAccess('uri_promene') %}	<!-- uri_promene -->
             <li>
               <a href="{{site.uri.public}}/promene"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_PROMENE") }}</a>
             </li>
         {% endif %}	
+		
+		{% if checkAccess('uri_promene') %}	<!-- uri_promene -->
+            <li>
+              <a href="{{site.uri.public}}/promene/brisanje"><i class="fa fa-users fa-fw"></i> {{ translate("MENU_PROMENE") }} BRISANJE >>></a>
+            </li>
+        {% endif %}		
 
 		{% if checkAccess('uri_promene_zahtev') %}	<!-- uri_promene_zahtev -->
             <li>

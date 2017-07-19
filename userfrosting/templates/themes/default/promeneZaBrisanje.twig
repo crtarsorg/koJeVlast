@@ -1,0 +1,198 @@
+{% extends "layouts/layout-dashboard.twig" %}
+            {% set page_group = "dashboard" %}
+
+            {% block page %}   
+                {% set page = page | merge({
+                    "title"       : "Brisanje promena",
+                    "description" : ""
+                }) %}
+                {{ parent() }}
+            {% endblock %}
+
+            {% block content %}
+
+<link rel="stylesheet" href="{{site.uri.public}}/css/xcustom.css" type="text/css" >				
+			
+<section>	
+	<div class="col-xs-6 col-sm-6">
+		<h4><b>BRISANJE PROMENA</b></h4>
+	</div>
+	
+	<div class="col-xs-6 col-sm-6">
+
+	</div>	
+</section>			
+				
+<div class="clearfix"></div>
+
+<pre>
+{{dump}}
+</pre>
+
+
+
+
+<div class="clearfix"></div>
+
+<table  cellspacing="5" width="100%">
+        <thead>
+            <tr>
+                <th>Pid</th>
+                <th>Ime</th>
+                <th>Prezime</th>
+                <th>Datum rodjenja</th>
+                <th>Stranka</th>
+                <th>Funkcija</th>
+                <th>Funk/Mesto</th>
+                <th>Koalicija</th>
+                <th>Opstina</th>
+                <th>Od</th>
+                <th>Do</th>
+                <th>Vl/Op</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for pr in promene %}
+            <tr class="{% if loop.index is divisibleby(2) %}even{% else %}odd{% endif %}" id="row{{pr.pid}}" >
+                <td>{{pr.pid}}</td>
+                <td>{{pr.aime}}</td>
+                <td>{{pr.aprezime}} </td>
+                <td>{{pr.arodjen}} </td>
+                <td>{{pr.snaziv}} </td>
+                <td>{{pr.funkcija}} </td>
+                <td>{{pr.fmesto}} </td>
+                <td>{{pr.knaziv}} </td>
+                <td>{{pr.opstina}} </td>
+                <td>{% if pr.pod %}{{ pr.pod|date("d.m.Y") }}{% endif %}  </td>
+                <td>{% if pr.pdo %}{{ pr.pdo|date("d.m.Y") }}{% endif %}  </td>
+                <td>{{pr.pnavlasti}} </td>
+                <td><a onclick="deletePid({{pr.pid}})" href="javascript:;">delete</a></td>
+            </tr>
+{% endfor %}
+        </tbody>
+</table>
+
+<div class="clearfix"></div>
+
+
+            {% endblock %}
+
+			
+			
+{% block page_scripts %}
+
+
+
+
+<style>
+table {
+    border-spacing: 0px;
+    border-collapse: initial;
+}
+td,th {
+    padding: 10px;
+    border-right: 1px solid #ff9b9b;
+}
+tr:hover{
+    background-color: #ff9b9b;
+}
+
+.odd{
+    background-color: #f5f5f5;
+}
+
+.top{
+    margin-bottom: 60px;
+}
+#userfrosting-alerts {
+    position: fixed;
+    left: 0;
+    width: 50%;
+    top: 10%;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 999999999999999;
+    background-color: white;
+    padding: 27px;
+    border: 2px solid red;
+    border-radius: 10px;
+    text-align: center;
+    font-size:15px;
+    display:none;
+}
+
+</style>
+
+
+
+
+
+<script>
+//live search                                //'lBfrtip',
+$( document ).ready(function() {
+
+
+	$("#search").on("keyup", function() {
+		var value = $(this).val();
+
+		$(".rowpromena").each(function(index) {
+
+				$row = $(this);
+				var id = $row.attr('id').toLowerCase();
+
+				if (id.indexOf(value.toLowerCase()) < 0 ) {
+					$row.hide();
+				}
+				else {
+					$row.show();
+				}
+
+		});
+	});
+
+});
+
+function deletePid(pid){
+    //console.dir(pid);
+
+    //alert($('#row'+pid+" td:nth-child(2)").text());
+
+    if (!window.confirm("Sigurno brisete promenu: "+$('#row'+pid+" td:nth-child(2)").text()+" "+$('#row'+pid+" td:nth-child(3)").text()+"\r\nOpstina : "+$('#row'+pid+" td:nth-child(9)").text()+"\r\nOd : "+$('#row'+pid+" td:nth-child(10)").text()+" do: "+$('#row'+pid+" td:nth-child(11)").text()     )) {
+            return;
+        }
+
+		$.ajax({
+			   type: "POST",
+			   url: "{{site.uri.public}}/promene/brisanje/"+pid,
+			   data: { {{csrf_key}}: "{{csrf_token}}" },
+			   success: function(data)
+			   {
+                    //refresh changes after adding or updating
+                    //ucitajPromene($("#akter").val());
+
+                    if(data=="OBRISAN"){
+                        $('#row'+pid).fadeOut(500);
+                    }
+
+					$("#userfrosting-alerts").fadeOut(200,function(){
+						$('#userfrosting-alerts').html(data);
+						$("#userfrosting-alerts").fadeIn(200, function(){
+							$("#userfrosting-alerts").fadeOut(3000);
+						});
+					});
+
+
+
+			   }
+			 });
+
+
+
+    //$('#row'+pid).fadeOut(500);
+}
+
+
+</script>
+{% endblock %}
