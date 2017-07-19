@@ -737,7 +737,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
     public function listaPromenaZaBrisanje($app){
 
         $conn = Capsule::connection();
-        $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('opstine', 'popstina', '=', 'opid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->orderBy("opstina","asc")->orderBy("aime","asc")->orderBy("aprezime","asc") ->limit(100) ->get();   //
+        $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('opstine', 'popstina', '=', 'opid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->orderBy("opstina","asc")->orderBy("aime","asc")->orderBy("aprezime","asc")->get();   //  ->limit(100)
         $dump="";
 
         for($i=0;$i<count($res);$i++){
