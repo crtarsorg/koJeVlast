@@ -1,4 +1,6 @@
 var BASE_PATH =  "http://kojenavlasti.rs/";
+var BASE_PATH =  window.location.protocol+"//"+window.location.hostname+"/";
+
 
 var LOKAL = BASE_PATH;
 //"http://localhost/koJeVlast/";
@@ -64,7 +66,9 @@ function showModal(opstina) {
 
     dokumenta(id);
 
-    linkovi(idopstine, naslov);
+    //linkovi(idopstine, naslov);
+    //send opid
+    linkovi(opstina_temp.opid, naslov);
 
     //var procenti = izracunajProcente( DataStranke.getOdbornici());
 
@@ -79,9 +83,12 @@ function showModalRegion(naslov, id) {
 }
 
 function linkovi(id, naslov) {
-    $("#shareLink").attr("href", LOKAL + "opstina.php?id=" + id + "&naslov=" + naslov);
-    $("#fbShare").attr("href", "https://www.facebook.com/sharer/sharer.php?u=" + LOKAL + "opstina.php?id=" + id + "&naslov=" + naslov);
-    $("#twShare").attr("href", "https://twitter.com/intent/tweet?text=" + LOKAL + "opstina.php?id=" + id + "&naslov=" + naslov);
+//    $("#shareLink").attr("href", LOKAL + "opstina.php?id=" + id + "&naslov=" + naslov);
+//    $("#fbShare").attr("href", "https://www.facebook.com/sharer/sharer.php?u=" + LOKAL + "opstina.php?id=" + id + "&naslov=" + naslov);
+//    $("#twShare").attr("href", "https://twitter.com/intent/tweet?text=" + LOKAL + "opstina.php?id=" + id + "&naslov=" + naslov);
+    $("#shareLink").attr("href", LOKAL + "opstina.php?id=" + id);
+    $("#fbShare").attr("href", "https://www.facebook.com/sharer/sharer.php?u=" + LOKAL + "opstina.php?id=" + id);
+    $("#twShare").attr("href", "https://twitter.com/intent/tweet?text=" + LOKAL + "opstina.php?id=" + id);
 }
 
 function procentiRegion(data) {

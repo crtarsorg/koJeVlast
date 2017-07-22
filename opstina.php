@@ -11,13 +11,11 @@
 
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Opstina</title>
+	<title></title>
 
 	<?php include_once 'partials/head-part.html'; ?>
 
@@ -30,27 +28,52 @@
 	
 <?php 
 
-	include_once 'partials/nav.html'; 
+	include_once 'partials/nav.html';
 
 	include_once 'partials/modal.html';
 
 
 ?>
 
-<script src="static/script-index.js"></script>
+
+	<script src="static/data.js?2"></script>
+    <script src="static/helpers.js?4"></script>
+	<script src="static/script-index.js?95903"></script>
+
 
 <script type="text/javascript">
 	
 
-	<?php 
+<?php
 	//kako dobiti ovaj idlazi se samo na mapi
 	echo "var idOpstine = $id;\n";
-	
-	?>
-	$.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
-	    DataStranke.setOpstine(json);
+?>
+    $.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
+	    //DataStranke.setOpstine(json);
+	    //console.dir(DataStranke);
 
-	    opstinaDetalji(idOpstine);
+    var naslov = "Naslov ";
+    var podaci = DataStranke.getOpstine();
+    var opstina = podaci.filter(function(el) {
+        return +el.opid == idOpstine;
+    })
+
+
+        opstina_temp = opstina[0]
+        naslov = opstina_temp.opstina;
+        id = opstina_temp.opid;
+        idopstine = + opstina_temp.oidopstine;
+
+        podaciOdborniciOpstina(idOpstine); // id opstine
+        naslov_modal(naslov);
+        info_tab(opstina_temp);
+
+        dokumenta(idOpstine);
+
+        linkovi(idOpstine, naslov);
+
+        document.title = naslov;
+
 	});
 
 
@@ -58,6 +81,9 @@
 	$(".modal").removeClass("modal")
 
 </script>
+
+
+
 
 
 </body>

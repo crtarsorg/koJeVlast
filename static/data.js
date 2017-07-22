@@ -1,6 +1,6 @@
-
-
 var BASE_PATH =  "http://kojenavlasti.rs/";
+var BASE_PATH =  window.location.protocol+"//"+window.location.hostname+"/";
+
 
 var stranke_vlast = BASE_PATH + "api/strankaNaVlasti";
 
