@@ -68,7 +68,7 @@ function showModal(opstina) {
 
     //linkovi(idopstine, naslov);
     //send opid
-    linkovi(opstina_temp.opid, naslov);
+    linkovi(opstina_temp.opid, naslov, false);
 
     //var procenti = izracunajProcente( DataStranke.getOdbornici());
 
@@ -79,16 +79,19 @@ function showModal(opstina) {
 
 function showModalRegion(naslov, id) {
     naslov_modal(naslov);
+    linkovi(id, naslov, true)
     podaciAkteriRegion(+id);
 }
 
-function linkovi(id, naslov) {
-//    $("#shareLink").attr("href", LOKAL + "opstina.php?id=" + id + "&naslov=" + naslov);
-//    $("#fbShare").attr("href", "https://www.facebook.com/sharer/sharer.php?u=" + LOKAL + "opstina.php?id=" + id + "&naslov=" + naslov);
-//    $("#twShare").attr("href", "https://twitter.com/intent/tweet?text=" + LOKAL + "opstina.php?id=" + id + "&naslov=" + naslov);
-    $("#shareLink").attr("href", LOKAL + "opstina.php?id=" + id);
-    $("#fbShare").attr("href", "https://www.facebook.com/sharer/sharer.php?u=" + LOKAL + "opstina.php?id=" + id);
-    $("#twShare").attr("href", "https://twitter.com/intent/tweet?text=" + LOKAL + "opstina.php?id=" + id);
+function linkovi(id, naslov, okrugT) {
+
+    var sufix = "id";
+    if(okrugT)
+        sufix = "okrug";
+
+    $("#shareLink").attr("href", LOKAL + "opstina.php?"+sufix+"=" + id);
+    $("#fbShare").attr("href", "https://www.facebook.com/sharer/sharer.php?u=" + LOKAL + "opstina.php?"+sufix+"=" + id);
+    $("#twShare").attr("href", "https://twitter.com/intent/tweet?text=" + LOKAL + "opstina.php?"+sufix+"=" + id);
 }
 
 function procentiRegion(data) {

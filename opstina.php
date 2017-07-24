@@ -39,7 +39,7 @@
 
 	<script src="static/data.js?2"></script>
     <script src="static/helpers.js?4"></script>
-	<script src="static/script-index.js?95903"></script>
+	<script src="static/script-index.js?95904"></script>
 
 
 <script type="text/javascript">
@@ -47,8 +47,10 @@
 
 <?php
 	//kako dobiti ovaj idlazi se samo na mapi
-	echo "var idOpstine = $id;\n";
-	echo "prikazOpstine(idOpstine);\n";
+	if(!empty($id)){
+		echo "var idOpstine = $id;\n";
+		echo "prikazOpstine(idOpstine);\n";
+	}
 
 	if(!empty($okrug)){
 		echo "var okrug = $okrug";
@@ -98,7 +100,6 @@
 
 
 		    podaci = podaciRegion(idOkrug);
-
 
 
 		    if(+idOkrug == 0 ){
