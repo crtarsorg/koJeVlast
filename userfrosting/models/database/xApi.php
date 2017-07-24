@@ -143,6 +143,9 @@ class xApi extends UFModel {
     }
 
     public function strankeNaVlastiPoOpstinama($app){
+
+    $this->checkCache("strankeNaVlastiPoOpstinama");
+
         $conn = Capsule::connection();
         //$res = $conn->table('promene')->select("popstina","snaziv","pnavlasti","opstina","oidopstine","oidokruga","sid")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->groupby("popstina","pnavlasti","pstranka")->toSql();
         $res = $conn->select($conn->raw(' select count(DISTINCT posoba) AS odbornika,`popstina`,  case when `snaziv` IS null then "Nepoznata" else `snaziv` end as `snaziv`, `pnavlasti`, `opstina`, `oidopstine`, `oidokruga`, `sid` from `promene` left join `akteri` on `posoba` = `aid` left join `stranke` on `pstranka` = `sid` left join `funkcije` on `pfunkcija` = `fid` left join `koalicije` on `pkoalicija` = `kid` left join `funkcije_mesto` on `pfm` = `fmid` left join `opstine` on `popstina` = `opid`  where (posoba, pfunkcija,  pnavlasti) in (select posoba, pfunkcija , pnavlasti from osoba_pocetak_kraj_1 ) group by `popstina`, `pnavlasti`, `pstranka` '));
@@ -176,6 +179,7 @@ class xApi extends UFModel {
         }
         $out = array_values($out);
         echo json_encode($out);
+    $this->createCache("strankeNaVlastiPoOpstinama",json_encode($res));
 
     }
 
