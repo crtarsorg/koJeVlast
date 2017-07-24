@@ -446,7 +446,7 @@ class xApi extends UFModel {
         if(!is_numeric($regid)) {die("Only region ID allowed!!!");}
 
         $conn = Capsule::connection();
-        $res = $conn->select($conn->raw(' SELECT sum(opov) AS Površina, sum(opop) AS Populacija FROM `opstine` WHERE oidokruga='.$regid.' group by oidokruga  '));
+        $res = $conn->select($conn->raw(' SELECT sum(opov) AS Površina, sum(opop) AS Populacija, okrug AS Okrug, oidokruga as id FROM `opstine` WHERE oidokruga='.$regid.' group by oidokruga  '));
         echo json_encode($res);
 
         //die($regid);
