@@ -89,6 +89,9 @@
 
 	        document.title = naslov;
 
+	        $(".modal").removeClass("fade")
+			$(".modal").removeClass("modal")
+
 		});
 
 
@@ -106,10 +109,12 @@
 
 	        showModalRegion(podaci.naslov, idOkrug);
 
+	        $(".modal").removeClass("fade")
+			$(".modal").removeClass("modal")
+
 	}
 
-		$(".modal").removeClass("fade")
-		$(".modal").removeClass("modal")
+
 
 </script>
 
