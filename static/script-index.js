@@ -69,6 +69,7 @@ function showModal(opstina) {
     //linkovi(idopstine, naslov);
     //send opid
     linkovi(opstina_temp.opid, naslov, false);
+    prikazTabovaOpstine(true);
 
     //var procenti = izracunajProcente( DataStranke.getOdbornici());
 
@@ -81,6 +82,17 @@ function showModalRegion(naslov, id) {
     naslov_modal(naslov);
     linkovi(id, naslov, true)
     podaciAkteriRegion(+id);
+
+    prikazTabovaOpstine(false);
+}
+
+function prikazTabovaOpstine(isOpstina) {
+    if(isOpstina){
+        $("li a[href='#budzet'], li a[href='#izbori']").parent().show()
+    }
+    else{
+        $("li a[href='#budzet'], li a[href='#izbori']").parent().hide()
+    }
 }
 
 function linkovi(id, naslov, okrugT) {
