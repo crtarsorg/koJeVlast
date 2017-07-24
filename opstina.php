@@ -39,7 +39,7 @@
 
 	<script src="static/data.js?2"></script>
     <script src="static/helpers.js?4"></script>
-	<script src="static/script-index.js?95904"></script>
+	<script src="static/script-index.js?95905"></script>
 
 
 <script type="text/javascript">
