@@ -98,21 +98,13 @@
 	function prikazOkruga( idOkrug) {
 
 
-		    podaci = podaciAkteriRegion(idOkrug);
+		    podaci = {}
 
+	        podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
+	        podaciAkteriRegion(idOkrug); //ajax zahtev - podaci za tabelu
+	        info_tab(podaci);
 
-		    if(+idOkrug == 0 ){
-		        showModal(podaci);
-		    }
-
-		    else{
-		        podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
-		        podaciAkteriRegion(idOkrug); //ajax zahtev - podaci za tabelu
-		        info_tab(podaci);
-
-		    //$("#spinner, #fade").toggleClass('hidden'); //ovo treba da se stavi tamo gde se dobavljaju podaci
-		        showModalRegion(podaci.naslov, idOkrug);
-		    }
+	        showModalRegion(podaci.naslov, idOkrug);
 
 	}
 
