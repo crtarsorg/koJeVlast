@@ -45,6 +45,11 @@
 <script type="text/javascript">
 
 
+$('#modal_id').modal({
+    backdrop: 'static',
+    keyboard: false  // to prevent closing with Esc button (if you want this too)
+})
+
 <?php
 	//kako dobiti ovaj idlazi se samo na mapi
 	if(!empty($id)){
@@ -91,6 +96,7 @@
 
 	        $(".modal").removeClass("fade")
 			$(".modal").removeClass("modal")
+			$(".modal-open").removeClass("modal-open")
 
 		});
 
@@ -111,6 +117,7 @@
 
 	        $(".modal").removeClass("fade")
 			$(".modal").removeClass("modal")
+			$(".modal-open").removeClass("modal-open")
 
 	}
 
