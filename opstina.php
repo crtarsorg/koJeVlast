@@ -57,8 +57,8 @@
 		echo "prikazOkruga( okrug )\n";
 	}
 
-
 ?>
+
 
 
 	function prikazOpstine( idOpstine) {
