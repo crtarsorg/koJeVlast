@@ -91,15 +91,14 @@
 
 		});
 
-		$(".modal").removeClass("fade")
-		$(".modal").removeClass("modal")
+
 	}
 
 
 	function prikazOkruga( idOkrug) {
 
 
-		    podaci = podaciRegion(idOkrug);
+		    podaci = podaciAkteriRegion(idOkrug);
 
 
 		    if(+idOkrug == 0 ){
@@ -117,6 +116,8 @@
 
 	}
 
+		$(".modal").removeClass("fade")
+		$(".modal").removeClass("modal")
 
 </script>
 
