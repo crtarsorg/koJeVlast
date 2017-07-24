@@ -53,8 +53,8 @@
 	}
 
 	if(!empty($okrug)){
-		echo "var okrug = $okrug";
-		echo "prikazOkruga( okrug )";
+		echo "var okrug = $okrug;\n";
+		echo "prikazOkruga( okrug )\n";
 	}
 
 
