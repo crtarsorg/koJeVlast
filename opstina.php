@@ -48,13 +48,13 @@
 <?php
 	//kako dobiti ovaj idlazi se samo na mapi
 	if(!empty($id)){
-		echo "var idOpstine = $id;\n";
-		echo "prikazOpstine(idOpstine);\n";
+		echo "\tvar idOpstine = $id;\n";
+		echo "\tprikazOpstine(idOpstine);\n";
 	}
 
 	if(!empty($okrug)){
-		echo "var okrug = $okrug;\n";
-		echo "prikazOkruga( okrug )\n";
+		echo "\tvar okrug = $okrug;\n";
+		echo "\tprikazOkruga( okrug )\n";
 	}
 
 ?>
