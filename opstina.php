@@ -3,6 +3,7 @@
 
 	$la = $_GET["naziv"];
 	$id = $_GET["id"];
+	$okrug = $_GET["okrug"];
 	//treba naziv i id
 
 
@@ -25,8 +26,8 @@
 	</style>
 </head>
 <body>
-	
-<?php 
+
+<?php
 
 	include_once 'partials/nav.html';
 
@@ -42,48 +43,81 @@
 
 
 <script type="text/javascript">
-	
+
 
 <?php
 	//kako dobiti ovaj idlazi se samo na mapi
 	echo "var idOpstine = $id;\n";
+	echo "prikazOpstine(idOpstine);\n";
+
+	if(!empty($okrug)){
+		echo "var okrug = $okrug";
+		echo "prikazOkruga( okrug )";
+	}
+
+
 ?>
-    $.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
-	    //DataStranke.setOpstine(json);
-	    //console.dir(DataStranke);
-
-    var naslov = "Naslov ";
-    var podaci = DataStranke.getOpstine();
-    var opstina = podaci.filter(function(el) {
-        return +el.opid == idOpstine;
-    })
 
 
-        opstina_temp = opstina[0]
-        naslov = opstina_temp.opstina;
-        id = opstina_temp.opid;
-        idopstine = + opstina_temp.oidopstine;
+	function prikazOpstine( idOpstine) {
 
-        podaciOdborniciOpstina(idOpstine); // id opstine
-        naslov_modal(naslov);
-        info_tab(opstina_temp);
+	    $.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
+		    //DataStranke.setOpstine(json);
+		    //console.dir(DataStranke);
 
-        dokumenta(idOpstine);
-
-        linkovi(idOpstine, naslov);
-
-        document.title = naslov;
-
-	});
+		    var naslov = "Naslov ";
+		    var podaci = DataStranke.getOpstine();
+		    var opstina = podaci.filter(function(el) {
+		        return +el.opid == idOpstine;
+		    })
 
 
-	$(".modal").removeClass("fade")
-	$(".modal").removeClass("modal")
+	        opstina_temp = opstina[0]
+	        naslov = opstina_temp.opstina;
+	        id = opstina_temp.opid;
+	        idopstine = + opstina_temp.oidopstine;
+
+	        podaciOdborniciOpstina(idOpstine); // id opstine
+	        naslov_modal(naslov);
+	        info_tab(opstina_temp);
+
+	        dokumenta(idOpstine);
+
+	        linkovi(idOpstine, naslov);
+
+	        document.title = naslov;
+
+		});
+
+		$(".modal").removeClass("fade")
+		$(".modal").removeClass("modal")
+	}
+
+
+	function prikazOkruga( idOkrug) {
+
+
+		    podaci = podaciRegion(idOkrug);
+
+
+
+		    if(+idOkrug == 0 ){
+		        showModal(podaci);
+		    }
+
+		    else{
+		        podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
+		        podaciAkteriRegion(idOkrug); //ajax zahtev - podaci za tabelu
+		        info_tab(podaci);
+
+		    //$("#spinner, #fade").toggleClass('hidden'); //ovo treba da se stavi tamo gde se dobavljaju podaci
+		        showModalRegion(podaci.naslov, idOkrug);
+		    }
+
+	}
+
 
 </script>
-
-
-
 
 
 </body>
