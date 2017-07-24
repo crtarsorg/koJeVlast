@@ -107,11 +107,15 @@ $('#modal_id').modal({
 	function prikazOkruga( idOkrug) {
 
 
-		    podaci = {}
-
-	        podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
 	        podaciAkteriRegion(idOkrug); //ajax zahtev - podaci za tabelu
-	        //info_tab(podaci);
+	        $.getJSON(BASE_PATH +"api/regionInfo/"+idOkrug, function(json, textStatus) {
+
+	        	podaci = JSON.parse(json)[0]
+
+	        	podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
+	        	info_tab(podaci);
+
+	        });
 
 	        showModalRegion(podaci.naslov, idOkrug);
 
