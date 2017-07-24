@@ -439,6 +439,21 @@ class xApi extends UFModel {
 
 
 
+    public function regionInfo($app,$regid){
+
+
+        //echo $regid;
+        if(!is_numeric($regid)) {die("Only region ID allowed!!!");}
+
+        $conn = Capsule::connection();
+        $res = $conn->select($conn->raw(' SELECT sum(opov) AS Površina, sum(opop) AS Populacija FROM `opstine` WHERE oidokruga='.$regid.' group by oidokruga  '));
+        echo json_encode($res);
+
+        //die($regid);
+    }
+
+
+
 
     public function top5promenaOpstine($app){
         $conn = Capsule::connection();
