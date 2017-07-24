@@ -102,7 +102,7 @@
 
 	        podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
 	        podaciAkteriRegion(idOkrug); //ajax zahtev - podaci za tabelu
-	        info_tab(podaci);
+	        //info_tab(podaci);
 
 	        showModalRegion(podaci.naslov, idOkrug);
 
