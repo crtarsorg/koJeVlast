@@ -94,10 +94,6 @@ $('#modal_id').modal({
 
 	        document.title = naslov;
 
-	        $(".modal").removeClass("fade")
-			$(".modal").removeClass("modal")
-			$(".modal-open").removeClass("modal-open")
-
 		});
 
 
@@ -110,21 +106,19 @@ $('#modal_id').modal({
 	        podaciAkteriRegion(idOkrug); //ajax zahtev - podaci za tabelu
 	        $.getJSON(BASE_PATH +"api/regionInfo/"+idOkrug, function(json, textStatus) {
 
-	        	podaci = JSON.parse(json)[0]
+	        	podaci = json[0]
 
 	        	podaci.ologo = "bb7a4496cbe2a3b397a38acda978c2a1e4b77f36.png"
 	        	info_tab(podaci);
 
+	        	showModalRegion(podaci.Okrug, idOkrug);
+
 	        });
-
-	        showModalRegion(podaci.naslov, idOkrug);
-
-	        $(".modal").removeClass("fade")
-			$(".modal").removeClass("modal")
-			$(".modal-open").removeClass("modal-open")
-
 	}
 
+	$(".modal").removeClass("fade")
+	$(".modal").removeClass("modal")
+	$(".modal-open").removeClass("modal-open")
 
 
 </script>
