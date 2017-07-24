@@ -113,6 +113,8 @@ $('#modal_id').modal({
 
 	        	showModalRegion(podaci.Okrug, idOkrug);
 
+	        	document.title = podaci.Okrug;
+
 	        });
 	}
 
