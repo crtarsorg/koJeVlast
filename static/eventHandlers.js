@@ -30,7 +30,7 @@ function mouseEvents(selektor) {
             //nedostupni podaci
         });
     //mora da bude i region detalji
-    $(selektor).click(sideDetaljiHandlerClick);
+    $(selektor).on("click touchstart",sideDetaljiHandlerClick);
 
 }
 
