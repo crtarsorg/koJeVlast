@@ -1,4 +1,7 @@
 function closePopup() {
+
+    $(".popup-close").parent().delay(5*1000).fadeOut(1000);
+
     $(".popup-close").on("click", function() {
         $(this).parent().fadeOut(1000);
     })
