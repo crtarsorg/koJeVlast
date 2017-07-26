@@ -11,7 +11,8 @@
 	# Send the URI to index.php (Slim routing)
     RewriteCond %{REQUEST_FILENAME} !-f
     #RewriteRule ^(.*) index.php?r=$1 [QSA,L]
-    RewriteRule ^(.*) ../admin/api/$1.txt [QSA,L]
+    #RewriteRule ^(.*) ../admin/api/$1.txt [QSA,L]
+    RewriteRule ^(.*) ../admin/api/$1 [QSA,L]
 	
 
 
