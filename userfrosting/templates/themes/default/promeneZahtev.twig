@@ -109,7 +109,7 @@ $( document ).ready(function() {
     var DataTables_language={};
     DataTables_language["sr"]={ "info":"Prikaz _START_ do _END_ od ukupno _TOTAL_ redova","infoEmpty":"Prikaz 0 do 0 od ukupno 0 redova","infoFiltered":"(filtrirano od ukupno _MAX_ redova)","infoPostFix":"","lengthMenu":"_MENU_","processing":"Procesiranje u toku...","search":"Pretraga:","zeroRecords":"Nije pronaden nijedan rezultat","paginate": {"first":"Pocetna","previous":"Prethodna","next":"Sledeca","last":"Poslednja"},"decimal":",","thousands":"."};
 
-    $('#tpromene').dataTable({ "language":DataTables_language["sr"],"pageLength": 25, "order":[],"orderClasses":false,"stripeClasses":['even','odd'],"paging":true,"scrollX":false,"searching":true,"info":true, dom: 'lBfrtip',buttons: ['copyHtml5','excelHtml5', 'csvHtml5','print',{extend:'pdf',orientation: 'landscape', pageSize: 'A4'} ],"aLengthMenu": [[10,25,50,100,-1], [10,25,50,100,"Sve"]],   "dom": 'lBfrtip' });
+    $('#tpromene').dataTable({ "language":DataTables_language["sr"],"pageLength": -1, "order":[],"orderClasses":false,"stripeClasses":['even','odd'],"paging":true,"scrollX":false,"searching":true,"info":true, dom: 'lBfrtip',buttons: ['copyHtml5','excelHtml5', 'csvHtml5','print',{extend:'pdf',orientation: 'landscape', pageSize: 'A4'} ],"aLengthMenu": [[10,25,50,100,-1], [10,25,50,100,"Sve"]],   "dom": 'lBfrtip' });
 
 
     ///////////////////////////////////////
