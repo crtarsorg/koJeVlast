@@ -113,6 +113,7 @@ class xApi extends UFModel {
         echo json_encode($res);
     }
 
+    //  api/opstine
     public function listaOpstina($app){
         $conn = Capsule::connection();
         $res = $conn->table('opstine')->get();
@@ -142,6 +143,7 @@ class xApi extends UFModel {
 
     }
 
+    //  api/strankaNaVlasti
     public function strankeNaVlastiPoOpstinama($app){
 
     $this->checkCache("strankeNaVlastiPoOpstinama");
@@ -183,7 +185,7 @@ class xApi extends UFModel {
 
     }
 
-
+    //  api/imajuPromene
     public function akteriKojImajuPromene($app){
 
         $conn = Capsule::connection();
@@ -391,6 +393,7 @@ class xApi extends UFModel {
 
 
     // lista aktera po opstinama ime prez zanimanje rodjen + STRANKA + FUNKCIJA    - POTREBNO DORADITI SA POSLEDNJIM PODACIMA
+    //  api/akteriPoOpstini/:id
     public function akteriPoOpstini($app,$id){
         $conn = Capsule::connection();
 

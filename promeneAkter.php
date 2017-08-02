@@ -94,6 +94,9 @@ var prevmestoFunkcije = '';
 var prevkoalicija = '';
 var prevvlast = '';
 
+var itemout = [];
+
+
 for (var i = 0; i < json.length; i++) {
 
 //vars
@@ -108,6 +111,8 @@ var koalicija = '';
 var vlast = '';
 var opstina = '';
 var okrug = '';
+
+
 
 
 //vars checking and cleanup
@@ -159,7 +164,8 @@ item += '</li>';
 item += '';
 
 
-$(".timeline").append(item);
+//$(".timeline").append(item);
+itemout.push(item)
 
 
 prevstranka=stranka;
@@ -168,6 +174,10 @@ prevkoalicija=koalicija;
 prevfunkcija=funkcija;
 
 }
+
+//push data (itemout) to timeline
+console.dir(itemout);
+$(".timeline").append(itemout.reverse());
 
 })
 
