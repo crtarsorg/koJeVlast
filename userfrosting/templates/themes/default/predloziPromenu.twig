@@ -179,7 +179,27 @@
 </form>
 
 
+    <div class="modal fade" id="obavestenje">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Informacije uspešno poslate</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Hvala Vam na podršci i informacijima koje ste poslali u vezi odbornika za naš portal "Ko je na vlasti". Predlozi za promene koje ste nam poslali su nam veoma značajne i pomoći će da na portalu imamo ažurne i tačne informacije.
+                    </p>
+                    <br>
+                    <p>Nastavite i dalje da nas pratite.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
 
+                </div>
+            </div>
+        </div>
+    </div>
 
 <div class="clearfix"></div>
 
@@ -191,13 +211,12 @@
 
 
 
-				
-				
+
+
             {% endblock %}
 
 
-			
-			
+
 {% block page_scripts %}
 <script src="{{site.uri.public}}/js/jquery-1.11.2.js" ></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -236,7 +255,7 @@ $( document ).ready(function() {
 						});
 					});
 
-
+                $("#obavestenje").modal('show');
 
 			   }
 			 });
@@ -244,11 +263,6 @@ $( document ).ready(function() {
 
 	});
 
-
-
-	
-	
-	
 });
 </script>
 
@@ -261,9 +275,6 @@ $( document ).ready(function() {
 
         parametri()
 
-
-
-
     });
 
     function parametri(argument) {
@@ -272,10 +283,10 @@ $( document ).ready(function() {
         //parsiranje get parametara, ako ih ima
         location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
 
-        if(queryDict['ime'].lenght == 0) {}
+        if( queryDict['ime']!=undefined &&  queryDict['ime'].lenght == 0) {}
         else $("#akter").val( decodeURIComponent( queryDict['ime'] )  );
 
-        if(queryDict['opstina'].lenght == 0) {}
+        if(queryDict['opstina']!=undefined && queryDict['opstina'].lenght == 0) {}
         else $("#opstina").val( decodeURIComponent( queryDict['opstina'] )  );
 
     }
