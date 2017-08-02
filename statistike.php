@@ -318,7 +318,7 @@
 
             for (var i = 0; i < nek.length; i++) {
 
-                $("#ul_preletaci").append("<li><a href='"+'promeneAkter.php?id='+nek[i].id+">" + nek[i].ime+ "</a></li>")
+                $("#ul_preletaci").append("<li><a href='"+'promeneAkter.php?id='+nek[i].id+"'>" + nek[i].ime+ "</a></li>")
             }
 
             /* data = data.map(function (el) {
@@ -330,7 +330,7 @@
                 "targets": 0,
                 "data": "ime",
                 "render": function(data, type, full, meta) {
-                        unos = '<a href="promeneAkter.php?id='+full.id +' >'+ data +'</a>'
+                        unos = '<a href="promeneAkter.php?id='+full.id +' ">'+ data +'</a>'
                     return unos;
                 }
 
