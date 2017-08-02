@@ -7,7 +7,9 @@
     <title>Pošaljite promenu</title>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <script src="{{site.uri.public}}/js/jquery-1.11.2.js" ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 
     <!-- bootstrap -->
@@ -114,7 +116,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 
 						<div class="col-sm-12">
 							<div class="form-group">
@@ -124,9 +126,9 @@
 									<input  type="text" class="form-control" id="opstina" name="opstina" autocomplete="off" value="" placeholder="Unesite opštinu na kojoj deluje osoba ili stranka" >
 								</div>
 							</div>
-						</div>							
+						</div>
 
-						
+
 						<div class="col-sm-12">
 							<div class="form-group">
 							    <b>Vaša e-mail adresa*</b>
@@ -157,7 +159,7 @@
 							</div>
 						</div>
 
-	
+
 	</div>
 
 
@@ -173,9 +175,9 @@
 	</div>
 
 
-	
+
 	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
-	
+
 </form>
 
 
@@ -218,8 +220,7 @@
 
 
 {% block page_scripts %}
-<script src="{{site.uri.public}}/js/jquery-1.11.2.js" ></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 
 
 <script>
@@ -268,9 +269,7 @@ $( document ).ready(function() {
 
 
 
-    <script src="http://kojenavlasti.rs/admin/js/jquery-1.11.2.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script>
+
     $(document).ready(function() {
 
         parametri()
