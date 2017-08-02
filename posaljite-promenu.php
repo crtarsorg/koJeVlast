@@ -116,6 +116,33 @@
         </form>
         <div class="clearfix"></div>
     </div>
+
+
+
+
+    <div class="modal fade" id="obavestenje">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Informacije uspešno poslate</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Hvala Vam na podršci i informacijima koje ste poslali u vezi odbornika za naš portal "Ko je na vlasti". Predlozi za promene koje ste nam poslali su nam veoma značajne i pomoći će da na portalu imamo ažurne i tačne informacije.
+                    </p>
+                    <br>
+                    <p>Nastavite i dalje da nas pratite.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="http://kojenavlasti.rs/admin/js/jquery-1.11.2.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script>
@@ -139,7 +166,7 @@
                         });
                     });
 
-
+                    $("#obavestenje").modal('show');
 
                 }
             });
