@@ -207,7 +207,7 @@ class xApi extends UFModel {
 
     public function preletaci_po_opstinama($value='')
     {
-        $sql = 'SELECT opstina, count(opstina) as brPreletaca from ( SELECT posoba as id, concat( aime, " ", aprezime) as ime, opstina, count(broj) as prelet from ( SELECT posoba, COUNT( DISTINCT pstranka) as broj, popstina FROM promene group by posoba, pstranka ) la left JOIN akteri on la.posoba =akteri.aid left join opstine on la.popstina = opstine.opid group by posoba having prelet > 1 ORDER BY `prelet` DESC) t1 GROUP by opstina ORDER BY `brPreletaca` DESC';
+        $sql = 'SELECT opstina, count(opstina) as brPreletaca, lat, lng  from ( SELECT posoba as id, concat( aime, " ", aprezime) as ime, opstina, count(broj) as prelet, lat,lng from ( SELECT posoba, COUNT( DISTINCT pstranka) as broj, popstina FROM promene group by posoba, pstranka ) la left JOIN akteri on la.posoba =akteri.aid left join opstine on la.popstina = opstine.opid group by posoba having prelet > 1 ORDER BY `prelet` DESC) t1 GROUP by opstina ORDER BY `brPreletaca` DESC';
 
         $conn = Capsule::connection();
         $res = $conn->select($conn->raw( $sql ));
