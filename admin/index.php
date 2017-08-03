@@ -1048,6 +1048,12 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
         $evt->preletaci($app);
     });
 
+    $app->get('/api/preletaciPoOpstinama', function () use ($app) {
+
+        $evt = new UF\xApi([]);
+        $evt->preletaci_po_opstinama($app);
+    });
+
     $app->get('/api/regionInfo/:regid', function ($regid) use ($app) {
 
         $evt = new UF\xApi([]);
