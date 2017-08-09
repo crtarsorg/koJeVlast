@@ -52,7 +52,7 @@ $.ajax({
 
 console.dir(data);
 
-    addressPoints = data.map(function (p) { return [p.lat, p.lng,p.brPreletaca /13.0]; });
+    addressPoints = data.map(function (p) { return [p.lat, p.lng,p.brPreletaca /13.0,p.Osoba]; });
 
 console.dir(addressPoints);
 
@@ -63,7 +63,7 @@ console.dir(addressPoints);
 
             var lon = addressPoints[i][1];
             var lat = addressPoints[i][0];
-            var popupText = "Test text <br>sa novim redom"; //addressPoints[i][2];
+            var popupText = addressPoints[i][3];
 
              var markerLocation = new L.LatLng(lat, lon);
              var marker = new L.Marker(markerLocation);
