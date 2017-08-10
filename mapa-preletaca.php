@@ -23,6 +23,18 @@
         body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
         .ghbtns { position: relative; top: 4px; margin-left: 5px; }
         a { color: #0077ff; }
+        .leaflet-shadow-pane{
+            display: none;
+        }
+        .leaflet-marker-pane{
+            display: none;
+            -webkit-animation: fadein 4s; /* Safari and Chrome */
+            -moz-animation: fadein 4s; /* Firefox */
+            -ms-animation: fadein 4s; /* Internet Explorer */
+            -o-animation: fadein 4s; /* Opera */
+            animation: fadein 4s;
+        }
+
     </style>
 </head>
 <body>
@@ -40,21 +52,25 @@
 
 <script>
 var map = L.map('map').setView([44.7995311, 20.475025], 8 );
+
+        map.on("moveend", function() {
+            var zoom = map.getZoom();
+            console.dir(zoom);
+            if(zoom>8) {$(".leaflet-marker-pane").fadeIn(500);} else {$(".leaflet-marker-pane").fadeOut(500);}
+        });
+
 var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 $.ajax({
      //url: 'http://kojenavlasti.rs/api/preletaciPoOpstinama',
-     url: 'http://k.com/api/preletaciPoOpstinama',
+     url: "http://"+window.location.hostname+"/api/preletaciPoOpstinama",
  })
  .done(function(data) {
     data = JSON.parse(data);
 
-console.dir(data);
-
     addressPoints = data.map(function (p) { return [p.lat, p.lng,p.brPreletaca /13.0,p.Osoba]; });
 
-console.dir(addressPoints);
 
 // add markers
 
@@ -72,10 +88,6 @@ console.dir(addressPoints);
              marker.bindPopup(popupText);
 
          }
-
-
-
-
 
 
     var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(map);
