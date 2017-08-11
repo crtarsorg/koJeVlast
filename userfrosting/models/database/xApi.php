@@ -38,7 +38,7 @@ class xApi extends UFModel {
 
         //samo aktivni
         //SELECT * FROM `promene` WHERE  (pdo IS NULL OR pdo>now()) AND pfunkcija not in (5,7,8,9) GROUP by posoba
-        ->whereNotIn('pfunkcija', array('5,7,8,9'))
+        ->whereNotIn('pfunkcija', array('5','7','8','9'))
         ->where(function ($query) {
                                 $query->whereNull('pdo');
                                 $query->orwhere('pdo', '>',  @date('Y-m-d') ) ;
@@ -49,6 +49,7 @@ class xApi extends UFModel {
 
         ->orderBy('pod','desc')->limit(0)
         ->get();
+        //->toSql();
 
 //echo "<pre>";
 //var_dump($res);
