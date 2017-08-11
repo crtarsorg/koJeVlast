@@ -244,9 +244,10 @@ class xApi extends UFModel {
         //ukupno aktivnih aktera
         // vraca aktere sa maximalnim datumom PDO kod kojih je PDO NULL (jos su na funkciji) a ako ima vise pomena u istom danu vraca onu sa najvecim PID-om
         //'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo>"'.@date('Y-m-d').'" )  ORDER BY pod desc, pid desc) x GROUP BY posoba'
+/*'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x  where pfunkcija not in (5,7,8,9) GROUP BY posoba';*/
 
-
-        $upit = 'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x  where pfunkcija not in (5,7,8,9) GROUP BY posoba';
+        $upit =
+        "SELECT * FROM `promene` WHERE  (pdo IS NULL OR pdo>now()) AND pfunkcija not in (5,7,8,9) GROUP by posoba";
 
         $res = $conn->select($conn->raw( $upit ));
 
@@ -316,9 +317,9 @@ class xApi extends UFModel {
         arsort($aabss,SORT_NUMERIC );
         $stats['data']['akteri_aktivni_bez_statusa_stranka'] = $aabss ;
 
+/*'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and  (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x where pfunkcija not in (5,7,8,9) GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC'*/
 
-
-        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and  (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x where pfunkcija not in (5,7,8,9) GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';
+        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() )  ORDER BY pod desc, pid desc) x where pfunkcija not in (5,7,8,9) GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';
         $res_pol = $conn->select($conn->raw( $upit_pol ));
 
 
