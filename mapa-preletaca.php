@@ -5,7 +5,7 @@
 
 
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
-    <script src="http://k.com/admin/js/jquery-1.11.2.js" ></script>
+    <script src="admin/js/jquery-1.11.2.js" ></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 
