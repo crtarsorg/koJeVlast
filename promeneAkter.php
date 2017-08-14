@@ -30,7 +30,7 @@
                    <!--  <li><a href="partials/uporedjivanje.html">Uporedjivanje opstina</a></li> -->
                     <li><a href="tabela.php">Tabele sa podacima</a></li>
                     <li><a href="statistike.php">Statistike</a></li>
-                    <li><a href="o-nama.php">O nama</a>
+                    <li><a href="o-nama.php">O nama</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="prijavi"><a href="<?php echo 'http://'.$_SERVER["SERVER_NAME"].'/api/posaljitePromenu';?>">Prijavi promenu</a></li>
@@ -153,7 +153,7 @@ if(prevfunkcija!=funkcija && i!=0){item += '<u><h4>'+funkcija+'</h4></u>';} else
 item += '<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> '+datumoddo+'</small></p>';
 item += '</div>';
 item += '<div class="tl-body">';
-item += '<p>Mesto funcije: '+mestoFunkcije+'</p> ';
+item += '<p>Mesto funkcije: '+mestoFunkcije+'</p> ';
 if(prevstranka!=stranka && i!=0){item += '<u><p>Stranka: '+stranka+'</p></u>';} else {item += '<p>Stranka: '+stranka+'</p>';}
 if(prevkoalicija!=koalicija && i!=0){item += '<u><p>Koalicija: '+koalicija+'</p></u>';} else {item += '<p>Koalicija: '+koalicija+'</p>';}
 if(prevvlast!=vlast && i!=0){item += '<u><p>Na vlasti: '+vlast+'</p></u>';} else {item += '<p>Na vlasti: '+vlast+'</p>';}
