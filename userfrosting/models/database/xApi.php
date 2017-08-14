@@ -195,7 +195,7 @@ class xApi extends UFModel {
         }
         $out = array_values($out);
         echo json_encode($out);
-    $this->createCache("strankeNaVlastiPoOpstinama",json_encode($res));
+    $this->createCache("strankeNaVlastiPoOpstinama",json_encode($out));
 
     }
 
