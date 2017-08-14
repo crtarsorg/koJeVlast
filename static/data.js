@@ -130,10 +130,10 @@ $.getJSON(stranke_vlast, function(json, textStatus) {
 
     var stranke = [];
 
-    /*json.forEach(function(el, ind){
+    json.forEach(function(el, ind){
         stranke = _.union(stranke, el.vlast);
-    })*/
-    stranke = _.uniqBy(stranke,"sid");
+    })
+    stranke = _.uniqBy(stranke,"id");
     //uzmi stranke na vlasti
 
     DataStranke.setStranke(stranke);
