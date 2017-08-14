@@ -5,7 +5,7 @@
 
 
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
-    <script src="http://k.com/admin/js/jquery-1.11.2.js" ></script>
+    <script src="admin/js/jquery-1.11.2.js" ></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 
@@ -95,12 +95,12 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/">Početna</a></li>
                    <!--  <li><a href="partials/uporedjivanje.html">Uporedjivanje opstina</a></li> -->
-                    <li><a href="http://k.com/admin/../tabela.php">Tabele sa podacima</a></li>
-                    <li><a href="http://k.com/admin/../statistike.php">Statistike</a></li>
-                    <li><a href="http://k.com/admin/../o-nama.php">O nama</a></li>
+                    <li><a href="tabela.php">Tabele sa podacima</a></li>
+                    <li><a href="statistike.php">Statistike</a></li>
+                    <li><a href="o-nama.php">O nama</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="prijavi"><a href="http://k.com/admin/../api/posaljitePromenu">Prijavi promenu</a></li>
+                    <li class="prijavi"><a href="http://kojenavlasti.rs/api/posaljitePromenu">Prijavi promenu</a></li>
                 </ul>
 
             </div>
