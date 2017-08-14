@@ -247,7 +247,8 @@ class xApi extends UFModel {
 /*'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x  where pfunkcija not in (5,7,8,9) GROUP BY posoba';*/
 
         $upit =
-        "SELECT * FROM `promene` WHERE  (pdo IS NULL OR pdo>now()) AND pfunkcija not in (5,7,8,9) GROUP by posoba";
+        'SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid WHERE (pdo is NULL or pdo> NOW() ) and (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x  where pfunkcija not in (5,7,8,9) GROUP BY posoba';
+       /* "SELECT * FROM `promene` WHERE  (pdo IS NULL OR pdo>now()) AND pfunkcija not in (5,7,8,9) GROUP by posoba";*/
 
         $res = $conn->select($conn->raw( $upit ));
 
@@ -319,7 +320,8 @@ class xApi extends UFModel {
 
 /*'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and  (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x where pfunkcija not in (5,7,8,9) GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC'*/
 
-        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() )  ORDER BY pod desc, pid desc) x where pfunkcija not in (5,7,8,9) GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';
+        $upit_pol = 'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and  (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x where pfunkcija not in (5,7,8,9) GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';
+        /*'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() )  ORDER BY pod desc, pid desc) x where pfunkcija not in (5,7,8,9) GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC';*/
         $res_pol = $conn->select($conn->raw( $upit_pol ));
 
 
@@ -560,5 +562,11 @@ public function sendEmail($subject){
 
 }
 
+
+
+/* broj odbornika po opstinama
+
+select popstina, o.opstina, count(*) brojOdbornika from (select * FROM `promene` WHERE (pdo IS NULL OR pdo>now()) AND pfunkcija not in (5,7,8,9) group by posoba,popstina ) t INNER JOIN opstine o on o.opid=popstina group by t.popstina
+ */
 
 ?>
