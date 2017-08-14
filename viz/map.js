@@ -3,11 +3,14 @@ var BOJA = "#BE1E2D";
 
 $(function() {
 
-	//ucitaj podatke po koaliciji
-	//napraviti eksterno podatke grupisane po koalicijama
-	poKoaliciji();
-	poStranci();
-	poRegionu();
+	$("#mapa").on( "ucitano", function (ev) {
+		//ucitaj podatke po koaliciji
+		//napraviti eksterno podatke grupisane po koalicijama
+		poKoaliciji();
+		poStranci();
+		poRegionu();
+	} );
+	
 })
 
 function poKoaliciji() {

@@ -47,6 +47,8 @@ $("#mapa").load("srbija.svg?1", function() {
     $("#mapa").prepend(popup);
 
     closePopup();
+
+    $("#mapa").trigger( "ucitano" );
 });
 
 
