@@ -67,7 +67,7 @@
 			</section>
 			<section>
 				<h2>Kako da se uključite?</h2>
-				<p>Prijavite promenu „političkog dresa“ odbornika u vašoj ili susednoj opštini. Potrebno je samo da uradite jednostavnu registraciju OVDE. Popunjavanjem kratke forme, informacija o promeni političke stranke za naznačenog odbornika će doći do našeg tima i neće biti dostupna trećim licima. Nakon dalje provere i obrade, informaciju ćemo javno objaviti ali bez navođenja vas kao izvora.</p>
+				<p>Prijavite promenu „političkog dresa“ odbornika u vašoj ili susednoj opštini. Potrebno je samo da uradite jednostavnu registraciju <a href="http://kojenavlasti.rs/api/posaljitePromenu">OVDE</a>. Popunjavanjem kratke forme, informacija o promeni političke stranke za naznačenog odbornika će doći do našeg tima i neće biti dostupna trećim licima. Nakon dalje provere i obrade, informaciju ćemo javno objaviti ali bez navođenja vas kao izvora.</p>
 				<p>Na osnovu ovih informacija mediji poput <a href="http://www.istinomer.rs/clanak/1662/Mapa-preletaca-na-lokalu">Istinomera će praviti dodatne analize.</a>
 				<br>Na ovaj način možete demonstrirati demokratsku odgovornost i ukazati na „preletanja“ odbornika i „promene“ u zastupanju politika i doprineti naporu za zaštitu izbornog prava građana a samim tim i demokratskog poretka naše zemlje.</p>
 				<p>Udruženje CRTA ne prikuplja i ne čuva vaše lične podatke koje ostavljate prilikom popunjavanja forme na portalu "Ko je na vlasti". U slučaj ostavljanja vaše e-mail adrese, informacije će biti korišćene jedino u svrhu interne komunikacije između Vas i tima CRTE i neće biti deljena sa trećim licima.</p>
