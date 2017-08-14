@@ -42,36 +42,51 @@
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <style>
-        html, body{
-            margin: 0;
-            padding: 0;
+    html, body{
+        margin: 0;
+        padding: 0;
 
-            min-width: 100%;
-            width: 100%;
-            max-width: 100%;
+        min-width: 100%;
+        width: 100%;
+        max-width: 100%;
 
-            min-height: 100%;
-            height: 100%;
-            max-height: 100%;
-        }
-        #map { width: 100%; height: 100%; }
-        body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
-        .ghbtns { position: relative; top: 4px; margin-left: 5px; }
-        a { color: #0077ff; }
-        .leaflet-shadow-pane{
-            display: none;
-        }
-        .leaflet-marker-pane{
-            display: none;
-            -webkit-animation: fadein 4s; /* Safari and Chrome */
-            -moz-animation: fadein 4s; /* Firefox */
-            -ms-animation: fadein 4s; /* Internet Explorer */
-            -o-animation: fadein 4s; /* Opera */
-            animation: fadein 4s;
-        }
-        .leaflet-top {
-            top: 60px;
-        }
+        min-height: 100%;
+        height: 100%;
+        max-height: 100%;
+    }
+    #map { width: 100%; height: 100%; }
+    body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
+    .ghbtns { position: relative; top: 4px; margin-left: 5px; }
+    a { color: #0077ff; }
+    .leaflet-shadow-pane{
+        display: none;
+    }
+    .leaflet-marker-pane{
+        display: none;
+        -webkit-animation: fadein 4s; /* Safari and Chrome */
+        -moz-animation: fadein 4s; /* Firefox */
+        -ms-animation: fadein 4s; /* Internet Explorer */
+        -o-animation: fadein 4s; /* Opera */
+        animation: fadein 4s;
+    }
+    .leaflet-top {
+        top: 60px;
+    }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+        background: white;
+        box-shadow: 0 3px 14px rgba(98,166,152,0.9);
+        border: 0px solid #62a698;
+    }
+    .leaflet-container a.leaflet-popup-close-button {
+        color: #62a698;
+    }
+    .leaflet-container a {
+        color: #62a698;
+    }
+    .leaflet-container h3 {
+        color: #62a698;
+        border-bottom: 2px solid #62a698;
+    }
 
     </style>
 </head>
@@ -139,7 +154,7 @@ $.ajax({
  .done(function(data) {
     data = JSON.parse(data);
 
-    addressPoints = data.map(function (p) { return [p.lat, p.lng,p.brPreletaca /13.0,p.Osoba]; });
+    addressPoints = data.map(function (p) { return [p.lat, p.lng,p.brPreletaca /13.0,p.Osoba,p.opstina]; });
 
 
 // add markers
@@ -149,7 +164,7 @@ $.ajax({
 
             var lon = addressPoints[i][1];
             var lat = addressPoints[i][0];
-            var popupText = addressPoints[i][3];
+            var popupText =  '<h3>'+addressPoints[i][4]+'</h3>'+ addressPoints[i][3];
 
              var markerLocation = new L.LatLng(lat, lon);
              var marker = new L.Marker(markerLocation);
