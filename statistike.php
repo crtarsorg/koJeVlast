@@ -30,7 +30,7 @@
                    <!--  <li><a href="partials/uporedjivanje.html">Uporedjivanje opstina</a></li> -->
                     <li><a href="tabela.php">Tabele sa podacima</a></li>
                     <li class="active"><a href="statistike.php">Statistike</a></li>
-                    <li><a href="o-nama.php">O nama</a>
+                    <li><a href="o-nama.php">O nama</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="prijavi"><a href="<?php echo 'http://'.$_SERVER["SERVER_NAME"].'/api/posaljitePromenu';?>">Prijavi promenu</a></li>
@@ -218,7 +218,7 @@
             }
         }
 
-        $.get('http://kojenavlasti.rs/api/stats', function(data) {
+        $.get('http://'+window.location.hostname+'/api/stats', function(data) {
         	data = JSON.parse(data);
         	data = data.data
         	//console.log( data );
@@ -298,7 +298,7 @@
 
 
 
-        $.get("http://kojenavlasti.rs/api/top5promenaOpstine",top5);
+        $.get("http://"+window.location.hostname+"/api/top5promenaOpstine",top5);
 
         function top5(data) {
 
@@ -311,7 +311,7 @@
             }
         })
 
-        $.get("http://kojenavlasti.rs/api/preletaci", function (data) {
+        $.get("http://"+window.location.hostname+"/api/preletaci", function (data) {
             data = JSON.parse(data);
 
             var nek = data.slice(0,5) ;
@@ -356,7 +356,8 @@
                     data: data,
                     "columnDefs": columns,
                     "order": [2, "desc"],
-                    "language": jezik,
+                    "language": jezik
+
 
                 } );
 

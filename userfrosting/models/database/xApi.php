@@ -28,14 +28,28 @@ class xApi extends UFModel {
 
     protected static $_table_id = "promene";
 
+    ///api/akteri - svi AKTIVNI akteri  i njihova poslednja promena
     public function sviAkteri($app){
         $conn = Capsule::connection();
         //$res = $conn->table('promene')->select("aid","aime","aprezime")->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->leftJoin('opstine', 'popstina', '=', 'opid')->orderBy('pod','desc')->limit(5)->get();
         $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->
         leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->
         leftJoin('opstine', 'popstina', '=', 'opid')
+
+        //samo aktivni
+        //SELECT * FROM `promene` WHERE  (pdo IS NULL OR pdo>now()) AND pfunkcija not in (5,7,8,9) GROUP by posoba
+        ->whereNotIn('pfunkcija', array('5','7','8','9'))
+        ->where(function ($query) {
+                                $query->whereNull('pdo');
+                                $query->orwhere('pdo', '>',  @date('Y-m-d') ) ;
+                })
+
+        ->groupBy('posoba')
+        //nastavak za listu svih promena
+
         ->orderBy('pod','desc')->limit(0)
         ->get();
+        //->toSql();
 
 //echo "<pre>";
 //var_dump($res);
