@@ -154,7 +154,6 @@ function regionDetailHandlerClick(element, naslov_region) {
         showModalRegion(podaci.naslov, id);
     }
 
-   
 
 }
 
