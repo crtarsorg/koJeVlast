@@ -56,7 +56,7 @@
         <div id="opis" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 hidden">
             <div id="detalji" class="clear">
                 <h3 class="detalji_title"></h3>
-                <span>Broj odbornika na vlasti za koje su informacije dostupne</span>
+                <span>Broj odbornika na vlasti (za koje su informacije dostupne)</span>
                 <table class="table table-striped">
                     <tbody>
 
