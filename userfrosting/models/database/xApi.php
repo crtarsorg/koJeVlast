@@ -36,15 +36,16 @@ class xApi extends UFModel {
         leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->
         leftJoin('opstine', 'popstina', '=', 'opid')
 
+        //DISABLED BY REQUEST 24.08.2017 - revert to show all promene
         //samo aktivni
         //SELECT * FROM `promene` WHERE  (pdo IS NULL OR pdo>now()) AND pfunkcija not in (5,7,8,9) GROUP by posoba
-        ->whereNotIn('pfunkcija', array('5','7','8','9'))
-        ->where(function ($query) {
-                                $query->whereNull('pdo');
-                                $query->orwhere('pdo', '>',  @date('Y-m-d') ) ;
-                })
-
-        ->groupBy('posoba')
+//        ->whereNotIn('pfunkcija', array('5','7','8','9'))
+//        ->where(function ($query) {
+//                                $query->whereNull('pdo');
+//                                $query->orwhere('pdo', '>',  @date('Y-m-d') ) ;
+//                })
+//
+//        ->groupBy('posoba')
         //nastavak za listu svih promena
 
         ->orderBy('pod','desc')->limit(0)
