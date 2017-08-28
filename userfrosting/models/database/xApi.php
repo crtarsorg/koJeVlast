@@ -345,11 +345,21 @@ class xApi extends UFModel {
 
         //muskraci
         /*$res = $conn->table('promene')->select("pid")->leftJoin('akteri', 'posoba', '=', 'aid')->where('apol', '=', 'M')->groupBy('posoba')->get();*/
-        $stats['data']['muskaraca'] = $res_pol[0]['broj']; //ubaciti proveru da li je [0][apol]=="M"
+        $stats['data']['muskaraca'] = 0;
+        $stats['data']['zena'] = 0;
+        foreach ($res_pol as  $value) {
+            if($value['apol'] === "M"){
+                $stats['data']['muskaraca'] = $value['broj'];
+            }
+            else  if($value['apol'] === "Z"){
+                $stats['data']['zena'] = $value['broj'];
+            }
+        }
+         //ubaciti proveru da li je [0][apol]=="M"
 
         //zene
         /*$res = $conn->table('promene')->select("pid")->leftJoin('akteri', 'posoba', '=', 'aid')->where('apol', '=', 'Z')->groupBy('posoba')->get();*/
-        $stats['data']['zena'] = $res_pol[1]['broj'];
+
 
         //bez pola
         /*$res = $conn->table('promene')->select("pid")->leftJoin('akteri', 'posoba', '=', 'aid')->where('apol', '!=', 'M')->where('apol', '!=', 'Z')->groupBy('posoba')->get();
