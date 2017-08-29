@@ -7,6 +7,13 @@
 
 	<?php include_once 'partials/head-part.html'; ?>
 
+	<style type="text/css">
+	.vest-entry{
+	    border-bottom: 1px solid;
+	    padding: 5px;
+	    margin: 5px 0;
+	}
+	</style>
 </head>
 <body>
 
@@ -43,7 +50,7 @@
 
 			function prikazi( odgovor ) {
 				for (var i = 0; i < odgovor.length; i++) {
-					var temp = `<div>${odgovor[i].content.rendered}</div>`;
+					var temp = `<div class="vest-entry"><h3>${odgovor[i].title.rendered}</h3>${odgovor[i].content.rendered}</div>`;
 					$("#container").append(temp)
 				}
 			}
