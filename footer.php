@@ -1,5 +1,10 @@
 	</main>
 
+
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
+
+
 	<script src="static/data.js?4"></script>
 	<script src="static/helpers.js?15"></script>
 	<script src="static/eventHandlers.js?7"></script>
