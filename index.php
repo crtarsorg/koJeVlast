@@ -14,9 +14,12 @@
 
     #map { 
         width: 100%;
-        height: 100vh;
         min-width: 10px;
-        min-height: 10px;
+        min-height: 1px;
+    }
+
+    .height100{
+        height: 100vh
     }
     a { color: #0077ff; }
     .leaflet-shadow-pane{
@@ -119,9 +122,9 @@
 
 
     </div>
-    <div class="container-fluid hidden" id="mapaWrap">
+    <div class="container-fluid " id="mapaWrap">
 
-        <div id="map"></div>
+        <div id="map" class=""></div>
     </div>
 
     <div id="spinner" class="hidden">
@@ -147,12 +150,11 @@
         $("[name='my-checkbox']").bootstrapSwitch();
 
        $('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-          console.log(this); // DOM element
-          console.log(event); // jQuery event
+
           console.log(state); // true | false
           //if(state){
-            heap();
-            $("#mapaWrap").toggleClass("hidden")
+           
+            $("#map").toggleClass("height100")
             $("#mainWrapper").toggleClass("hidden")
           //}
         });
@@ -176,6 +178,7 @@
     var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
+
     $.ajax({
          url: "http://"+window.location.hostname+"/api/preletaciPoOpstinama",
      })
@@ -201,6 +204,8 @@
         heap = setHeap(map, addressPoints)
         if(map.getSize().x > 0) {
             heap()
+        }else{
+            setTimeout(heap, 1000)
         }
 
 
