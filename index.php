@@ -12,7 +12,12 @@
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <style>
 
-    #map { width: 100%; height: 100vh; }
+    #map { 
+        width: 100%;
+        height: 100vh;
+        min-width: 10px;
+        min-height: 10px;
+    }
     a { color: #0077ff; }
     .leaflet-shadow-pane{
         display: none;
