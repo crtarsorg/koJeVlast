@@ -153,7 +153,7 @@
         });*/
 
 
-       function setHeap(map, addressPoints) {
+      /* function setHeap(map, addressPoints) {
         return function () {
             var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(map);
         }
@@ -172,16 +172,12 @@
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
     $.ajax({
-         //url: 'http://kojenavlasti.rs/api/preletaciPoOpstinama',
          url: "http://"+window.location.hostname+"/api/preletaciPoOpstinama",
      })
      .done(function(data) {
         data = JSON.parse(data);
 
         addressPoints = data.map(function (p) { return [p.lat, p.lng,p.brPreletaca /13.0,p.Osoba,p.opstina]; });
-
-
-    // add markers
 
              //Loop through the markers array
              for (var i=0; i<addressPoints.length; i++) {
@@ -200,10 +196,7 @@
         heap = setHeap(map, addressPoints)
         if(map.getSize().x > 0) {
             heap()
-        }/* else {
-          setTimeout(heap, 1000);
-        }*/
-
+        }
 
 
 
@@ -213,7 +206,7 @@
      })
      .always(function() {
          console.log("complete");
-     });
+     });*/
 
     }) //on load
 
