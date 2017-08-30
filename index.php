@@ -161,10 +161,10 @@
         });
 
 
-       function setHeap(map, addressPoints) {
+       function setHeap(m, addressPoints) {
         return function () {
-            var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(map);
-            map.invalidateSize()
+            var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(m);
+            m.invalidateSize()
         }
 
        }
