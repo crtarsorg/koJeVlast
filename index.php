@@ -137,6 +137,7 @@
 
 
     $(function() {
+        var heap;
 
         $("[name='my-checkbox']").bootstrapSwitch();
 
@@ -145,6 +146,7 @@
           console.log(event); // jQuery event
           console.log(state); // true | false
           //if(state){
+          console.log(heap);
             $("#mapaWrap").toggleClass("hidden")
             $("#mainWrapper").toggleClass("hidden")
           //}
@@ -195,12 +197,12 @@
                  marker.bindPopup(popupText);
 
              }
-        var heap = setHeap(map, addressPoints)
+        heap = setHeap(map, addressPoints)
         if(map.getSize().x > 0) {
             heap()
-        } else {
+        }/* else {
           setTimeout(heap, 1000);
-        }
+        }*/
 
 
 
