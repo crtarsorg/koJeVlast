@@ -149,7 +149,14 @@
             $("#mainWrapper").toggleClass("hidden")
           //}
         });
-   
+
+
+       function setHeap(map, addressPoints) {
+        return function () {
+            var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(map);
+        }
+
+       }
 
     var map = L.map('map').setView([44.7995311, 20.475025], 8 );
 
@@ -188,9 +195,13 @@
                  marker.bindPopup(popupText);
 
              }
+        var heap = setHeap(map, addressPoints)
+        if(map.getSize().x > 0) {
+            heap()
+        } else {
+          setTimeout(heap, 100);
+        }
 
-
-        var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(map);
 
 
 
