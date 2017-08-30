@@ -149,8 +149,7 @@
             $("#mainWrapper").toggleClass("hidden")
           //}
         });
-    })
-
+   
 
     var map = L.map('map').setView([44.7995311, 20.475025], 8 );
 
@@ -202,6 +201,9 @@
      .always(function() {
          console.log("complete");
      });
+
+    }) //on load
+
     </script>
 
     <script>
