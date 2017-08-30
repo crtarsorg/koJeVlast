@@ -146,6 +146,7 @@
 
     $(function() {
         var heap;
+        var map;
 
         $("[name='my-checkbox']").bootstrapSwitch();
 
@@ -168,7 +169,7 @@
 
        }
 
-    var map = L.map('map').setView([44.7995311, 20.475025], 8 );
+    map = L.map('map').setView([44.7995311, 20.475025], 8 );
 
             map.on("moveend", function() {
                 var zoom = map.getZoom();
