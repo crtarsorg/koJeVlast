@@ -148,13 +148,20 @@
         var heap;
         var map;
 
+        function setMap(m2) {
+            map = m2
+        }
+        function getMap(){
+            return mapl
+        }
         $("[name='my-checkbox']").bootstrapSwitch();
 
        $('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
 
           console.log(state); // true | false
           //if(state){
-
+            m1 = getMap();
+            m1.invalidateSize()
             $("#map").toggleClass("height100")
             $("#mainWrapper").toggleClass("hidden")
           //}
@@ -164,7 +171,7 @@
        function setHeap(m, addressPoints) {
         return function () {
             var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(m);
-            m.invalidateSize()
+           
         }
 
        }
@@ -204,6 +211,9 @@
 
              }
         heap = setHeap(map, addressPoints)
+
+        setMap(map);
+
         if(map.getSize().x > 0) {
             heap()
         }else{
