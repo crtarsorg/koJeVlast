@@ -139,7 +139,7 @@
     $(function() {
         var heap;
 
-      /*  $("[name='my-checkbox']").bootstrapSwitch();
+        $("[name='my-checkbox']").bootstrapSwitch();
 
        $('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
           console.log(this); // DOM element
@@ -150,10 +150,10 @@
             $("#mapaWrap").toggleClass("hidden")
             $("#mainWrapper").toggleClass("hidden")
           //}
-        });*/
+        });
 
 
-      /* function setHeap(map, addressPoints) {
+       function setHeap(map, addressPoints) {
         return function () {
             var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(map);
         }
@@ -206,7 +206,7 @@
      })
      .always(function() {
          console.log("complete");
-     });*/
+     });
 
     }) //on load
 
