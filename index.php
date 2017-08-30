@@ -153,7 +153,7 @@
 
           console.log(state); // true | false
           //if(state){
-           
+
             $("#map").toggleClass("height100")
             $("#mainWrapper").toggleClass("hidden")
           //}
@@ -163,6 +163,7 @@
        function setHeap(map, addressPoints) {
         return function () {
             var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(map);
+            map.invalidateSize()
         }
 
        }
