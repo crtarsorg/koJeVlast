@@ -89,8 +89,11 @@
         </div>
         </a>
     </div>
-    
-    <div><input type="checkbox" name="my-checkbox" checked></div>
+
+    <div>
+        <h3>Prebacite na mapu preletača</h3>
+        <input type="checkbox" name="my-checkbox" >
+    </div>
 
     <div class="container-fluid" id="mainWrapper">
         <div id="mapa" class="col-lg-8"></div>
@@ -112,6 +115,7 @@
 
     </div>
     <div class="container-fluid hidden" id="mapaWrap">
+
         <div id="map"></div>
     </div>
 
@@ -122,9 +126,6 @@
     <!-- <script src="static/anotate.js"></script> -->
 
 
-    
-
-   
 
 
 
@@ -143,6 +144,10 @@
           console.log(this); // DOM element
           console.log(event); // jQuery event
           console.log(state); // true | false
+          //if(state){
+            $("#mapaWrap").toggleClass("hidden")
+            $("#mainWrapper").toggleClass("hidden")
+          //}
         });
     })
 
