@@ -137,6 +137,8 @@
 
     $(function() {
 
+        $("[name='my-checkbox']").bootstrapSwitch();
+
        $('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
           console.log(this); // DOM element
           console.log(event); // jQuery event
