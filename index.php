@@ -161,9 +161,11 @@
           console.log(state); // true | false
           //if(state){
             m1 = getMap();
-            m1.invalidateSize()
+
             $("#map").toggleClass("height100")
             $("#mainWrapper").toggleClass("hidden")
+
+             m1.invalidateSize()
           //}
         });
 
