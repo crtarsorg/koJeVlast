@@ -146,7 +146,7 @@
           console.log(event); // jQuery event
           console.log(state); // true | false
           //if(state){
-          console.log(heap);
+            heap();
             $("#mapaWrap").toggleClass("hidden")
             $("#mainWrapper").toggleClass("hidden")
           //}
