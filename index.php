@@ -152,7 +152,7 @@
             map = m2
         }
         function getMap(){
-            return mapl
+            return map;
         }
         $("[name='my-checkbox']").bootstrapSwitch();
 
