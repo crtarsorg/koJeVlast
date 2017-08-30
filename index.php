@@ -199,7 +199,7 @@
         if(map.getSize().x > 0) {
             heap()
         } else {
-          setTimeout(heap, 100);
+          setTimeout(heap, 1000);
         }
 
 
