@@ -139,7 +139,7 @@
     $(function() {
         var heap;
 
-        $("[name='my-checkbox']").bootstrapSwitch();
+      /*  $("[name='my-checkbox']").bootstrapSwitch();
 
        $('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
           console.log(this); // DOM element
@@ -150,7 +150,7 @@
             $("#mapaWrap").toggleClass("hidden")
             $("#mainWrapper").toggleClass("hidden")
           //}
-        });
+        });*/
 
 
        function setHeap(map, addressPoints) {
