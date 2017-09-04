@@ -27,6 +27,11 @@
 
 	$posts = file_get_contents('http://vesti.kojenavlasti.rs/wp-json/wp/v2/posts');
 	$posts = json_decode($posts);
+			print_r("<pre>");
+			var_dump($posts);
+			print_r("</pre>");
+			die();
+	
 
 	$temp = "";
 	for ( $i = 0; $i < count($posts); $i++) {
