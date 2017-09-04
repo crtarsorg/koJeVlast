@@ -1,9 +1,15 @@
+<?php
+
+
+$post_id = $_GET['id'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-	<title>Vesti</title>
+	<title></title>
 
 	<?php include_once 'partials/head-part.html'; ?>
 
@@ -22,32 +28,22 @@
 <div id="main" class="container-fluid col-lg-10 col-lg-offset-1 ">
 	<h1 class="mx-auto">Vesti</h1>
 	<div id="container" class="">
+		<?php
 
-	<?php
-
-	$posts = file_get_contents('http://vesti.kojenavlasti.rs/wp-json/wp/v2/posts');
-	$posts = json_decode($posts);
-
-	$temp = "";
-	for ( $i = 0; $i < count($posts); $i++) {
-		$deo = $posts[$i]->excerpt->rendered;
-
-
-		$temp .=
-			'<div class="vest-entry">'
-			.'<h3><a href="vest.php?id='.$posts[$i]->id.'">'.$posts[$i]->title->rendered.'</a></h3>'
-			. $deo
+		$posts = file_get_contents('http://vesti.kojenavlasti.rs/wp-json/wp/v2/posts/'.$post_id);
+		$posts = json_decode($posts);
+		$temp =
+				'<div class="vest-entry">'
+			.'<h3>'.$posts->title->rendered.'</h3>'
+			. $posts->content->rendered
 			.'</div>';
-		}
+
 
 		echo "$temp";
-
-	?>
-
+		?>
 	</div>
 
 </div>
-
 
 </main>
 </body>
