@@ -25,13 +25,21 @@
 
 	<?php
 
-	$posts = file_get_contents('http://vesti.kojenavlasti.rs/wp-json/wp/v2/posts');
+	function curl_get_contents($url)
+	{
+	    $ch = curl_init();
+
+	    curl_setopt($ch, CURLOPT_HEADER, 0);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	    curl_setopt($ch, CURLOPT_URL, $url);
+
+	    $data = curl_exec($ch);
+	    curl_close($ch);
+
+	    return $data;
+	}
+	$posts = curl_get_contents('http://vesti.kojenavlasti.rs/wp-json/wp/v2/posts');
 	$posts = json_decode($posts);
-			print_r("<pre>");
-			var_dump($posts);
-			print_r("</pre>");
-			die();
-	
 
 	$temp = "";
 	for ( $i = 0; $i < count($posts); $i++) {

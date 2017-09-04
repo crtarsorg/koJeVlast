@@ -30,7 +30,23 @@ $post_id = $_GET['id'];
 	<div id="container" class="">
 		<?php
 
-		$posts = file_get_contents('http://vesti.kojenavlasti.rs/wp-json/wp/v2/posts/'.$post_id);
+
+		function curl_get_contents($url)
+		{
+		    $ch = curl_init();
+
+		    curl_setopt($ch, CURLOPT_HEADER, 0);
+		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		    curl_setopt($ch, CURLOPT_URL, $url);
+
+		    $data = curl_exec($ch);
+		    curl_close($ch);
+
+		    return $data;
+		}
+
+
+		$posts = curl_get_contents('http://vesti.kojenavlasti.rs/wp-json/wp/v2/posts/'.$post_id);
 		$posts = json_decode($posts);
 		$temp =
 				'<div class="vest-entry">'
