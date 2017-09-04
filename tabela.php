@@ -30,6 +30,7 @@
                    <!--  <li><a href="partials/uporedjivanje.html">Uporedjivanje opstina</a></li> -->
                     <li class="active"><a href="tabela.php">Tabele sa podacima</a></li>
                     <li><a href="statistike.php">Statistike</a></li>
+                    <li><a href="vesti.php">Vesti</a></li>
                     <li><a href="o-nama.php">O nama</a>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
