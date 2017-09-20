@@ -214,7 +214,7 @@ var funkcija_odbornik = [1,2,3,4,6]
 function statsOdbornici(podaci) {
     var odbornici_yes =
         podaci.filter(function(la) {
-            return funkcija_odbornik.indexOf( +la.fid  ) >-1 
+            return funkcija_odbornik.indexOf( +la.fid  ) >-1 ;
         });
 
     var vlast =
@@ -264,6 +264,8 @@ function tabelaOdbornika(podaci, region) {
     $('#tab table ').dataTable().api().clear();
 
     var opstine_temp = "";
+
+    podaci =  podaci.sort(function(a,b){return b.fid - a.fid})
 
     if (podaci[0].opstina == '')
         opstina_temp = "";
