@@ -378,7 +378,7 @@ function tabelaOdbornika(podaci, region) {
 
                 //console.log( "funkcija :" + data );
                 return data;*/
-            }
+            //}
 
         }
 
