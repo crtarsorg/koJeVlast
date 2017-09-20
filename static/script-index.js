@@ -315,7 +315,21 @@ function tabelaOdbornika(podaci, region) {
                 return data;
             }
 
-        }, {
+        },
+        {
+            "targets": 7,
+            "data": "fid",
+            "visible": false,
+            "render": function(data, type, full, meta) {
+                if (data == null || data == undefined)
+                    data = 0;
+
+                //console.log( "funkcija :" + data );
+                return data;
+            }
+
+        },
+         {
             "targets": 3,
             "data": "koalicija",
             "render": function(data, type, full, meta) {
@@ -408,7 +422,7 @@ function tabelaOdbornika(podaci, region) {
         data: podaci,
         "columnDefs": columns,
         destroy: true,
-        //"order": [2, "desc"],
+        "order": [7, "desc"],
         /*"scrollX": true,*/
         initComplete:drawCallbackHandler,
         "language": jezik,
