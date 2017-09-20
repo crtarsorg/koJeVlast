@@ -371,6 +371,7 @@ function tabelaOdbornika(podaci, region) {
          {
             "targets": 7,
             "data": "fid",
+            "visible": false,
             "render": function(data, type, full, meta) {
                 if (data == null || data == undefined)
                     data = 0;
