@@ -285,7 +285,7 @@ function tabelaOdbornika(podaci, region) {
                     data = "Nepoznata";
                 var unos = data + " " + full.prezime;
                 if(full.promena){
-                    unos = '<a href="#" class="expand" id="'+full.id+'">'+ unos +'</a>'
+                    unos = '<a href="http://kojenavlasti.rs/promeneAkter.php?id="'+full.id+'  target="_blank" class="expandOld" id="'+full.id+'">'+ unos +'</a>'
                 }
                 //console.log( "Ime Prezime:" + data );
                 return unos;
