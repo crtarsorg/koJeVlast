@@ -408,7 +408,7 @@ function tabelaOdbornika(podaci, region) {
         data: podaci,
         "columnDefs": columns,
         destroy: true,
-        "order": [2, "desc"],
+        //"order": [2, "desc"],
         /*"scrollX": true,*/
         initComplete:drawCallbackHandler,
         "language": jezik,
