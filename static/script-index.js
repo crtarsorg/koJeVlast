@@ -316,19 +316,7 @@ function tabelaOdbornika(podaci, region) {
             }
 
         },
-        {
-            "targets": 7,
-            "data": "fid",
-            "visible": false,
-            "render": function(data, type, full, meta) {
-                if (data == null || data == undefined)
-                    data = 0;
 
-                //console.log( "funkcija :" + data );
-                return data;
-            }
-
-        },
          {
             "targets": 3,
             "data": "koalicija",
@@ -377,6 +365,19 @@ function tabelaOdbornika(podaci, region) {
 
                 return '<a href="./api/posaljitePromenu?ime='+full.ime + " "+full.prezime+"&opstina="+full.opstina + '" target="_blank">'+
                 ' <img src="static/promene.svg" style="width: 22px;"/></a>';
+            }
+
+        },
+         {
+            "targets": 7,
+            "data": "fid",
+            "visible": false,
+            "render": function(data, type, full, meta) {
+                if (data == null || data == undefined)
+                    data = 0;
+
+                //console.log( "funkcija :" + data );
+                return data;
             }
 
         }
