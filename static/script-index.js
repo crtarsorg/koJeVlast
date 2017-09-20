@@ -390,7 +390,7 @@ function tabelaOdbornika(podaci, region) {
         ev.preventDefault();
 
         var upit = "";
-        var kolone = ["ime", "stranka", "funkcija", "koalicija", "vlast", "promena"];
+        var kolone = ["ime", "stranka", "funkcija", "koalicija", "vlast", "promena","fid"];
 
         var podaci = $(this).parent().children();
 
