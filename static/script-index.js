@@ -265,7 +265,7 @@ function tabelaOdbornika(podaci, region) {
 
     var opstine_temp = "";
 
-    podaci =  podaci.sort(function(a,b){return b.fid - a.fid})
+
 
     if (podaci[0].opstina == '')
         opstina_temp = "";
@@ -401,6 +401,8 @@ function tabelaOdbornika(podaci, region) {
 
         return elem;
     })
+
+    podaci =  podaci.sort(function(a,b){return b.fid - a.fid})
 
     var table = $('#tab table').DataTable({
         data: podaci,
