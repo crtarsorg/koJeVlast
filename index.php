@@ -60,15 +60,15 @@
 
 	<?php include 'partials/nav.html'; ?>
 
-    <div class="container-fluid baner-container">
-
-        <a href="statistike.php">
-        <div class="banner">
-            <img src="static/icons/preletaci.svg">
-            <div class="banner-text">Pregledajte najaktivnije preletače i ostale statistike <span class="glyphicon glyphicon-play" aria-hidden="true"></span></div>
-        </div>
-        </a>
-    </div>
+   <!--  <div class="container-fluid baner-container">
+   
+       <a href="statistike.php">
+       <div class="banner">
+           <img src="static/icons/preletaci.svg">
+           <div class="banner-text">Pregledajte najaktivnije preletače i ostale statistike <span class="glyphicon glyphicon-play" aria-hidden="true"></span></div>
+       </div>
+       </a>
+   </div> -->
 
     <div>
         <h3>Prebacite na mapu preletača</h3>
