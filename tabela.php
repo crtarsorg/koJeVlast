@@ -6,7 +6,8 @@
 	<title>Tabele sa podacima</title>
 
 	<?php include_once 'partials/head-part.html'; ?>
-
+    <!-- <script src="//cdn.datatables.net/plug-ins/1.10.16/filtering/type-based/accent-neutralise.js"></script>
+    https://datatables.net/plug-ins/filtering/type-based/accent-neutralise#CDN -->
 </head>
 
 <body>
@@ -48,10 +49,10 @@
     <script>
     $(document).ready(function() {
     //load data
-        $('#data').DataTable( {
+    var table =     $('#data').DataTable( {
             "responsive": true,
         	"processing": true,
-           
+
             dom: 'lBfrtip',
             buttons: [
                 'copyHtml5',
@@ -73,7 +74,14 @@
               }
         } );
 
-    return;
+
+
+    $('input[type="search"]').on( 'keyup click', function () {
+        var param = this.value.replace(/S|s|C|c|z|Z/g,".");
+        table.search( param ).draw();
+    } );
+
+    //return;
 
     });
     </script>

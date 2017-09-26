@@ -61,7 +61,7 @@
 	<?php include 'partials/nav.html'; ?>
 
    <!--  <div class="container-fluid baner-container">
-   
+
        <a href="statistike.php">
        <div class="banner">
            <img src="static/icons/preletaci.svg">
