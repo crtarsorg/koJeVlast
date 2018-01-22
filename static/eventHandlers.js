@@ -80,7 +80,7 @@ var regionDetailHandlerHover = function(elem, naslov) {
 
     if(+temp==0){
         //beograd
-        sideDetailsOpstina(70106, 200);
+        sideDetailsOpstina(79014, 200);
         //79022, 201
 
         /*var opstina = podaci.filter(function(el) {
