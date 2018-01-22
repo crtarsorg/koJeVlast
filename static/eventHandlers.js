@@ -81,6 +81,15 @@ var regionDetailHandlerHover = function(elem, naslov) {
     if(+temp==0){
         //beograd
         sideDetailsOpstina(70106, 200);
+        //79022, 201
+
+        /*var opstina = podaci.filter(function(el) {
+            return +el.opid == 200;
+        })*/
+       return;
+    }
+    else if(+temp == 20){
+        sideDetailsOpstina( 79022, 201 );
         return;
     }
     var sumed = podaciRegion(temp);
@@ -135,13 +144,20 @@ function regionDetailHandlerClick(element, naslov_region) {
         })
         podaci = opstina;
     }
+    else if(+id == 20 ){//nis
+        var podaci = DataStranke.getOpstine();
+        var opstina = podaci.filter(function(el) {
+            return +el.opid == 201;
+        })
+        podaci = opstina;
+    }
     else{
         podaci = podaciRegion(id);    
     }
 
 
 
-    if(+id ==0 ){
+    if(+id ==0 || +id ==20 ){
         showModal(podaci);
     }
 

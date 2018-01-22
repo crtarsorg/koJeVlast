@@ -86,11 +86,16 @@ function podaciOdborniciOpstina(idOpstine) {
 
         tabelaOdbornika(json)
     });
+
 }
 
 
 
-// struktura podatka u fajlu po opstini je losa
+(function() {
+
+
+
+    // struktura podatka u fajlu po opstini je losa
 $.getJSON(BASE_PATH +"api/opstine", function(json, textStatus) {
 
     DataStranke.setOpstine(json);
@@ -105,6 +110,22 @@ $.getJSON(BASE_PATH +"api/imajuPromene", function(json, textStatus) {
 
 });
 
+$.getJSON(stranke_vlast, function(json, textStatus) {
+    DataStranke.set(json)
+
+    var stranke = [];
+
+    json.forEach(function(el, ind){
+        stranke = _.union(stranke, el.vlast);
+    })
+    stranke = _.uniqBy(stranke,"id");
+    //uzmi stranke na vlasti
+
+    DataStranke.setStranke(stranke);
+    initStranka();
+});
+
+})();
 
 
 
@@ -125,20 +146,7 @@ function podaciAkteriRegion( id_region ) {
 });*/
 
 
-$.getJSON(stranke_vlast, function(json, textStatus) {
-    DataStranke.set(json)
 
-    var stranke = [];
-
-    json.forEach(function(el, ind){
-        stranke = _.union(stranke, el.vlast);
-    })
-    stranke = _.uniqBy(stranke,"id");
-    //uzmi stranke na vlasti
-
-    DataStranke.setStranke(stranke);
-    initStranka();
-});
 
 
 /*

@@ -59,13 +59,13 @@ class xApi extends UFModel {
         $dataout = array();
         foreach($res as $key=>$val){
 
-            if($val[pnavlasti]==1) {$navlasti = "Vlast";} else if($val[pnavlasti]==2){$navlasti = "Opozicija";} else {$navlasti = "";}
+            if($val['pnavlasti']==1) {$navlasti = "Vlast";} else if($val['pnavlasti']==2){$navlasti = "Opozicija";} else {$navlasti = "";}
             //proveri da li je validan datum i serviraj
-            if($val[pod] == @date('Y-m-d',strtotime($val[pod]))) { $datumod = @date('d.m.Y',strtotime($val[pod]))  ; } else { $datumod ="";}
-            if($val[pdo] == @date('Y-m-d',strtotime($val[pdo]))) { $datumdo = @date('d.m.Y',strtotime($val[pdo]))  ; } else { $datumdo ="";}
+            if($val['pod'] == @date('Y-m-d',strtotime($val['pod']))) { $datumod = @date('d.m.Y',strtotime($val['pod']))  ; } else { $datumod ="";}
+            if($val['pdo'] == @date('Y-m-d',strtotime($val['pdo']))) { $datumdo = @date('d.m.Y',strtotime($val['pdo']))  ; } else { $datumdo ="";}
 
 
-            $dataout['data'][] = array($val[aid],$val[aime],$val[aprezime],$val[snaziv],$val[funkcija],$val[knaziv],$val[opstina],$datumod,$datumdo,$navlasti);
+            $dataout['data'][] = array($val['aid'],$val['aime'],$val['aprezime'],$val['snaziv'],$val['funkcija'],$val['knaziv'],$val['opstina'],$datumod,$datumdo,$navlasti);
         }
 
         echo json_encode($dataout);
