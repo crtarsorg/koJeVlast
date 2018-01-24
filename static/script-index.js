@@ -189,8 +189,10 @@ function tabelaOdbornikaRegion(data) {
             prezime: el.aprezime,
             stranka: el.snaziv,
             funkcija: el.funkcija,
+
+            fid: el.fid,
             koalicija: el.knaziv /*pkoalicija*/ ,
-            vlast: el.pnavlasti == 1 ? "vlast" : "opozicija",
+            vlast: el.pnavlasti == 1 ? 1 : 2,
             //promena : "",
             datrodj: el.arodjen,
             pol: el.apol,
