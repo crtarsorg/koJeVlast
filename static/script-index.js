@@ -12,7 +12,7 @@ var FILES_PATH = "partials/"
 
 $("#indikator").load(FILES_PATH + "legenda.html?2")
 
-$.get(FILES_PATH + "modal.html?17", function(data) {
+$.get(FILES_PATH + "modal.html?18", function(data) {
     $("#mainWrapper").append(data);
 });
 
@@ -233,6 +233,12 @@ function statsOdbornici(podaci) {
     $("#brStranka").html( stranke.length );
     $("#brKoalcija").html( koalicija.length );
     $("#brVlasti").html( vlast.length );
+
+    $("#brOdb").html(  odbornici_yes.length );
+    $("#brVlast").html( vlast.length );
+    $("#brOp").html( odbornici_yes.length - vlast.length );
+
+    
 
     /*var stats_text = " Ukupan broj aktera: " + podaci.length;
     stats_text += "<br/>" + " Ukupan broj aktera koji nisu odbornici: " + not_odbornici.length;

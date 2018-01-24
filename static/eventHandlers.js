@@ -88,7 +88,7 @@ var regionDetailHandlerHover = function(elem, naslov) {
         })*/
        return;
     }
-    else if(+temp == 20){
+    else if(+temp == 20){//nis
         sideDetailsOpstina( 79022, 201 );
         return;
     }
