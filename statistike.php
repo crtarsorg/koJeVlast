@@ -137,7 +137,7 @@
         </div>
 
         <div class="odbornici-ukupno">
-            <h3>Broj odbornika u vlasti/opozicij</h3>
+            <h3>Broj odbornika u vlasti/opoziciji</h3>
                 <p><span>Vlast: </span> <span id="br_od_vlast"></span></p>
                 <p><span>Opozicija: </span><span id="br_od_op"></span></p>
         </div>
