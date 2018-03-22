@@ -136,6 +136,13 @@
             </table>
         </div>
 
+        <div class="odbornici-ukupno">
+            <h3>Broj odbornika u vlasti/opozicij</h3>
+                <p><span>Vlast: </span> <span id="br_od_vlast"></span></p>
+                <p><span>Opozicija: </span><span id="br_od_op"></span></p>
+        </div>
+
+
     </div>
 
 
@@ -194,6 +201,9 @@
         	data = JSON.parse(data);
         	data = data.data
         	//console.log( data );
+
+            $("#br_od_vlast").html(data.akteri_aktivni_vlast);
+            $("#br_od_op").html(data.akteri_aktivni_opozicija);
 
 			//$("#brPromena").html(data.promena);
 
