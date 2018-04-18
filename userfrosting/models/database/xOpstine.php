@@ -97,7 +97,14 @@ class xOpstine extends UFModel {
 
 
         //UPDATE TABLE DATA
-        $res =  $conn->table('opstine')->where('opid', '=', $oid)->update([  'opstina' => $_POST['opstina'],'opov' => $_POST['povrsina'],'opop' => $_POST['stanovnika'],'olink' => $_POST['link'] ]);
+        $res =  $conn->table('opstine')->where('opid', '=', $oid)->update([  'opstina' => $_POST['opstina'],'opov' => $_POST['povrsina'],'opop' => $_POST['stanovnika'],'olink' => $_POST['link'],
+        'oadresa' => $_POST['oadresa'],
+        'otelefon' => $_POST['otelefon'],
+        'omail' => $_POST['omail'],
+        'ofb' => $_POST['ofb'],
+        'otw' => $_POST['otw'] 
+
+            ]);
 
         if($res){
             die('<div class="alert alert-success">Opstina updated.</div>');
