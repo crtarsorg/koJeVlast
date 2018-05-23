@@ -167,7 +167,8 @@ $table_promene = new \UserFrosting\DatabaseTable("promene", [
     "popstina",
     "pnavlasti",
     "pod",
-    "pdo"
+    "pdo",
+    "pkraj_mandata"
 ]);
 \UserFrosting\Database::setSchemaTable("promene", $table_promene);
 

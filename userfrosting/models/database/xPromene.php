@@ -24,6 +24,8 @@ class xPromene extends UFModel {
         $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('opstine', 'popstina', '=', 'opid')->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')->orderBy("pid","desc")->limit(10)->get();   //
         $dump="";
 
+
+        //ovo moze u sql upitu if - if(pnavlasti=1,"Vlast","Opozicija")
         for($i=0;$i<count($res);$i++){
             if($res[$i]['pnavlasti']==1){$res[$i]['pnavlasti']="Vlast";}elseif($res[$i]['pnavlasti']==2){$res[$i]['pnavlasti']="Opozicija";}else {$res[$i]['pnavlasti']="/";}
         }
@@ -110,7 +112,7 @@ class xPromene extends UFModel {
         $conn = Capsule::connection();
 
         $recFiltered = $conn->table('promene')
-        ->select('aime', 'aprezime','arodjen','snaziv','funkcija','fmesto','knaziv','opstina','pod','pdo','pnavlasti','pid')
+        ->select('aime', 'aprezime','arodjen','snaziv','funkcija','fmesto','knaziv','opstina','pod','pdo','pnavlasti','pid','pkraj_mandata')
         ->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
         ->leftJoin('funkcije', 'pfunkcija', '=', 'fid')
         ->leftJoin('koalicije', 'pkoalicija', '=', 'kid')
@@ -147,7 +149,7 @@ class xPromene extends UFModel {
 
 
         $res = $conn->table('promene')
-        ->select('aime', 'aprezime','arodjen','snaziv','funkcija','fmesto','knaziv','opstina','pod','pdo','pnavlasti','pid')
+        ->select('aime', 'aprezime','arodjen','snaziv','funkcija','fmesto','knaziv','opstina','pod','pdo','pnavlasti','pid','pkraj_mandata')
         ->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
         ->leftJoin('funkcije', 'pfunkcija', '=', 'fid')
         ->leftJoin('koalicije', 'pkoalicija', '=', 'kid')
@@ -181,10 +183,6 @@ class xPromene extends UFModel {
         ->skip($start)->take($numres)
         ->orderBy($sort, $sortorder)
         ->get();
-
-
-
-
 
 
 
@@ -301,6 +299,21 @@ class xPromene extends UFModel {
         $pod = $res[0]['pod'];
         $pdo = $res[0]['pdo'];
 
+        $redovni = '';
+        $vanredni = '';
+        if($res[0]['pkraj_mandata']=='redovni'){
+            $redovni = 'selected';
+        }else if($res[0]['pkraj_mandata']=='redovni'){
+            $vanredni = 'selected';
+        }
+
+        $kraj_mandata = 
+            '<select name="pkraj_mandata" id="mandat">'
+                .'<option ></option>'
+                .'<option value="redovni">Redovni kraj mandata</option>'
+                .'<option value="vanredni">Vanredni kraj mandata</option>'
+            .'</select>';
+
 
 
         $app->render('promeneEdit.twig', [
@@ -316,7 +329,8 @@ class xPromene extends UFModel {
             "vlast" => $vlast,
             "pod" => $pod,
             "pdo" => $pdo,
-            "promene" => $res
+            "promene" => $res, 
+            "kraj_mandata"=>$kraj_mandata
         ]);
 
     }
@@ -411,6 +425,21 @@ class xPromene extends UFModel {
         $pod = $res[0]['pod'];
         $pdo = $res[0]['pdo'];
 
+        $redovni = '';
+        $vanredni = '';
+        if($res[0]['pkraj_mandata']=='redovni'){
+            $redovni = 'selected';
+        }else if($res[0]['pkraj_mandata']=='redovni'){
+            $vanredni = 'selected';
+        }
+
+        $kraj_mandata = 
+            '<select name="pkraj_mandata" id="mandat">'
+                .'<option ></option>'
+                .'<option value="redovni">Redovni kraj mandata</option>'
+                .'<option value="vanredni">Vanredni kraj mandata</option>'
+            .'</select>';
+
 
 
         $app->render('promeneEditFORM.twig', [
@@ -427,7 +456,8 @@ class xPromene extends UFModel {
             "pod" => $pod,
             "pdo" => $pdo,
             "promene" => $res,
-            "pid" => $pid
+            "pid" => $pid,
+            "kraj_mandata"=> $kraj_mandata
         ]);
 
     }
