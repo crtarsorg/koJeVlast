@@ -135,8 +135,18 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="col-sm-4">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+					{{promena_funkcije|raw}}
+				</div>
+			</div>
+		</div>
+		
 	</div>
-	
+
 	<div class="row">
 						<div class="col-sm-12">
 								
@@ -203,6 +213,7 @@ $( document ).ready(function() {
 	$("#koalicija").select2({placeholder: "Koalicije"});
 	$("#opstina").select2({placeholder: "Opstina"});
 	$("#vlast").select2({placeholder: "U vlasti"});
+	$("#mandat").select2({placeholder: "Prekid mandata"});
 	$("#fmesto").select2({placeholder: "Funkcija mesto"});
 
 

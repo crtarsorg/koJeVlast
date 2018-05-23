@@ -43,15 +43,51 @@ class xPromene extends UFModel {
     }
 
 
+    public function vrati_instancu($conn,$qe)
+    {
+        
+       return $conn->table('promene')
+        ->select('aime', 'aprezime','arodjen','snaziv','funkcija','fmesto','knaziv','opstina','pod','pdo','pnavlasti','pid','pkraj_mandata','promena_funkcije')
+        ->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
+        ->leftJoin('funkcije', 'pfunkcija', '=', 'fid')
+        ->leftJoin('koalicije', 'pkoalicija', '=', 'kid')
+        ->leftJoin('opstine', 'popstina', '=', 'opid')
+        ->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')
+
+//        ->where('aime', 'like',  '' . $qe[0] .'%')
+//        ->where('aprezime', 'like',  '' . $qe[1] .'%')
+
+        ->where(function ($query) use($qe) {
+                     for ($i = 0; $i < count($qe); $i++){
+                        $query->orwhere('aime', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('aprezime', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('arodjen', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('snaziv', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('funkcija', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('fmesto', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('opstina', 'like',  '' . $qe[$i] .'');
+
+                        if(is_numeric($qe[$i]) ){
+                        $query->orwhere('pod', 'like',  '' . $qe[$i] .'');
+                        $query->orwhere('pdo', 'like',  '' . $qe[$i] .'');
+                        }
+                        if($qe[$i]=="0" || $qe[$i]=="1" || $qe[$i]=="2"   ){
+                        $query->orwhere('pnavlasti', '=',  '' . $qe[$i] .'');
+                        }
+                     }
+                });
+    }
+
+
+
     public function listaSearch($app){
 
     $q = $_GET['search']['value'];
     $numres = $_GET['length'];
     $start = $_GET['start'];
-    $sort = $_GET['order'][0]['column'];
-    $sortorder = $_GET['order'][0]['dir'];
-
-
+    $sort = -1;//$_GET['order'][0]['column'];
+    $sortorder ='asc';// $_GET['order'][0]['dir'];
+    //XXX ukloniti zakucane stvari iznad
 
     if(empty($q)){$q='%';}
     if(!$start){$start='0';}
@@ -109,76 +145,15 @@ class xPromene extends UFModel {
 //echo($qe[0]);
 //die($qe[1]);
 
+        
         $conn = Capsule::connection();
-
-        $recFiltered = $conn->table('promene')
-        ->select('aime', 'aprezime','arodjen','snaziv','funkcija','fmesto','knaziv','opstina','pod','pdo','pnavlasti','pid','pkraj_mandata')
-        ->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
-        ->leftJoin('funkcije', 'pfunkcija', '=', 'fid')
-        ->leftJoin('koalicije', 'pkoalicija', '=', 'kid')
-        ->leftJoin('opstine', 'popstina', '=', 'opid')
-        ->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')
-
-//        ->where('aime', 'like',  '' . $qe[0] .'%')
-//        ->where('aprezime', 'like',  '' . $qe[1] .'%')
-
-        ->where(function ($query) use($qe) {
-                     for ($i = 0; $i < count($qe); $i++){
-                        $query->orwhere('aime', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('aprezime', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('arodjen', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('snaziv', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('funkcija', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('fmesto', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('opstina', 'like',  '' . $qe[$i] .'');
-
-                        if(is_numeric($qe[$i]) ){
-                        $query->orwhere('pod', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('pdo', 'like',  '' . $qe[$i] .'');
-                        }
-                        if($qe[$i]=="0" || $qe[$i]=="1" || $qe[$i]=="2"   ){
-                        $query->orwhere('pnavlasti', '=',  '' . $qe[$i] .'');
-                        }
-                     }
-                })
+        $recFiltered =$this->vrati_instancu($conn,$qe)
 
         ->count();
 
 //prepare and fix limits
 
-
-
-        $res = $conn->table('promene')
-        ->select('aime', 'aprezime','arodjen','snaziv','funkcija','fmesto','knaziv','opstina','pod','pdo','pnavlasti','pid','pkraj_mandata')
-        ->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')
-        ->leftJoin('funkcije', 'pfunkcija', '=', 'fid')
-        ->leftJoin('koalicije', 'pkoalicija', '=', 'kid')
-        ->leftJoin('opstine', 'popstina', '=', 'opid')
-        ->leftJoin('funkcije_mesto', 'pfm', '=', 'fmid')
-
-//        ->where('aime', 'like',  '' . $qe[0] .'%')
-//        ->where('aprezime', 'like',  '' . $qe[1] .'%')
-
-        ->where(function ($query) use($qe) {
-                     for ($i = 0; $i < count($qe); $i++){
-                        $query->orwhere('aime', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('aprezime', 'like',  '' . $qe[$i] .'');
-
-                        $query->orwhere('arodjen', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('snaziv', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('funkcija', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('fmesto', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('opstina', 'like',  '' . $qe[$i] .'');
-
-                        if(is_numeric($qe[$i]) ){
-                        $query->orwhere('pod', 'like',  '' . $qe[$i] .'');
-                        $query->orwhere('pdo', 'like',  '' . $qe[$i] .'');
-                        }
-                        if($qe[$i]=="0" || $qe[$i]=="1" || $qe[$i]=="2"   ){
-                        $query->orwhere('pnavlasti', '=',  '' . $qe[$i] .'');
-                        }
-                     }
-                })
+        $res = $this->vrati_instancu($conn,$qe)
 
         ->skip($start)->take($numres)
         ->orderBy($sort, $sortorder)
@@ -219,12 +194,10 @@ class xPromene extends UFModel {
 
 
         $dump= "edit for no: ".$pid;
-        //$dump.= print_r($res,true);
 
-        //$dump.= print_r($resakt,true);
-
-        //akter
+       
         $resakt = $conn->table('akteri')->orderBy('aprezime','asc')->where('aime', '=', $res[0]['aime'])->where('aprezime', '=', $res[0]['aprezime'])->get();
+        
         $akter = '<select id="akter" name="akter"><option value=""></option>';
         foreach($resakt as $resa ){
             if($resa['aid']==$res[0]['posoba']) {$sela = "selected";}else{$sela = "";}
@@ -233,9 +206,53 @@ class xPromene extends UFModel {
         }
         $akter .= '</select>';
 
-        //stranka
+        
+        $la = $this->initial_values($conn, $res);
+
+        $app->render('promeneEdit.twig', [
+            "paginate_server_side" => false,
+            "dump" => $dump,
+            "actionText" => "Update (ovo NE unosi novu promenu - samo menja postojecu)",
+            "akter" => $akter,
+            "stranka" => $la['stranka'],
+            "funk" => $la['funk'],
+            "funkmesto" => $la['funkmesto'],
+            "koal" => $la['koal'],
+            "ops" => $la['ops'],
+            "vlast" => $la['vlast'],
+            "pod" => $la['pod'],
+            "pdo" => $la['pdo'],
+            "promene" => $res, 
+            "kraj_mandata"=>$la['kraj_mandata']
+        ]);
+
+    }
+
+
+    public function initial_values($conn, $res="")
+    {
+
+        if(empty($res)){
+            //XXX moze da se iskoristi postojeca initial_values, ako se prosledi niz praznim stringovima i odgovarajucim kljucevima 
+            $res = [];
+            $res[0] = [];
+            $res[0]['pstranka'] = '';
+            $res[0]['pfunkcija'] = '';
+            $res[0]['pfm'] = '';
+            $res[0]['pkoalicija'] = '';
+            $res[0]['popstina'] = '';
+            $res[0]['pnavlasti'] = '';
+            $res[0]['pod'] = '';
+            $res[0]['pdo'] = '';
+            $res[0]['pkraj_mandata'] = '';
+            //promena_funkcije
+        }
+        $ret_res = array();
+      //stranka
         $resstranka = $conn->table('stranke')->orderBy('snaziv','asc')->get();
+        
         $stranka = '<select id="stranka" name="stranka"><option value="0">Stranka - nema podatka</option>';
+        
         foreach($resstranka as $resstrankaa ){
             if($resstrankaa['sid']==$res[0]['pstranka']) {$sela = "selected";}else{$sela = "";}
             $stranka .= '
@@ -243,6 +260,7 @@ class xPromene extends UFModel {
         }
         $stranka .= '</select>';
 
+        $ret_res['stranka'] = $stranka;
 
         //funkcija
         $resf = $conn->table('funkcije')->orderBy('funkcija','asc')->get();
@@ -253,6 +271,7 @@ class xPromene extends UFModel {
             <option '.$sela.' value="'.$resfa['fid'].'">'.$resfa['funkcija'].'</option>';
         }
         $funk .= '</select>';
+        $ret_res['funk'] = $funk;
 
         //funkcija - mesto
         $resfm = $conn->table('funkcije_mesto')->orderBy('fmesto','asc')->get();
@@ -263,6 +282,7 @@ class xPromene extends UFModel {
             <option '.$sela.' value="'.$resfma['fmid'].'">'.$resfma['fmesto'].'</option>';
         }
         $funkmesto .= '</select>';
+        $ret_res['funkmesto'] = $funkmesto;
 
         //koalicija
         $resk = $conn->table('koalicije')->orderBy('knaziv','asc')->get();
@@ -273,6 +293,7 @@ class xPromene extends UFModel {
             <option '.$sela.' value="'.$reska['kid'].'">'.$reska['knaziv'].'</option>';
         }
         $koal .= '</select>';
+        $ret_res['koal'] = $koal;
 
 
         //opstina
@@ -284,7 +305,7 @@ class xPromene extends UFModel {
             <option '.$sela.' value="'.$resoa['opid'].'">'.$resoa['opstina'].'</option>';
         }
         $ops .= '</select>';
-
+        $ret_res['ops'] = $ops;
 
         //na vlasti
         $vlast ='';$vlastsel='';$opozicija = '';$vlastdef='';
@@ -295,46 +316,40 @@ class xPromene extends UFModel {
         $vlast .= '<option '.$opozicija.' value="2">Opozicija</option>';
         $vlast .= '</select>';
 
+        $ret_res['vlast'] = $vlast;
+
 
         $pod = $res[0]['pod'];
         $pdo = $res[0]['pdo'];
+
+        $ret_res['pod'] = $pod;
+        $ret_res['pdo'] = $pdo;
 
         $redovni = '';
         $vanredni = '';
         if($res[0]['pkraj_mandata']=='redovni'){
             $redovni = 'selected';
-        }else if($res[0]['pkraj_mandata']=='redovni'){
+        }else if($res[0]['pkraj_mandata']=='vanredni'){
             $vanredni = 'selected';
         }
 
         $kraj_mandata = 
             '<select name="pkraj_mandata" id="mandat">'
                 .'<option ></option>'
-                .'<option value="redovni">Redovni kraj mandata</option>'
-                .'<option value="vanredni">Vanredni kraj mandata</option>'
+                .'<option '.$redovni.' value="redovni">Redovni kraj mandata</option>'
+                .'<option '.$vanredni.' value="vanredni">Vanredni kraj mandata</option>'
             .'</select>';
+        $ret_res['kraj_mandata'] = $kraj_mandata;
 
+        $promena = "";
+        if(!empty($res[0]['promena_funkcije']) && $res[0]['promena_funkcije'] ==1){
+            $promena = "checked";    
+        }
+        
+        $promena_funkcije = '<input type="checkbox" name="promena_funkcije" value="1" '.$promena.'> Promena funkcije';
 
-
-        $app->render('promeneEdit.twig', [
-            "paginate_server_side" => false,
-            "dump" => $dump,
-            "actionText" => "Update (ovo NE unosi novu promenu - samo menja postojecu)",
-            "akter" => $akter,
-            "stranka" => $stranka,
-            "funk" => $funk,
-            "funkmesto" => $funkmesto,
-            "koal" => $koal,
-            "ops" => $ops,
-            "vlast" => $vlast,
-            "pod" => $pod,
-            "pdo" => $pdo,
-            "promene" => $res, 
-            "kraj_mandata"=>$kraj_mandata
-        ]);
-
+        return $ret_res;
     }
-
 
     public function editPromeneFORM($app,$pid){
 
@@ -343,103 +358,12 @@ class xPromene extends UFModel {
 
 
         $dump= "edit for no: ".$pid;
-        //$dump= print_r($res,true);
 
-        //$dump.= print_r($resakt,true);
-
-        //akter
-//        $resakt = $conn->table('akteri')->orderBy('aprezime','asc')->get();
-//        $akter = '<select id="akter" name="akter"><option value=""></option>';
-//        foreach($resakt as $resa ){
-//            if($resa['aid']==$res[0]['posoba']) {$sela = "selected";}else{$sela = "";}
-//            $akter .= '
-//            <option '.$sela.' value="'.$resa['aid'].'">'.$resa['aprezime'].' '.$resa['aime'].'</option>';
-//        }
-//        $akter .= '</select>';
 
         $akter = '<input class="form-control" id="akterdis" name="akterdis" value="'.$res[0]['aprezime'].' '.$res[0]['aime'].' '.$res[0]['aid'].'" disabled="disabled"><input id="akter" type="hidden" name="akter" value="'.$res[0]['aid'].'">';
 
-        //stranka
-        $resstranka = $conn->table('stranke')->orderBy('snaziv','asc')->get();
-        $stranka = '<select id="stranka" name="stranka"><option value="0">Stranka - nema podatka</option>';
-        foreach($resstranka as $resstrankaa ){
-            if($resstrankaa['sid']==$res[0]['pstranka']) {$sela = "selected";}else{$sela = "";}
-            $stranka .= '
-            <option '.$sela.' value="'.$resstrankaa['sid'].'">'.$resstrankaa['snaziv'].'</option>';
-        }
-        $stranka .= '</select>';
-
-
-        //funkcija
-        $resf = $conn->table('funkcije')->orderBy('funkcija','asc')->get();
-        $funk = '<select id="funk" name="funk"><option value="0">Funkcija - nema podatka</option>';
-        foreach($resf as $resfa ){
-            if($resfa['fid']==$res[0]['pfunkcija']) {$sela = "selected";}else{$sela = "";}
-            $funk .= '
-            <option '.$sela.' value="'.$resfa['fid'].'">'.$resfa['funkcija'].'</option>';
-        }
-        $funk .= '</select>';
-
-        //funkcija - mesto
-        $resfm = $conn->table('funkcije_mesto')->orderBy('fmesto','asc')->get();
-        $funkmesto = '<select id="fmesto" name="fmesto"><option value="0">Mesto funkcije - nema podatka</option>';
-        foreach($resfm as $resfma ){
-            if($resfma['fmid']==$res[0]['pfm']) {$sela = "selected";}else{$sela = "";}
-            $funkmesto .= '
-            <option '.$sela.' value="'.$resfma['fmid'].'">'.$resfma['fmesto'].'</option>';
-        }
-        $funkmesto .= '</select>';
-
-        //koalicija
-        $resk = $conn->table('koalicije')->orderBy('knaziv','asc')->get();
-        $koal = '<select id="koalicija" name="koalicija"><option value="0">Koalicija - nema podatka</option>';
-        foreach($resk as $reska ){
-            if($reska['kid']==$res[0]['pkoalicija']) {$sela = "selected";}else{$sela = "";}
-            $koal .= '
-            <option '.$sela.' value="'.$reska['kid'].'">'.$reska['knaziv'].'</option>';
-        }
-        $koal .= '</select>';
-
-
-        //opstina
-        $reso = $conn->table('opstine')->orderBy('opstina','asc')->get();
-        $ops = '<select id="opstina" name="opstina"><option value="0">Opstina - nema podatka</option>';
-        foreach($reso as $resoa ){
-            if($resoa['opid']==$res[0]['popstina']) {$sela = "selected";}else{$sela = "";}
-            $ops .= '
-            <option '.$sela.' value="'.$resoa['opid'].'">'.$resoa['opstina'].'</option>';
-        }
-        $ops .= '</select>';
-
-
-        //na vlasti
-        $vlast ='';$vlastsel='';$opozicija = '';$vlastdef='';
-        if($res[0]['pnavlasti']==1){$vlastsel = 'selected';}  elseif($res[0]['pnavlasti']==2) {$opozicija = 'selected';} else {$vlastdef="selected";}
-
-        $vlast = '<select id="vlast" name="vlast"><option  '.$vlastdef.'  value="0">Na vlasti - nema podatka</option>';
-        $vlast .= '<option '.$vlastsel.' value="1">Vlast</option>';
-        $vlast .= '<option '.$opozicija.' value="2">Opozicija</option>';
-        $vlast .= '</select>';
-
-
-        $pod = $res[0]['pod'];
-        $pdo = $res[0]['pdo'];
-
-        $redovni = '';
-        $vanredni = '';
-        if($res[0]['pkraj_mandata']=='redovni'){
-            $redovni = 'selected';
-        }else if($res[0]['pkraj_mandata']=='redovni'){
-            $vanredni = 'selected';
-        }
-
-        $kraj_mandata = 
-            '<select name="pkraj_mandata" id="mandat">'
-                .'<option ></option>'
-                .'<option value="redovni">Redovni kraj mandata</option>'
-                .'<option value="vanredni">Vanredni kraj mandata</option>'
-            .'</select>';
-
+        
+        $la = $this->initial_values($conn, $res);
 
 
         $app->render('promeneEditFORM.twig', [
@@ -447,17 +371,17 @@ class xPromene extends UFModel {
             "dump" => $dump,
             "actionText" => "Update (ovo NE unosi novu promenu - samo menja postojecu)",
             "akter" => $akter,
-            "stranka" => $stranka,
-            "funk" => $funk,
-            "funkmesto" => $funkmesto,
-            "koal" => $koal,
-            "ops" => $ops,
-            "vlast" => $vlast,
-            "pod" => $pod,
-            "pdo" => $pdo,
+            "stranka" => $la['stranka'],
+            "funk" => $la['funk'],
+            "funkmesto" => $la['funkmesto'],
+            "koal" => $la['koal'],
+            "ops" => $la['ops'],
+            "vlast" => $la['vlast'],
+            "pod" => $la['pod'],
+            "pdo" => $la['pdo'],
             "promene" => $res,
             "pid" => $pid,
-            "kraj_mandata"=> $kraj_mandata
+            "kraj_mandata"=> $la['kraj_mandata']
         ]);
 
     }
@@ -500,7 +424,7 @@ if( $restest[0]['posoba'] == $_POST['akter'] && $restest[0]['pstranka'] == $_POS
 if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //UPDATE TABLE DATA
-        $res =  $conn->table('promene')->where('pid', '=', $pid)->update([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo']   ]);
+        $res =  $conn->table('promene')->where('pid', '=', $pid)->update([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=> $_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije']  ]);
 
 
         if($res){
@@ -533,65 +457,9 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
         }
         $akter .= '</select>';
 
-        //stranka
-        $resstranka = $conn->table('stranke')->orderBy('snaziv','asc')->get();
-        $stranka = '<select id="stranka" name="stranka"><option value="0">Stranka - nema podatka</option>';
-        foreach($resstranka as $resstrankaa ){
-            $stranka .= '
-            <option  value="'.$resstrankaa['sid'].'">'.$resstrankaa['snaziv'].'</option>';
-        }
-        $stranka .= '</select>';
 
 
-        //funkcija
-        $resf = $conn->table('funkcije')->orderBy('funkcija','asc')->get();
-        $funk = '<select id="funk" name="funk"><option value="0">Funkcija - nema podatka</option>';
-        foreach($resf as $resfa ){
-            $funk .= '
-            <option  value="'.$resfa['fid'].'">'.$resfa['funkcija'].'</option>';
-        }
-        $funk .= '</select>';
-
-        //funkcija - mesto
-        $resfm = $conn->table('funkcije_mesto')->orderBy('fmesto','asc')->get();
-        $funkmesto = '<select id="fmesto" name="fmesto"><option value="0">Mesto funkcije - nema podatka</option>';
-        foreach($resfm as $resfma ){
-            //if($resfma['fmid']==$res[0]['pfm']) {$sela = "selected";}else{$sela = "";}
-            $funkmesto .= '
-            <option  value="'.$resfma['fmid'].'">'.$resfma['fmesto'].'</option>';
-        }
-        $funkmesto .= '</select>';
-
-        //koalicija
-        $resk = $conn->table('koalicije')->orderBy('knaziv','asc')->get();
-        $koal = '<select id="koalicija" name="koalicija"><option value="0">Koalicija - nema podatka</option>';
-        foreach($resk as $reska ){
-            $koal .= '
-            <option  value="'.$reska['kid'].'">'.$reska['knaziv'].'</option>';
-        }
-        $koal .= '</select>';
-
-
-        //opstina
-        $reso = $conn->table('opstine')->orderBy('opstina','asc')->get();
-        $ops = '<select id="opstina" name="opstina"><option value="0">Opstina - nema podatka</option>';
-        foreach($reso as $resoa ){
-            $ops .= '
-            <option  value="'.$resoa['opid'].'">'.$resoa['opstina'].'</option>';
-        }
-        $ops .= '</select>';
-
-
-        //na vlasti
-        $vlast = '<select id="vlast" name="vlast"><option value="0">Na vlasti - nema podatka</option>';
-        $vlast .= '<option  value="1">Vlast</option>';
-        $vlast .= '<option  value="2">Opozicija</option>';
-        $vlast .= '</select>';
-
-
-
-
-
+        $la = $this->initial_values($conn);
 
 
         $app->render('promeneEdit.twig', [
@@ -599,15 +467,16 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
             "dump" => $dump,
             "actionText" => "Add New",
             "akter" => $akter,
-            "stranka" => $stranka,
-            "funk" => $funk,
-            "funkmesto" => $funkmesto,
-            "koal" => $koal,
-            "ops" => $ops,
-            "vlast" => $vlast,
+            "stranka" => $la['stranka'],
+            "funk" => $la['funk'],
+            "funkmesto" => $la['funkmesto'],
+            "koal" => $la['koal'],
+            "ops" => $la['ops'],
+            "vlast" => $la['vlast'],
             "pod" => '',
             "pdo" => '',
-            "promene" => $dummyPromene
+            "promene" => $dummyPromene,
+            "kraj_mandata"=>$la['kraj_mandata']
         ]);
 
     }
@@ -633,65 +502,8 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         $akter = '<input class="form-control" id="akterdis" name="akterdis" value="'.$resakt[0]['aprezime'].' '.$resakt[0]['aime'].' '.$resakt[0]['aid'].'" disabled="disabled"><input id="akter" type="hidden" name="akter" value="'.$resakt[0]['aid'].'">';
 
-        //stranka
-        $resstranka = $conn->table('stranke')->orderBy('snaziv','asc')->get();
-        $stranka = '<select id="stranka" name="stranka"><option value="0">Stranka - nema podatka</option>';
-        foreach($resstranka as $resstrankaa ){
-            $stranka .= '
-            <option  value="'.$resstrankaa['sid'].'">'.$resstrankaa['snaziv'].'</option>';
-        }
-        $stranka .= '</select>';
 
-
-        //funkcija
-        $resf = $conn->table('funkcije')->orderBy('funkcija','asc')->get();
-        $funk = '<select id="funk" name="funk"><option value="0">Funkcija - nema podatka</option>';
-        foreach($resf as $resfa ){
-            $funk .= '
-            <option  value="'.$resfa['fid'].'">'.$resfa['funkcija'].'</option>';
-        }
-        $funk .= '</select>';
-
-        //funkcija - mesto
-        $resfm = $conn->table('funkcije_mesto')->orderBy('fmesto','asc')->get();
-        $funkmesto = '<select id="fmesto" name="fmesto"><option value="0">Mesto funkcije - nema podatka</option>';
-        foreach($resfm as $resfma ){
-            //if($resfma['fmid']==$res[0]['pfm']) {$sela = "selected";}else{$sela = "";}
-            $funkmesto .= '
-            <option  value="'.$resfma['fmid'].'">'.$resfma['fmesto'].'</option>';
-        }
-        $funkmesto .= '</select>';
-
-        //koalicija
-        $resk = $conn->table('koalicije')->orderBy('knaziv','asc')->get();
-        $koal = '<select id="koalicija" name="koalicija"><option value="0">Koalicija - nema podatka</option>';
-        foreach($resk as $reska ){
-            $koal .= '
-            <option  value="'.$reska['kid'].'">'.$reska['knaziv'].'</option>';
-        }
-        $koal .= '</select>';
-
-
-        //opstina
-        $reso = $conn->table('opstine')->orderBy('opstina','asc')->get();
-        $ops = '<select id="opstina" name="opstina"><option value="0">Opstina - nema podatka</option>';
-        foreach($reso as $resoa ){
-            $ops .= '
-            <option  value="'.$resoa['opid'].'">'.$resoa['opstina'].'</option>';
-        }
-        $ops .= '</select>';
-
-
-        //na vlasti
-        $vlast = '<select id="vlast" name="vlast"><option value="0">Na vlasti - nema podatka</option>';
-        $vlast .= '<option  value="1">Vlast</option>';
-        $vlast .= '<option  value="2">Opozicija</option>';
-        $vlast .= '</select>';
-
-
-
-
-
+        $la = $this->initial_values($conn);
 
 
         $app->render('promeneEditFORM.twig', [
@@ -699,16 +511,17 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
             "dump" => $dump,
             "actionText" => "Add New",
             "akter" => $akter,
-            "stranka" => $stranka,
-            "funk" => $funk,
-            "funkmesto" => $funkmesto,
-            "koal" => $koal,
-            "ops" => $ops,
-            "vlast" => $vlast,
+            "stranka" => $la['stranka'],
+            "funk" => $la['funk'],
+            "funkmesto" => $la['funkmesto'],
+            "koal" => $la['koal'],
+            "ops" => $la['ops'],
+            "vlast" => $la['vlast'],
             "pod" => '',
             "pdo" => '',
             "promene" => $dummyPromene,
-            "novapromena" => '1'
+            "novapromena" => '1',
+            "kraj_mandata" => $la['kraj_mandata']
         ]);
 
     }
@@ -751,7 +564,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //insert data
-        $res =  $conn->table('promene')->insert([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo']  ]);
+        $res =  $conn->table('promene')->insert([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=>$_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije']  ]);
 
         if($res){
             die('<div class="alert alert-success">Nova promena dodata.</div>');

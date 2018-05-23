@@ -28,4 +28,6 @@ RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ partials/$1.html [L]
 
+    
+
 </IfModule>
