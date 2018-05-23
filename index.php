@@ -115,7 +115,7 @@
 
     <script>
 
-
+    /*heat mapa preletaca*/
     $(function() {
         var heap;
         var map;

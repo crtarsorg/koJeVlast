@@ -12,3 +12,4 @@ https://restcountries.eu/rest/v1/name/serbia?fullText=true
 /api/strankaNaVlasti/:id
 /api/strankeNaVlasti
 /admin/api/akteriPoOpstini/1
+

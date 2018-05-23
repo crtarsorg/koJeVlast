@@ -41,6 +41,12 @@ class xOpstine extends UFModel {
         $conn = Capsule::connection();
         $res = $conn->table('opstine')->where('opid', '=', $oid)->get();
 
+
+        print_r('<pre>');
+        var_dump($res);
+        print_r('</pre>');
+        
+
         $dump= "edit for no: ";
         //$dump= print_r($res,true);
 
