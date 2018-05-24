@@ -136,11 +136,31 @@
 			</div>
 		</div>
 
+
+
 		<div class="col-sm-4">
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-edit"></i></span>
-					{{promena_funkcije|raw}}
+					{{promena_funkcije|raw}} 
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+					{{tip_preleta|raw}}
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+					{{oport_prelet|raw}} 
 				</div>
 			</div>
 		</div>
@@ -180,10 +200,6 @@
 
 <div class="clearfix"></div>
 
-
-
-
-
 				
 				
             {% endblock %}
@@ -212,10 +228,10 @@ $( document ).ready(function() {
 	$("#funk").select2({placeholder: "Funkcija"});
 	$("#koalicija").select2({placeholder: "Koalicije"});
 	$("#opstina").select2({placeholder: "Opstina"});
-	$("#vlast").select2({placeholder: "U vlasti"});
-	$("#mandat").select2({placeholder: "Prekid mandata"});
+	$("#vlast").select2({placeholder: "U vlasti"});	
 	$("#fmesto").select2({placeholder: "Funkcija mesto"});
-
+	$("#mandat").select2({placeholder: "Prekid mandata"});
+	$("#prelet").select2({placeholder: "Tip preletanja"});
 
 $('#datumod').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumod",  dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
     if(e.keyCode == 8 || e.keyCode == 46) {
@@ -228,7 +244,6 @@ $('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  date
     }
 });
 	
-
 
 
 

@@ -80,154 +80,6 @@ class xPromene extends UFModel {
 
 
 
-    public function listaSearch($app){
-
-    $q = $_GET['search']['value'];
-    $numres = $_GET['length'];
-    $start = $_GET['start'];
-    $sort = -1;//$_GET['order'][0]['column'];
-    $sortorder ='asc';// $_GET['order'][0]['dir'];
-    //XXX ukloniti zakucane stvari iznad
-
-    if(empty($q)){$q='%';}
-    if(!$start){$start='0';}
-    if(!$sortorder){$sortorder='desc';}
-    if($numres=="-1"){$numres= 999999999999;}  // $recFiltered
-
-
-    $qe = explode(" ",$q);
-    if(count($qe)>1){
-        $qe[] = $q;//."%";
-    } else{
-        //$qe[] = $q."%";
-    }
-
-
-
-    switch ($sort) {
-        case "0":
-            $sort="aime";
-            break;
-        case "1":
-            $sort="aprezime";;
-            break;
-        case "2":
-            $sort="arodjen";
-            break;
-        case "3":
-            $sort="snaziv";
-            break;
-        case "4":
-            $sort="funkcija";
-            break;
-        case "5":
-            $sort="fmesto";
-            break;
-        case "6":
-            $sort="knaziv";
-            break;
-        case "7":
-            $sort="opstina";
-            break;
-        case "8":
-            $sort="pod";
-            break;
-        case "9":
-            $sort="pdo";
-            break;
-        case "10":
-            $sort="pnavlasti";
-            break;
-        default:
-            $sort="pid";
-    }
-
-//echo($qe[0]);
-//die($qe[1]);
-
-        
-        $conn = Capsule::connection();
-        $recFiltered =$this->vrati_instancu($conn,$qe)
-
-        ->count();
-
-//prepare and fix limits
-
-        $res = $this->vrati_instancu($conn,$qe)
-
-        ->skip($start)->take($numres)
-        ->orderBy($sort, $sortorder)
-        ->get();
-
-
-
-        $dump="";
-
-        for($i=0;$i<count($res);$i++){
-            if($res[$i]['pnavlasti']==1){$res[$i]['pnavlasti']="Vlast";}elseif($res[$i]['pnavlasti']==2){$res[$i]['pnavlasti']="Opozicija";}else {$res[$i]['pnavlasti']="/";}
-            //add edit link
-            $res[$i]['pid'] = '<a target="_blank" href="promene/edit/'.$res[$i]['pid'].'">edit</a> ';
-        }
-
-
-        //$res = array_values($res);
-        for($i=0;$i<count($res);$i++){
-            $res[$i] = array_values($res[$i]);
-        }
-
-        $resout['recordsFiltered']= $recFiltered;
-        $resout['recordsTotal']= $conn->table('promene')->count();
-        $resout['data']=$res;
-
-        echo json_encode($resout);
-
-
-    }
-
-
-
-    // list akter fields
-    public function editPromene($app,$pid){
-
-        $conn = Capsule::connection();
-        $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('pid', '=', $pid)->get();
-
-
-        $dump= "edit for no: ".$pid;
-
-       
-        $resakt = $conn->table('akteri')->orderBy('aprezime','asc')->where('aime', '=', $res[0]['aime'])->where('aprezime', '=', $res[0]['aprezime'])->get();
-        
-        $akter = '<select id="akter" name="akter"><option value=""></option>';
-        foreach($resakt as $resa ){
-            if($resa['aid']==$res[0]['posoba']) {$sela = "selected";}else{$sela = "";}
-            $akter .= '
-            <option '.$sela.' value="'.$resa['aid'].'">'.$resa['aprezime'].' '.$resa['aime'].' ('.$resa['arodjen'].')</option>';
-        }
-        $akter .= '</select>';
-
-        
-        $la = $this->initial_values($conn, $res);
-
-        $app->render('promeneEdit.twig', [
-            "paginate_server_side" => false,
-            "dump" => $dump,
-            "actionText" => "Update (ovo NE unosi novu promenu - samo menja postojecu)",
-            "akter" => $akter,
-            "stranka" => $la['stranka'],
-            "funk" => $la['funk'],
-            "funkmesto" => $la['funkmesto'],
-            "koal" => $la['koal'],
-            "ops" => $la['ops'],
-            "vlast" => $la['vlast'],
-            "pod" => $la['pod'],
-            "pdo" => $la['pdo'],
-            "promene" => $res, 
-            "kraj_mandata"=>$la['kraj_mandata']
-        ]);
-
-    }
-
 
     public function initial_values($conn, $res="")
     {
@@ -245,7 +97,8 @@ class xPromene extends UFModel {
             $res[0]['pod'] = '';
             $res[0]['pdo'] = '';
             $res[0]['pkraj_mandata'] = '';
-            //promena_funkcije
+            $res[0]['promena_funkcije'] = '';
+            $res[0]['tip_preleta'] = '';
         }
         $ret_res = array();
       //stranka
@@ -335,7 +188,7 @@ class xPromene extends UFModel {
 
         $kraj_mandata = 
             '<select name="pkraj_mandata" id="mandat">'
-                .'<option ></option>'
+                .'<option value=""> Nista</option>'
                 .'<option '.$redovni.' value="redovni">Redovni kraj mandata</option>'
                 .'<option '.$vanredni.' value="vanredni">Vanredni kraj mandata</option>'
             .'</select>';
@@ -347,9 +200,204 @@ class xPromene extends UFModel {
         }
         
         $promena_funkcije = '<input type="checkbox" name="promena_funkcije" value="1" '.$promena.'> Promena funkcije';
+        $ret_res['promena_funkcije'] = $promena_funkcije;
+
+
+
+        $nezavisni = '';
+        $nova_grupa = '';
+        $preletanje = "";
+        $preletanje_grupe = '';
+        if($res[0]['tip_preleta']=='nezavisni'){
+            $nezavisni = 'selected';
+        }else if($res[0]['tip_preleta']=='nova_grupa'){
+            $nova_grupa = 'selected';
+        }else if($res[0]['tip_preleta']=='preletanje'){
+            $preletanje = 'selected';
+        }else if($res[0]['tip_preleta']=='preletanje_grupe'){
+            $preletanje_grupe = 'selected';
+        }
+
+        $tip_preleta = 
+            '<select name="tip_preleta" id="prelet">'
+                .'<option value="" ></option>'
+                .'<option '.$nezavisni.' value="nezavisni">Nezavisni odbornik</option>'
+                .'<option '.$nova_grupa.' value="nova_grupa">Nova odbornicka grupa</option>'
+                .'<option '.$preletanje.' value="preletanje">Preletanje odbornika</option>'
+                .'<option '.$preletanje_grupe.' value="preletanje_grupe">Preletanje odbornicke grupe</option>'
+            .'</select>';
+        $ret_res['tip_preleta'] = $tip_preleta;
+
+
+        $oport_prelet = "";
+        if(!empty($res[0]['oport_prelet']) && $res[0]['oport_prelet'] ==1){
+            $oport_prelet = "checked";    
+        }
+        
+        $oport_prelet = '<input type="checkbox" name="oport_prelet" value="1" '.$oport_prelet.'> Oportuno preletanje';
+        $ret_res['oport_prelet'] = $oport_prelet;
+
+
+        
 
         return $ret_res;
     }
+
+
+
+
+
+      public function listaSearch($app){
+
+    $q = $_GET['search']['value'];
+    $numres = $_GET['length'];
+    $start = $_GET['start'];
+    $sort = -1;//$_GET['order'][0]['column'];
+    $sortorder ='desc';// $_GET['order'][0]['dir'];
+    //XXX ukloniti zakucane stvari iznad
+
+    if(empty($q)){$q='%';}
+    if(!$start){$start='0';}
+    if(!$sortorder){$sortorder='desc';}
+    if($numres=="-1"){$numres= 999999999999;}  // $recFiltered
+
+
+    $qe = explode(" ",$q);
+    if(count($qe)>1){
+        $qe[] = $q;//."%";
+    } else{
+        //$qe[] = $q."%";
+    }
+
+
+
+    switch ($sort) {
+        case "0":
+            $sort="aime";
+            break;
+        case "1":
+            $sort="aprezime";;
+            break;
+        case "2":
+            $sort="arodjen";
+            break;
+        case "3":
+            $sort="snaziv";
+            break;
+        case "4":
+            $sort="funkcija";
+            break;
+        case "5":
+            $sort="fmesto";
+            break;
+        case "6":
+            $sort="knaziv";
+            break;
+        case "7":
+            $sort="opstina";
+            break;
+        case "8":
+            $sort="pod";
+            break;
+        case "9":
+            $sort="pdo";
+            break;
+        case "10":
+            $sort="pnavlasti";
+            break;
+        default:
+            $sort="pid";
+    }
+
+//echo($qe[0]);
+//die($qe[1]);
+
+        
+        $conn = Capsule::connection();
+        $recFiltered =$this->vrati_instancu($conn,$qe)
+        ->count();
+
+//prepare and fix limits
+
+        $res = $this->vrati_instancu($conn,$qe)
+        ->skip($start)->take($numres)
+        ->orderBy($sort, $sortorder)
+        ->get();
+
+
+
+        $dump="";
+
+        for($i=0;$i<count($res);$i++){
+            if($res[$i]['pnavlasti']==1){$res[$i]['pnavlasti']="Vlast";}elseif($res[$i]['pnavlasti']==2){$res[$i]['pnavlasti']="Opozicija";}else {$res[$i]['pnavlasti']="/";}
+            //add edit link
+            $res[$i]['pid'] = '<a target="_blank" href="promene/edit/'.$res[$i]['pid'].'">edit</a> ';
+        }
+
+
+        //$res = array_values($res);
+        for($i=0;$i<count($res);$i++){
+            $res[$i] = array_values($res[$i]);
+        }
+
+        $resout['recordsFiltered']= $recFiltered;
+        $resout['recordsTotal']= $conn->table('promene')->count();
+        $resout['data']=$res;
+
+        echo json_encode($resout);
+
+
+    }
+
+
+
+    // list akter fields
+    public function editPromene($app,$pid){
+
+        $conn = Capsule::connection();
+        $res = $conn->table('promene')->leftJoin('akteri', 'posoba', '=', 'aid')->leftJoin('stranke', 'pstranka', '=', 'sid')->leftJoin('funkcije', 'pfunkcija', '=', 'fid')->leftJoin('koalicije', 'pkoalicija', '=', 'kid')->leftJoin('opstine', 'popstina', '=', 'opid')->where('pid', '=', $pid)->get();
+
+
+        $dump= "edit for no: ".$pid;
+
+       
+        $resakt = $conn->table('akteri')->orderBy('aprezime','asc')->where('aime', '=', $res[0]['aime'])->where('aprezime', '=', $res[0]['aprezime'])->get();
+        
+        $akter = '<select id="akter" name="akter"><option value=""></option>';
+        foreach($resakt as $resa ){
+            if($resa['aid']==$res[0]['posoba']) {$sela = "selected";}else{$sela = "";}
+            $akter .= '
+            <option '.$sela.' value="'.$resa['aid'].'">'.$resa['aprezime'].' '.$resa['aime'].' ('.$resa['arodjen'].')</option>';
+        }
+        $akter .= '</select>';
+
+        
+        $la = $this->initial_values($conn, $res);
+
+        $app->render('promeneEdit.twig', [
+            "paginate_server_side" => false,
+            "dump" => $dump,
+            "actionText" => "Update (ovo NE unosi novu promenu - samo menja postojecu)",
+            "akter" => $akter,
+            "stranka" => $la['stranka'],
+            "funk" => $la['funk'],
+            "funkmesto" => $la['funkmesto'],
+            "koal" => $la['koal'],
+            "ops" => $la['ops'],
+            "vlast" => $la['vlast'],
+            "pod" => $la['pod'],
+            "pdo" => $la['pdo'],
+            "promene" => $res, 
+            "kraj_mandata"=>$la['kraj_mandata'],
+            "promena_funkcije"=>$la["promena_funkcije"],
+            "tip_preleta"=>$la["tip_preleta"],
+            "oport_prelet"=>$la['oport_prelet']
+
+        ]);
+
+    }
+
+
 
     public function editPromeneFORM($app,$pid){
 
@@ -381,7 +429,10 @@ class xPromene extends UFModel {
             "pdo" => $la['pdo'],
             "promene" => $res,
             "pid" => $pid,
-            "kraj_mandata"=> $la['kraj_mandata']
+            "kraj_mandata"=> $la['kraj_mandata'],
+            "promena_funkcije"=> $la['promena_funkcije'],
+            "tip_preleta"=>$la['tip_preleta'],            
+            "oport_prelet"=>$la['oport_prelet']
         ]);
 
     }
@@ -424,7 +475,7 @@ if( $restest[0]['posoba'] == $_POST['akter'] && $restest[0]['pstranka'] == $_POS
 if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //UPDATE TABLE DATA
-        $res =  $conn->table('promene')->where('pid', '=', $pid)->update([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=> $_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije']  ]);
+        $res =  $conn->table('promene')->where('pid', '=', $pid)->update([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=> $_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije'],"tip_preleta"=> $_POST['tip_preleta'], "oport_prelet"=>$_POST['oport_prelet'] ]);
 
 
         if($res){
@@ -476,7 +527,11 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
             "pod" => '',
             "pdo" => '',
             "promene" => $dummyPromene,
-            "kraj_mandata"=>$la['kraj_mandata']
+            "kraj_mandata"=>$la['kraj_mandata'],
+            "promena_funkcije"=>$la['promena_funkcije'],
+            "tip_preleta"=>$la['tip_preleta'],
+            "oport_prelet"=>$la['oport_prelet'],
+
         ]);
 
     }
@@ -521,7 +576,10 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
             "pdo" => '',
             "promene" => $dummyPromene,
             "novapromena" => '1',
-            "kraj_mandata" => $la['kraj_mandata']
+            "kraj_mandata" => $la['kraj_mandata'],
+            "promena_funkcije"=>$la['promena_funkcije'],
+            "tip_preleta"=>$la['tip_preleta'],
+            "oport_prelet"=>$la['oport_prelet']
         ]);
 
     }
@@ -564,7 +622,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //insert data
-        $res =  $conn->table('promene')->insert([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=>$_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije']  ]);
+        $res =  $conn->table('promene')->insert([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=>$_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije'],"tip_preleta"=> $_POST['tip_preleta'],"oport_prelet"=>$_POST['oport_prelet'],  ]);
 
         if($res){
             die('<div class="alert alert-success">Nova promena dodata.</div>');
@@ -626,6 +684,8 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
         else {
 
             $resins =  $conn->table('promene_deleted')->insert([ 'pid' => $currdata[0]['pid'] ,  'posoba' => $currdata[0]['posoba'] , 'pstranka' => $currdata[0]['pstranka'] , 'pfunkcija' => $currdata[0]['pfunkcija'] ,'pfm' => $currdata[0]['pfm'] , 'pkoalicija' => $currdata[0]['pkoalicija'] , 'popstina' => $currdata[0]['popstina'] , 'pnavlasti' => $currdata[0]['pnavlasti'], 'pod' => $currdata[0]['pod'] , 'pdo' => $currdata[0]['pdo']  ]);
+
+            //XXX ovde verovatno treba dodati i dodana polja koja su dodata naknadno
 
             if(!$resins){ $errors[]="GRESKA... Promena NIJE backup-ovana... Kontaktirajte podrsku."; }
 
