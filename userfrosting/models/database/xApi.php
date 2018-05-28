@@ -287,6 +287,8 @@ class xApi extends UFModel {
             return $el['pstranka'] !=14;   
         });
 
+        //uraditi oduzimanje: ukupni - oni_sa_strankama
+
         $bez_stranka = array_filter($res, function ($el)
         {
             return $el['pstranka'] ==14;   
