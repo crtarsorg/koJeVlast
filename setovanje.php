@@ -186,7 +186,7 @@
 	}
 
 
-		function promena_funkcije($conn='')
+	function promena_pfm($conn='')
 	{
 		//sta se njima update-uje uopste?
 		//oni koji menjali stranku, ali su promenili funkciju, opstinu, vlast
