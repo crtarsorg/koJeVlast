@@ -16,8 +16,8 @@
 	    die("Connection failed: " . $conn->connect_error);
 	} 
 
-	//preletanja($conn);
-	promena_funkcije($conn);
+	preletanja($conn);
+	//promena_funkcije($conn);
 
 
 	function preletanja($conn='')
@@ -30,7 +30,7 @@
 		if ($result->num_rows > 0) {
 		    // output data of each row
 		    while($row = $result->fetch_assoc()) {
-		       $result1 = $conn->query("SELECT * FROM `promene` WHERE posoba = ".$row['id'] ." ORDER by pod DESC");
+		       $result1 = $conn->query("SELECT * FROM `promene` WHERE posoba = ".$row['id'] ." ORDER by pod, pid DESC");
 		       update_preletanja($result1->fetch_all(MYSQLI_ASSOC), $conn);
 
 		    }

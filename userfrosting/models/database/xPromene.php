@@ -469,13 +469,28 @@ class xPromene extends UFModel {
 
 ////check if post same as existing data - prevent 0 on update
 $restest = $conn->table('promene')->where('pid', '=', $pid)->get();
-if( $restest[0]['posoba'] == $_POST['akter'] && $restest[0]['pstranka'] == $_POST['stranka'] && $restest[0]['pfunkcija'] == $_POST['funk'] && $restest[0]['pfm'] == $_POST['fmesto'] && $restest[0]['pkoalicija'] == $_POST['koalicija'] && $restest[0]['popstina'] == $_POST['opstina'] && $restest[0]['pnavlasti'] == $_POST['vlast'] && $restest[0]['pod'] == $_POST['altdatumod'] && $restest[0]['pdo'] == $_POST['altdatumdo']    )
+if( 
+    $restest[0]['posoba'] == $_POST['akter'] 
+ && $restest[0]['pstranka'] == $_POST['stranka'] 
+ && $restest[0]['pfunkcija'] == $_POST['funk'] 
+ && $restest[0]['pfm'] == $_POST['fmesto'] 
+ && $restest[0]['pkoalicija'] == $_POST['koalicija'] 
+ && $restest[0]['popstina'] == $_POST['opstina'] 
+ && $restest[0]['pnavlasti'] == $_POST['vlast'] 
+ && $restest[0]['pod'] == $_POST['altdatumod'] 
+ && $restest[0]['pdo'] == $_POST['altdatumdo']  
+ && $restest[0]['pkraj_mandata'] == $_POST['pkraj_mandata']
+ && $restest[0]['promena_funkcije'] == $_POST['promena_funkcije']
+ && $restest[0]['tip_preleta'] == $_POST['tip_preleta']
+ && $restest[0]['oport_prelet'] == $_POST['oport_prelet']
+ //&& $restest[0]['datum_izbora'] == $_POST['datum_izbora']    
+ )
 { die('<div class="alert alert-danger">Data you submited is the <b>SAME</b> as data in database. Aborting...</div>') ; }
 
 if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //UPDATE TABLE DATA
-        $res =  $conn->table('promene')->where('pid', '=', $pid)->update([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=> $_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije'],"tip_preleta"=> $_POST['tip_preleta'], "oport_prelet"=>$_POST['oport_prelet'] ]);
+        $res =  $conn->table('promene')->where('pid', '=', $pid)->update([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=> $_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije'],"tip_preleta"=> $_POST['tip_preleta'], "oport_prelet"=>$_POST['oport_prelet'], /*'datum_izbora' => $_POST['datum_izbora'] */ ]);
 
 
         if($res){
