@@ -137,7 +137,7 @@
 		</div>
 
 
-
+<input type="hidden" id="promena_funkcije" name="promena_funkcije" value="0">
 		<div class="col-sm-4">
 			<div class="form-group">
 				<div class="input-group">
@@ -156,6 +156,13 @@
 			</div>
 		</div>
 
+		
+		
+	</div>
+
+	<div class="row">
+
+	<input type="hidden" id="oport_prelet" name="oport_prelet" value="0">
 		<div class="col-sm-4">
 			<div class="form-group">
 				<div class="input-group">
@@ -164,7 +171,16 @@
 				</div>
 			</div>
 		</div>
-		
+
+		<div class="col-sm-4">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-edit"></i></span>
+					{{datum_izbora|raw}} 
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 	<div class="row">
@@ -182,7 +198,8 @@
 	
 <input type="hidden" id="altdatumod" name="altdatumod" value="{{pod}}">
 <input type="hidden" id="altdatumdo" name="altdatumdo" value="{{pdo}}">	
-	
+<input type="hidden" id="altdatum_izb" name="altdatum_izb" value="{{datum_izbora}}">	
+		
 	
 	<input type="hidden" name="{{csrf_key}}" value="{{csrf_token}}">
 	
@@ -243,7 +260,19 @@ $('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  date
         $.datepicker._clearDate(this);
     }
 });
+
+$('#datumdo').datepicker({ altFormat: "yy-mm-dd", altField: "#altdatumdo",  dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
+    if(e.keyCode == 8 || e.keyCode == 46) {
+        $.datepicker._clearDate(this);
+    }
+});
 	
+
+	$('#datum_izbora').datepicker({altFormat: "yy-mm-dd", altField: "#altdatum_izb",   dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
+    if(e.keyCode == 8 || e.keyCode == 46) {
+        $.datepicker._clearDate(this);
+    }
+});
 
 
 

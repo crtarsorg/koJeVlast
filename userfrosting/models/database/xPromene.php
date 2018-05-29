@@ -99,6 +99,7 @@ class xPromene extends UFModel {
             $res[0]['pkraj_mandata'] = '';
             $res[0]['promena_funkcije'] = '';
             $res[0]['tip_preleta'] = '';
+            $res[0]['datum_izbora'] = '';
         }
         $ret_res = array();
       //stranka
@@ -237,7 +238,15 @@ class xPromene extends UFModel {
         $oport_prelet = '<input type="checkbox" name="oport_prelet" value="1" '.$oport_prelet.'> Oportuno preletanje';
         $ret_res['oport_prelet'] = $oport_prelet;
 
+        $datum_izbora = '';
+        if( !empty($res[0]['datum_izbora'])){
+            $datum_izbora = " value='".$res[0]['datum_izbora']."'";
+        }
 
+        $datum_izb = '<input type="text" name="datum_izbora" placeholder="Datum izbora" id="datum_izbora" '.$datum_izbora.'>';
+
+        $ret_res['datum_izbora'] = $datum_izb;
+        
         
 
         return $ret_res;
@@ -391,7 +400,8 @@ class xPromene extends UFModel {
             "kraj_mandata"=>$la['kraj_mandata'],
             "promena_funkcije"=>$la["promena_funkcije"],
             "tip_preleta"=>$la["tip_preleta"],
-            "oport_prelet"=>$la['oport_prelet']
+            "oport_prelet"=>$la['oport_prelet'],
+            "datum_izbora"=>$la['datum_izbora'],
 
         ]);
 
@@ -432,7 +442,8 @@ class xPromene extends UFModel {
             "kraj_mandata"=> $la['kraj_mandata'],
             "promena_funkcije"=> $la['promena_funkcije'],
             "tip_preleta"=>$la['tip_preleta'],            
-            "oport_prelet"=>$la['oport_prelet']
+            "oport_prelet"=>$la['oport_prelet'],
+            "datum_izbora"=>$la['datum_izbora'],
         ]);
 
     }
@@ -480,17 +491,17 @@ if(
  && $restest[0]['pod'] == $_POST['altdatumod'] 
  && $restest[0]['pdo'] == $_POST['altdatumdo']  
  && $restest[0]['pkraj_mandata'] == $_POST['pkraj_mandata']
- && $restest[0]['promena_funkcije'] == $_POST['promena_funkcije']
+ && (!empty($_POST['promena_funkcije']) && $restest[0]['promena_funkcije'] == $_POST['promena_funkcije'])
  && $restest[0]['tip_preleta'] == $_POST['tip_preleta']
  && $restest[0]['oport_prelet'] == $_POST['oport_prelet']
- //&& $restest[0]['datum_izbora'] == $_POST['datum_izbora']    
+ && $restest[0]['datum_izbora'] == $_POST['altdatum_izb']    
  )
 { die('<div class="alert alert-danger">Data you submited is the <b>SAME</b> as data in database. Aborting...</div>') ; }
 
 if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //UPDATE TABLE DATA
-        $res =  $conn->table('promene')->where('pid', '=', $pid)->update([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=> $_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije'],"tip_preleta"=> $_POST['tip_preleta'], "oport_prelet"=>$_POST['oport_prelet'], /*'datum_izbora' => $_POST['datum_izbora'] */ ]);
+        $res =  $conn->table('promene')->where('pid', '=', $pid)->update([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=> $_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije'],"tip_preleta"=> $_POST['tip_preleta'], "oport_prelet"=>$_POST['oport_prelet'], 'datum_izbora' => $_POST['altdatum_izb']  ]);
 
 
         if($res){
@@ -545,7 +556,8 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
             "kraj_mandata"=>$la['kraj_mandata'],
             "promena_funkcije"=>$la['promena_funkcije'],
             "tip_preleta"=>$la['tip_preleta'],
-            "oport_prelet"=>$la['oport_prelet'],
+            "oport_prelet"=>$la['oport_prelet'],            
+            "datum_izbora"=>$la['datum_izbora'],
 
         ]);
 
@@ -594,7 +606,8 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
             "kraj_mandata" => $la['kraj_mandata'],
             "promena_funkcije"=>$la['promena_funkcije'],
             "tip_preleta"=>$la['tip_preleta'],
-            "oport_prelet"=>$la['oport_prelet']
+            "oport_prelet"=>$la['oport_prelet'],            
+            "datum_izbora"=>$la['datum_izbora'],
         ]);
 
     }
@@ -637,7 +650,7 @@ if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 if(empty($_POST['altdatumdo'])){$_POST['altdatumdo']= NULL;}
 
         //insert data
-        $res =  $conn->table('promene')->insert([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=>$_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije'],"tip_preleta"=> $_POST['tip_preleta'],"oport_prelet"=>$_POST['oport_prelet'],  ]);
+        $res =  $conn->table('promene')->insert([  'posoba' => $_POST['akter'] , 'pstranka' => $_POST['stranka'] , 'pfunkcija' => $_POST['funk'] ,'pfm' => $_POST['fmesto'] , 'pkoalicija' => $_POST['koalicija'] , 'popstina' => $_POST['opstina'] , 'pnavlasti' => $_POST['vlast'], 'pod' => $_POST['altdatumod'] , 'pdo' => $_POST['altdatumdo'], "pkraj_mandata"=>$_POST['pkraj_mandata'], "promena_funkcije"=> $_POST['promena_funkcije'],"tip_preleta"=> $_POST['tip_preleta'],"oport_prelet"=>$_POST['oport_prelet'],"datum_izbora"=>$_POST['datum_izbora'],  ]);
 
         if($res){
             die('<div class="alert alert-success">Nova promena dodata.</div>');
