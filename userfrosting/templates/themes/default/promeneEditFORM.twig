@@ -154,7 +154,7 @@
 			</div>
 		</div>
 
-<input type="hidden" id="altdatumdo" name="altdatumdo" value="">
+<input type="hidden" id="altdatum_izb" name="altdatum_izb" value="">
 
 		<div class="col-sm-4">
 			<div class="form-group">
@@ -210,7 +210,11 @@
 <script>
 $( document ).ready(function() {
 
-
+$('#datum_izbora').datepicker({altFormat: "yy-mm-dd", altField: "#altdatum_izb",   dateFormat: 'dd.mm.yy'  }).keyup(function(e) {
+    if(e.keyCode == 8 || e.keyCode == 46) {
+        $.datepicker._clearDate(this);
+    }
+});
 
 	$("#promeneEditForm").submit(function(e) {
 

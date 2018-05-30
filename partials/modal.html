@@ -119,6 +119,13 @@
     margin: auto;
 }
 
+.general{
+        display: grid;
+    grid-template-columns: repeat(2,1fr);
+    float: left;
+    width: 80%;
+    padding: 30px 5px 5px 5px;
+}
 
 </style>
 <div class="modal fade" id="modal_id" tabindex='-1' >
@@ -148,51 +155,102 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane " id="home">
-
                             <div class="logo-opstina">
                                 <img src="" alt="" class="logo">
                                 <br>
                             </div>
                             <div class="general">
-                                <span>Površina: </span><span id="povrs"></span>
-                                <br>
-                                <span>Broj stanovnika: </span><span id="stanovnici"></span>
+                                <div class="basic-info"> 
 
-                                <div>
-                                Ukupan broj odbornika: <span id="brOdb"></span>
-                                <br/>
-                                Odbornici u vlasti: <span id="brVlast"></span>
-                                <br/>
-                                Odbornici u opoziciji: <span id="brOp"></span>
-                                <br/>
+                                    <table>
+
+                                    <colgroup><col><col></colgroup>
+                                    <thead><tr>
+                                        
+                                    </tr></thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Površina: </td>
+                                            <td><span id="povrs"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Broj stanovnika:</td>
+                                            <td><span id="stanovnici"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ukupan broj odbornika:</td>
+                                            <td><span id="brOdb"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Odbornici u vlasti:</td>
+                                            <td><span id="brVlast"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Odbornici u opoziciji:</td>
+                                            <td><span id="brOp"></span></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    
                                 </div>
-                                
-                                 
-
-                                <span id="linkovi">
-                                    <a  id="shareLink" href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
-                                    <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="fbShare" href="#fb"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
-                                    <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="twShare" href="#tw"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
-                                </span>
-                            </div>
-                            <div class="clear"></div>
-                            <!-- <canvas width="360" height="300"></canvas> -->
-                            <div>
-                                <div id="viz"></div>
-                                <!-- <div class="legendaCont">
-                                    <div class="naslov">
-                                        <h1>Stranke</h1>
-                                    </div>
-                                    <div class="legenda"></div>
-                                </div> -->
-                            </div>
-                            <div style="clear: both;">
-                                <hr>
-                                <h4>Prinudna uprava</h4>
-                                <p>Odluke Vlade Srbije o uvođenju privremenih mera u lokalnu samoupravu (2008 - 2016)</p>
-                                <p id="prinudna_dokument"></p>
-                            </div>
-                        </div>
+                                <div class="kontakt-container"> <table>
+                                    
+                                    <tbody>
+                                    <tr>
+                                        <td>E-mail:</td>
+                                        <td><span id="mail"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telefon:</td>
+                                        <td><span id="telefon"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Adresa:</td>
+                                        <td><span id="adresa"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Link:</td>
+                                        <td><span id="link"></span></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td>Facebook:</td>
+                                        <td><span id="fb"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Twitter:</td>
+                                        <td><span id="tw"></span></td>
+                                    </tr>
+                                    </tbody>
+                                </table></div>
+                                <div class="linkovi-container">
+                                Podelite:
+                                    <span id="linkovi">
+                                        <a  id="shareLink" href="#"><i class="fa fa-link" aria-hidden="true"></i></a>
+                                        <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="fbShare" href="#fb"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                                        <a OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" id="twShare" href="#tw"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                                    </span>
+                                </div>
+                                </div><!-- .general -->
+                                <div class="clear"></div>
+                                <!-- <canvas width="360" height="300"></canvas> -->
+                                <div class="viz-container">
+                                    <div id="viz"></div>
+                                    <!-- <div class="legendaCont">
+                                                                <div class="naslov">
+                                                                    <h1>Stranke</h1>
+                                                                </div>
+                                                                <div class="legenda"></div>
+                                                            </div> -->
+                                </div>
+                                <div class="footer-info" style="clear: both;">
+                                    <hr>
+                                    <h4>Prinudna uprava</h4>
+                                    <p>Odluke Vlade Srbije o uvođenju privremenih mera u lokalnu samoupravu (2008 - 2016)</p>
+                                    <p id="prinudna_dokument"></p>
+                                </div>
+                           
+                        </div> <!-- panel --> 
                         <div role="tabpanel" class="tab-pane active" id="tab">
 
 
@@ -230,7 +288,7 @@
                                 </div>
                             </div>
 
-                            <table class="table table-hover">
+                            <table class="table table-hover odbornici">
                                 <thead>
                                     <tr>
                                         <th>Ime i prezime</th>

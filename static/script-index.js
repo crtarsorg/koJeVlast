@@ -12,7 +12,7 @@ var FILES_PATH = "partials/"
 
 $("#indikator").load(FILES_PATH + "legenda.html?2")
 
-$.get(FILES_PATH + "modal.html?18", function(data) {
+$.get(FILES_PATH + "modal.html?3", function(data) {
     $("#mainWrapper").append(data);
 });
 
@@ -66,14 +66,11 @@ function showModal(opstina) {
     naslov_modal(naslov);
     info_tab(opstina_temp);
 
-    dokumenta(id);
+    //dokumenta(id);
 
-    //linkovi(idopstine, naslov);
-    //send opid
+   
     linkovi(opstina_temp.opid, naslov, false);
     prikazTabovaOpstine(true);
-
-    //var procenti = izracunajProcente( DataStranke.getOdbornici());
 
     $("#spinner, #fade").toggleClass('hidden');
     $('#modal_id').modal('show');
@@ -273,8 +270,6 @@ function tabelaOdbornika(podaci, region) {
 
     var opstine_temp = "";
 
-
-
     if (podaci[0].opstina == '')
         opstina_temp = "";
 
@@ -449,6 +444,7 @@ var drawCallbackHandler = function (ev) {
 
 function initOpstine() {
 
+    //zasto kog vraga nije i ovde obican $ poziv?
     var ajax = new XMLHttpRequest();
     ajax.open("GET", OPSTINE, true);
 

@@ -73,7 +73,7 @@ var DataStranke = (function() {
 
 function podaciOdborniciOpstina(idOpstine) {
     $.getJSON( BASE_PATH + "api/akteriPoOpstini/"+idOpstine, function(json, textStatus) {
-        $("tbody").empty();
+        $(".odbornici tbody").empty();
 
         //ne gledamo izvrsnu vlast
         var funkcija_odbornik = [1,2,3,4,6]
