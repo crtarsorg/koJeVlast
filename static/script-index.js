@@ -131,6 +131,34 @@ function info_tab(opstina) {
     $("#stanovnici").html(" " + broj_stanovnika.toLocaleString('de-DE'));
     $("#povrs").html(" " + povrsina);
 
+    //druga kolona
+    if(opstina.omail.length > 5)
+        $("#mail").html(`<a href="mailto:${opstina.omail}">${opstina.omail}</a>`)
+    else {
+        $("#mail").parents("tr").hide();
+    }
+
+    $("#telefon").html(opstina.otelefon);
+
+    if(opstina.olink.length > 5)
+        $("#link").html(`<a href="${opstina.olink}">${opstina.olink}</a>` );
+    else {
+        $("#link").parents("tr").hide();
+    }
+    
+    
+    if(opstina.ofb.length > 5)
+        $("#fb").html(`<a href="${opstina.ofb}">${opstina.ofb}</a>`)
+    else {
+        $("#fb").parents("tr").hide();
+    }
+    if(opstina.otw.length > 5)
+        $("#tw").html(`<a href="${opstina.otw}">${opstina.otw}</a>`)
+    else {
+        $("#tw").parents("tr").hide();
+    }
+    $("#adresa").html(opstina.oadresa)
+
 }
 
 function naslov_modal(naslov) {
@@ -237,6 +265,9 @@ function statsOdbornici(podaci) {
     $("#brVlast").html( vlast.length );
     $("#brOp").html( odbornici_yes.length - vlast.length );
 
+
+
+
     
 
     /*var stats_text = " Ukupan broj aktera: " + podaci.length;
@@ -274,6 +305,8 @@ function tabelaOdbornika(podaci, region) {
         opstina_temp = "";
 
     statsOdbornici(podaci);
+
+
 
     if(region){
         $("#opstina-col").html("Opština")

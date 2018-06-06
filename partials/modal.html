@@ -120,11 +120,27 @@
 }
 
 .general{
-        display: grid;
-    grid-template-columns: repeat(2,1fr);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     float: left;
     width: 80%;
     padding: 30px 5px 5px 5px;
+}
+.linkovi-container{
+    grid-column: 2;
+}
+
+.modal-dialog{
+    max-width: 95vw;
+}
+
+@media screen and (max-width: 600px) {
+    .general{
+        display: block;
+    }
+    .general>div{
+        margin: 10px;
+    }
 }
 
 </style>
@@ -214,11 +230,11 @@
                                     </tr>
                                     
                                     <tr>
-                                        <td>Facebook:</td>
+                                        <td>FB:</td>
                                         <td><span id="fb"></span></td>
                                     </tr>
                                     <tr>
-                                        <td>Twitter:</td>
+                                        <td>TW:</td>
                                         <td><span id="tw"></span></td>
                                     </tr>
                                     </tbody>
