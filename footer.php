@@ -1,9 +1,4 @@
 	</main>
-
-
-	
-
-
 	
 	<script src="static/helpers.js?15"></script>
 	<script src="static/eventHandlers.js?7"></script>
