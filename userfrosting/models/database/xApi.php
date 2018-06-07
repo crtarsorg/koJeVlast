@@ -91,7 +91,7 @@ class xApi extends UFModel {
         ->where('oidokruga', '=', $oid)
 
         //subquery to select MAX pid - latest change - in GROUP BY
-        ->whereraw('pid IN (SELECT max(pid) FROM promene GROUP BY posoba)')
+        /*->whereraw('pid IN (SELECT max(pid) FROM promene GROUP BY posoba)')*/
 
         ->where(function ($query) {
                                 $query->whereNull('pdo');
