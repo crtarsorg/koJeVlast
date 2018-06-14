@@ -66,7 +66,7 @@ function showModal(opstina) {
     naslov_modal(naslov);
     info_tab(opstina_temp);
 
-    //dokumenta(id);
+    dokumenta(id);
 
    
     linkovi(opstina_temp.opid, naslov, false);
