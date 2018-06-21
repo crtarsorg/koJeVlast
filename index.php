@@ -3,213 +3,349 @@
 
 <head>
 
-	<title>Ko je na vlasti</title>
+    <title>Ko je na vlasti</title>
 
-	<?php include_once 'partials/head-part.html'; ?>
-
-
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-    <style>
-
-    #map { 
-        width: 100%;
-        min-width: 10px;
-        min-height: 1px;
-    }
-
-    .height100{
-        height: 100vh
-    }
-    a { color: #0077ff; }
-    .leaflet-shadow-pane{
-        display: none;
-    }
-    .leaflet-marker-pane{
-        display: none;
-        -webkit-animation: fadein 4s; /* Safari and Chrome */
-        -moz-animation: fadein 4s; /* Firefox */
-        -ms-animation: fadein 4s; /* Internet Explorer */
-        -o-animation: fadein 4s; /* Opera */
-        animation: fadein 4s;
-    }
-    .leaflet-top {
-        top: 60px;
-    }
-    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
-        background: white;
-        box-shadow: 0 3px 14px rgba(98,166,152,0.9);
-        border: 0px solid #62a698;
-    }
-    .leaflet-container a.leaflet-popup-close-button {
-        color: #62a698;
-    }
-    .leaflet-container a {
-        color: #62a698;
-    }
-    .leaflet-container h3 {
-        color: #62a698;
-        border-bottom: 2px solid #62a698;
-    }
-
-    </style>
+    <?php include_once 'partials/head-part.html'; ?>
 
 </head>
 
 <body>
 
-	<?php include 'partials/nav.html'; ?>
+    <?php include 'partials/nav.html'; ?>
 
-   <!--  <div class="container-fluid baner-container">
-
-       <a href="statistike.php">
-       <div class="banner">
-           <img src="static/icons/preletaci.svg">
-           <div class="banner-text">Pregledajte najaktivnije preletače i ostale statistike <span class="glyphicon glyphicon-play" aria-hidden="true"></span></div>
-       </div>
-       </a>
-   </div> -->
-
-    <div>
-        <h3>Prebacite na mapu preletača</h3>
-        <input type="checkbox" name="my-checkbox" >
+    <div class="statistika-spinner">
+        <div id="statistika-spinner">
+            <img src="static/default.svg">
+        </div>
     </div>
 
-    <div class="container-fluid" id="mainWrapper">
-        <div id="mapa" class="col-lg-8"></div>
-        <div id="indikator" class="col-lg-4"> </div>
-        <div id="opis" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 hidden">
-            <div id="detalji" class="clear">
-                <h3 class="detalji_title"></h3>
-                <span>Broj odbornika na vlasti (za koje su informacije dostupne)</span>
-                <table class="table table-striped">
-                    <tbody>
+    <div class="container">
+        <div class="baneri-highlight">
 
-                    </tbody>
-                </table>
+            <div class="highlight-container col-md-4">
+                <img src="static/icons/stats_2.svg" alt="">
+                <div class="highlight">
+                    <h3>Top 5 preletača</h3>
+                    <div>
+                        <ul id="ul_preletaci">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-container col-md-4">
+                <img src="static/icons/stats1.svg" alt="">
+                <div class="highlight">
+                    <h3>Najčešće stranke u vlasti</h3>
+                    <div>
+                        <ul id="ul_stranke">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-container col-md-4">
+                <img src="static/icons/stats_3.svg" alt="">
+                <div class="highlight">
+                    <h3>Opštine sa najviše promena</h3>
+                    <div>
+                        <ul id="ulOpPromene">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="statsrownice">
+
+            <!-- <div class="col-lg-2 statboxnice">
+                <span id="brPromena" class="stat-number"></span>
+                <div class="triangle"></div>
+                <h3>Ukupan broj promena
+                    <sup>
+                        <i class="fa fa-question-circle" data-box="hpromena" aria-hidden="true"></i>
+                    </sup>
+                </h3>
+            </div> -->
+
+
+            <div class="col-lg-2 statboxnice">
+                <span id="opstine" class="stat-number"></span>
+                <div class="triangle"></div>
+                <h3>Broj opština<sup><i class="fa fa-question-circle" data-box="hopstina" aria-hidden="true"></i></sup> </h3>
+
+            </div>
+
+            <div class="col-lg-2 statboxnice">
+                <span id="odbInfo" class="stat-number"></span>
+                <div class="triangle"></div>
+                <h3>Broj odbornika sa informacijama
+                    <sup>
+                        <i class="fa fa-question-circle" data-box="hinfo" aria-hidden="true"></i>
+                    </sup>
+                </h3>
+            </div>
+
+            <div class="col-lg-2 statboxnice">
+                <span id="odbNoInfo" class="stat-number"></span>
+                <div class="triangle"></div>
+                <h3>Broj odbornika bez informacija
+                    <sup>
+                        <i class="fa fa-question-circle" data-box="hnoinfo" aria-hidden="true"></i>
+                    </sup>
+                </h3>
+            </div>
+
+            <div class="col-lg-2 statboxnice">
+                <span id="muskarci" class="stat-number"></span>
+                <div class="triangle"></div>
+                <h3>Broj muškaraca<sup><i class="fa fa-question-circle" data-box="hm" aria-hidden="true"></i></sup> </h3>
+            </div>
+
+            <div class="col-lg-2 statboxnice">
+                <span id="zene" class="stat-number"></span>
+                <div class="triangle"></div>
+                <h3>Broj žena<sup><i class="fa fa-question-circle" data-box="hz" aria-hidden="true"></i></sup>  </h3>
+            </div>
+
+            <div class="col-lg-2 statboxnice">
+                <span id="stranke" class="stat-number"></span>
+                <div class="triangle"></div>
+            	<h3>Stranke<sup><i class="fa fa-question-circle" data-box="hstr" aria-hidden="true"></i></sup> </h3>
             </div>
         </div>
 
 
+        <div class="statsrow">
+        </div>
+
+        <div class="preletaci-tabela">
+            <h3>Preletači</h3>
+            <table id="preletaciTabela">
+
+            </table>
+        </div>
+
+        <div class="stranke-tabela">
+            <h3>Vlast/opozicija po strankama</h3>
+            <table id="strankeTabela">
+
+            </table>
+        </div>
+
+        <div class="odbornici-ukupno">
+            <h3>Broj odbornika u vlasti/opoziciji</h3>
+                <p><span>Vlast: </span> <span id="br_od_vlast"></span></p>
+                <p><span>Opozicija: </span><span id="br_od_op"></span></p>
+        </div>
 
 
     </div>
-    <div class="container-fluid " id="mapaWrap">
-
-        <div id="map" class=""></div>
-    </div>
-
-    <div id="spinner" class="hidden">
-        <img src="static/default.svg">
-    </div>
-    <div id="fade" class="hidden"></div>
-    <!-- <script src="static/anotate.js"></script> -->
 
 
 
 
+    <script src="static/helpers.js?5"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
 
-    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script type="text/javascript">
 
-    <script>
+        function onlyUnique(value, index, self) { 
+    	    return self.indexOf(value) === index;
+    	}
+        //http://kojenavlasti.rs/api/stats
+        $(function() {
 
-    /*heat mapa preletaca*/
-    $(function() {
-        var heap;
-        var map;
 
-        function setMap(m2) {
-            map = m2
+        $(".statsrownice .fa-question-circle").on("click", function(e){
+            resetPopups();
+
+            var sup = $(this).parent();
+            tar = e.currentTarget.dataset.box;
+
+            var text;
+            if(tar=="hpromena") text = "Ovaj broj se odnosi na ukupan broj promena funkcija u lokalnoj samoupravi, promena stranaka, promena koalicija...";
+            if(tar=="hopstina") text = "Ovaj broj se odnosi na ukupan broj opština u kojima su zabeležene promene";
+            if(tar=="hm") text = "Objašnjenje za broj muškaraca";
+            if(tar=="hz") text = "Objašnjenje za broj žena";
+            if(tar=="hinfo") text = "Broj odbornika za koje su dostupne  informacije o pripadnosti stranci";
+            if(tar=="hnoinfo") text = "Broj odbornika za koje nisu dostupne  informacije o pripadnosti stranci";
+            if(tar=="hstr") text = "Objašnjenje za stranke";
+
+            sup.prepend("<div class='popup'><span class='popup-close'><i class='fa fa-times' aria-hidden='true'></i></span><p>" +  text + "</p></div>");
+
+            closePopup();
+
+        });
+
+        function prveStranke( podaci ) {
+            var c = 0;
+
+            for (var i = 0; i < podaci.length; i++) {
+                if( c >= 5)return;
+
+                var naziv = podaci[i][0];
+
+                if(["Stranka nije na listi","Nepoznata"].indexOf(naziv) ==-1){
+                    $("#ul_stranke").append("<li>"+naziv+"</li>");
+                    c++;
+
+                }
+            }
         }
-        function getMap(){
-            return map;
-        }
-        $("[name='my-checkbox']").bootstrapSwitch();
 
-       $('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
+        $.get('http://'+window.location.hostname+'/api/stats', function(data) {
+        	data = JSON.parse(data);
+        	data = data.data
+        	//console.log( data );
 
-          console.log(state); // true | false
-          //if(state){
-            m1 = getMap();
+            $("#br_od_vlast").html(data.akteri_aktivni_vlast);
+            $("#br_od_op").html(data.akteri_aktivni_opozicija);
 
-            $("#map").toggleClass("height100")
-            $("#mainWrapper").toggleClass("hidden")
+			//$("#brPromena").html(data.promena);
 
-             m1.invalidateSize()
-          //}
+        	$("#opstine").html(data.opstina);
+        	//$("#regioni").html(data.regiona);
+
+
+        	$("#muskarci").html(data.muskaraca);
+        	$("#zene").html(data.zena);
+
+
+            $("#stranke").html(data.partija);
+            $("#odbNoInfo").html(data.bezStranka);
+            $("#odbInfo").html(data.saStranka);
+
+        	var zajedno = {};
+
+        	var vlast_stranke  =
+				Object.keys(
+					data.akteri_aktivni_vlast_stranka);
+
+			var opozicija_stranke  =
+				Object.keys(
+					data.akteri_aktivni_opozicija_stranka);
+
+			var sve_stranke = vlast_stranke.concat(opozicija_stranke)
+
+        	/*zajedno.vlast = data.akteri_aktivni_vlast_stranka
+        		;
+        	zajedno.opozicija =
+        		data.akteri_aktivni_opozicija_stranka;*/
+
+
+        	sve_stranke = sve_stranke.filter(onlyUnique)
+
+        	var res = [];
+        	for (var i = 0; i < sve_stranke.length; i++) {
+
+        		var temp = {};
+        		var temp1 = []
+        		temp.naziv = sve_stranke[i];
+        		temp.vlast = data.akteri_aktivni_vlast_stranka[sve_stranke[i]] || 0 ;
+        		temp.opozicija = data.akteri_aktivni_opozicija_stranka[sve_stranke[i]] || 0 ;
+
+        		temp1 =
+        			[temp.naziv,
+        			temp.vlast,
+        			temp.opozicija ];
+
+        		res.push(temp1)
+        	}
+
+            var na_vlasti = res.slice( 0, 10 );
+            prveStranke(na_vlasti);
+
+
+        	$('#strankeTabela').DataTable( {
+			        data: res,
+			        columns: [
+			            { title: "Stranka" },
+			            { title: "Broj odbornika u vlasti" },
+			            { title: "Broj odbornika u opoziciji" }
+
+			        ],
+                    "initComplete": function(settings, json) {
+                        $(".statistika-spinner").addClass("hidden");
+                    },
+
+                    "language": jezik,
+
+			    } );
+
         });
 
 
-       function setHeap(m, addressPoints) {
-        return function () {
-            var heat = L.heatLayer(addressPoints,  {radius: 20,  minOpacity:0.7, maxZoom:5,gradient:{0.3: 'blue', 0.5: 'lime', 0.9: 'red'}}).addTo(m);
-           
-        }
 
-       }
+        $.get("http://"+window.location.hostname+"/api/top5promenaOpstine",top5);
 
-    map = L.map('map').setView([44.7995311, 20.475025], 8 );
+        function top5(data) {
 
-            map.on("moveend", function() {
-                var zoom = map.getZoom();
-                console.dir(zoom);
-                if(zoom>8) {$(".leaflet-marker-pane").fadeIn(500);} else {$(".leaflet-marker-pane").fadeOut(500);}
-            });
+                data = JSON.parse(data);
+                for (var i = 0; i < data.length; i++) {
 
-    var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
+                    var temp = data[i];
+                    $("#ulOpPromene").append("<li>" + temp.opstina + "</li>")
+                }
+            }
+        })
 
-    $.ajax({
-         url: "http://"+window.location.hostname+"/api/preletaciPoOpstinama",
-     })
-     .done(function(data) {
-        data = JSON.parse(data);
+        $.get("http://"+window.location.hostname+"/api/preletaci", function (data) {
+            data = JSON.parse(data);
 
-        addressPoints = data.map(function (p) { return [p.lat, p.lng,p.brPreletaca /13.0,p.Osoba,p.opstina]; });
+            var nek = data.slice(0,5) ;
 
-             //Loop through the markers array
-             for (var i=0; i<addressPoints.length; i++) {
+            for (var i = 0; i < nek.length; i++) {
 
-                var lon = addressPoints[i][1];
-                var lat = addressPoints[i][0];
-                var popupText =  '<h3>'+addressPoints[i][4]+'</h3>'+ addressPoints[i][3];
+                $("#ul_preletaci").append("<li><a href='"+'promeneAkter.php?id='+nek[i].id+"'>" + nek[i].ime+ "</a></li>")
+            }
 
-                 var markerLocation = new L.LatLng(lat, lon);
-                 var marker = new L.Marker(markerLocation);
-                 map.addLayer(marker);
+            /* data = data.map(function (el) {
+                return [el.ime, el.opstina, el.prelet]
+            })*/
 
-                 marker.bindPopup(popupText);
+            var columns = [{
+                "title": "Ime i prezime",
+                "targets": 0,
+                "data": "ime",
+                "render": function(data, type, full, meta) {
+                        unos = '<a href="promeneAkter.php?id='+full.id +' ">'+ data +'</a>'
+                    return unos;
+                }
 
-             }
-        heap = setHeap(map, addressPoints)
+            }, {
+                "title": "Opština",
+                "targets": 1,
+                "data": "opstina",
+                "render": function(data, type, full, meta) {
+                    return data;
+                }
 
-        setMap(map);
+            }, {
+                "title": "Broj stranaka",
+                "targets": 2,
+                "data": "prelet",
+                "render": function(data, type, full, meta) {
+                    return data;
+                }
 
-        if(map.getSize().x > 0) {
-            heap()
-        }else{
-            setTimeout(heap, 1000)
-        }
+            }];
+
+            $('#preletaciTabela').DataTable( {
+                    data: data,
+                    "columnDefs": columns,
+                    "order": [2, "desc"],
+                    "language": jezik
 
 
+                } );
 
-     })
-     .fail(function() {
-         console.log("error");
-     })
-     .always(function() {
-         console.log("complete");
-     });
-
-    }) //on load
-
+        })
     </script>
+    </main>
+</body>
 
-    <script>
-        $(".baner-container").delay(15000).fadeOut(300);
-    </script>
-
-<?php include_once "footer.php"; ?>
+</html>
