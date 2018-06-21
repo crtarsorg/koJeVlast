@@ -333,10 +333,10 @@ class xApi extends UFModel {
         arsort($aaos,SORT_NUMERIC );
         $stats['data']['akteri_aktivni_opozicija_stranka'] = $aaos ;
 
-
-        $aabss = array_count_values($temp['akteri_aktivni_bez_statusa_stranka']);
-        arsort($aabss,SORT_NUMERIC );
-        $stats['data']['akteri_aktivni_bez_statusa_stranka'] = $aabss ;
+//userfrosting/models/database/xApi.php on line 337: array_count_values() expects parameter 1 to be array, null given
+//        $aabss = array_count_values($temp['akteri_aktivni_bez_statusa_stranka']);
+//        arsort($aabss,SORT_NUMERIC );
+//        $stats['data']['akteri_aktivni_bez_statusa_stranka'] = $aabss ;
 
 /*'Select COUNT(*) broj, apol from (SELECT * FROM (SELECT * FROM promene LEFT JOIN stranke ON pstranka=sid left join akteri on aid=posoba WHERE (pdo is NULL or pdo> NOW() ) and  (posoba, pfunkcija, pnavlasti) in (select posoba, pfunkcija, pnavlasti from osoba_pocetak_kraj_1 ) ORDER BY pod desc, pid desc) x where pfunkcija not in (5,7,8,9) GROUP BY posoba) la group by apol ORDER BY `la`.`apol` ASC'*/
 
